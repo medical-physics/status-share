@@ -1,39 +1,16 @@
-const http = require("http");
 const express = require('express');
 const app = express();
-const port = 5000;
-const conn = require("./db/conn");
+const port = process.env.PORT || 5000;
+const cors = require("cors");
+const bodyParser = require("body-parser");
+app.use(cors());
+app.use(bodyParser.json());
 
-const server = http.createServer((req, res) => {
-	//Set the response HTTP header with HTTP status and Content type
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.end('Hello World\n');
-});
+const dbo = require("./db/conn");
 
-server.listen(port, (err) => {
-	if (err) {
-		console.log(err);
-	}
+app.listen(port, () => {
+	dbo.connectToServer(function (err) {
+		if (err) console.error(err);
+	});
 	console.log(`Server running on port: ${port}`);
 });
-
-app.get('/', (req, res) => {
-	res.send('Hello World!')
-});
-
-async function run() {
-	try {
-		conn.connectToServer(function (err) {
-			if (err) {
-				console.log(err);
-			}
-		});
-	} catch (err) {
-		console.log(err);
-	} /* finally {
-		conn.closeConnection(callback);
-	} */
-}
-
-run();
