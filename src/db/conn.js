@@ -2,34 +2,34 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const connectionString = process.env.ATLAS_URI;
 const client = new MongoClient(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
 });
 
 let dbConnection;
 
 module.exports = {
-    connectToServer: function (callback) {
-        client.connect(function (err, db) {
-            if (err || !db) {
-                return callback(err);
-            }
+	connectToServer: function (callback) {
+		client.connect(function (err, db) {
+			if (err || !db) {
+				return callback(err);
+			}
 
-            dbConnection = db.db("status-share");
-            console.log("Successfully connected to MongoDB.");
+			dbConnection = db.db("status-share");
+			console.log("Successfully connected to MongoDB.");
 
-            return callback();
-        });
-    },
+			return callback();
+		});
+	},
 
-    getDb: function () {
-        return dbConnection;
-    },
+	getDb: function () {
+		return dbConnection;
+	},
 
-    closeConnection: function (callback) {
-        client.close();
+	closeConnection: function (callback) {
+		client.close();
 
-        console.log("Successfully disconnected from MongoDB.")
-        return callback();
-    }
+		console.log("Successfully disconnected from MongoDB.")
+		return callback();
+	}
 };
