@@ -14,28 +14,28 @@ const {
 	updateUserMemo,
 	updateUserPresence,
 	deleteUser
-} = require("./../handlers/users");
+} = require("../handlers/users");
 
 const {
 	getTeams,
 	postOneTeam,
 	deleteTeam,
 	updateTeam
-} = require("./../handlers/teams");
+} = require("../handlers/teams");
 
 const {
 	getAppName,
 	setAppName,
 	login,
 	refreshLogin
-} = require("./../handlers/app");
+} = require("../handlers/app");
 
 const {
 	postOneMessage,
 	deleteMessage,
 	updateMessageReadStatus,
 	updateMessage
-} = require("./../handlers/mailbox");
+} = require("../handlers/mailbox");
 
 // User routes
 router.get("/user/:userId", getUser);
