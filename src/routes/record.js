@@ -27,7 +27,8 @@ const {
 	getAppName,
 	setAppName,
 	login,
-	refreshLogin
+	refreshLogin,
+	register
 } = require("../handlers/app");
 
 const {
@@ -38,30 +39,31 @@ const {
 } = require("../handlers/mailbox");
 
 // User routes
-router.get("/user/:userId", getUser);
+/* router.get("/user/:userId", getUser);
 router.post("/user", auth, postOneUser);
 router.post("/user/:userId", auth, updateUserDetails);
 router.post("/user/memo/:userId", auth, updateUserMemo);
 router.post("/user/status/:userId", auth, updateUserStatus);
 router.post("/user/presence/:userId", auth, updateUserPresence);
-router.delete("/user/:userId", auth, deleteUser);
+router.delete("/user/:userId", auth, deleteUser); */
 
 // Team routes
-router.get("/teams", getTeams);
+/* router.get("/teams", getTeams);
 router.post("/team", auth, postOneTeam);
 router.post("/team/delete/:teamId", auth, deleteTeam);
-router.post("/team/:teamId", auth, updateTeam);
+router.post("/team/:teamId", auth, updateTeam); */
 
 // App routes
-router.get("/appname", getAppName);
+/* router.get("/appname", getAppName);
 router.post("/appname", auth, setAppName);
 router.post("/login", login);
-router.post("/refreshlogin", refreshLogin);
+router.post("/refreshlogin", refreshLogin); */
+router.post("/register", register);
 
 // Mailbox routes
-router.post("/mailbox/:userId", auth, postOneMessage);
+/* router.post("/mailbox/:userId", auth, postOneMessage);
 router.delete("/mailbox/:userId/:messageId", auth, deleteMessage);
 router.post("/mailbox/read/:userId/:messageId", auth, updateMessageReadStatus);
-router.post("/mailbox/update/:userId/:messageId", auth, updateMessage);
+router.post("/mailbox/update/:userId/:messageId", auth, updateMessage); */
 
 module.exports = router;

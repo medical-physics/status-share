@@ -1,27 +1,29 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Credential = require("../models/credential");
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
     try {
         const { email, password } = req.body;
         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const user = {
+        const credential = await Credential.create({
             email: email.toLowerCase(),
             password: encryptedPassword
-        };
+        });
 
-        console.log(process.env.TOKEN_KEY);
         const token = jwt.sign(
+            { credentialId: credential._id, email },
             process.env.TOKEN_KEY,
             {
                 expiresIn: "1h"
             }
         );
 
-        user.token = token;
+        credential.token = token;
+        credential.save();
 
-        res.status(201).json(user);
+        res.status(201).json(credential);
     } catch (err) {
         console.error(err);
     }
