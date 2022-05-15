@@ -4,6 +4,8 @@ const AppMetadata = require("../models/appMetadata");
 const Credential = require("../models/credential");
 const { validateLoginData } = require("../util/validators");
 
+// Use this route when creating new credentials
+// Only email and password are required in the req body
 exports.register = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -18,34 +20,22 @@ exports.register = async (req, res) => {
             { credentialId: credential._id, email },
             process.env.TOKEN_KEY,
             {
-                expiresIn: "1h"
+                expiresIn: "3h"
             }
         );
 
         credential.token = token;
         credential.save();
 
-        res.status(201).json(credential);
+        return res.status(201).json(credential);
     } catch (err) {
         console.error(err);
-        res.status(500).send({ message: err.message });
-    }
-};
-
-exports.getCredentials = (req, res) => {
-    try {
-        Credential.find({}, (err, credentials) => {
-            if (err) throw err;
-            res.status(201).json(credentials);
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send({ message: err.message });
+        return res.status(500).send({ message: err.message });
     }
 };
 
 // Log in
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     try {
         const inputCred = {
             email: req.body.email,
@@ -55,24 +45,26 @@ exports.login = (req, res) => {
 
         if (!valid) return res.status(400).json(errors);
 
-        Credential.findOne({ email: inputCred.email }, (err, credential) => {
-            if (err || credential.password !== inputCred.password) {
-                res.status(403).send({ general: "Wrong credentials, please try again." });
+        const credential = await Credential.findOne({ email: inputCred.email });
+        if (credential.password !== inputCred.password) {
+            return res.status(403).send({ general: "Wrong credentials, please try again." });
+        }
+
+        const token = jwt.sign(
+            { credentialId: credential._id, email: inputCred.email },
+            process.env.TOKEN_KEY,
+            {
+                expiresIn: "3h"
             }
+        );
 
-            const token = jwt.sign(
-                { credentialId: credential._id, email: inputCred.email },
-                process.env.TOKEN_KEY,
-                {
-                    expiresIn: "1h"
-                }
-            );
+        credential.token = token;
+        credential.save();
 
-            res.status(200).json({ token });
-        });
+        return res.status(200).json({ token });
     } catch (err) {
         console.error(err);
-        res.status(403).send({ general: "Wrong credentials, please try again." });
+        return res.status(403).send({ general: "Wrong credentials, please try again." });
     }
 };
 
@@ -81,17 +73,18 @@ exports.getAppName = (req, res) => {
     try {
         AppMetadata.find({}, (err, data) => {
             if (err || !data) {
-                res.status(404).json({ error: "App name not found." });
+                return res.status(404).json({ error: "App name not found." });
             }
 
-            res.status(200).json({ appName: data[0].appName });
+            return res.status(200).json({ appName: data[0].appName });
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: err.code });
+        return res.status(500).json({ error: err.code });
     }
 };
 
+// Set new app name
 exports.setAppName = async (req, res) => {
     try {
         const doc = await AppMetadata.findOne();
@@ -102,6 +95,11 @@ exports.setAppName = async (req, res) => {
         return res.status(200).json(doc);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: err.code });
+        return res.status(500).json({ error: err.code });
     }
+};
+
+// Refresh login
+exports.refreshLogin = (req, res) => {
+    
 };
