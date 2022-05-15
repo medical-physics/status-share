@@ -5,10 +5,10 @@ exports.getTeams = async (req, res) => {
     try {
         const teams = await Team.find({});
 
-        res.status(200).json(teams);
+        return res.status(200).json(teams);
     } catch (err) {
         console.error(err);
-        res.status(500).send({ message: err.message });
+        return res.status(500).send({ message: err.message });
     }
 };
 
@@ -66,9 +66,9 @@ exports.deleteTeam = async (req, res) => {
     try {
         const teamId = req.params.teamId;
         Team.deleteOne({ _id: teamId }, (err) => {
-            if (err) res.status(404).send({ message: err.message });
+            if (err) return res.status(404).send({ message: err.message });
 
-            res.status(200).send({ message: `Team ${teamId} deleted successfully.`});
+            return res.status(200).send({ message: `Team ${teamId} deleted successfully.`});
         });
     } catch (err) {
         console.error(err);

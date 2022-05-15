@@ -45,7 +45,7 @@ router.post("/user/:userId", auth, updateUserDetails);
 router.post("/user/memo/:userId", auth, updateUserMemo);
 router.post("/user/status/:userId", auth, updateUserStatus);
 router.post("/user/presence/:userId", auth, updateUserPresence);
-// router.delete("/user/:userId", auth, deleteUser);
+router.delete("/user/:userId", auth, deleteUser);
 
 // Team routes
 router.get("/teams", getTeams);

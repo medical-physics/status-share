@@ -115,3 +115,19 @@ exports.updateUserPresence = async (req, res) => {
         return res.status(500).send({ message: err.message });
     }
 };
+
+// Delete a user
+exports.deleteUser = (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        User.deleteOne({ _id: userId }, (err) => {
+            if (err) return res.status(404).send({ message: err.message });
+
+            return res.status(200).send({ message: `User ${userId} deleted successfully.`});
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
