@@ -60,3 +60,18 @@ exports.updateTeam = async (req, res) => {
         return res.status(500).send({ message: err.message });
     }
 };
+
+// Permanently delete a team
+exports.deleteTeam = async (req, res) => {
+    try {
+        const teamId = req.params.teamId;
+        Team.deleteOne({ _id: teamId }, (err) => {
+            if (err) res.status(404).send({ message: err.message });
+
+            res.status(200).send({ message: `Team ${teamId} deleted successfully.`});
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
