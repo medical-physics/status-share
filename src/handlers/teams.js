@@ -13,13 +13,18 @@ exports.getTeams = async (req, res) => {
 
 exports.postOneTeam = async (req, res) => {
     try {
-        const team = await Team.create({
-            color: "#ff5733",
-            priority: 1,
-            team: "Test Team"
-        });
+        const newTeam = {
+            team: req.body.team,
+            priority: req.body.priority,
+            color: req.body.color,
+            col1: req.body.col1,
+            col2: req.body.col2,
+            col3: req.body.col3
+        };
 
+        const team = await Team.create({ ...newTeam });
         team.save();
+
         res.status(200).json(team);
     } catch (err) {
         console.error(err);
