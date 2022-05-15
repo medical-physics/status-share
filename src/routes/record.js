@@ -57,7 +57,7 @@ const {
 router.get("/appname", getAppName);
 router.post("/appname", auth, setAppName);
 router.post("/login", login);
-router.post("/refreshlogin", refreshLogin);
+router.post("/refreshlogin", auth, refreshLogin);
 router.post("/register", auth, register);
 
 // Mailbox routes

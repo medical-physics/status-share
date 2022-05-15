@@ -5,7 +5,7 @@ const Credential = require("../models/credential");
 const { validateLoginData } = require("../util/validators");
 
 // Use this route when creating new credentials
-// Only email and password are required in the req body
+// Only email and (unencrypted) password are required in the req body
 exports.register = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
             return res.status(403).send({ general: "Wrong credentials, please try again." });
         }
 
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
             { credentialId: credential._id, email: inputCred.email },
             process.env.TOKEN_KEY,
             {
@@ -58,10 +58,21 @@ exports.login = async (req, res) => {
             }
         );
 
-        credential.token = token;
+        const refreshToken = jwt.sign(
+            { credentialId: credential._id, email: inputCred.email },
+            process.env.TOKEN_KEY,
+            {
+                expiresIn: "30d"
+            }
+        );
+
+        credential.token = accessToken;
         credential.save();
 
-        return res.status(200).json({ token });
+        return res.status(200).json({
+            accessToken,
+            refreshToken
+        });
     } catch (err) {
         console.error(err);
         return res.status(403).send({ general: "Wrong credentials, please try again." });
@@ -99,7 +110,26 @@ exports.setAppName = async (req, res) => {
     }
 };
 
-// Refresh login
-exports.refreshLogin = (req, res) => {
-    
+// Receive a refresh token and validate it (through auth middleware)
+// If valid, create new access token
+exports.refreshLogin = async (req, res) => {
+    try {
+        const credential = await Credential.findOne({ _id: req.user.credentialId });
+
+        const accessToken = jwt.sign(
+            { credentialId: credential._id, email: req.user.email },
+            process.env.TOKEN_KEY,
+            {
+                expiresIn: "3h"
+            }
+        );
+        
+        credential.token = accessToken;
+        credential.save();
+
+        return res.status(200).json({ accessToken });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: err.code });
+    }
 };
