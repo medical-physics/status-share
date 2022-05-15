@@ -40,8 +40,8 @@ exports.postOneUser = async (req, res) => {
     }
 };
 
-// Update a user's details
-exports.updateUserDetails = (req, res) => {
+// Update a user's details (excludes status, presence)
+exports.updateUserDetails = async (req, res) => {
     const updatedUser = {
         name: req.body.name,
         email: req.body.email,
@@ -61,6 +61,22 @@ exports.updateUserDetails = (req, res) => {
         await user.save();
 
         return res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
+
+// Update a user's memo
+exports.updateUserMemo = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const user = await User.findOne({ _id: userId });
+        user.memo = req.body.memo;
+        await user.save();
+
+        return res.status(200).json({ message: "User memo updated successfully." });
     } catch (err) {
         console.error(err);
         return res.status(500).send({ message: err.message });
