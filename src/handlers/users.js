@@ -82,3 +82,36 @@ exports.updateUserMemo = async (req, res) => {
         return res.status(500).send({ message: err.message });
     }
 };
+
+// Update a user's status
+exports.updateUserStatus = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const user = await User.findOne({ _id: userId });
+        user.status = req.body.status;
+        user.statusTime = req.body.statusTime;
+        await user.save();
+
+        return res.status(200).json({ message: "User status updated successfully." });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
+
+// Update a user's presence
+exports.updateUserPresence = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const user = await User.findOne({ _id: userId });
+        user.present = req.body.present;
+        await user.save();
+
+        return res.status(200).json({ present: req.body.present });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
