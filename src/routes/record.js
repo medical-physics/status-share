@@ -1,7 +1,7 @@
 const express = require("express");
 const auth = require('./../util/auth');
 
-// router is an instance of the express router
+// router is an instance of the Express router
 // We use it to define our routes
 // The router will be added as a middleware
 const router = express.Router();
@@ -61,7 +61,7 @@ router.post("/refreshlogin", auth, refreshLogin);
 router.post("/register", auth, register);
 
 // Mailbox routes
-// router.post("/mailbox/:userId", auth, postOneMessage);
+router.post("/mailbox/:userId", auth, postOneMessage);
 // router.delete("/mailbox/:userId/:messageId", auth, deleteMessage);
 // router.post("/mailbox/read/:userId/:messageId", auth, updateMessageReadStatus);
 // router.post("/mailbox/update/:userId/:messageId", auth, updateMessage);

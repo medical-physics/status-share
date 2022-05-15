@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Mailbox = require("../models/mailbox");
 
 // Fetch one user
 exports.getUser = async (req, res) => {
@@ -26,12 +27,14 @@ exports.postOneUser = async (req, res) => {
         present: true,
         memo: "",
         priority: req.body.priority,
-        userId: "",
         unreadMessages: 1
     };
 
     try {
         const user = await User.create({ ...newUser });
+        const mailbox = await Mailbox.create({ userId: user._id });
+        await user.save();
+        await mailbox.save();
 
         return res.status(200).json(user);
     } catch (err) {
