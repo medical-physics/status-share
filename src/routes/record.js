@@ -51,7 +51,7 @@ const {
 router.get("/teams", getTeams);
 router.post("/team", auth, postOneTeam);
 // router.post("/team/delete/:teamId", auth, deleteTeam);
-// router.post("/team/:teamId", auth, updateTeam);
+router.post("/team/:teamId", auth, updateTeam);
 
 // App routes
 router.get("/appname", getAppName);

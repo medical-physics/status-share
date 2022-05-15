@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
         );
 
         credential.token = accessToken;
-        credential.save();
+        await credential.save();
 
         return res.status(200).json({
             accessToken,
@@ -101,7 +101,7 @@ exports.setAppName = async (req, res) => {
         const doc = await AppMetadata.findOne();
 
         doc.appName = req.body.appName;
-        doc.save();
+        await doc.save();
 
         return res.status(200).json(doc);
     } catch (err) {
@@ -125,7 +125,7 @@ exports.refreshLogin = async (req, res) => {
         );
 
         credential.token = accessToken;
-        credential.save();
+        await credential.save();
 
         return res.status(200).json({ accessToken });
     } catch (err) {
