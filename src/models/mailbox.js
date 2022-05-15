@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
 
-const mailboxSchema = new mongoose.Schema({
-    userId: { type: String, unique: true },
-    messages: [messageSchema]
-});
-
 const messageSchema = new mongoose.Schema({
     message: { type: String, default: null },
     readStatus: { type: Boolean, default: false },
@@ -13,6 +8,11 @@ const messageSchema = new mongoose.Schema({
     subject: { type: String, default: null },
     timestamp: { type: Number },
     userId: { type: String }
+});
+
+const mailboxSchema = new mongoose.Schema({
+    userId: { type: String, unique: true },
+    messages: [messageSchema]
 });
 
 module.exports = mongoose.model("mailbox", mailboxSchema);

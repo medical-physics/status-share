@@ -48,8 +48,8 @@ const {
 // router.delete("/user/:userId", auth, deleteUser);
 
 // Team routes
-// router.get("/teams", getTeams);
-// router.post("/team", auth, postOneTeam);
+router.get("/teams", getTeams);
+router.post("/team", auth, postOneTeam);
 // router.post("/team/delete/:teamId", auth, deleteTeam);
 // router.post("/team/:teamId", auth, updateTeam);
 
