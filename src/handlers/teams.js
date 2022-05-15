@@ -40,14 +40,14 @@ exports.updateTeam = async (req, res) => {
         team: req.body.team,
         priority: req.body.priority,
         color: req.body.color,
-        teamId: req.params.teamId,
         col1: req.body.col1,
         col2: req.body.col2,
         col3: req.body.col3
     };
+    const teamId = req.params.teamId;
 
     try {
-        const team = await Team.findOne({ _id: updatedTeam.teamId });
+        const team = await Team.findOne({ _id: teamId });
 
         for (const key of Object.keys(updatedTeam)) {
             team[key] = updatedTeam[key];
