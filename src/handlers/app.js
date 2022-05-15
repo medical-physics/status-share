@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
             { credentialId: credential._id, email },
             process.env.TOKEN_KEY,
             {
-                expiresIn: "3h"
+                expiresIn: "1h"
             }
         );
 
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
             { credentialId: credential._id, email: inputCred.email },
             process.env.TOKEN_KEY,
             {
-                expiresIn: "3h"
+                expiresIn: "1h"
             }
         );
 
@@ -120,10 +120,10 @@ exports.refreshLogin = async (req, res) => {
             { credentialId: credential._id, email: req.user.email },
             process.env.TOKEN_KEY,
             {
-                expiresIn: "3h"
+                expiresIn: "1h"
             }
         );
-        
+
         credential.token = accessToken;
         credential.save();
 
