@@ -39,8 +39,8 @@ const {
 } = require("../handlers/mailbox");
 
 // User routes
-// router.get("/user/:userId", getUser);
-// router.post("/user", auth, postOneUser);
+router.get("/user/:userId", getUser);
+router.post("/user", auth, postOneUser);
 // router.post("/user/:userId", auth, updateUserDetails);
 // router.post("/user/memo/:userId", auth, updateUserMemo);
 // router.post("/user/status/:userId", auth, updateUserStatus);
