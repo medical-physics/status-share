@@ -64,6 +64,6 @@ router.post("/register", auth, register);
 router.post("/mailbox/:userId", auth, postOneMessage);
 router.delete("/mailbox/:userId/:messageId", auth, deleteMessage);
 router.post("/mailbox/read/:userId/:messageId", auth, updateMessageReadStatus);
-// router.post("/mailbox/update/:userId/:messageId", auth, updateMessage);
+router.post("/mailbox/update/:userId/:messageId", auth, updateMessage);
 
 module.exports = router;

@@ -56,7 +56,32 @@ exports.updateMessageReadStatus = (req, res) => {
         user.unreadMessages -= 1;
         await user.save();
 
-        return res.status(200).json({ message: "Read status changed successfully." });
+        return res.status(200).json({ readStatus: true });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
+
+// Update a message
+exports.updateMessage = (req, res) => {
+    const updatedMessage = {
+        message: req.body.message,
+        senderContact: req.body.senderContact,
+        senderName: req.body.senderName,
+        subject: req.body.subject
+    };
+
+    try {
+        const mailbox = Mailbox.findOne({ userId: req.params.userId });
+        const message = mailbox.messages.id(req.params.messageId);
+        message.message = updatedMessage.message;
+        message.senderContact = updatedMessage.senderContact;
+        message.senderName = updatedMessage.senderName;
+        message.subject = updatedMessage.subject;
+        await message.save();
+
+        return res.status(200).json(updatedMessage);
     } catch (err) {
         console.error(err);
         return res.status(500).send({ message: err.message });
