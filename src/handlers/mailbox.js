@@ -42,3 +42,22 @@ exports.deleteMessage = (req, res) => {
         return res.status(500).send({ message: err.message });
     }
 };
+
+// Mark a message as read
+exports.updateMessageReadStatus = (req, res) => {
+    try {
+        const mailbox = Mailbox.findOne({ userId: req.params.userId });
+        const message = mailbox.messages.id(req.params.messageId);
+        message.readStatus = true;
+        await mailbox.save();
+
+        const user = User.findOne({ _id: req.params.userId });
+        user.unreadMessages -= 1;
+        await user.save();
+
+        return res.status(200).json({ message: "Read status changed successfully." });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
