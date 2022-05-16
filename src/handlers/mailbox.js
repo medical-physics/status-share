@@ -15,11 +15,12 @@ exports.postOneMessage = async (req, res) => {
 
     try {
         const mailbox = await Mailbox.findOne({ userId: newMessage.userId });
-        const user = await User.findOne({ _id: newMessage.userId });
         mailbox.messages.push(newMessage);
         const subdoc = mailbox.messages[0];
-        user.unreadMessages += 1;
         await mailbox.save();
+
+        const user = await User.findOne({ _id: newMessage.userId });
+        user.unreadMessages += 1;
         await user.save();
 
         return res.status(200).json(subdoc);
