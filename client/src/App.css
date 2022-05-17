@@ -1,13 +1,13 @@
 html,
 body{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  background-color: rgb(245, 245, 245);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    background-color: rgb(245, 245, 245);
 }
 .container{
-  margin: 85px auto 0px auto;
+    margin: 85px auto 0px auto;
 }
 .nav-container{
-  margin: auto;
+    margin: auto;
 }

@@ -19,42 +19,42 @@ import home from "./pages/home";
 import login from "./pages/login";
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "#534bae",
-      main: "#1a237e",
-      dark: "#000051",
-      contrastText: "#ffffff"
+    palette: {
+        primary: {
+            light: "#534bae",
+            main: "#1a237e",
+            dark: "#000051",
+            contrastText: "#ffffff"
+        },
+        secondary: {
+            light: "#8e99f3",
+            main: "#5c6bc0",
+            dark: "#26418f",
+            contrastText: "#ffffff"
+        }
     },
-    secondary: {
-      light: "#8e99f3",
-      main: "#5c6bc0",
-      dark: "#26418f",
-      contrastText: "#ffffff"
+    typography: {
+        useNextVariants: true
     }
-  },
-  typography: {
-    useNextVariants: true
-  }
 });
 
 axios.defaults.baseURL = "https://localhost:5000";
 
 function App() {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Router>
-          <div className="container">
-            <Switch>
-              <HomeRoute exact path="/" component={home} />
-              <LoginRoute exact path="/login" component={login} />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
-    </MuiThemeProvider>
-  );
+    return (
+        <MuiThemeProvider theme={theme}>
+            <Provider store={store}>
+                <Router>
+                    <div className="container">
+                        <Switch>
+                            <HomeRoute exact path="/" component={home} />
+                            <LoginRoute exact path="/login" component={login} />
+                        </Switch>
+                    </div>
+                </Router>
+            </Provider>
+        </MuiThemeProvider>
+    );
 }
 
 export default App;
