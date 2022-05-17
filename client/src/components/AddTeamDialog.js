@@ -4,16 +4,21 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { GithubPicker } from "react-color";
 
 // MUI components
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
+import {
+    Dialog,
+    DialogActions,
+    Button,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    TextField,
+    Grid
+} from "@mui/material";
+
+import {
+    CloseIcon,
+    AddIcon
+} from "@mui/icons-material";
 
 // Redux stuff
 import { connect } from "react-redux";

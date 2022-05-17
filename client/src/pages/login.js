@@ -9,14 +9,16 @@ import BottomBar from "../components/BottomBar";
 import NavBar from "../components/NavBar";
 
 // MUI components
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import {
+    Grid,
+    Typography,
+    TextField,
+    Button,
+    CircularProgress,
+    Paper,
+    Checkbox,
+    FormControlLabel
+} from "@mui/material";
 
 // Redux stuff
 import { connect } from "react-redux";

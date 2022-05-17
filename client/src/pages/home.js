@@ -12,12 +12,14 @@ import TeamTable from "../components/TeamTable";
 import LoadingTable from "../components/LoadingTable";
 
 // MUI Components
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {
+    Grid,
+    Box,
+    Dialog,
+    DialogTitle,
+    Typography,
+    CircularProgress
+} from "@mui/material";
 
 // Redux stuff
 import { connect } from "react-redux";
