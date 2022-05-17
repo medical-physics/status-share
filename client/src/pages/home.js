@@ -84,7 +84,7 @@ export class home extends Component {
                 }, 4000)
             }
 
-            // If "Remember Me" not selected, logout user when token expires
+        // If "Remember Me" not selected, logout user when token expires
         } else if (rememberMe == 0) {
             store.dispatch({ type: SET_AUTHENTICATED });
             axios.defaults.headers.common["Authorization"] = token;
