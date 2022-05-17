@@ -3,18 +3,23 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // MUI components
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
-import SendIcon from "@material-ui/icons/Send";
-import TextField from "@material-ui/core/TextField";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import {
+    Dialog,
+    DialogActions,
+    Button,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    TextField,
+    InputAdornment
+} from "@mui/material";
+
+import {
+    CloseIcon,
+    SendIcon,
+    AccountBoxIcon,
+    AlternateEmailIcon
+} from "@mui/icons-material";
 
 // Redux stuff
 import { connect } from "react-redux";

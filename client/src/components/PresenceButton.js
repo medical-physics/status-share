@@ -3,9 +3,14 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 // MUI components
-import IconButton from "@material-ui/core/IconButton";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import {
+    IconButton
+} from "@mui/material";
+
+import {
+    CheckCircleIcon,
+    RadioButtonUncheckedIcon
+} from "@mui/icons-material";
 
 // Redux stuff
 import { connect } from "react-redux";

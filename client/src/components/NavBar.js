@@ -7,13 +7,19 @@ import EditAppName from "./EditAppName";
 import AddTeamDialog from "./AddTeamDialog";
 
 // MUI components
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import {
+    AppBar,
+    Toolbar,
+    Button,
+    Grid,
+    IconButton,
+    Typography
+} from "@mui/material";
+
+import {
+    CheckCircleOutlineIcon
+} from "@mui/icons-material";
+
 
 // Redux stuff
 import { connect } from "react-redux";

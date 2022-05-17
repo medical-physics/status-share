@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 // MUI components
-import IconButton from "@material-ui/core/IconButton";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Tooltip from "@material-ui/core/Tooltip";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+import {
+    IconButton,
+    Tooltip
+} from "@mui/material";
+
+import {
+    AccountCircleIcon,
+    NotificationsIcon
+} from "@mui/icons-material";
 
 export class ProfileButton extends Component {
 
