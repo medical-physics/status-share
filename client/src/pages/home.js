@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import jwtDecode from "jwt-decode";
 import { Helmet } from "react-helmet"
 import axios from "axios";
@@ -61,7 +60,7 @@ export class home extends Component {
 
         // If "Remember Me" is selected
         // Token refresher – ensures token is always valid while logged in
-        if (rememberMe == 1) {
+        if (rememberMe === 1) {
             store.dispatch({ type: SET_AUTHENTICATED });
             axios.defaults.headers.common["Authorization"] = token;
             if (token) {
@@ -85,7 +84,7 @@ export class home extends Component {
             }
 
         // If "Remember Me" not selected, logout user when token expires
-        } else if (rememberMe == 0) {
+        } else if (rememberMe === 0) {
             store.dispatch({ type: SET_AUTHENTICATED });
             axios.defaults.headers.common["Authorization"] = token;
             if (token) {
@@ -125,18 +124,16 @@ export class home extends Component {
 
     render() {
         const { users, teams, loadingUsersData, loadingTeamsData, appName, loadingTeam, loadingUser } = this.props;
-        const { classes } = this.props;
-
         const teamsObj = {};
         const teamsFields = {};
 
-        this.props.teams.map((team) => {
+        this.props.teams.forEach((team) => {
             teamsObj[team.teamId] = [];
             teamsFields[team.teamId] = team;
         });
 
-        this.props.teams.map((team) => {
-            users.map((user) => {
+        this.props.teams.forEach((team) => {
+            users.forEach((user) => {
                 if (user.teamId === team.teamId) {
                     teamsObj[team.teamId].push(user)
                 }
@@ -150,17 +147,17 @@ export class home extends Component {
                 </Helmet>
                 <Dialog open={loadingTeam}>
                     <DialogTitle>
-                        <Grid className={classes.dialog}>
-                            <Typography variant="overline" className={classes.spinnertext}>Updating teams...</Typography>
-                            <CircularProgress size={20} className={classes.spinnerdiv} />
+                        <Grid sx={styles.dialog}>
+                            <Typography variant="overline" sx={styles.spinnertext}>Updating teams...</Typography>
+                            <CircularProgress size={20} sx={styles.spinnerdiv} />
                         </Grid>
                     </DialogTitle>
                 </Dialog>
                 <Dialog open={loadingUser}>
                     <DialogTitle>
-                        <Grid className={classes.dialog}>
-                            <Typography variant="overline" className={classes.spinnertext}>Adding user...</Typography>
-                            <CircularProgress size={20} className={classes.spinnerdiv} />
+                        <Grid sx={styles.dialog}>
+                            <Typography variant="overline" sx={styles.spinnertext}>Adding user...</Typography>
+                            <CircularProgress size={20} sx={styles.spinnerdiv} />
                         </Grid>
                     </DialogTitle>
                 </Dialog>
@@ -169,39 +166,39 @@ export class home extends Component {
                     <NavBar />
                     {loadingUsersData || loadingTeamsData ?
                         <>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
-                            <Grid item className={classes.table}>
+                            <Grid item sx={styles.table}>
                                 <LoadingTable />
                             </Grid>
                         </>
                         : <>
                             {teams.map((team) => {
                                 return (
-                                    <Box order={teamsFields[team.teamId].priority} className={classes.table}>
+                                    <Box order={teamsFields[team.teamId].priority} sx={styles.table}>
                                         <TeamTable teamMembers={teamsObj[team.teamId]} teamsFields={teamsFields[team.teamId]} />
                                     </Box>)
                             })}
-                            <Box order={99} className={classes.dummy}></Box>
+                            <Box order={99} sx={styles.dummy}></Box>
                         </>}
                 </Grid>
             </div>
@@ -235,4 +232,4 @@ home.propTypes = {
     users: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(home));
+export default connect(mapStateToProps, mapActionsToProps)(home);
