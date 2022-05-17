@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 
 import {
-    AddIcon,
-    CloseIcon
+    Add as AddIcon,
+    Close as CloseIcon
 } from "@mui/icons-material";
 
 // Redux stuff

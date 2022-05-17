@@ -15,9 +15,9 @@ import {
 } from "@mui/material";
 
 import {
-    EditIcon,
-    SendIcon,
-    CloseIcon
+    Edit as EditIcon,
+    Send as SendIcon,
+    Close as CloseIcon
 } from "@mui/icons-material";
 
 // Redux stuff

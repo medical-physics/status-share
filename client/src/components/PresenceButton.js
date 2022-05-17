@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 
 import {
-    CheckCircleIcon,
-    RadioButtonUncheckedIcon
+    CheckCircle as CheckCircleIcon,
+    RadioButtonUnchecked as RadioButtonUncheckedIcon
 } from "@mui/icons-material";
 
 // Redux stuff

@@ -18,9 +18,9 @@ import {
 } from "@mui/material";
 
 import {
-    RadioButtonUncheckedIcon,
-    EditIcon,
-    AccountCircleIcon
+    RadioButtonUnchecked as RadioButtonUncheckedIcon,
+    Edit as EditIcon,
+    AccountCircle as AccountCircleIcon
 } from "@mui/icons-material";
 
 const styles = {

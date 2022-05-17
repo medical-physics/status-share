@@ -16,8 +16,8 @@ import {
 } from "@mui/material";
 
 import {
-    CloseIcon,
-    AllInboxIcon
+    Close as CloseIcon,
+    AllInbox as AllInboxIcon
 } from "@mui/icons-material";
 
 // Redux stuff

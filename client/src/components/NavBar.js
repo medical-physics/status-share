@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 import {
-    CheckCircleOutlineIcon
+    CheckCircleOutline as CheckCircleOutlineIcon
 } from "@mui/icons-material";
 
 

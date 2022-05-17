@@ -24,11 +24,11 @@ import {
 } from "@mui/material";
 
 import {
-    DeleteIcon,
-    GroupIcon,
-    PhoneIcon,
-    EmailIcon,
-    CloseIcon
+    Delete as DeleteIcon,
+    Group as GroupIcon,
+    Phone as PhoneIcon,
+    Email as EmailIcon,
+    Close as CloseIcon
 } from "@mui/icons-material";
 
 // Redux stuff

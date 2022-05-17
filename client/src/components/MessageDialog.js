@@ -18,12 +18,12 @@ import {
 } from "@mui/material";
 
 import {
-    DraftsOutlinedIcon,
-    CloseIcon,
-    DeleteIcon,
-    MailIcon,
-    AccountBoxIcon,
-    AlternateEmailIcon
+    DraftsOutlined as DraftsOutlinedIcon,
+    Close as CloseIcon,
+    Delete as DeleteIcon,
+    Mail as MailIcon,
+    AccountBox as AccountBoxIcon,
+    AlternateEmail as AlternateEmailIcon
 } from "@mui/icons-material";
 
 // Redux stuff

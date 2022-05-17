@@ -15,10 +15,10 @@ import {
 } from "@mui/material";
 
 import {
-    CloseIcon,
-    SendIcon,
-    AccountBoxIcon,
-    AlternateEmailIcon
+    Close as CloseIcon,
+    Send as SendIcon,
+    AccountBox as AccountBoxIcon,
+    AlternateEmail as AlternateEmailIcon
 } from "@mui/icons-material";
 
 // Redux stuff

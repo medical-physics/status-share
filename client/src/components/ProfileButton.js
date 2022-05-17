@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 
 import {
-    AccountCircleIcon,
-    NotificationsIcon
+    AccountCircle as AccountCircleIcon,
+    Notifications as NotificationsIcon
 } from "@mui/icons-material";
 
 export class ProfileButton extends Component {

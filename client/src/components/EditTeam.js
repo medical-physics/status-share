@@ -16,10 +16,10 @@ import {
 } from "@mui/material";
 
 import {
-    DeleteIcon,
-    SendIcon,
-    CloseIcon,
-    EditIcon
+    Delete as DeleteIcon,
+    Send as SendIcon,
+    Close as CloseIcon,
+    Edit as EditIcon
 } from "@mui/icons-material";
 
 // Redux stuff
