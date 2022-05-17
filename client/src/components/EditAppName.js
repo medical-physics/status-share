@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 // MUI components
 import {
@@ -74,7 +73,7 @@ export class EditAppName extends Component {
     };
 
     render() {
-        const { classes, appName } = this.props;
+        const { appName } = this.props;
 
         return (
             <Fragment>
@@ -82,12 +81,12 @@ export class EditAppName extends Component {
                     <EditIcon />
                 </IconButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     <DialogTitle>Change web app name</DialogTitle>
                     <form>
-                        <DialogContent className={classes.dialogContent}>
+                        <DialogContent sx={styles.dialogContent}>
 
                             <TextField
                                 id="appName"
@@ -99,11 +98,11 @@ export class EditAppName extends Component {
                                 placeholder={appName}
                                 value={this.state.appName}
                                 onChange={this.handleChange}
-                                className={classes.textField} />
+                                sx={styles.textField} />
                         </DialogContent>
                         <DialogActions>
                             <Button variant="outlined" color="secondary" onClick={this.handleSubmit} type="submit">
-                                <SendIcon className={classes.icon} />submit
+                                <SendIcon sx={styles.icon} />submit
                             </Button>
                         </DialogActions>
                     </form>
@@ -126,4 +125,4 @@ EditAppName.propTypes = {
     setAppName: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(EditAppName));
+export default connect(mapStateToProps, mapActionsToProps)(EditAppName);

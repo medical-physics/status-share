@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 // MUI components
 import {
@@ -93,21 +92,21 @@ export class AddUserDialog extends Component {
     };
 
     render() {
-        const { classes, teamName } = this.props;
+        const { teamName } = this.props;
         return (
             <Fragment>
                 <IconButton onClick={this.handleOpen} size="small">
                     <AddIcon />
                 </IconButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="xs">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     <DialogTitle>
                         Add new user to {teamName}
                     </DialogTitle>
                     <form>
-                        <DialogContent className={classes.dialogContent}>
+                        <DialogContent sx={styles.dialogContent}>
                             <TextField
                                 required
                                 id="name"
@@ -116,7 +115,7 @@ export class AddUserDialog extends Component {
                                 label="Name"
                                 value={this.state.name}
                                 onChange={this.handleChange}
-                                className={classes.otherText}
+                                sx={styles.otherText}
                                 fullWidth
                             />
                             <TextField
@@ -126,7 +125,7 @@ export class AddUserDialog extends Component {
                                 label="Email"
                                 value={this.state.email}
                                 onChange={this.handleChange}
-                                className={classes.otherText}
+                                sx={styles.otherText}
                                 fullWidth
                             />
                             <TextField
@@ -136,7 +135,7 @@ export class AddUserDialog extends Component {
                                 label="Phone"
                                 value={this.state.phone}
                                 onChange={this.handleChange}
-                                className={classes.otherText}
+                                sx={styles.otherText}
                                 fullWidth
                             />
                             <TextField
@@ -147,13 +146,13 @@ export class AddUserDialog extends Component {
                                 label="Priority"
                                 value={this.state.priority}
                                 onChange={this.handleChange}
-                                className={classes.otherText}
+                                sx={styles.otherText}
                                 fullWidth
                             />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleSubmit} variant="outlined" color="secondary" type="submit">
-                                <AddIcon className={classes.icon} />create user
+                                <AddIcon sx={styles.icon} />create user
                             </Button>
                         </DialogActions>
                     </form>
@@ -173,4 +172,4 @@ AddUserDialog.propTypes = {
     teamName: PropTypes.string.isRequired
 };
 
-export default connect(null, mapActionsToProps)(withStyles(styles)(AddUserDialog));
+export default connect(null, mapActionsToProps)(AddUserDialog);

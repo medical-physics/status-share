@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import { GithubPicker } from "react-color";
 
 // MUI components
@@ -111,13 +110,13 @@ export class EditTeam extends Component {
     };
 
     render() {
-        const { classes, teamsFields } = this.props;
+        const { teamsFields } = this.props;
 
         const dialogMarkup =
             <>
                 <DialogTitle>Edit {teamsFields.team}</DialogTitle>
                 <form>
-                    <DialogContent className={classes.dialogContent}>
+                    <DialogContent sx={styles.dialogContent}>
                         <Grid container justify="center">
                             <Grid item>
                                 <TextField
@@ -128,7 +127,7 @@ export class EditTeam extends Component {
                                     placeholder={teamsFields.team}
                                     value={this.state.team}
                                     onChange={this.handleChange}
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                 />
                             </Grid>
                             <Grid item style={{ marginTop: 15 }}>
@@ -145,7 +144,7 @@ export class EditTeam extends Component {
                                     placeholder={teamsFields.priority.toString(10)}
                                     value={this.state.priority}
                                     onChange={this.handleChange}
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                 />
                             </Grid>
                             <Grid item>
@@ -157,7 +156,7 @@ export class EditTeam extends Component {
                                     placeholder={teamsFields.col1}
                                     value={this.state.col1}
                                     onChange={this.handleChange}
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                 />
                             </Grid>
                             <Grid item>
@@ -169,7 +168,7 @@ export class EditTeam extends Component {
                                     placeholder={teamsFields.col2}
                                     value={this.state.col2}
                                     onChange={this.handleChange}
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                 />
                             </Grid>
                             <Grid item>
@@ -181,17 +180,17 @@ export class EditTeam extends Component {
                                     placeholder={teamsFields.col3}
                                     value={this.state.col3}
                                     onChange={this.handleChange}
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                 />
                             </Grid>
                         </Grid>
                     </DialogContent>
                     <DialogActions>
                         <Button style={{ color: "#ef5350" }} variant="outlined" onClick={this.handleDelete}>
-                            <DeleteIcon className={classes.icon} />delete team
+                            <DeleteIcon sx={styles.icon} />delete team
                         </Button>
                         <Button variant="outlined" color="secondary" onClick={this.handleSubmit} type="submit">
-                            <SendIcon className={classes.icon} />edit team
+                            <SendIcon sx={styles.icon} />edit team
                         </Button>
                     </DialogActions>
                 </form>
@@ -203,7 +202,7 @@ export class EditTeam extends Component {
                     <EditIcon />
                 </IconButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="xs">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     {dialogMarkup}
@@ -224,4 +223,4 @@ EditTeam.propTypes = {
     updateTeam: PropTypes.func.isRequired
 };
 
-export default connect(null, mapActionsToProps)(withStyles(styles)(EditTeam));
+export default connect(null, mapActionsToProps)(EditTeam);

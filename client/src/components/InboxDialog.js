@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 // Components
 import InboxTable from "./InboxTable";
@@ -60,13 +59,13 @@ export class InboxDialog extends Component {
     };
 
     render() {
-        const { classes, user: { name }, loading } = this.props;
+        const { user: { name }, loading } = this.props;
 
         const dialogMarkup = loading ? (
             <div>
                 <DialogTitle>Loading...</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
-                    <div className={classes.spinnerDiv}>
+                <DialogContent sx={styles.dialogContent}>
+                    <div sx={styles.spinnerDiv}>
                         <CircularProgress size={80} thickness={2} />
                     </div>
                 </DialogContent>
@@ -74,7 +73,7 @@ export class InboxDialog extends Component {
         ) : (
             <div>
                 <DialogTitle>Inbox: {name}</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
+                <DialogContent sx={styles.dialogContent}>
                     <InboxTable />
                 </DialogContent>
             </div>
@@ -83,10 +82,10 @@ export class InboxDialog extends Component {
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} style={{ color: "#388e3c" }} variant="outlined">
-                    <AllInboxIcon className={classes.buttonIcon} /> inbox
+                    <AllInboxIcon sx={styles.buttonIcon} /> inbox
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="md">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     {dialogMarkup}
@@ -114,4 +113,4 @@ InboxDialog.propTypes = {
     user: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(InboxDialog));
+export default connect(mapStateToProps, mapActionsToProps)(InboxDialog);

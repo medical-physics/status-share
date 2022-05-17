@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 // MUI components
 import {
@@ -105,21 +104,21 @@ export class EditProfile extends Component {
     };
 
     render() {
-        const { classes, user: { name, phone, email, memo, priority } } = this.props;
+        const { user: { name, phone, email, memo, priority } } = this.props;
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} variant="outlined" color="secondary">
-                    <EditIcon className={classes.icon} />  edit
+                    <EditIcon sx={styles.icon} />  edit
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     <DialogTitle>
                         Edit {name}"s profile
                     </DialogTitle>
                     <form>
-                        <DialogContent className={classes.dialogContent}>
+                        <DialogContent sx={styles.dialogContent}>
                             <Grid container>
                                 <Grid item>
                                     <TextField
@@ -130,7 +129,7 @@ export class EditProfile extends Component {
                                         placeholder={phone}
                                         value={this.state.phone}
                                         onChange={this.handleChange}
-                                        className={classes.shortText}
+                                        sx={styles.shortText}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -142,7 +141,7 @@ export class EditProfile extends Component {
                                         placeholder={email}
                                         value={this.state.email}
                                         onChange={this.handleChange}
-                                        className={classes.shortText}
+                                        sx={styles.shortText}
                                     />
                                 </Grid>
                             </Grid>
@@ -158,7 +157,7 @@ export class EditProfile extends Component {
                                 value={this.state.memo}
                                 onChange={this.handleChange}
                                 fullWidth
-                                className={classes.memo}
+                                sx={styles.memo}
                             />
                             {Boolean(parseInt(localStorage.admin)) && (
                                 <>
@@ -169,7 +168,7 @@ export class EditProfile extends Component {
                                         value={this.state.name}
                                         onChange={this.handleChange}
                                         fullWidth
-                                        className={classes.otherText}
+                                        sx={styles.otherText}
                                     />
                                     <TextField
                                         id="priority"
@@ -180,14 +179,14 @@ export class EditProfile extends Component {
                                         value={this.state.priority}
                                         onChange={this.handleChange}
                                         fullWidth
-                                        className={classes.otherText}
+                                        sx={styles.otherText}
                                     />
                                 </>
                             )}
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleSubmit} variant="outlined" color="secondary" type="submit">
-                                <SendIcon className={classes.icon} />submit
+                                <SendIcon sx={styles.icon} />submit
                             </Button>
                         </DialogActions>
                     </form>
@@ -210,4 +209,4 @@ EditProfile.propTypes = {
     user: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(EditProfile));
+export default connect(mapStateToProps, mapActionsToProps)(EditProfile);

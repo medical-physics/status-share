@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 // MUI components
 import {
@@ -117,13 +116,13 @@ export class EditStatus extends Component {
     };
 
     render() {
-        const { classes, user: { name, status }, UI: { loading } } = this.props;
+        const { user: { name, status }, UI: { loading } } = this.props;
 
         const dialogMarkup = loading ? (
             <>
                 <DialogTitle>Loading...</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
-                    <div className={classes.spinnerDiv}>
+                <DialogContent sx={styles.dialogContent}>
+                    <div sx={styles.spinnerDiv}>
                         <CircularProgress size={40} thickness={2} />
                     </div>
                 </DialogContent>
@@ -132,7 +131,7 @@ export class EditStatus extends Component {
             <>
                 <DialogTitle>Edit {name}"s status</DialogTitle>
                 <form>
-                    <DialogContent className={classes.dialogContent}>
+                    <DialogContent sx={styles.dialogContent}>
 
                         <TextField
                             id="status"
@@ -144,14 +143,14 @@ export class EditStatus extends Component {
                             placeholder={status}
                             value={this.state.status}
                             onChange={this.handleChange}
-                            className={classes.textField} />
+                            sx={styles.textField} />
                     </DialogContent>
                     <DialogActions>
                         <Button style={{ color: "#ef5350" }} variant="outlined" onClick={this.handleDelete}>
-                            <DeleteIcon className={classes.icon} />clear
+                            <DeleteIcon sx={styles.icon} />clear
                         </Button>
                         <Button variant="outlined" color="secondary" onClick={this.handleSubmit} type="submit">
-                            <SendIcon className={classes.icon} />submit
+                            <SendIcon sx={styles.icon} />submit
                         </Button>
                     </DialogActions>
                 </form>
@@ -164,7 +163,7 @@ export class EditStatus extends Component {
                     <EditIcon />
                 </IconButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     {dialogMarkup}
@@ -193,4 +192,4 @@ EditStatus.propTypes = {
     users: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(EditStatus));
+export default connect(mapStateToProps, mapActionsToProps)(EditStatus);

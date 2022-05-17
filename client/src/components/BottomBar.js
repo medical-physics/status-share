@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 
 // MUI components
@@ -23,7 +22,7 @@ const styles = {
 export class BottomBar extends Component {
 
     render() {
-        const { classes, truncatedAppName } = this.props;
+        const { truncatedAppName } = this.props;
         const text = truncatedAppName ? (
             <Typography variant="overline">
                 © 2020 BC Cancer: Medical Physics...
@@ -34,7 +33,7 @@ export class BottomBar extends Component {
             </Typography>
         )
         return (
-            <AppBar className={classes.appBar} color="inherit" position="fixed">
+            <AppBar sx={styles.appBar} color="inherit" position="fixed">
                 <Toolbar variant="dense">
                     <Grid justify="flex-start" container>
                         <Grid item>
@@ -55,4 +54,4 @@ BottomBar.propTypes = {
     truncatedAppName: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, null)(withStyles(styles)(BottomBar));
+export default connect(mapStateToProps, null)(BottomBar);

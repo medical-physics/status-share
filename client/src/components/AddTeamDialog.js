@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import { GithubPicker } from "react-color";
 
 // MUI components
@@ -104,21 +103,20 @@ export class AddTeamDialog extends Component {
     };
 
     render() {
-        const { classes } = this.props;
         return (
             <Fragment>
                 <IconButton onClick={this.handleOpen} size="small" style={{ color: "#ffffff" }}>
                     <AddIcon />
                 </IconButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="xs">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     <DialogTitle>
                         Add a new team
                     </DialogTitle>
                     <form>
-                        <DialogContent className={classes.dialogContent}>
+                        <DialogContent sx={styles.dialogContent}>
                             <TextField
                                 required
                                 id="team"
@@ -127,10 +125,10 @@ export class AddTeamDialog extends Component {
                                 label="Team Name"
                                 value={this.state.team}
                                 onChange={this.handleChange}
-                                className={classes.otherText}
+                                sx={styles.otherText}
                                 fullWidth
                             />
-                            <Grid container justify="center" className={classes.colorPicker}>
+                            <Grid container justify="center" sx={styles.colorPicker}>
                                 <Grid item>
                                     <GithubPicker
                                         color={this.state.color}
@@ -180,7 +178,7 @@ export class AddTeamDialog extends Component {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleSubmit} variant="outlined" color="secondary" type="submit">
-                                <AddIcon className={classes.icon} />create team
+                                <AddIcon sx={styles.icon} />create team
                             </Button>
                         </DialogActions>
                     </form>
@@ -198,4 +196,4 @@ AddTeamDialog.propTypes = {
     addTeam: PropTypes.func.isRequired
 };
 
-export default connect(null, mapActionsToProps)(withStyles(styles)(AddTeamDialog));
+export default connect(null, mapActionsToProps)(AddTeamDialog);
