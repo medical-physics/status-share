@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import dayjs from "dayjs";
 
 // Components
@@ -88,13 +87,13 @@ export class ProfileDialog extends Component {
     };
 
     render() {
-        const { classes, user: { name, status, statusTime, phone, email, team, memo }, UI: { loading }, userId } = this.props;
+        const { user: { name, status, statusTime, phone, email, team, memo }, UI: { loading }, userId } = this.props;
 
         const dialogMarkup = loading ? (
             <div>
                 <DialogTitle>Loading...</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
-                    <div className={classes.spinnerDiv}>
+                <DialogContent sx={styles.dialogContent}>
+                    <div sx={styles.spinnerDiv}>
                         <CircularProgress size={80} thickness={2} />
                     </div>
                 </DialogContent>
@@ -102,11 +101,11 @@ export class ProfileDialog extends Component {
         ) : (
             <div>
                 <DialogTitle>{name}</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
+                <DialogContent sx={styles.dialogContent}>
                     <Grid container justify="flex-start">
                         <Grid item>
                             <Grid container alignItems="center" justify="center">
-                                <Grid item><PhoneIcon color="secondary" className={classes.icon} /></Grid>
+                                <Grid item><PhoneIcon color="secondary" sx={styles.icon} /></Grid>
                                 <Grid item>
                                     <Typography>{phone}</Typography>
                                 </Grid>
@@ -114,7 +113,7 @@ export class ProfileDialog extends Component {
                         </Grid>
                         <Grid item>
                             <Grid container alignItems="center" justify="center">
-                                <Grid item><EmailIcon color="secondary" className={classes.icon} /></Grid>
+                                <Grid item><EmailIcon color="secondary" sx={styles.icon} /></Grid>
                                 <Grid item>
                                     <Typography>{email}</Typography>
                                 </Grid>
@@ -122,7 +121,7 @@ export class ProfileDialog extends Component {
                         </Grid>
                         <Grid item>
                             <Grid container alignItems="center" justify="center">
-                                <Grid item><GroupIcon color="secondary" className={classes.icon} /></Grid>
+                                <Grid item><GroupIcon color="secondary" sx={styles.icon} /></Grid>
                                 <Grid item>
                                     <Typography>{capitalize(String(team))}</Typography>
                                 </Grid>
@@ -131,39 +130,39 @@ export class ProfileDialog extends Component {
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.statusText}>
+                            <Typography sx={styles.statusText}>
                                 <Box fontWeight="fontWeightBold" m={1}>Status: </Box>
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.statusText} noWrap>{status}</Typography>
+                            <Typography sx={styles.statusText} noWrap>{status}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.text2}>
+                            <Typography sx={styles.text2}>
                                 <Box fontWeight="fontWeightBold" m={1}>Since: </Box>
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.text2}>{dayjs(statusTime).format("h:mm a, MMMM DD YYYY")}</Typography>
+                            <Typography sx={styles.text2}>{dayjs(statusTime).format("h:mm a, MMMM DD YYYY")}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.text2}>
+                            <Typography sx={styles.text2}>
                                 <Box fontWeight="fontWeightBold" m={1}>Memo: </Box>
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.text2}>{memo}</Typography>
+                            <Typography sx={styles.text2}>{memo}</Typography>
                         </Grid>
                     </Grid>
                 </DialogContent>
                 <DialogActions>
                     {Boolean(parseInt(localStorage.admin)) && (
                         <Button onClick={this.handleDelete} style={{ color: "#ef5350" }} variant="outlined">
-                            <DeleteIcon className={classes.buttonIcon} />delete
+                            <DeleteIcon sx={styles.buttonIcon} />delete
                         </Button>)}
                     {!Boolean(parseInt(localStorage.viewOnly)) && (<InboxDialog userId={userId} onClose={this.handleClose} />)}
                     <SendMessageDialog userId={userId} onClose={this.handleClose} />
@@ -176,7 +175,7 @@ export class ProfileDialog extends Component {
             <Fragment>
                 <ProfileButton onClick={this.handleOpen} unreadMessages={this.props.unreadMessages} />
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     {dialogMarkup}
@@ -207,4 +206,4 @@ ProfileDialog.propTypes = {
     unreadMessages: PropTypes.number.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(ProfileDialog));
+export default connect(mapStateToProps, mapActionsToProps)(ProfileDialog);

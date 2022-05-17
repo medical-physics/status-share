@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 
 // MUI components
 import {
@@ -87,22 +86,22 @@ export class SendMessageDialog extends Component {
     };
 
     render() {
-        const { classes, user } = this.props;
+        const { user } = this.props;
 
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} style={{ color: "#388e3c" }} variant="outlined">
-                    <SendIcon className={classes.buttonIcon} /> message
+                    <SendIcon sx={styles.buttonIcon} /> message
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     <DialogTitle>
                         Send message to {user.name}
                     </DialogTitle>
                     <form>
-                        <DialogContent className={classes.dialogContent}>
+                        <DialogContent sx={styles.dialogContent}>
                             <TextField
                                 id="senderName"
                                 name="senderName"
@@ -163,7 +162,7 @@ export class SendMessageDialog extends Component {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleSubmit} variant="outlined" style={{ color: "#388e3c" }} type="submit">
-                                <SendIcon className={classes.icon} />send
+                                <SendIcon sx={styles.icon} />send
                             </Button>
                         </DialogActions>
                     </form>
@@ -190,4 +189,4 @@ SendMessageDialog.propTypes = {
     userId: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(SendMessageDialog));
+export default connect(mapStateToProps, mapActionsToProps)(SendMessageDialog);

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import dayjs from "dayjs";
 
 // MUI components
@@ -105,13 +104,13 @@ export class MessageDialog extends Component {
     };
 
     render() {
-        const { classes, message, UI: { loading } } = this.props;
+        const { message, UI: { loading } } = this.props;
 
         const dialogMarkup = loading ? (
             <div>
                 <DialogTitle>Loading...</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
-                    <div className={classes.spinnerDiv}>
+                <DialogContent sx={styles.dialogContent}>
+                    <div sx={styles.spinnerDiv}>
                         <CircularProgress size={80} thickness={2} />
                     </div>
                 </DialogContent>
@@ -119,45 +118,45 @@ export class MessageDialog extends Component {
         ) : (
             <div>
                 <DialogTitle>{message.subject}</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
+                <DialogContent sx={styles.dialogContent}>
                     <Grid container>
                         <Grid item>
-                            <AccountBoxIcon style={{ color: "#388e3c" }} className={classes.icon} />
+                            <AccountBoxIcon style={{ color: "#388e3c" }} sx={styles.icon} />
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.text1} noWrap>{message.senderName}</Typography>
+                            <Typography sx={styles.text1} noWrap>{message.senderName}</Typography>
                         </Grid>
                         <Grid item>
-                            <AlternateEmailIcon style={{ color: "#388e3c" }} className={classes.icon} />
+                            <AlternateEmailIcon style={{ color: "#388e3c" }} sx={styles.icon} />
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.text1} noWrap>{message.senderContact}</Typography>
+                            <Typography sx={styles.text1} noWrap>{message.senderContact}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.text1}>
+                            <Typography sx={styles.text1}>
                                 <Box fontWeight="fontWeightBold" m={1}>Sent at: </Box>
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.text1}>{dayjs(message.timestamp).format("h:mm a, MMMM DD YYYY")}</Typography>
+                            <Typography sx={styles.text1}>{dayjs(message.timestamp).format("h:mm a, MMMM DD YYYY")}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
                         <Grid item>
-                            <Typography className={classes.text2}>
+                            <Typography sx={styles.text2}>
                                 <Box fontWeight="fontWeightBold" m={1}>Message: </Box>
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.text2}>{message.message}</Typography>
+                            <Typography sx={styles.text2}>{message.message}</Typography>
                         </Grid>
                     </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleDelete} style={{ color: "#ef5350" }} variant="outlined">
-                        <DeleteIcon className={classes.buttonIcon} />delete
+                        <DeleteIcon sx={styles.buttonIcon} />delete
                     </Button>
                 </DialogActions>
             </div>)
@@ -166,7 +165,7 @@ export class MessageDialog extends Component {
             <Fragment>
                 {this.renderButton()}
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <IconButton onClick={this.handleClose} className={classes.closeButton} size="small">
+                    <IconButton onClick={this.handleClose} sx={styles.closeButton} size="small">
                         <CloseIcon />
                     </IconButton>
                     {dialogMarkup}
@@ -197,4 +196,4 @@ MessageDialog.propTypes = {
     readStatus: PropTypes.bool.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(MessageDialog));
+export default connect(mapStateToProps, mapActionsToProps)(MessageDialog);

@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 // MUI components
@@ -72,4 +71,4 @@ PresenceButton.propTypes = {
     users: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(PresenceButton));
+export default connect(mapStateToProps, mapActionsToProps)(PresenceButton);

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 
@@ -24,9 +23,9 @@ const styles = {
 export class UpdateBar extends Component {
 
     render() {
-        const { classes, updateTime } = this.props;
+        const {  updateTime } = this.props;
         return (
-            <AppBar className={classes.appBar} color="inherit">
+            <AppBar sx={styles.appBar} color="inherit">
                 <Toolbar variant="dense">
                     <Grid justify="flex-start" alignItems="center" container>
                         <Grid item>
@@ -49,4 +48,4 @@ UpdateBar.propTypes = {
     updateTime: PropTypes.instanceOf(Date)
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(UpdateBar));
+export default connect(mapStateToProps)(UpdateBar);

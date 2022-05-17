@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 
 // Components
 import ProfileDialog from "./ProfileDialog";
@@ -74,7 +73,7 @@ export class TeamTable extends Component {
 
     render() {
         const rows = [];
-        const { classes, teamsFields } = this.props;
+        const { teamsFields } = this.props;
 
         this.props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user.userId, user.memo, user)) });
 
@@ -109,12 +108,12 @@ export class TeamTable extends Component {
                             <TableBody>
                                 {rows.map((row) => (
                                     <TableRow key={row.name}>
-                                        <TableCell className={classes.tableCell}>
+                                        <TableCell sx={styles.tableCell}>
                                             <Grid container alignItems="center" spacing={1}>
                                                 <Grid item >
                                                     <ProfileDialog userId={row.userId} userMemo={row.memo} unreadMessages={row.user.unreadMessages} />
                                                 </Grid>
-                                                <Grid item className={classes.box}>
+                                                <Grid item sx={styles.box}>
                                                     {row.name}
                                                 </Grid>
                                             </Grid>
@@ -122,9 +121,9 @@ export class TeamTable extends Component {
                                         <TableCell align="center">
                                             <PresenceButton user={row.user} />
                                         </TableCell>
-                                        <TableCell className={classes.statusCell}>
+                                        <TableCell sx={styles.statusCell}>
                                             <Grid container alignItems="center" justify="space-between" spacing={1}>
-                                                <Grid item className={classes.status}>
+                                                <Grid item sx={styles.status}>
                                                     {row.status}
                                                 </Grid>
                                                 <Grid item >
@@ -154,4 +153,4 @@ TeamTable.propTypes = {
 
 };
 
-export default connect(mapStateToProps, null)(withStyles(styles)(TeamTable));
+export default connect(mapStateToProps, null)(TeamTable);

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
 
 // MUI components
 import {
@@ -58,7 +57,6 @@ const styles = {
 
 export class LoadingTable extends Component {
     render() {
-        const { classes } = this.props;
         return (
             <div>
                 <Paper elevation={3}>
@@ -80,14 +78,14 @@ export class LoadingTable extends Component {
                             </TableHead>
                             <TableBody>
                                 <TableRow>
-                                    <TableCell className={classes.tableCell}>
+                                    <TableCell sx={styles.tableCell}>
                                         <Grid container alignItems="center" spacing={1}>
                                             <Grid item >
                                                 <IconButton size="small">
                                                     <AccountCircleIcon />
                                                 </IconButton>
                                             </Grid>
-                                            <Grid item className={classes.box}>
+                                            <Grid item sx={styles.box}>
                                                 Loading...
                                             </Grid>
                                         </Grid>
@@ -97,9 +95,9 @@ export class LoadingTable extends Component {
                                             <RadioButtonUncheckedIcon color="secondary" />
                                         </IconButton>
                                     </TableCell>
-                                    <TableCell className={classes.statusCell}>
+                                    <TableCell sx={styles.statusCell}>
                                         <Grid container alignItems="center" justify="space-between" spacing={1}>
-                                            <Grid item className={classes.status}>
+                                            <Grid item sx={styles.status}>
                                                 Loading...
                                             </Grid>
                                             <Grid item >
@@ -120,4 +118,4 @@ export class LoadingTable extends Component {
     };
 }
 
-export default withStyles(styles)(LoadingTable);
+export default LoadingTable;

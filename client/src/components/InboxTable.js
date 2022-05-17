@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 
 // Components
@@ -22,9 +21,6 @@ import { connect } from "react-redux";
 
 function createData(name, subject, timestamp, message) {
     return { name, subject, timestamp, message };
-};
-
-const styles = {
 };
 
 export class InboxTable extends Component {
@@ -78,4 +74,4 @@ InboxTable.propTypes = {
     mailbox: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps, null)(withStyles(styles)(InboxTable));
+export default connect(mapStateToProps, null)(InboxTable);
