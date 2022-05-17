@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -8,7 +8,7 @@ const HomeRoute = ({ component: Component, authenticated, ...rest }) => (
     <Route
         {...rest}
         render={(props) =>
-            authenticated === false && localStorage.rememberMe !== 1 ? <Redirect to="/login" /> : <Component {...props} />
+            authenticated === false && localStorage.rememberMe !== 1 ? <Navigate to="/login" /> : <Component {...props} />
         }
     />
 );

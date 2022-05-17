@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -7,7 +7,7 @@ const LoginRoute = ({ component: Component, authenticated, ...rest }) => (
     <Route
         {...rest}
         render={(props) =>
-            authenticated === true ? <Redirect to="/" /> : <Component {...props} />
+            authenticated === true ? <Navigate to="/" /> : <Component {...props} />
         }
     />
 );

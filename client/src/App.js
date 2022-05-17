@@ -1,9 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme"
 import axios from "axios";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 // Components
 import HomeRoute from "./util/HomeRoute";
@@ -12,13 +11,13 @@ import LoginRoute from "./util/LoginRoute";
 // Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { SET_AUTHENTICATED } from "./redux/types";
+// import { SET_AUTHENTICATED } from "./redux/types";
 
 // Pages
 import home from "./pages/home";
 import login from "./pages/login";
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: {
             light: "#534bae",
@@ -42,18 +41,18 @@ axios.defaults.baseURL = "https://localhost:5000";
 
 function App() {
     return (
-        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             <Provider store={store}>
                 <Router>
                     <div className="container">
-                        <Switch>
+                        <Routes>
                             <HomeRoute exact path="/" component={home} />
                             <LoginRoute exact path="/login" component={login} />
-                        </Switch>
+                        </Routes>
                     </div>
                 </Router>
             </Provider>
-        </MuiThemeProvider>
+        </ThemeProvider>
     );
 }
 

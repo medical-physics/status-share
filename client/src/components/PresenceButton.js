@@ -15,12 +15,12 @@ import {
 import { connect } from "react-redux";
 import { markPresent, markNotPresent } from "../redux/actions/usersActions";
 
-const styles = {
+/* const styles = {
     checkbox: {
         width: 10,
         height: 10
     }
-};
+}; */
 
 export class PresenceButton extends Component {
 
