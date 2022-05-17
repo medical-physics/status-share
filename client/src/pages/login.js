@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles"
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet"
 
@@ -110,7 +109,7 @@ export class login extends Component {
     };
 
     render() {
-        const { classes, UI: { loading }, appName } = this.props;
+        const { UI: { loading }, appName } = this.props;
         const { errors } = this.state;
 
         return (
@@ -118,17 +117,17 @@ export class login extends Component {
                 <Helmet>
                     <title>{appName} | Login</title>
                 </Helmet>
-                <Grid container className={classes.form} justify="center">
+                <Grid container sx={styles.form} justify="center">
                     <NavBar />
                     <Grid item sm />
                     <Grid item sm>
                         <Paper elevation={3}>
                             <Grid container alignItems="center" justify="center">
                                 <Grid item>
-                                    <img src={AppIcon} className={classes.image} alt="Status Share" />
+                                    <img src={AppIcon} sx={styles.image} alt="Status Share" />
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h4" className={classes.pageTitle}>
+                                    <Typography variant="h4" sx={styles.pageTitle}>
                                         Sign In
                                     </Typography>
                                 </Grid>
@@ -139,7 +138,7 @@ export class login extends Component {
                                     name="email"
                                     type="email"
                                     label="Username"
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                     helperText={errors.email}
                                     error={errors.email ? true : false}
                                     value={this.state.email}
@@ -150,28 +149,28 @@ export class login extends Component {
                                     name="password"
                                     type="password"
                                     label="Password"
-                                    className={classes.textField}
+                                    sx={styles.textField}
                                     helperText={errors.password}
                                     error={errors.password ? true : false}
                                     value={this.state.password}
                                     onChange={this.handleChange}
                                 />
                                 {errors.general && (
-                                    <Typography variant="body2" className={classes.customError}>
+                                    <Typography variant="body2" sx={styles.customError}>
                                         {errors.general}
                                     </Typography>
                                 )}
-                                <Grid className={classes.textField}>
+                                <Grid sx={styles.textField}>
                                     <Button
                                         type="submit"
                                         variant="contained"
                                         color="primary"
-                                        className={classes.button}
+                                        sx={styles.button}
                                         disabled={loading}
                                     >
                                         Login
                                         {loading && (
-                                            <CircularProgress size={30} className={classes.progress} />
+                                            <CircularProgress size={30} sx={styles.progress} />
                                         )}
                                     </Button>
                                     <FormControlLabel
@@ -181,7 +180,7 @@ export class login extends Component {
                                             onChange={this.handleCheck}
                                             color="primary" />}
                                         label="Remember Me"
-                                        className={classes.checkbox}
+                                        sx={styles.checkbox}
                                     />
                                 </Grid>
                             </form>
@@ -214,4 +213,4 @@ login.propTypes = {
     UI: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login));
+export default connect(mapStateToProps, mapActionsToProps)(login);
