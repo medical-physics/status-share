@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
     getUsers,
-    postStatusUpdate
+    postStatusUpdate,
+    updateUserPresence
 } from "../api/usersAPI";
 import {
     loadingUI,
-    stopLoadingUI
+    stopLoadingUI,
+    setErrors
 } from "./uiSlice";
 import { setUpdateTime } from "./accountSlice";
 
@@ -51,10 +53,42 @@ export const getUsersAsync = createAsyncThunk(
 export const updateStatusAsync = createAsyncThunk(
     "users/updateStatus",
     async (userId, statusData, { dispatch }) => {
-        dispatch(updateStatus(statusData));
+        try {
+            dispatch(updateStatus(statusData));
+            const response = await postStatusUpdate(userId, statusData);
+            return response;
+        } catch (err) {
+            console.error(err);
+            dispatch(setErrors(err.response.data));
+        }
+    }
+);
 
-        const response = await postStatusUpdate(userId, statusData);
+export const markPresentAsync = createAsyncThunk(
+    "users/markPresent",
+    async (userId, { dispatch }) => {
+        try {
+            dispatch(markPresent(userId));
+            const response = await updateUserPresence(userId);
+            return response;
+        } catch (err) {
+            console.error(err);
+            dispatch(markNotPresent(userId));
+        }
+    }
+);
 
+export const markNotPresentAsync = createAsyncThunk(
+    "users/markNotPresent",
+    async (userId, { dispatch }) => {
+        try {
+            dispatch(markNotPresent(userId));
+            const response = await updateUserPresence(userId);
+            return response;
+        } catch (err) {
+            console.error(err);
+            dispatch(markPresent(userId));
+        }
     }
 );
 
