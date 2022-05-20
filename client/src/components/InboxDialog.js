@@ -13,7 +13,6 @@ import {
     CircularProgress,
     IconButton
 } from "@mui/material";
-
 import {
     Close as CloseIcon,
     AllInbox as AllInboxIcon

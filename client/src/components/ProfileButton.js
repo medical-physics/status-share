@@ -6,7 +6,6 @@ import {
     IconButton,
     Tooltip
 } from "@mui/material";
-
 import {
     AccountCircle as AccountCircleIcon,
     Notifications as NotificationsIcon
