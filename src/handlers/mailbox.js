@@ -15,7 +15,7 @@ exports.postOneMessage = async (req, res) => {
 
     try {
         const mailbox = await Mailbox.findOne({ userId: newMessage.userId });
-        mailbox.messages.push(newMessage);
+        await mailbox.messages.push(newMessage);
         const subdoc = mailbox.messages[0];
         await mailbox.save();
 
@@ -31,10 +31,10 @@ exports.postOneMessage = async (req, res) => {
 };
 
 // Delete a message
-exports.deleteMessage = (req, res) => {
+exports.deleteMessage = async (req, res) => {
     try {
-        const mailbox = Mailbox.findOne({ userId: req.params.userId });
-        mailbox.messages.id(req.params.messageId).remove();
+        const mailbox = await Mailbox.findOne({ userId: req.params.userId });
+        await mailbox.messages.id(req.params.messageId).remove();
         await mailbox.save();
 
         return res.status(200).json({ message: "Message deleted successfully." });
@@ -45,10 +45,10 @@ exports.deleteMessage = (req, res) => {
 };
 
 // Mark a message as read
-exports.updateMessageReadStatus = (req, res) => {
+exports.updateMessageReadStatus = async (req, res) => {
     try {
-        const mailbox = Mailbox.findOne({ userId: req.params.userId });
-        const message = mailbox.messages.id(req.params.messageId);
+        const mailbox = await Mailbox.findOne({ userId: req.params.userId });
+        const message = await mailbox.messages.id(req.params.messageId);
         message.readStatus = true;
         await mailbox.save();
 
@@ -64,7 +64,7 @@ exports.updateMessageReadStatus = (req, res) => {
 };
 
 // Update a message
-exports.updateMessage = (req, res) => {
+exports.updateMessage = async (req, res) => {
     const updatedMessage = {
         message: req.body.message,
         senderContact: req.body.senderContact,
@@ -73,8 +73,8 @@ exports.updateMessage = (req, res) => {
     };
 
     try {
-        const mailbox = Mailbox.findOne({ userId: req.params.userId });
-        const message = mailbox.messages.id(req.params.messageId);
+        const mailbox = await Mailbox.findOne({ userId: req.params.userId });
+        const message = await mailbox.messages.id(req.params.messageId);
         message.message = updatedMessage.message;
         message.senderContact = updatedMessage.senderContact;
         message.senderName = updatedMessage.senderName;
