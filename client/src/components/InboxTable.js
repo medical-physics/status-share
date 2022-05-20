@@ -74,4 +74,4 @@ InboxTable.propTypes = {
     mailbox: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps, null)(InboxTable);
+export default connect(mapStateToProps)(InboxTable);

@@ -153,4 +153,4 @@ TeamTable.propTypes = {
 
 };
 
-export default connect(mapStateToProps, null)(TeamTable);
+export default connect(mapStateToProps)(TeamTable);

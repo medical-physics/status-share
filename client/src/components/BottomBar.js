@@ -54,4 +54,4 @@ BottomBar.propTypes = {
     truncatedAppName: PropTypes.bool.isRequired
 };
 
-export default connect(mapStateToProps, null)(BottomBar);
+export default connect(mapStateToProps)(BottomBar);
