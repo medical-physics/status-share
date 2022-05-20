@@ -1,4 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadingUI, stopLoadingUI } from "./uiSlice";
+import { setUpdateTime } from "./accountSlice";
+import {
+    getMailbox
+} from "../api/mailboxAPI";
 
 const initialState = {
     mailbox: [],
@@ -6,11 +11,47 @@ const initialState = {
     loadingMailbox: false
 };
 
+export const getMessageAsync = createAsyncThunk(
+    "mailbox/getMessage",
+    async (messageId, { dispatch, getState }) => {
+        dispatch(loadingUI());
+
+        const mailbox = getState().mailbox.mailbox;
+        const message = mailbox.find((element) => element.messageId === messageId);
+
+        if (message) {
+            dispatch(setMessage(message));
+        } else {
+            dispatch(setMessage(null));
+        }
+        dispatch(stopLoadingUI());
+    }
+);
+
+export const getMailboxAsync = createAsyncThunk(
+    "mailbox/getMailbox",
+    async (_, { dispatch }) => {
+        try {
+            dispatch(loadingMailboxData());
+
+            const response = await getMailbox();
+            const mailbox = response.mailbox;
+
+            if (mailbox) {
+                dispatch(setMailbox(mailbox));
+                dispatch(setUpdateTime());
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+);
+
 export const mailboxSlice = createSlice({
     name: "mailbox",
     initialState,
     reducers: {
-        loadingMailbox: (state) => {
+        loadingMailboxData: (state) => {
             state.loadingMailbox = true;
         },
         setMailbox: (state, action) => {
@@ -57,7 +98,12 @@ export const mailboxSlice = createSlice({
 });
 
 export const {
-    example
+    loadingMailboxData,
+    setMailbox,
+    setMessage,
+    markMessageRead,
+    deleteMessage,
+    editMessage
 } = mailboxSlice.actions;
 
 export default mailboxSlice.reducer;

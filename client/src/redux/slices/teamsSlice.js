@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadingTeam, stopLoadingTeam } from "./uiSlice";
 import {
     getTeams,
     addTeam,
     deleteTeam
 } from "../api/teamsAPI";
-import {
-    loadingTeam, stopLoadingTeam
-} from "./uiSlice";
 
 const initialState = {
     loadingTeamsData: false,
