@@ -6,6 +6,7 @@ import {
     getAppName,
     postAppName
 } from "../api/accountAPI";
+import axios from "axios";
 
 const initialState = {
     authenticated: false,
@@ -18,8 +19,12 @@ const initialState = {
 
 export const loginUserAsync = createAsyncThunk(
     "account/loginUser",
-    async (credentials) => {
+    async (credentials, { dispatch }) => {
         const response = await loginUser(credentials.email, credentials.password);
+        dispatch(setAuthorizationHeader({
+            accessToken: response.accessToken,
+            refreshToken: response.refreshToken
+        }));
         return response;
     }
 );
@@ -28,7 +33,9 @@ export const refreshTokenAsync = createAsyncThunk(
     "account/refreshToken",
     async (token) => {
         const response = await refreshAccessToken(token);
-        return response.accessToken;
+        const accessToken = response.accessToken;
+        localStorage.setItem("accessToken", accessToken);
+        return accessToken;
     }
 );
 
@@ -76,6 +83,19 @@ export const accountSlice = createSlice({
         },
         setAppName: (state, action) => {
             state.appName = action.payload.appName;
+        },
+        truncateAppName: (state) => {
+            state.truncatedAppName = true;
+        },
+        detruncateAppName: (state) => {
+            state.truncatedAppName = false;
+        },
+        setAuthorizationHeader: (state, action) => {
+            const accessToken = `Bearer ${action.payload.accessToken}`;
+            const refreshToken = `Bearer ${action.payload.refreshToken}`;
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+            axios.defaults.headers.common["Authorization"] = accessToken;
         }
     },
     extraReducers: (builder) => {
@@ -91,7 +111,10 @@ export const {
     setUnauthenticated,
     setAdminAccount,
     setRememberMe,
-    setAppName
+    setAppName,
+    truncateAppName,
+    detruncateAppName,
+    setAuthorizationHeader
 } = accountSlice.actions;
 
 export default accountSlice.reducer;
