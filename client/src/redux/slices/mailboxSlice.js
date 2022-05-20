@@ -2,8 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadingUI, stopLoadingUI } from "./uiSlice";
 import { setUpdateTime } from "./accountSlice";
 import {
-    getMailbox
+    deleteOneMessage,
+    getMailbox,
+    updateMessageReadStatus
 } from "../api/mailboxAPI";
+import { decrementUnreadMessages } from "./usersSlice";
 
 const initialState = {
     mailbox: [],
@@ -41,6 +44,34 @@ export const getMailboxAsync = createAsyncThunk(
                 dispatch(setMailbox(mailbox));
                 dispatch(setUpdateTime());
             }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+);
+
+export const markMessageReadAsync = createAsyncThunk(
+    "mailbox/markMessageRead",
+    async (messageObj, { dispatch }) => {
+        try {
+            dispatch(markMessageRead(messageObj.messageId));
+            dispatch(decrementUnreadMessages(messageObj.userId));
+
+            const response = await updateMessageReadStatus(messageObj.messageId, messageObj.userId);
+            return response;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+);
+
+export const deleteMessageAsync = createAsyncThunk(
+    "mailbox/deleteMessage",
+    async (messageObj, { dispatch }) => {
+        try {
+            dispatch(deleteMessage(messageObj.messageId));
+            const response = await deleteOneMessage(messageObj.messageId, messageObj.userId);
+            return response;
         } catch (err) {
             console.error(err);
         }
