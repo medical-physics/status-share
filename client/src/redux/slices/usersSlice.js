@@ -3,9 +3,13 @@ import {
     getUsers,
     postStatusUpdate,
     updateUserPresence,
-    updateUserProfile
+    updateUserProfile,
+    addOneUser,
+    deleteOneUser
 } from "../api/usersAPI";
 import {
+    loadingUser,
+    stopLoadingUser,
     loadingUI,
     stopLoadingUI,
     setErrors
@@ -106,6 +110,34 @@ export const editProfileAsync = createAsyncThunk(
     }
 );
 
+export const addUserAsync = createAsyncThunk(
+    "users/addUser",
+    async (newUserData, { dispatch }) => {
+        try {
+            dispatch(loadingUser());
+            const response = await addOneUser(newUserData);
+            dispatch(stopLoadingUser());
+            dispatch(addUser(response.data));
+            return response;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+);
+
+export const deleteUserAsync = createAsyncThunk(
+    "users/deleteUser",
+    async (userId, { dispatch }) => {
+        try {
+            dispatch(deleteUser(userId));
+            const response = await deleteOneUser(userId);
+            return response;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+)
+
 export const usersSlice = createSlice({
     name: "users",
     initialState,
@@ -174,6 +206,18 @@ export const usersSlice = createSlice({
             if (state.user.userId === action.payload) {
                 state.user.unreadMessages -= 1;
             }
+        },
+        addUser: (state, action) => {
+            state.users.push(action.payload.user);
+        },
+        deleteUser: (state, action) => {
+            let index6 = state.users.findIndex(
+                (user) => user.userId === action.payload
+            );
+            state.users = [
+                ...state.users.slice(0, index6),
+                ...state.users.slice(index6 + 1)
+            ]
         }
     }
 });
@@ -186,7 +230,9 @@ export const {
     markNotPresent,
     updateStatus,
     editUser,
-    decrementUnreadMessages
+    decrementUnreadMessages,
+    addUser,
+    deleteUser
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -20,7 +20,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { addTeam } from "../redux/actions/teamsActions";
+import { addTeamAsync } from "../redux/slices/teamsSlice";
 
 const styles = {
     closeButton: {
@@ -76,7 +76,7 @@ export class AddTeamDialog extends Component {
             col2: this.state.col2.trim(),
             col3: this.state.col3.trim()
         };
-        this.props.addTeam(newTeamData);
+        this.props.addTeamAsync(newTeamData);
         this.handleClose();
         this.setState({
             open: false,
@@ -188,7 +188,7 @@ export class AddTeamDialog extends Component {
 }
 
 const mapActionsToProps = {
-    addTeam
+    addTeamAsync
 };
 
 AddTeamDialog.propTypes = {

@@ -19,3 +19,13 @@ export const updateUserProfile = async (profileData) => {
     const data = await axios.post(`/user/${profileData.userId}`, profileData);
     return data.json();
 };
+
+export const addOneUser = async (newUserData) => {
+    const data = await axios.post("/user", newUserData);
+    return data.json();
+};
+
+export const deleteOneUser = async (userId) => {
+    const data = await axios.delete(`/user/${userId}`);
+    return data.json();
+};

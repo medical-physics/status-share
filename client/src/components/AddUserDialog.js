@@ -18,7 +18,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { addUser } from "../redux/actions/usersActions";
+import { addUser } from "../redux/slices/usersSlice";
 
 const styles = {
     closeButton: {
