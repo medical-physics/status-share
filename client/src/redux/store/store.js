@@ -12,5 +12,8 @@ export const store = configureStore({
         UI: uiReducer,
         teams: teamsReducer,
         mailbox: mailboxReducer
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    })
 });

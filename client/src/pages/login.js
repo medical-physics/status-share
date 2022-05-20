@@ -75,10 +75,15 @@ export class login extends Component {
         this.props.getAppNameAsync();
     };
 
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.UI.errors) {
-            this.setState({ errors: nextProps.UI.errors });
-        };
+            return {
+                errors: nextProps.UI.errors,
+                ...prevState
+            };
+        } else {
+            return prevState;
+        }
     };
 
     handleSubmit = (event) => {
@@ -213,7 +218,7 @@ login.propTypes = {
     appName: PropTypes.string.isRequired,
     getAppNameAsync: PropTypes.func.isRequired,
     loginUserAsync: PropTypes.func.isRequired,
-    persistentLogin: PropTypes.func.isRequired,
+    // persistentLogin: PropTypes.func.isRequired,
     UI: PropTypes.object.isRequired
 };
 
