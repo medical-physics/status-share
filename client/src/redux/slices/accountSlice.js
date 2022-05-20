@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "../api/accountAPI";
+import { 
+    loginUser,
+    logoutUser,
+    refreshAccessToken,
+    getAppName,
+    postAppName
+} from "../api/accountAPI";
 
 const initialState = {
     authenticated: false,
@@ -12,9 +18,41 @@ const initialState = {
 
 export const loginUserAsync = createAsyncThunk(
     "account/loginUser",
-    async (credentials, { getState }) => {
+    async (credentials) => {
         const response = await loginUser(credentials.email, credentials.password);
         return response;
+    }
+);
+
+export const refreshTokenAsync = createAsyncThunk(
+    "account/refreshToken",
+    async (token) => {
+        const response = await refreshAccessToken(token);
+        return response.accessToken;
+    }
+);
+
+export const logoutUserAsync = createAsyncThunk(
+    "account/logoutUser",
+    async (_, { dispatch }) => {
+        logoutUser();
+        dispatch(setUnauthenticated());
+    }
+);
+
+export const getAppNameAsync = createAsyncThunk(
+    "account/getAppName",
+    async (_, { dispatch }) => {
+        const response = await getAppName();
+        dispatch(setAppName({ appName: response.appName }));
+    }
+);
+
+export const setAppNameAsync = createAsyncThunk(
+    "account/setAppName",
+    async (newAppName, { dispatch }) => {
+        const response = await postAppName(newAppName);
+        dispatch(setAppName({ appName: response.appName }));
     }
 );
 
@@ -48,6 +86,12 @@ export const accountSlice = createSlice({
     }
 });
 
-export const { example } = accountSlice.actions;
+export const {
+    setAuthenticated,
+    setUnauthenticated,
+    setAdminAccount,
+    setRememberMe,
+    setAppName
+} = accountSlice.actions;
 
 export default accountSlice.reducer;
