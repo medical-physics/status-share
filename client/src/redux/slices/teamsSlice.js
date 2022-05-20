@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
     getTeams,
-    addTeam
+    addTeam,
+    deleteTeam
 } from "../api/teamsAPI";
 import {
     loadingTeam, stopLoadingTeam
@@ -28,6 +29,32 @@ export const addTeamAsync = createAsyncThunk(
             dispatch(loadingTeam());
             const response = await addTeam(newTeam);
             dispatch(stopLoadingTeam());
+            return response;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+);
+
+export const updateTeamAsync = createAsyncThunk(
+    "teams/updateTeam",
+    async (teamObj, { dispatch }) => {
+        try {
+            dispatch(loadingTeam());
+            const response = await addTeam(teamObj.teamId, teamObj.teamData);
+            dispatch(stopLoadingTeam());
+            return response;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+);
+
+export const deleteTeamAsync = createAsyncThunk(
+    "teams/deleteTeam",
+    async (teamId, { dispatch }) => {
+        try {
+            const response = await deleteTeam(teamId);
             return response;
         } catch (err) {
             console.error(err);
