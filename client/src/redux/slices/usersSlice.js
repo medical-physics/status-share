@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
     getUsers,
     postStatusUpdate,
-    updateUserPresence
+    updateUserPresence,
+    updateUserProfile
 } from "../api/usersAPI";
 import {
     loadingUI,
@@ -52,10 +53,10 @@ export const getUsersAsync = createAsyncThunk(
 
 export const updateStatusAsync = createAsyncThunk(
     "users/updateStatus",
-    async (userId, statusData, { dispatch }) => {
+    async (statusObj, { dispatch }) => {
         try {
-            dispatch(updateStatus(statusData));
-            const response = await postStatusUpdate(userId, statusData);
+            dispatch(updateStatus(statusObj.statusData));
+            const response = await postStatusUpdate(statusObj.userId, statusObj.statusData);
             return response;
         } catch (err) {
             console.error(err);
@@ -69,7 +70,7 @@ export const markPresentAsync = createAsyncThunk(
     async (userId, { dispatch }) => {
         try {
             dispatch(markPresent(userId));
-            const response = await updateUserPresence(userId);
+            const response = await updateUserPresence(userId, true);
             return response;
         } catch (err) {
             console.error(err);
@@ -83,11 +84,24 @@ export const markNotPresentAsync = createAsyncThunk(
     async (userId, { dispatch }) => {
         try {
             dispatch(markNotPresent(userId));
-            const response = await updateUserPresence(userId);
+            const response = await updateUserPresence(userId, false);
             return response;
         } catch (err) {
             console.error(err);
             dispatch(markPresent(userId));
+        }
+    }
+);
+
+export const editProfileAsync = createAsyncThunk(
+    "users/editProfile",
+    async (profileObj, { dispatch }) => {
+        try {
+            dispatch(editUser(profileObj));
+            const response = await updateUserProfile(profileObj);
+            return response;
+        } catch (err) {
+            console.error(err);
         }
     }
 );
