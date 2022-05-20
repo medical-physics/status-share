@@ -19,7 +19,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { setAppName } from "../redux/actions/accountActions";
+import { setAppNameAsync } from "../redux/slices/accountSlice";
 
 const styles = {
     closeButton: {
@@ -61,7 +61,7 @@ export class EditAppName extends Component {
         const newAppName = {
             appName: this.state.appName
         };
-        this.props.setAppName(newAppName);
+        this.props.setAppNameAsync(newAppName);
         this.handleClose();
     };
 
@@ -116,12 +116,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    setAppName
+    setAppNameAsync
 };
 
 EditAppName.propTypes = {
     appName: PropTypes.string.isRequired,
-    setAppName: PropTypes.func.isRequired
+    setAppNameAsync: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(EditAppName);

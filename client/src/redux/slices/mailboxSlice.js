@@ -35,11 +35,11 @@ export const getMessageAsync = createAsyncThunk(
 
 export const getMailboxAsync = createAsyncThunk(
     "mailbox/getMailbox",
-    async (_, { dispatch }) => {
+    async (userId, { dispatch }) => {
         try {
             dispatch(loadingMailboxData());
 
-            const response = await getMailbox();
+            const response = await getMailbox(userId);
             const mailbox = response.mailbox;
 
             if (mailbox) {

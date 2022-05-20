@@ -12,7 +12,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { markPresent, markNotPresent } from "../redux/actions/usersActions";
+import { markPresentAsync, markNotPresentAsync } from "../redux/slices/usersSlice";
 
 /* const styles = {
     checkbox: {
@@ -28,13 +28,13 @@ export class PresenceButton extends Component {
 
         const uncheckButton = () => {
             if (!Boolean(parseInt(localStorage.viewOnly))) {
-                this.props.markNotPresent(userId);
+                this.props.markNotPresentAsync(userId);
             }
         };
 
         const checkButton = () => {
             if (!Boolean(parseInt(localStorage.viewOnly))) {
-                this.props.markPresent(userId);
+                this.props.markPresentAsync(userId);
             }
         };
 
@@ -59,13 +59,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    markNotPresent,
-    markPresent
+    markNotPresentAsync,
+    markPresentAsync
 };
 
 PresenceButton.propTypes = {
-    markNotPresent: PropTypes.func.isRequired,
-    markPresent: PropTypes.func.isRequired,
+    markNotPresentAsync: PropTypes.func.isRequired,
+    markPresentAsync: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     users: PropTypes.array.isRequired
 };

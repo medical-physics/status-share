@@ -21,7 +21,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { addMessage } from "../redux/actions/mailboxActions";
+import { addMessageAsync } from "../redux/slices/mailboxSlice";
 
 const styles = {
     closeButton: {
@@ -74,7 +74,7 @@ export class SendMessageDialog extends Component {
             subject: this.state.subject.trim(),
             message: this.state.message.trim()
         };
-        this.props.addMessage(newMessageData, this.props.userId);
+        this.props.addMessageAsync({ newMessageData, userId: this.props.userId });
         this.handleClose();
     };
 
@@ -178,11 +178,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    addMessage
+    addMessageAsync
 };
 
 SendMessageDialog.propTypes = {
-    addMessage: PropTypes.func.isRequired,
+    addMessageAsync: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired

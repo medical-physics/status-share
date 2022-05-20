@@ -22,7 +22,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { updateTeam, deleteTeam } from "../redux/actions/teamsActions";
+import { updateTeamAsync, deleteTeamAsync } from "../redux/slices/teamsSlice";
 
 const styles = {
     closeButton: {
@@ -86,13 +86,13 @@ export class EditTeam extends Component {
             col2: this.state.col2,
             col3: this.state.col3
         };
-        this.props.updateTeam(this.props.teamsFields.teamId, teamData);
+        this.props.updateTeamAsync({ teamId: this.props.teamsFields.teamId, teamData });
         this.handleClose();
     };
 
     handleDelete = (event) => {
         event.preventDefault();
-        this.props.deleteTeam(this.props.teamsFields.teamId, this.props.teamsFields.team);
+        this.props.deleteTeamAsync(this.props.teamsFields.teamId);
         this.handleClose();
     };
 
@@ -212,14 +212,14 @@ export class EditTeam extends Component {
 }
 
 const mapActionsToProps = {
-    updateTeam,
-    deleteTeam
+    updateTeamAsync,
+    deleteTeamAsync
 };
 
 EditTeam.propTypes = {
-    deleteTeam: PropTypes.func.isRequired,
+    deleteTeamAsync: PropTypes.func.isRequired,
     teamsFields: PropTypes.object.isRequired,
-    updateTeam: PropTypes.func.isRequired
+    updateTeamAsync: PropTypes.func.isRequired
 };
 
 export default connect(null, mapActionsToProps)(EditTeam);

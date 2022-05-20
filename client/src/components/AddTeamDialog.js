@@ -192,7 +192,7 @@ const mapActionsToProps = {
 };
 
 AddTeamDialog.propTypes = {
-    addTeam: PropTypes.func.isRequired
+    addTeamAsync: PropTypes.func.isRequired
 };
 
 export default connect(null, mapActionsToProps)(AddTeamDialog);

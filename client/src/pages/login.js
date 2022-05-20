@@ -21,9 +21,12 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { loginUser, getAppName, persistentLogin } from "../redux/actions/accountActions";
-import store from "../redux/store";
-import { REMEMBER_ME } from "../redux/types";
+import {
+    loginUserAsync,
+    getAppNameAsync,
+    // persistentLogin,
+    setRememberMe
+} from "../redux/slices/accountSlice";
 
 const styles = {
     form: {
@@ -69,7 +72,7 @@ export class login extends Component {
     componentDidMount() {
         localStorage.setItem("admin", 0);
         localStorage.setItem("viewOnly", 0);
-        this.props.getAppName();
+        this.props.getAppNameAsync();
     };
 
     componentWillReceiveProps(nextProps) {
@@ -87,11 +90,11 @@ export class login extends Component {
 
         // Login persistence or not
         if (this.state.rememberMe) {
-            this.props.persistentLogin(userData, this.props.history);
+            // this.props.persistentLogin(userData, this.props.history);
             localStorage.setItem("rememberMe", 1);
-            store.dispatch({ type: REMEMBER_ME });
+            this.props.setRememberMe();
         } else {
-            this.props.loginUser(userData, this.props.history);
+            this.props.loginUserAsync(userData, this.props.history);
             localStorage.setItem("rememberMe", 0);
         }
     };
@@ -200,15 +203,16 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    loginUser,
-    getAppName,
-    persistentLogin
+    loginUserAsync,
+    getAppNameAsync,
+    // persistentLogin,
+    setRememberMe
 };
 
 login.propTypes = {
     appName: PropTypes.string.isRequired,
-    getAppName: PropTypes.func.isRequired,
-    loginUser: PropTypes.func.isRequired,
+    getAppNameAsync: PropTypes.func.isRequired,
+    loginUserAsync: PropTypes.func.isRequired,
     persistentLogin: PropTypes.func.isRequired,
     UI: PropTypes.object.isRequired
 };

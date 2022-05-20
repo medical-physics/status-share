@@ -18,7 +18,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { addUser } from "../redux/slices/usersSlice";
+import { addUserAsync } from "../redux/slices/usersSlice";
 
 const styles = {
     closeButton: {
@@ -71,7 +71,7 @@ export class AddUserDialog extends Component {
             teamId: this.state.teamId.trim(),
             priority: parseInt(this.state.priority.trim())
         };
-        this.props.addUser(newUserData);
+        this.props.addUserAsync(newUserData);
         this.handleClose();
         this.setState({
             open: false,
@@ -162,11 +162,11 @@ export class AddUserDialog extends Component {
 }
 
 const mapActionsToProps = {
-    addUser
+    addUserAsync
 };
 
 AddUserDialog.propTypes = {
-    addUser: PropTypes.func.isRequired,
+    addUserAsync: PropTypes.func.isRequired,
     teamId: PropTypes.string.isRequired,
     teamName: PropTypes.string.isRequired
 };

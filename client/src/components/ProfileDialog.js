@@ -31,7 +31,8 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { getUser, deleteUser, clearErrors } from "../redux/actions/usersActions";
+import { getUserAsync, deleteUserAsync } from "../redux/slices/usersSlice";
+import { clearErrors } from "../redux/slices/uiSlice";
 
 const styles = {
     spinnerDiv: {
@@ -73,7 +74,7 @@ export class ProfileDialog extends Component {
 
     handleOpen = () => {
         this.setState({ open: true });
-        this.props.getUser(this.props.userId);
+        this.props.getUserAsync(this.props.userId);
     };
 
     handleClose = () => {
@@ -81,7 +82,7 @@ export class ProfileDialog extends Component {
     };
 
     handleDelete = () => {
-        this.props.deleteUser(this.props.userId);
+        this.props.deleteUserAsync(this.props.userId);
         this.handleClose();
     };
 
@@ -190,15 +191,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    getUser,
-    deleteUser,
+    getUserAsync,
+    deleteUserAsync,
     clearErrors
 };
 
 ProfileDialog.propTypes = {
-    deleteUser: PropTypes.func.isRequired,
+    deleteUserAsync: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
+    getUserAsync: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired,
     userMemo: PropTypes.string.isRequired,

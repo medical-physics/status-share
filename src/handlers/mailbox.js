@@ -1,6 +1,17 @@
 const Mailbox = require("../models/mailbox");
 const User = require("../models/user");
 
+// Fetch mailbox for one user
+exports.getMessages = async (req, res) => {
+    try {
+        const mailbox = await Mailbox.findOne({ userId: req.params.userId });
+        return res.status(200).json(mailbox);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ message: err.message });
+    }
+};
+
 // Send a single message
 exports.postOneMessage = async (req, res) => {
     const newMessage = {

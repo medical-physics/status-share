@@ -35,7 +35,8 @@ const {
 	postOneMessage,
 	deleteMessage,
 	updateMessageReadStatus,
-	updateMessage
+	updateMessage,
+	getMessages
 } = require("../handlers/mailbox");
 
 // User routes
@@ -61,6 +62,7 @@ router.post("/refreshlogin", auth, refreshLogin);
 router.post("/register", auth, register);
 
 // Mailbox routes
+router.get("/mailbox/:userId", getMessages)
 router.post("/mailbox/:userId", auth, postOneMessage);
 router.delete("/mailbox/:userId/:messageId", auth, deleteMessage);
 router.post("/mailbox/read/:userId/:messageId", auth, updateMessageReadStatus);

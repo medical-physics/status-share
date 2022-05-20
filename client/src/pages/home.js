@@ -22,11 +22,9 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import store from "../redux/store";
-import { getUsers } from "../redux/actions/usersActions";
-import { getTeams } from "../redux/actions/teamsActions";
-import { logoutUser, refreshToken } from "../redux/actions/accountActions";
-import { SET_AUTHENTICATED } from "../redux/types";
+import { getUsersAsync } from "../redux/slices/usersSlice";
+import { getTeamsAsync } from "../redux/slices/teamsSlice";
+import { logoutUserAsync, refreshTokenAsync, setAuthenticated } from "../redux/slices/accountSlice";
 
 const styles = {
     table: {
@@ -55,19 +53,19 @@ export class home extends Component {
     };
 
     componentDidMount() {
-        const token = localStorage.FBIdToken;
+        const token = localStorage.accessToken;
         const rememberMe = localStorage.rememberMe;
 
         // If "Remember Me" is selected
         // Token refresher – ensures token is always valid while logged in
         if (rememberMe === 1) {
-            store.dispatch({ type: SET_AUTHENTICATED });
+            this.props.setAuthenticated();
             axios.defaults.headers.common["Authorization"] = token;
             if (token) {
                 const decodedToken = jwtDecode(token);
                 // If token expired, refresh token
                 if (decodedToken.exp * 1000 < Date.now()) {
-                    store.dispatch(refreshToken());
+                    this.props.refreshTokenAsync(localStorage.refreshToken);
                     setTimeout(() => {
                         this.countdownAndRefresh();
                     }, 4000)
@@ -77,7 +75,7 @@ export class home extends Component {
                 }
                 // If token doesn"t exist for some reason, retrieves new token
             } else {
-                store.dispatch(refreshToken());
+                this.props.refreshTokenAsync(localStorage.refreshToken);
                 setTimeout(() => {
                     this.countdownAndRefresh();
                 }, 4000)
@@ -85,17 +83,17 @@ export class home extends Component {
 
         // If "Remember Me" not selected, logout user when token expires
         } else if (rememberMe === 0) {
-            store.dispatch({ type: SET_AUTHENTICATED });
+            this.props.setAuthenticated();
             axios.defaults.headers.common["Authorization"] = token;
             if (token) {
                 const decodedToken = jwtDecode(token);
                 const timeUntilExpiry = decodedToken.exp * 1000 - Date.now();
                 if (timeUntilExpiry <= 0) {
-                    store.dispatch(logoutUser());
+                    this.props.logoutUserAsync();
                     window.location.href = "/login";
                 } else {
                     setTimeout(() => {
-                        store.dispatch(logoutUser());
+                        this.props.logoutUserAsync();
                         window.location.href = "/login";
                     }, timeUntilExpiry);
                 }
@@ -106,8 +104,8 @@ export class home extends Component {
 
         }
 
-        this.props.getTeams();
-        this.props.getUsers();
+        this.props.getTeamsAsync();
+        this.props.getUsersAsync();
     };
 
     countdownAndRefresh = () => {
@@ -115,7 +113,7 @@ export class home extends Component {
         const currentTimeUntilExpiry = currentDecodedToken.exp * 1000 - Date.now();
         console.log(currentTimeUntilExpiry);
         setTimeout(() => {
-            this.props.refreshToken();
+            this.props.refreshTokenAsync(localStorage.refreshToken);
             setTimeout(() => {
                 this.countdownAndRefresh();
             }, 4000)
@@ -217,14 +215,19 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    getUsers,
-    getTeams,
-    refreshToken
+    getUsersAsync,
+    getTeamsAsync,
+    refreshTokenAsync,
+    logoutUserAsync,
+    setAuthenticated
 };
 
 home.propTypes = {
-    getTeams: PropTypes.func.isRequired,
-    getUsers: PropTypes.func.isRequired,
+    getTeamsAsync: PropTypes.func.isRequired,
+    getUsersAsync: PropTypes.func.isRequired,
+    refreshTokenAsync: PropTypes.func.isRequired,
+    logoutUserAsync: PropTypes.func.isRequired,
+    setAuthenticated: PropTypes.func.isRequired,
     loadingTeam: PropTypes.bool.isRequired,
     loadingTeamsData: PropTypes.bool.isRequired,
     loadingUsersData: PropTypes.bool.isRequired,

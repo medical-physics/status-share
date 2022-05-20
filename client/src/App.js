@@ -10,8 +10,7 @@ import LoginRoute from "./util/LoginRoute";
 
 // Redux
 import { Provider } from "react-redux";
-import store from "./redux/store";
-// import { SET_AUTHENTICATED } from "./redux/types";
+import { store } from "./redux/store/store";
 
 // Pages
 import home from "./pages/home";

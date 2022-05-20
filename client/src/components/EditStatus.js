@@ -21,7 +21,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { getUser, updateStatus } from "../redux/actions/usersActions";
+import { getUserAsync, updateStatusAsync } from "../redux/slices/usersSlice";
 
 const styles = {
     spinnerDiv: {
@@ -73,7 +73,7 @@ export class EditStatus extends Component {
 
     handleOpen = () => {
         this.setState({ open: true });
-        this.props.getUser(this.props.userId);
+        this.props.getUserAsync(this.props.userId);
         this.mapUserDetailsToState(this.props.user);
     };
 
@@ -93,7 +93,7 @@ export class EditStatus extends Component {
             statusTime: new Date().toString(),
             userId: this.state.userId
         };
-        this.props.updateStatus(this.props.userId, statusData);
+        this.props.updateStatusAsync({ userId: this.props.userId, statusData });
         this.handleClose();
     };
 
@@ -104,7 +104,7 @@ export class EditStatus extends Component {
             statusTime: new Date().toString(),
             userId: this.state.userId
         };
-        this.props.updateStatus(this.props.userId, statusData);
+        this.props.updateStatusAsync({ userId: this.props.userId, statusData });
         this.handleClose();
     };
 
@@ -179,13 +179,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    getUser,
-    updateStatus
+    getUserAsync,
+    updateStatusAsync
 };
 
 EditStatus.propTypes = {
-    getUser: PropTypes.func.isRequired,
-    updateStatus: PropTypes.func.isRequired,
+    getUserAsync: PropTypes.func.isRequired,
+    updateStatusAsync: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired,
     users: PropTypes.array.isRequired

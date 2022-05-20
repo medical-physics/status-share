@@ -20,7 +20,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { getMailbox } from "../redux/actions/mailboxActions";
+import { getMailboxAsync } from "../redux/slices/mailboxSlice";
 
 const styles = {
     spinnerDiv: {
@@ -49,7 +49,7 @@ export class InboxDialog extends Component {
 
     handleOpen = () => {
         this.setState({ open: true });
-        this.props.getMailbox(this.props.userId);
+        this.props.getMailboxAsync(this.props.userId);
     };
 
     handleClose = () => {
@@ -100,11 +100,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    getMailbox
+    getMailboxAsync
 };
 
 InboxDialog.propTypes = {
-    getMailbox: PropTypes.func.isRequired,
+    getMailboxAsync: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
     mailbox: PropTypes.array.isRequired,
     loadingMailbox: PropTypes.bool.isRequired,

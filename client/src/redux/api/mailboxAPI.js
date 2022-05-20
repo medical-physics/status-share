@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getMailbox = async () => {
-    const data = await axios.get("/mailbox");
+export const getMailbox = async (userId) => {
+    const data = await axios.get(`/mailbox/${userId}`);
     return data.json();
 };
 

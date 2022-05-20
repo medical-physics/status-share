@@ -26,7 +26,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { markMessageRead, deleteMessage, getMessage } from "../redux/actions/mailboxActions";
+import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from "../redux/slices/mailboxSlice";
 
 const styles = {
     spinnerDiv: {
@@ -66,10 +66,10 @@ export class MessageDialog extends Component {
         const { messageId, userId, readStatus } = this.props;
 
         this.setState({ open: true });
-        this.props.getMessage(messageId);
+        this.props.getMessageAsync(messageId);
 
         if (!readStatus) {
-            this.props.markMessageRead(messageId, userId);
+            this.props.markMessageReadAsync({ messageId, userId });
         }
     };
 
@@ -80,7 +80,7 @@ export class MessageDialog extends Component {
     handleDelete = () => {
         const { messageId, userId } = this.props;
 
-        this.props.deleteMessage(messageId, userId);
+        this.props.deleteMessageAsync({ messageId, userId });
         this.handleClose();
     };
 
@@ -180,15 +180,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    markMessageRead,
-    deleteMessage,
-    getMessage
+    markMessageReadAsync,
+    deleteMessageAsync,
+    getMessageAsync
 };
 
 MessageDialog.propTypes = {
-    markMessageRead: PropTypes.func.isRequired,
-    deleteMessage: PropTypes.func.isRequired,
-    getMessage: PropTypes.func.isRequired,
+    markMessageReadAsync: PropTypes.func.isRequired,
+    deleteMessageAsync: PropTypes.func.isRequired,
+    getMessageAsync: PropTypes.func.isRequired,
     message: PropTypes.object.isRequired,
     messageId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,

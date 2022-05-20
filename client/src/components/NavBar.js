@@ -22,7 +22,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { logoutUser, getAppName, truncateAppName, detruncateAppName } from "../redux/actions/accountActions";
+import { logoutUserAsync, getAppNameAsync, truncateAppName, detruncateAppName } from "../redux/slices/accountSlice";
 
 export class NavBar extends Component {
 
@@ -32,7 +32,7 @@ export class NavBar extends Component {
     };
 
     componentDidMount() {
-        this.props.getAppName();
+        this.props.getAppNameAsync();
         this.updateTitle();
         window.addEventListener("resize", this.updateTitle);
     };
@@ -51,7 +51,7 @@ export class NavBar extends Component {
 
     handleLogout = () => {
         localStorage.removeItem("admin");
-        this.props.logoutUser();
+        this.props.logoutUserAsync();
     };
 
     render() {
@@ -105,8 +105,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    logoutUser,
-    getAppName,
+    logoutUserAsync,
+    getAppNameAsync,
     truncateAppName,
     detruncateAppName
 };
@@ -116,8 +116,8 @@ NavBar.propTypes = {
     appName: PropTypes.string.isRequired,
     authenticated: PropTypes.bool.isRequired,
     detruncateAppName: PropTypes.func.isRequired,
-    getAppName: PropTypes.func.isRequired,
-    logoutUser: PropTypes.func.isRequired,
+    getAppNameAsync: PropTypes.func.isRequired,
+    logoutUserAsync: PropTypes.func.isRequired,
     truncateAppName: PropTypes.func.isRequired,
     truncatedAppName: PropTypes.bool.isRequired
 };

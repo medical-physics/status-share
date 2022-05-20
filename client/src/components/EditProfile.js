@@ -20,7 +20,7 @@ import {
 
 // Redux stuff
 import { connect } from "react-redux";
-import { editProfile } from "../redux/actions/usersActions";
+import { editProfileAsync } from "../redux/slices/usersSlice";
 
 const styles = {
     closeButton: {
@@ -98,7 +98,7 @@ export class EditProfile extends Component {
             userId: this.state.userId,
             priority: parseInt(this.state.priority)
         };
-        this.props.editProfile(this.props.user.userId, profileData);
+        this.props.editProfileAsync(profileData);
         this.handleClose();
     };
 
@@ -200,11 +200,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    editProfile
+    editProfileAsync
 };
 
 EditProfile.propTypes = {
-    editProfile: PropTypes.func.isRequired,
+    editProfileAsync: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired
 };
 
