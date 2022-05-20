@@ -17,3 +17,13 @@ export const deleteOneMessage = async (messageId, userId) => {
     const data = await axios.delete(`/mailbox/${userId}/${messageId}`);
     return data.json();
 };
+
+export const addOneMessage = async (newMessageData, userId) => {
+    const data = await axios.post(`/mailbox/${userId}`, newMessageData);
+    return data.json();
+};
+
+export const editOneMessage = async (messageData, messageId, userId) => {
+    const data = await axios.post(`/mailbox/update/${userId}/${messageId}`, messageData);
+    return data.json();
+};
