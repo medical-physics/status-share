@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-    getUsers
+    getUsers,
+    postStatusUpdate
 } from "../api/usersAPI";
 import {
     loadingUI,
@@ -44,6 +45,16 @@ export const getUsersAsync = createAsyncThunk(
         }
 
         return users;
+    }
+);
+
+export const updateStatusAsync = createAsyncThunk(
+    "users/updateStatus",
+    async (userId, statusData, { dispatch }) => {
+        dispatch(updateStatus(statusData));
+
+        const response = await postStatusUpdate(userId, statusData);
+
     }
 );
 
