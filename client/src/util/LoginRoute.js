@@ -7,7 +7,7 @@ const LoginRoute = ({ component: Component, authenticated, ...rest }) => (
     <Route
         {...rest}
         render={(props) =>
-            authenticated === true ? <Navigate to="/" /> : <Component {...props} />
+            <Component {...props} />
         }
     />
 );

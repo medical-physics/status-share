@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -13,8 +13,8 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store/store";
 
 // Pages
-import home from "./pages/home";
-import login from "./pages/login";
+import Home from "./pages/home";
+import Login from "./pages/login";
 
 const theme = createTheme({
     palette: {
@@ -45,8 +45,8 @@ function App() {
                 <Router>
                     <div className="container">
                         <Routes>
-                            <HomeRoute exact path="/" component={home} />
-                            <LoginRoute exact path="/login" component={login} />
+                            <Route exact path="/" element={<Home />} />
+                            <Route exact path="/login" element={<Login />} />
                         </Routes>
                     </div>
                 </Router>

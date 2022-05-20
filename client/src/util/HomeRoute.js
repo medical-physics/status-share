@@ -7,7 +7,7 @@ const HomeRoute = ({ component: Component, authenticated, ...rest }) => (
     <Route
         {...rest}
         render={(props) =>
-            authenticated === false && localStorage.rememberMe !== 1 ? <Navigate to="/login" /> : <Component {...props} />
+            <Component {...props} />
         }
     />
 );

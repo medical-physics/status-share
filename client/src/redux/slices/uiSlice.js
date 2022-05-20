@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const uiSlice = createSlice({
-    name: "ui",
+    name: "UI",
     initialState,
     reducers: {
         setErrors: (state, action) => {

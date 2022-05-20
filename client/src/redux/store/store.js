@@ -9,7 +9,7 @@ export const store = configureStore({
     reducer: {
         account: accountReducer,
         users: usersReducer,
-        ui: uiReducer,
+        UI: uiReducer,
         teams: teamsReducer,
         mailbox: mailboxReducer
     }
