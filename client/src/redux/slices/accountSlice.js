@@ -12,7 +12,7 @@ const initialState = {
     authenticated: false,
     admin: false,
     rememberMe: false,
-    appName: "",
+    appName: "Medical Physics: Status Share",
     truncatedAppName: false,
     updateTime: new Date()
 };
@@ -84,6 +84,12 @@ export const accountSlice = createSlice({
         setAppName: (state, action) => {
             state.appName = action.payload.appName;
         },
+        setDefaultName: (state) => {
+            state.appName = "Medical Physics: Status Share"
+        },
+        setUpdateTime: (state) => {
+            state.updateTime = new Date();
+        },
         truncateAppName: (state) => {
             state.truncatedAppName = true;
         },
@@ -112,6 +118,8 @@ export const {
     setAdminAccount,
     setRememberMe,
     setAppName,
+    setDefaultName,
+    setUpdateTime,
     truncateAppName,
     detruncateAppName,
     setAuthorizationHeader
