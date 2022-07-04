@@ -13,7 +13,13 @@ app.use(require("./routes/record"));
 
 const server = http.createServer(app);
 
-server.listen(port, () => {
-	mongoose.connect(process.env.ATLAS_URI);
+server.listen(port, async () => {
+	try {
+		await mongoose.connect(process.env.ATLAS_URI);
+		console.log("Successfully connected to MongoDB");
+	} catch (err) {
+		console.log(`Error while connecting to MongoDB: ${err}`);
+	}
+
 	console.log(`Server running on port: ${port}`);
 });
