@@ -1,4 +1,5 @@
-const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
@@ -11,7 +12,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(require('./routes/record'));
 
-const server = http.createServer(app);
+const options = {
+  key: fs.readFileSync(__dirname + '/../localhost-key.pem'),
+  cert: fs.readFileSync(__dirname + '/../localhost.pem')
+};
+
+const server = https.createServer(options, app);
 
 server.listen(port, async () => {
   try {
