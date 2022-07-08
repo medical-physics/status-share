@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import dayjs from 'dayjs'
+import React from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 // MUI components
 import {
@@ -14,7 +14,7 @@ import {
   IconButton,
   Typography,
   Box
-} from '@mui/material'
+} from '@mui/material';
 import {
   DraftsOutlined as DraftsOutlinedIcon,
   Close as CloseIcon,
@@ -22,11 +22,11 @@ import {
   Mail as MailIcon,
   AccountBox as AccountBoxIcon,
   AlternateEmail as AlternateEmailIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from '../redux/slices/mailboxSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
   spinnerDiv: {
@@ -55,147 +55,124 @@ const styles = {
   buttonIcon: {
     margin: 'auto 5px auto auto'
   }
-}
+};
 
-export class MessageDialog extends Component {
-  state = {
-    open: false
-  }
+export default function MessageDialog (props) {
+  const [open, setOpen] = React.useState(false);
 
-  handleOpen = () => {
-    const { messageId, userId, readStatus } = this.props
+  const { messageId, userId, readStatus } = props;
 
-    this.setState({ open: true })
-    this.props.getMessageAsync(messageId)
+  const dispatch = useDispatch();
+  const message = useSelector((state) => state.mailbox.message);
+  const loading = useSelector((state) => state.UI.loading);
+
+  const handleOpen = () => {
+    setOpen(true);
+    dispatch(getMessageAsync(messageId));
 
     if (!readStatus) {
-      this.props.markMessageReadAsync({ messageId, userId })
+      dispatch(markMessageReadAsync({ messageId, userId }));
     }
-  }
+  };
 
-  handleClose = () => {
-    this.setState({ open: false })
-  }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  handleDelete = () => {
-    const { messageId, userId } = this.props
+  const handleDelete = () => {
+    dispatch(deleteMessageAsync({ messageId, userId }));
+    handleClose();
+  };
 
-    this.props.deleteMessageAsync({ messageId, userId })
-    this.handleClose()
-  }
-
-  renderButton = () => {
-    const { readStatus } = this.props
-
+  const renderButton = () => {
     if (readStatus) {
       return (
-        <IconButton onClick={this.handleOpen} style={{ color: '#388e3c' }} size='small'>
+        <IconButton onClick={handleOpen} style={{ color: '#388e3c' }} size='small'>
           <DraftsOutlinedIcon />
         </IconButton>
-      )
+      );
     } else {
       return (
-        <IconButton onClick={this.handleOpen} style={{ color: '#388e3c' }} size='small'>
+        <IconButton onClick={handleOpen} style={{ color: '#388e3c' }} size='small'>
           <MailIcon />
         </IconButton>
-      )
+      );
     }
-  }
-
-  render () {
-    const { message, UI: { loading } } = this.props
-
-    const dialogMarkup = loading
-      ? (
-        <div>
-          <DialogTitle>Loading...</DialogTitle>
-          <DialogContent sx={styles.dialogContent}>
-            <div sx={styles.spinnerDiv}>
-              <CircularProgress size={80} thickness={2} />
-            </div>
-          </DialogContent>
-        </div>
-        )
-      : (
-        <div>
-          <DialogTitle>{message.subject}</DialogTitle>
-          <DialogContent sx={styles.dialogContent}>
-            <Grid container>
-              <Grid item>
-                <AccountBoxIcon style={{ color: '#388e3c' }} sx={styles.icon} />
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.text1} noWrap>{message.senderName}</Typography>
-              </Grid>
-              <Grid item>
-                <AlternateEmailIcon style={{ color: '#388e3c' }} sx={styles.icon} />
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.text1} noWrap>{message.senderContact}</Typography>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography sx={styles.text1}>
-                  <Box fontWeight='fontWeightBold' m={1}>Sent at: </Box>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.text1}>{dayjs(message.timestamp).format('h:mm a, MMMM DD YYYY')}</Typography>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography sx={styles.text2}>
-                  <Box fontWeight='fontWeightBold' m={1}>Message: </Box>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.text2}>{message.message}</Typography>
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleDelete} style={{ color: '#ef5350' }} variant='outlined'>
-              <DeleteIcon sx={styles.buttonIcon} />delete
-            </Button>
-          </DialogActions>
-        </div>
-        )
-
-    return (
-      <>
-        {this.renderButton()}
-        <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='sm'>
-          <IconButton onClick={this.handleClose} sx={styles.closeButton} size='small'>
-            <CloseIcon />
-          </IconButton>
-          {dialogMarkup}
-        </Dialog>
-      </>
-    )
   };
-}
 
-const mapStateToProps = (state) => ({
-  message: state.mailbox.message,
-  UI: state.UI
-})
+  const dialogMarkup = loading
+    ? (
+      <div>
+        <DialogTitle>Loading...</DialogTitle>
+        <DialogContent sx={styles.dialogContent}>
+          <div sx={styles.spinnerDiv}>
+            <CircularProgress size={80} thickness={2} />
+          </div>
+        </DialogContent>
+      </div>
+      )
+    : (
+      <div>
+        <DialogTitle>{message.subject}</DialogTitle>
+        <DialogContent sx={styles.dialogContent}>
+          <Grid container>
+            <Grid item>
+              <AccountBoxIcon style={{ color: '#388e3c' }} sx={styles.icon} />
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.text1} noWrap>{message.senderName}</Typography>
+            </Grid>
+            <Grid item>
+              <AlternateEmailIcon style={{ color: '#388e3c' }} sx={styles.icon} />
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.text1} noWrap>{message.senderContact}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Typography sx={styles.text1}>
+                <Box fontWeight='fontWeightBold' m={1}>Sent at: </Box>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.text1}>{dayjs(message.timestamp).format('h:mm a, MMMM DD YYYY')}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Typography sx={styles.text2}>
+                <Box fontWeight='fontWeightBold' m={1}>Message: </Box>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.text2}>{message.message}</Typography>
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDelete} style={{ color: '#ef5350' }} variant='outlined'>
+            <DeleteIcon sx={styles.buttonIcon} />delete
+          </Button>
+        </DialogActions>
+      </div>
+      );
 
-const mapActionsToProps = {
-  markMessageReadAsync,
-  deleteMessageAsync,
-  getMessageAsync
+  return (
+    <>
+      {renderButton()}
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
+          <CloseIcon />
+        </IconButton>
+        {dialogMarkup}
+      </Dialog>
+    </>
+  );
 }
 
 MessageDialog.propTypes = {
-  markMessageReadAsync: PropTypes.func.isRequired,
-  deleteMessageAsync: PropTypes.func.isRequired,
-  getMessageAsync: PropTypes.func.isRequired,
-  message: PropTypes.object.isRequired,
   messageId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   readStatus: PropTypes.bool.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(MessageDialog)
+};
