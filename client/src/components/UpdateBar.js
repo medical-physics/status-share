@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
 
 // MUI components
 import {
@@ -11,7 +10,7 @@ import {
 } from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const styles = {
   appBar: {
@@ -20,31 +19,20 @@ const styles = {
   }
 };
 
-export class UpdateBar extends Component {
-  render () {
-    const { updateTime } = this.props;
-    return (
-      <AppBar sx={styles.appBar} color='inherit'>
-        <Toolbar variant='dense'>
-          <Grid justify='flex-start' alignItems='center' container>
-            <Grid item>
-              <Typography variant='overline'>
-                Last updated at: {dayjs(updateTime).format('h:mm:ss a, MMMM DD')}
-              </Typography>
-            </Grid>
+export default function UpdateBar() {
+  const updateTime = useSelector((state) => state.account.updateTime);
+
+  return (
+    <AppBar sx={styles.appBar} color='inherit'>
+      <Toolbar variant='dense'>
+        <Grid justify='flex-start' alignItems='center' container>
+          <Grid item>
+            <Typography variant='overline'>
+              Last updated at: {dayjs(updateTime).format('h:mm:ss a, MMMM DD')}
+            </Typography>
           </Grid>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  updateTime: state.account.updateTime
-});
-
-UpdateBar.propTypes = {
-  updateTime: PropTypes.instanceOf(Date)
-};
-
-export default connect(mapStateToProps)(UpdateBar);
