@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // MUI components
 import {
@@ -54,67 +54,63 @@ const styles = {
   }
 };
 
-export class LoadingTable extends Component {
-  render () {
-    return (
-      <div>
-        <Paper elevation={3}>
-          <Toolbar>
-            <Typography>
-              <Box fontWeight='fontWeightBold' m={1}>
-                Loading Team
-              </Box>
-            </Typography>
-          </Toolbar>
-          <TableContainer>
-            <Table size='small'>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Present</TableCell>
-                  <TableCell>Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell sx={styles.tableCell}>
-                    <Grid container alignItems='center' spacing={1}>
-                      <Grid item>
+export default function LoadingTable () {
+  return (
+    <div>
+      <Paper elevation={3}>
+        <Toolbar>
+          <Typography>
+            <Box fontWeight='fontWeightBold' m={1}>
+              Loading Team
+            </Box>
+          </Typography>
+        </Toolbar>
+        <TableContainer>
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Present</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell sx={styles.tableCell}>
+                  <Grid container alignItems='center' spacing={1}>
+                    <Grid item>
                         <IconButton size='small'>
                           <AccountCircleIcon />
                         </IconButton>
                       </Grid>
-                      <Grid item sx={styles.box}>
+                    <Grid item sx={styles.box}>
                         Loading...
                       </Grid>
-                    </Grid>
-                  </TableCell>
-                  <TableCell align='center'>
-                    <IconButton size='small'>
-                      <RadioButtonUncheckedIcon color='secondary' />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell sx={styles.statusCell}>
-                    <Grid container alignItems='center' justify='space-between' spacing={1}>
-                      <Grid item sx={styles.status}>
+                  </Grid>
+                </TableCell>
+                <TableCell align='center'>
+                  <IconButton size='small'>
+                    <RadioButtonUncheckedIcon color='secondary' />
+                  </IconButton>
+                </TableCell>
+                <TableCell sx={styles.statusCell}>
+                  <Grid container alignItems='center' justify='space-between' spacing={1}>
+                    <Grid item sx={styles.status}>
                         Loading...
                       </Grid>
-                      <Grid item>
+                    <Grid item>
                         {!parseInt(localStorage.viewOnly) && (
                           <IconButton size='small'>
                             <EditIcon />
                           </IconButton>)}
                       </Grid>
-                    </Grid>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
-      </div>
-    );
-  }
+                  </Grid>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </div>
+  );
 }
-
-export default LoadingTable;
