@@ -2,11 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
-const LoginRoute = () => {
+const PrivateRoute = () => {
   const authenticated = useSelector((state) => state.account.authenticated);
 
-  return (authenticated === true) ?
-    <Navigate to="/" /> : <Outlet />;
+  return (authenticated === false && localStorage.rememberMe !== 1) ?
+    <Navigate to="/login" /> : <Outlet />;
 };
 
-export default LoginRoute;
+export default PrivateRoute;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Components
-import HomeRoute from './util/HomeRoute';
+import PrivateRoute from './util/PrivateRoute';
 import LoginRoute from './util/LoginRoute';
 
 // Redux
@@ -45,8 +45,12 @@ function App () {
         <Router>
           <div className='container'>
             <Routes>
-              <Route exact path='/' element={<Home />} />
-              <Route exact path='/login' element={<Login />} />
+              <Route exact path='/' element={<PrivateRoute/>} >
+                <Route exact path='/' element={<Home/>} />
+              </Route>
+              <Route exact path='/login' element={<LoginRoute/>} >
+                <Route exact path='/login' element={<Login/>} />
+              </Route>
             </Routes>
           </div>
         </Router>
