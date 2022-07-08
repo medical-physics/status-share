@@ -59,7 +59,7 @@ const styles = {
   }
 };
 
-export default function TeamTable(props) {
+export default function TeamTable (props) {
   const rows = [];
   const { teamsFields } = props;
 

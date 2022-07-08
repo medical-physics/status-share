@@ -79,13 +79,13 @@ export default function LoadingTable () {
                 <TableCell sx={styles.tableCell}>
                   <Grid container alignItems='center' spacing={1}>
                     <Grid item>
-                        <IconButton size='small'>
-                          <AccountCircleIcon />
-                        </IconButton>
-                      </Grid>
+                      <IconButton size='small'>
+                        <AccountCircleIcon />
+                      </IconButton>
+                    </Grid>
                     <Grid item sx={styles.box}>
-                        Loading...
-                      </Grid>
+                      Loading...
+                    </Grid>
                   </Grid>
                 </TableCell>
                 <TableCell align='center'>
@@ -96,14 +96,14 @@ export default function LoadingTable () {
                 <TableCell sx={styles.statusCell}>
                   <Grid container alignItems='center' justify='space-between' spacing={1}>
                     <Grid item sx={styles.status}>
-                        Loading...
-                      </Grid>
+                      Loading...
+                    </Grid>
                     <Grid item>
-                        {!parseInt(localStorage.viewOnly) && (
-                          <IconButton size='small'>
-                            <EditIcon />
-                          </IconButton>)}
-                      </Grid>
+                      {!parseInt(localStorage.viewOnly) && (
+                        <IconButton size='small'>
+                          <EditIcon />
+                        </IconButton>)}
+                    </Grid>
                   </Grid>
                 </TableCell>
               </TableRow>

@@ -19,7 +19,7 @@ const styles = {
   }
 };
 
-export default function UpdateBar() {
+export default function UpdateBar () {
   const updateTime = useSelector((state) => state.account.updateTime);
 
   return (

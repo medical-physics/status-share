@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // MUI components
 import {
@@ -11,17 +11,17 @@ import {
   IconButton,
   TextField,
   InputAdornment
-} from '@mui/material'
+} from '@mui/material';
 import {
   Close as CloseIcon,
   Send as SendIcon,
   AccountBox as AccountBoxIcon,
   AlternateEmail as AlternateEmailIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { addMessageAsync } from '../redux/slices/mailboxSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { addMessageAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
   closeButton: {
@@ -39,152 +39,146 @@ const styles = {
   buttonIcon: {
     margin: 'auto 5px auto auto'
   }
-}
+};
 
-export class SendMessageDialog extends Component {
-  state = {
-    open: false,
+export default function SendMessageDialog (props) {
+  const [open, setOpen] = React.useState(false);
+  const [formValue, setFormValue] = React.useState({
     senderName: '',
     senderContact: '',
     subject: '',
     message: ''
-  }
+  });
 
-  handleOpen = () => {
-    this.setState({ open: true })
-  }
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.users.user);
 
-  handleClose = () => {
-    this.setState({ open: false })
-    this.setState({
-      open: false,
+  const { senderName, senderContact, subject, message } = formValue;
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setFormValue({
       senderName: '',
       senderContact: '',
       subject: '',
       message: ''
-    })
-    this.props.onClose()
-  }
+    });
+    props.onClose();
+  };
 
-  handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (event) => {
     const newMessageData = {
-      senderName: this.state.senderName.trim(),
-      senderContact: this.state.senderContact.trim(),
-      subject: this.state.subject.trim(),
-      message: this.state.message.trim()
-    }
-    this.props.addMessageAsync({ newMessageData, userId: this.props.userId })
-    this.handleClose()
-  }
+      senderName: senderName.trim(),
+      senderContact: senderContact.trim(),
+      subject: subject.trim(),
+      message: message.trim()
+    };
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
+    dispatch(addMessageAsync({
+      newMessageData,
+      userId: props.userId
+    }));
+    handleClose();
+  };
 
-  render () {
-    const { user } = this.props
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        [name]: value
+      };
+    });
+  };
 
-    return (
-      <>
-        <Button onClick={this.handleOpen} style={{ color: '#388e3c' }} variant='outlined'>
-          <SendIcon sx={styles.buttonIcon} /> message
-        </Button>
-        <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='sm'>
-          <IconButton onClick={this.handleClose} sx={styles.closeButton} size='small'>
-            <CloseIcon />
-          </IconButton>
-          <DialogTitle>
-            Send message to {user.name}
-          </DialogTitle>
-          <form>
-            <DialogContent sx={styles.dialogContent}>
-              <TextField
-                id='senderName'
-                name='senderName'
-                type='senderName'
-                label='Sender Name'
-                value={this.state.senderName}
-                onChange={this.handleChange}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                          <AccountBoxIcon style={{ color: '#388e3c' }} />
-                        </InputAdornment>
-                  )
-                }}
-              />
-              <TextField
-                id='senderContact'
-                name='senderContact'
-                type='senderContact'
-                label='Sender Contact'
-                value={this.state.senderContact}
-                onChange={this.handleChange}
-                fullWidth
-                style={{ marginTop: '12px' }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                          <AlternateEmailIcon style={{ color: '#388e3c' }} />
-                        </InputAdornment>
-                  )
-                }}
-              />
-              <TextField
-                id='subject'
-                name='subject'
-                type='subject'
-                label='Subject'
-                value={this.state.subject}
-                onChange={this.handleChange}
-                fullWidth
-                style={{ marginTop: '40px' }}
-                variant='outlined'
-              />
-              <TextField
-                id='message'
-                name='message'
-                type='message'
-                label='Message'
-                variant='filled'
-                multiline
-                rows='4'
-                value={this.state.message}
-                onChange={this.handleChange}
-                fullWidth
-                style={{ marginTop: '9px' }}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleSubmit} variant='outlined' style={{ color: '#388e3c' }} type='submit'>
-                <SendIcon sx={styles.icon} />send
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
-      </>
-    )
-  }
-}
-
-const mapStateToProps = (state) => ({
-  user: state.users.user,
-  UI: state.UI
-})
-
-const mapActionsToProps = {
-  addMessageAsync
+  return (
+    <>
+      <Button onClick={handleOpen} style={{ color: '#388e3c' }} variant='outlined'>
+        <SendIcon sx={styles.buttonIcon} /> message
+      </Button>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
+          <CloseIcon />
+        </IconButton>
+        <DialogTitle>
+          Send message to {user.name}
+        </DialogTitle>
+        <form>
+          <DialogContent sx={styles.dialogContent}>
+            <TextField
+              id='senderName'
+              name='senderName'
+              type='senderName'
+              label='Sender Name'
+              value={senderName}
+              onChange={handleChange}
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <AccountBoxIcon style={{ color: '#388e3c' }} />
+                  </InputAdornment>
+                )
+              }}
+            />
+            <TextField
+              id='senderContact'
+              name='senderContact'
+              type='senderContact'
+              label='Sender Contact'
+              value={senderContact}
+              onChange={handleChange}
+              fullWidth
+              style={{ marginTop: '12px' }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <AlternateEmailIcon style={{ color: '#388e3c' }} />
+                  </InputAdornment>
+                )
+              }}
+            />
+            <TextField
+              id='subject'
+              name='subject'
+              type='subject'
+              label='Subject'
+              value={subject}
+              onChange={handleChange}
+              fullWidth
+              style={{ marginTop: '40px' }}
+              variant='outlined'
+            />
+            <TextField
+              id='message'
+              name='message'
+              type='message'
+              label='Message'
+              variant='filled'
+              multiline
+              rows='4'
+              value={message}
+              onChange={handleChange}
+              fullWidth
+              style={{ marginTop: '9px' }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleSubmit} variant='outlined' style={{ color: '#388e3c' }} type='submit'>
+              <SendIcon sx={styles.icon} />send
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </>
+  );
 }
 
 SendMessageDialog.propTypes = {
-  addMessageAsync: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   userId: PropTypes.string.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(SendMessageDialog)
+};
