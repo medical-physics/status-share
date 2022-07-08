@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // MUI components
@@ -11,64 +11,43 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { markPresentAsync, markNotPresentAsync } from '../redux/slices/usersSlice';
 
-/* const styles = {
-    checkbox: {
-        width: 10,
-        height: 10
+export default function PresenceButton (props) {
+  const { user: { userId, present } } = props;
+
+  const dispatch = useDispatch();
+
+  const uncheckButton = () => {
+    if (!parseInt(localStorage.viewOnly)) {
+      dispatch(markNotPresentAsync(userId));
     }
-}; */
+  };
 
-export class PresenceButton extends Component {
-  render () {
-    const { user: { userId, present } } = this.props;
+  const checkButton = () => {
+    if (!parseInt(localStorage.viewOnly)) {
+      dispatch(markPresentAsync(userId));
+    }
+  };
 
-    const uncheckButton = () => {
-      if (!parseInt(localStorage.viewOnly)) {
-        this.props.markNotPresentAsync(userId);
-      }
-    };
+  const presenceButton = present
+    ? (
+      <IconButton size='small' onClick={uncheckButton}>
+        <CheckCircleIcon color='secondary' />
+      </IconButton>
+      )
+    : (
+      <IconButton size='small' onClick={checkButton}>
+        <RadioButtonUncheckedIcon color='secondary' />
+      </IconButton>
+      );
 
-    const checkButton = () => {
-      if (!parseInt(localStorage.viewOnly)) {
-        this.props.markPresentAsync(userId);
-      }
-    };
-
-    const presenceButton = present
-      ? (
-        <IconButton size='small' onClick={uncheckButton}>
-          <CheckCircleIcon color='secondary' />
-        </IconButton>
-        )
-      : (
-        <IconButton size='small' onClick={checkButton}>
-          <RadioButtonUncheckedIcon color='secondary' />
-        </IconButton>
-        );
-
-    return (
-      presenceButton
-    );
-  }
+  return (
+    presenceButton
+  );
 }
 
-const mapStateToProps = (state) => ({
-  users: state.users.users
-});
-
-const mapActionsToProps = {
-  markNotPresentAsync,
-  markPresentAsync
-};
-
 PresenceButton.propTypes = {
-  markNotPresentAsync: PropTypes.func.isRequired,
-  markPresentAsync: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired
+  user: PropTypes.object.isRequired
 };
-
-export default connect(mapStateToProps, mapActionsToProps)(PresenceButton);
