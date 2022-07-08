@@ -1,94 +1,94 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loadingTeam, stopLoadingTeam } from "./uiSlice";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { loadingTeam, stopLoadingTeam } from './uiSlice'
 import {
-    getTeams,
-    addTeam,
-    deleteTeam
-} from "../api/teamsAPI";
+  getTeams,
+  addTeam,
+  deleteTeam
+} from '../api/teamsAPI'
 
 const initialState = {
-    loadingTeamsData: false,
-    teams: []
-};
+  loadingTeamsData: false,
+  teams: []
+}
 
 export const getTeamsAsync = createAsyncThunk(
-    "teams/getTeams",
-    async (_, { dispatch }) => {
-        dispatch(loadingTeamsData());
-        const response = await getTeams();
-        dispatch(setTeams(response.teams));
-    }
-);
+  'teams/getTeams',
+  async (_, { dispatch }) => {
+    dispatch(loadingTeamsData())
+    const response = await getTeams()
+    dispatch(setTeams(response.teams))
+  }
+)
 
 export const addTeamAsync = createAsyncThunk(
-    "teams/addTeam",
-    async (newTeam, { dispatch }) => {
-        try {
-            dispatch(loadingTeam());
-            const response = await addTeam(newTeam);
-            dispatch(stopLoadingTeam());
-            return response;
-        } catch (err) {
-            console.error(err);
-        }
+  'teams/addTeam',
+  async (newTeam, { dispatch }) => {
+    try {
+      dispatch(loadingTeam())
+      const response = await addTeam(newTeam)
+      dispatch(stopLoadingTeam())
+      return response
+    } catch (err) {
+      console.error(err)
     }
-);
+  }
+)
 
 export const updateTeamAsync = createAsyncThunk(
-    "teams/updateTeam",
-    async (teamObj, { dispatch }) => {
-        try {
-            dispatch(loadingTeam());
-            const response = await addTeam(teamObj.teamId, teamObj.teamData);
-            dispatch(stopLoadingTeam());
-            return response;
-        } catch (err) {
-            console.error(err);
-        }
+  'teams/updateTeam',
+  async (teamObj, { dispatch }) => {
+    try {
+      dispatch(loadingTeam())
+      const response = await addTeam(teamObj.teamId, teamObj.teamData)
+      dispatch(stopLoadingTeam())
+      return response
+    } catch (err) {
+      console.error(err)
     }
-);
+  }
+)
 
 export const deleteTeamAsync = createAsyncThunk(
-    "teams/deleteTeam",
-    async (teamId, { dispatch }) => {
-        try {
-            const response = await deleteTeam(teamId);
-            return response;
-        } catch (err) {
-            console.error(err);
-        }
+  'teams/deleteTeam',
+  async (teamId, { dispatch }) => {
+    try {
+      const response = await deleteTeam(teamId)
+      return response
+    } catch (err) {
+      console.error(err)
     }
-);
+  }
+)
 
 export const teamsSlice = createSlice({
-    name: "teams",
-    initialState,
-    reducers: {
-        loadingTeamsData: (state) => {
-            state.loadingTeamsData = true;
-        },
-        setTeams: (state, action) => {
-            state.teams = action.payload;
-            state.loadingTeamsData = false
-        },
-        updateTeam: (state, action) => {
-            let index1 = state.teams.findIndex(
-                (team) => team.teamId === action.payload.teamId
-            );
-            state.teams[index1].team = action.payload.team;
-            state.teams[index1].priority = action.payload.priority;
-            state.teams[index1].color = action.payload.color;
-            state.teams[index1].col1 = action.payload.col1;
-            state.teams[index1].col2 = action.payload.col2;
-            state.teams[index1].col3 = action.payload.col3;
-        }
+  name: 'teams',
+  initialState,
+  reducers: {
+    loadingTeamsData: (state) => {
+      state.loadingTeamsData = true
+    },
+    setTeams: (state, action) => {
+      state.teams = action.payload
+      state.loadingTeamsData = false
+    },
+    updateTeam: (state, action) => {
+      const index1 = state.teams.findIndex(
+        (team) => team.teamId === action.payload.teamId
+      )
+      state.teams[index1].team = action.payload.team
+      state.teams[index1].priority = action.payload.priority
+      state.teams[index1].color = action.payload.color
+      state.teams[index1].col1 = action.payload.col1
+      state.teams[index1].col2 = action.payload.col2
+      state.teams[index1].col3 = action.payload.col3
     }
-});
+  }
+})
 
 export const {
-    loadingTeamsData,
-    setTeams,
-    updateTeam
-} = teamsSlice.actions;
+  loadingTeamsData,
+  setTeams,
+  updateTeam
+} = teamsSlice.actions
 
-export default teamsSlice.reducer;
+export default teamsSlice.reducer
