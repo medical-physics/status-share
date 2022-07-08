@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import dayjs from 'dayjs'
+import React from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 // Components
-import ProfileButton from './ProfileButton'
-import EditProfile from './EditProfile'
-import SendMessageDialog from './SendMessageDialog'
-import InboxDialog from './InboxDialog'
+import ProfileButton from './ProfileButton';
+import EditProfile from './EditProfile';
+import SendMessageDialog from './SendMessageDialog';
+import InboxDialog from './InboxDialog';
 
 // MUI components
 import {
@@ -20,19 +20,18 @@ import {
   IconButton,
   Typography,
   Box
-} from '@mui/material'
+} from '@mui/material';
 import {
   Delete as DeleteIcon,
   Group as GroupIcon,
   Phone as PhoneIcon,
   Email as EmailIcon,
   Close as CloseIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { getUserAsync, deleteUserAsync } from '../redux/slices/usersSlice'
-import { clearErrors } from '../redux/slices/uiSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserAsync, deleteUserAsync } from '../redux/slices/usersSlice';
 
 const styles = {
   spinnerDiv: {
@@ -61,151 +60,133 @@ const styles = {
   buttonIcon: {
     margin: 'auto 5px auto auto'
   }
-}
-
-function capitalize (string) {
-  return string.charAt(0).toUpperCase() + string.slice(1)
 };
 
-export class ProfileDialog extends Component {
-  state = {
-    open: false
-  }
-
-  handleOpen = () => {
-    this.setState({ open: true })
-    this.props.getUserAsync(this.props.userId)
-  }
-
-  handleClose = () => {
-    this.setState({ open: false })
-  }
-
-  handleDelete = () => {
-    this.props.deleteUserAsync(this.props.userId)
-    this.handleClose()
-  }
-
-  render () {
-    const { user: { name, status, statusTime, phone, email, team, memo }, UI: { loading }, userId } = this.props
-
-    const dialogMarkup = loading
-      ? (
-        <div>
-          <DialogTitle>Loading...</DialogTitle>
-          <DialogContent sx={styles.dialogContent}>
-            <div sx={styles.spinnerDiv}>
-              <CircularProgress size={80} thickness={2} />
-            </div>
-          </DialogContent>
-        </div>
-        )
-      : (
-        <div>
-          <DialogTitle>{name}</DialogTitle>
-          <DialogContent sx={styles.dialogContent}>
-            <Grid container justify='flex-start'>
-              <Grid item>
-                <Grid container alignItems='center' justify='center'>
-                  <Grid item><PhoneIcon color='secondary' sx={styles.icon} /></Grid>
-                  <Grid item>
-                    <Typography>{phone}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid container alignItems='center' justify='center'>
-                  <Grid item><EmailIcon color='secondary' sx={styles.icon} /></Grid>
-                  <Grid item>
-                    <Typography>{email}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Grid container alignItems='center' justify='center'>
-                  <Grid item><GroupIcon color='secondary' sx={styles.icon} /></Grid>
-                  <Grid item>
-                    <Typography>{capitalize(String(team))}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography sx={styles.statusText}>
-                  <Box fontWeight='fontWeightBold' m={1}>Status: </Box>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.statusText} noWrap>{status}</Typography>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography sx={styles.text2}>
-                  <Box fontWeight='fontWeightBold' m={1}>Since: </Box>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.text2}>{dayjs(statusTime).format('h:mm a, MMMM DD YYYY')}</Typography>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography sx={styles.text2}>
-                  <Box fontWeight='fontWeightBold' m={1}>Memo: </Box>
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography sx={styles.text2}>{memo}</Typography>
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            {Boolean(parseInt(localStorage.admin)) && (
-              <Button onClick={this.handleDelete} style={{ color: '#ef5350' }} variant='outlined'>
-                <DeleteIcon sx={styles.buttonIcon} />delete
-              </Button>)}
-            {!parseInt(localStorage.viewOnly) && (<InboxDialog userId={userId} onClose={this.handleClose} />)}
-            <SendMessageDialog userId={userId} onClose={this.handleClose} />
-            {!parseInt(localStorage.viewOnly) && (<EditProfile />)}
-          </DialogActions>
-        </div>
-        )
-
-    return (
-      <>
-        <ProfileButton onClick={this.handleOpen} unreadMessages={this.props.unreadMessages} />
-        <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='sm'>
-          <IconButton onClick={this.handleClose} sx={styles.closeButton} size='small'>
-            <CloseIcon />
-          </IconButton>
-          {dialogMarkup}
-        </Dialog>
-      </>
-    )
-  };
+function capitalize (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const mapStateToProps = (state) => ({
-  user: state.users.user,
-  UI: state.UI
-})
+export default function ProfileDialog (props) {
+  const [open, setOpen] = React.useState(false);
 
-const mapActionsToProps = {
-  getUserAsync,
-  deleteUserAsync,
-  clearErrors
+  const { unreadMessages, userId } = props;
+
+  const dispatch = useDispatch();
+  const { user: { name, status, statusTime, phone, email, team, memo } } = useSelector((state) => state.users.user);
+  const loading = useSelector((state) => state.UI.loading);
+
+  const handleOpen = () => {
+    setOpen(true);
+    dispatch(getUserAsync(userId));
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteUserAsync(userId));
+    handleClose();
+  };
+
+  const dialogMarkup = loading
+    ? (
+      <div>
+        <DialogTitle>Loading...</DialogTitle>
+        <DialogContent sx={styles.dialogContent}>
+          <div sx={styles.spinnerDiv}>
+            <CircularProgress size={80} thickness={2} />
+          </div>
+        </DialogContent>
+      </div>
+      )
+    : (
+      <div>
+        <DialogTitle>{name}</DialogTitle>
+        <DialogContent sx={styles.dialogContent}>
+          <Grid container justify='flex-start'>
+            <Grid item>
+              <Grid container alignItems='center' justify='center'>
+                <Grid item><PhoneIcon color='secondary' sx={styles.icon} /></Grid>
+                <Grid item>
+                  <Typography>{phone}</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container alignItems='center' justify='center'>
+                <Grid item><EmailIcon color='secondary' sx={styles.icon} /></Grid>
+                <Grid item>
+                  <Typography>{email}</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container alignItems='center' justify='center'>
+                <Grid item><GroupIcon color='secondary' sx={styles.icon} /></Grid>
+                <Grid item>
+                  <Typography>{capitalize(String(team))}</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Typography sx={styles.statusText}>
+                <Box fontWeight='fontWeightBold' m={1}>Status: </Box>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.statusText} noWrap>{status}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Typography sx={styles.text2}>
+                <Box fontWeight='fontWeightBold' m={1}>Since: </Box>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.text2}>{dayjs(statusTime).format('h:mm a, MMMM DD YYYY')}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item>
+              <Typography sx={styles.text2}>
+                <Box fontWeight='fontWeightBold' m={1}>Memo: </Box>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography sx={styles.text2}>{memo}</Typography>
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          {Boolean(parseInt(localStorage.admin)) && (
+            <Button onClick={handleDelete} style={{ color: '#ef5350' }} variant='outlined'>
+              <DeleteIcon sx={styles.buttonIcon} />delete
+            </Button>)}
+          {!parseInt(localStorage.viewOnly) && (<InboxDialog userId={userId} onClose={handleClose} />)}
+          <SendMessageDialog userId={userId} onClose={handleClose} />
+          {!parseInt(localStorage.viewOnly) && (<EditProfile />)}
+        </DialogActions>
+      </div>
+      );
+
+  return (
+    <>
+      <ProfileButton onClick={handleOpen} unreadMessages={unreadMessages} />
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
+          <CloseIcon />
+        </IconButton>
+        {dialogMarkup}
+      </Dialog>
+    </>
+  );
 }
 
 ProfileDialog.propTypes = {
-  deleteUserAsync: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired,
-  getUserAsync: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   userId: PropTypes.string.isRequired,
-  userMemo: PropTypes.string.isRequired,
   unreadMessages: PropTypes.number.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(ProfileDialog)
+};
