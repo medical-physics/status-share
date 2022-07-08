@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // MUI components
 import {
   IconButton,
   Tooltip
-} from '@mui/material'
+} from '@mui/material';
 import {
   AccountCircle as AccountCircleIcon,
   Notifications as NotificationsIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 export class ProfileButton extends Component {
   render () {
-    const { onClick, unreadMessages } = this.props
-    const tooltipString = 'Unread messages: ' + unreadMessages
+    const { onClick, unreadMessages } = this.props;
+    const tooltipString = 'Unread messages: ' + unreadMessages;
 
     if (unreadMessages > 0) {
       return (
@@ -23,7 +23,7 @@ export class ProfileButton extends Component {
             <NotificationsIcon />
           </IconButton>
         </Tooltip>
-      )
+      );
     } else {
       return (
         <Tooltip title={tooltipString} arrow>
@@ -31,14 +31,14 @@ export class ProfileButton extends Component {
             <AccountCircleIcon />
           </IconButton>
         </Tooltip>
-      )
+      );
     }
-  };
+  }
 }
 
 ProfileButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number.isRequired
-}
+};
 
-export default ProfileButton
+export default ProfileButton;

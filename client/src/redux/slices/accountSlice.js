@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   loginUser,
   logoutUser,
   refreshAccessToken,
   getAppName,
   postAppName
-} from '../api/accountAPI'
-import axios from 'axios'
+} from '../api/accountAPI';
+import axios from 'axios';
 
 const initialState = {
   authenticated: false,
@@ -15,102 +15,102 @@ const initialState = {
   appName: 'Medical Physics: Status Share',
   truncatedAppName: false,
   updateTime: new Date()
-}
+};
 
 export const loginUserAsync = createAsyncThunk(
   'account/loginUser',
   async (credentials, { dispatch }) => {
-    const response = await loginUser(credentials.email, credentials.password)
+    const response = await loginUser(credentials.email, credentials.password);
     dispatch(setAuthorizationHeader({
       accessToken: response.accessToken,
       refreshToken: response.refreshToken
-    }))
-    return response
+    }));
+    return response;
   }
-)
+);
 
 export const refreshTokenAsync = createAsyncThunk(
   'account/refreshToken',
   async (token) => {
-    const response = await refreshAccessToken(token)
-    const accessToken = response.accessToken
-    localStorage.setItem('accessToken', accessToken)
-    return accessToken
+    const response = await refreshAccessToken(token);
+    const accessToken = response.accessToken;
+    localStorage.setItem('accessToken', accessToken);
+    return accessToken;
   }
-)
+);
 
 export const logoutUserAsync = createAsyncThunk(
   'account/logoutUser',
   async (_, { dispatch }) => {
-    logoutUser()
-    dispatch(setUnauthenticated())
+    logoutUser();
+    dispatch(setUnauthenticated());
   }
-)
+);
 
 export const getAppNameAsync = createAsyncThunk(
   'account/getAppName',
   async (_, { dispatch }) => {
-    const response = await getAppName()
-    dispatch(setAppName({ appName: response.appName }))
+    const response = await getAppName();
+    dispatch(setAppName({ appName: response.appName }));
   }
-)
+);
 
 export const setAppNameAsync = createAsyncThunk(
   'account/setAppName',
   async (newAppName, { dispatch }) => {
-    const response = await postAppName(newAppName)
-    dispatch(setAppName({ appName: response.appName }))
+    const response = await postAppName(newAppName);
+    dispatch(setAppName({ appName: response.appName }));
   }
-)
+);
 
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
     setAuthenticated: (state) => {
-      state.authenticated = true
+      state.authenticated = true;
     },
     setUnauthenticated: (state) => {
-      state.authenticated = false
-      state.admin = false
-      state.rememberMe = false
+      state.authenticated = false;
+      state.admin = false;
+      state.rememberMe = false;
     },
     setAdminAccount: (state) => {
-      state.admin = true
+      state.admin = true;
     },
     setRememberMe: (state) => {
-      state.rememberMe = true
+      state.rememberMe = true;
     },
     setAppName: (state, action) => {
-      state.appName = action.payload.appName
+      state.appName = action.payload.appName;
     },
     setDefaultName: (state) => {
-      state.appName = 'Medical Physics: Status Share'
+      state.appName = 'Medical Physics: Status Share';
     },
     setUpdateTime: (state) => {
-      state.updateTime = new Date()
+      state.updateTime = new Date();
     },
     truncateAppName: (state) => {
-      state.truncatedAppName = true
+      state.truncatedAppName = true;
     },
     detruncateAppName: (state) => {
-      state.truncatedAppName = false
+      state.truncatedAppName = false;
     },
     setAuthorizationHeader: (state, action) => {
-      const accessToken = `Bearer ${action.payload.accessToken}`
-      const refreshToken = `Bearer ${action.payload.refreshToken}`
-      localStorage.setItem('accessToken', accessToken)
-      localStorage.setItem('refreshToken', refreshToken)
-      axios.defaults.headers.common.Authorization = accessToken
+      const accessToken = `Bearer ${action.payload.accessToken}`;
+      const refreshToken = `Bearer ${action.payload.refreshToken}`;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      axios.defaults.headers.common.Authorization = accessToken;
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUserAsync.pending, (state) => {
 
-      })
+      });
   }
-})
+});
 
 export const {
   setAuthenticated,
@@ -123,6 +123,6 @@ export const {
   truncateAppName,
   detruncateAppName,
   setAuthorizationHeader
-} = accountSlice.actions
+} = accountSlice.actions;
 
-export default accountSlice.reducer
+export default accountSlice.reducer;

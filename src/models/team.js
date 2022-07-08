@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const teamSchema = new mongoose.Schema({
   col1: { type: String, default: 'Name' },
@@ -7,6 +7,6 @@ const teamSchema = new mongoose.Schema({
   color: { type: String },
   priority: { type: Number },
   team: { type: String }
-})
+});
 
-module.exports = mongoose.model('team', teamSchema)
+module.exports = mongoose.model('team', teamSchema);

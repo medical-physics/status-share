@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import dayjs from 'dayjs'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 
 // MUI components
 import {
@@ -8,21 +8,21 @@ import {
   Toolbar,
   Grid,
   Typography
-} from '@mui/material'
+} from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 const styles = {
   appBar: {
     top: 42,
     height: 40
   }
-}
+};
 
 export class UpdateBar extends Component {
   render () {
-    const { updateTime } = this.props
+    const { updateTime } = this.props;
     return (
       <AppBar sx={styles.appBar} color='inherit'>
         <Toolbar variant='dense'>
@@ -35,16 +35,16 @@ export class UpdateBar extends Component {
           </Grid>
         </Toolbar>
       </AppBar>
-    )
-  };
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
   updateTime: state.account.updateTime
-})
+});
 
 UpdateBar.propTypes = {
   updateTime: PropTypes.instanceOf(Date)
-}
+};
 
-export default connect(mapStateToProps)(UpdateBar)
+export default connect(mapStateToProps)(UpdateBar);

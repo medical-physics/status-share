@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import dayjs from 'dayjs'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 // Components
-import MessageDialog from './MessageDialog'
+import MessageDialog from './MessageDialog';
 
 // MUI components
 import {
@@ -14,21 +14,21 @@ import {
   TableHead,
   TableRow,
   Box
-} from '@mui/material'
+} from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 function createData (name, subject, timestamp, message) {
-  return { name, subject, timestamp, message }
-};
+  return { name, subject, timestamp, message };
+}
 
 export class InboxTable extends Component {
   render () {
-    const rows = []
-    const { mailbox } = this.props
+    const rows = [];
+    const { mailbox } = this.props;
 
-    mailbox.forEach((message) => { rows.push(createData(message.senderName, message.subject, message.timestamp, message)) })
+    mailbox.forEach((message) => { rows.push(createData(message.senderName, message.subject, message.timestamp, message)); });
 
     return (
       <TableContainer>
@@ -61,16 +61,16 @@ export class InboxTable extends Component {
           </TableBody>
         </Table>
       </TableContainer>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   mailbox: state.mailbox.mailbox
-})
+});
 
 InboxTable.propTypes = {
   mailbox: PropTypes.array.isRequired
-}
+};
 
-export default connect(mapStateToProps)(InboxTable)
+export default connect(mapStateToProps)(InboxTable);

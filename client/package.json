@@ -29,7 +29,7 @@
     "react-scripts": "^5.0.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
-    "standard": "^17.0.0",
+    "semistandard": "^16.0.1",
     "stream-browserify": "^3.0.0",
     "web-vitals": "^2.1.4"
   },

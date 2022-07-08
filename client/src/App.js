@@ -1,20 +1,20 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
-import axios from 'axios'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import axios from 'axios';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Components
-import HomeRoute from './util/HomeRoute'
-import LoginRoute from './util/LoginRoute'
+import HomeRoute from './util/HomeRoute';
+import LoginRoute from './util/LoginRoute';
 
 // Redux
-import { Provider } from 'react-redux'
-import { store } from './redux/store/store'
+import { Provider } from 'react-redux';
+import { store } from './redux/store/store';
 
 // Pages
-import Home from './pages/home'
-import Login from './pages/login'
+import Home from './pages/home';
+import Login from './pages/login';
 
 const theme = createTheme({
   palette: {
@@ -34,9 +34,9 @@ const theme = createTheme({
   typography: {
     useNextVariants: true
   }
-})
+});
 
-axios.defaults.baseURL = 'https://localhost:5000'
+axios.defaults.baseURL = 'https://localhost:5000';
 
 function App () {
   return (
@@ -52,7 +52,7 @@ function App () {
         </Router>
       </Provider>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

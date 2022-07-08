@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // Components
-import ProfileDialog from './ProfileDialog'
-import PresenceButton from './PresenceButton'
-import EditStatus from './EditStatus'
-import AddUserDialog from './AddUserDialog'
-import EditTeam from './EditTeam'
+import ProfileDialog from './ProfileDialog';
+import PresenceButton from './PresenceButton';
+import EditStatus from './EditStatus';
+import AddUserDialog from './AddUserDialog';
+import EditTeam from './EditTeam';
 
 // MUI components
 import {
@@ -21,14 +21,14 @@ import {
   Box,
   Grid,
   Toolbar
-} from '@mui/material'
+} from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 function createData (name, present, status, userId, memo, user) {
-  return { name, present, status, userId, memo, user }
-};
+  return { name, present, status, userId, memo, user };
+}
 
 const styles = {
   container: {
@@ -60,22 +60,22 @@ const styles = {
   status: {
     maxWidth: 150
   }
-}
+};
 
 export class TeamTable extends Component {
   constructor () {
-    super()
+    super();
     this.state = {
       tableColor: {},
       users: []
-    }
-  };
+    };
+  }
 
   render () {
-    const rows = []
-    const { teamsFields } = this.props
+    const rows = [];
+    const { teamsFields } = this.props;
 
-    this.props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user.userId, user.memo, user)) })
+    this.props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user.userId, user.memo, user)); });
 
     return (
       <div>
@@ -110,28 +110,28 @@ export class TeamTable extends Component {
                 {rows.map((row) => (
                   <TableRow key={row.name}>
                     <TableCell sx={styles.tableCell}>
-                          <Grid container alignItems='center' spacing={1}>
-                            <Grid item>
-                                <ProfileDialog userId={row.userId} userMemo={row.memo} unreadMessages={row.user.unreadMessages} />
-                              </Grid>
-                            <Grid item sx={styles.box}>
-                                {row.name}
-                              </Grid>
-                          </Grid>
-                        </TableCell>
+                      <Grid container alignItems='center' spacing={1}>
+                        <Grid item>
+                          <ProfileDialog userId={row.userId} userMemo={row.memo} unreadMessages={row.user.unreadMessages} />
+                        </Grid>
+                        <Grid item sx={styles.box}>
+                          {row.name}
+                        </Grid>
+                      </Grid>
+                    </TableCell>
                     <TableCell align='center'>
-                          <PresenceButton user={row.user} />
-                        </TableCell>
+                      <PresenceButton user={row.user} />
+                    </TableCell>
                     <TableCell sx={styles.statusCell}>
-                          <Grid container alignItems='center' justify='space-between' spacing={1}>
-                            <Grid item sx={styles.status}>
-                                {row.status}
-                              </Grid>
-                            <Grid item>
-                                {!parseInt(localStorage.viewOnly) && (<EditStatus userId={row.userId} />)}
-                              </Grid>
-                          </Grid>
-                        </TableCell>
+                      <Grid container alignItems='center' justify='space-between' spacing={1}>
+                        <Grid item sx={styles.status}>
+                          {row.status}
+                        </Grid>
+                        <Grid item>
+                          {!parseInt(localStorage.viewOnly) && (<EditStatus userId={row.userId} />)}
+                        </Grid>
+                      </Grid>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -139,19 +139,19 @@ export class TeamTable extends Component {
           </TableContainer>
         </Paper>
       </div>
-    )
-  };
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
   users: state.users.users
-})
+});
 
 TeamTable.propTypes = {
   teamMembers: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   teamsFields: PropTypes.object.isRequired
 
-}
+};
 
-export default connect(mapStateToProps)(TeamTable)
+export default connect(mapStateToProps)(TeamTable);

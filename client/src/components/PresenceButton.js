@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // MUI components
 import {
   IconButton
-} from '@mui/material'
+} from '@mui/material';
 import {
   CheckCircle as CheckCircleIcon,
   RadioButtonUnchecked as RadioButtonUncheckedIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { markPresentAsync, markNotPresentAsync } from '../redux/slices/usersSlice'
+import { connect } from 'react-redux';
+import { markPresentAsync, markNotPresentAsync } from '../redux/slices/usersSlice';
 
 /* const styles = {
     checkbox: {
@@ -23,19 +23,19 @@ import { markPresentAsync, markNotPresentAsync } from '../redux/slices/usersSlic
 
 export class PresenceButton extends Component {
   render () {
-    const { user: { userId, present } } = this.props
+    const { user: { userId, present } } = this.props;
 
     const uncheckButton = () => {
       if (!parseInt(localStorage.viewOnly)) {
-        this.props.markNotPresentAsync(userId)
+        this.props.markNotPresentAsync(userId);
       }
-    }
+    };
 
     const checkButton = () => {
       if (!parseInt(localStorage.viewOnly)) {
-        this.props.markPresentAsync(userId)
+        this.props.markPresentAsync(userId);
       }
-    }
+    };
 
     const presenceButton = present
       ? (
@@ -47,28 +47,28 @@ export class PresenceButton extends Component {
         <IconButton size='small' onClick={checkButton}>
           <RadioButtonUncheckedIcon color='secondary' />
         </IconButton>
-        )
+        );
 
     return (
       presenceButton
-    )
-  };
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
   users: state.users.users
-})
+});
 
 const mapActionsToProps = {
   markNotPresentAsync,
   markPresentAsync
-}
+};
 
 PresenceButton.propTypes = {
   markNotPresentAsync: PropTypes.func.isRequired,
   markPresentAsync: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired
-}
+};
 
-export default connect(mapStateToProps, mapActionsToProps)(PresenceButton)
+export default connect(mapStateToProps, mapActionsToProps)(PresenceButton);

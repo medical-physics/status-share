@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   email: { type: String, default: null },
@@ -12,6 +12,6 @@ const userSchema = new mongoose.Schema({
   team: { type: String },
   teamId: { type: String },
   unreadMessages: { type: Number, default: 0 }
-})
+});
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('user', userSchema);

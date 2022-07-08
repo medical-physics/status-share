@@ -1,7 +1,7 @@
-import React from 'react'
-import { Route, Navigate } from 'react-router-dom'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Route, Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const HomeRoute = ({ component: Component, authenticated, ...rest }) => (
   <Route
@@ -9,14 +9,14 @@ const HomeRoute = ({ component: Component, authenticated, ...rest }) => (
     render={(props) =>
       <Component {...props} />}
   />
-)
+);
 
 const mapStateToProps = (state) => ({
   authenticated: state.account.authenticated
-})
+});
 
 HomeRoute.propTypes = {
   authenticated: PropTypes.bool.isRequired
-}
+};
 
-export default connect(mapStateToProps)(HomeRoute)
+export default connect(mapStateToProps)(HomeRoute);

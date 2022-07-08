@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 // MUI components
 import {
@@ -14,12 +14,12 @@ import {
   Box,
   Grid,
   Toolbar
-} from '@mui/material'
+} from '@mui/material';
 import {
   RadioButtonUnchecked as RadioButtonUncheckedIcon,
   Edit as EditIcon,
   AccountCircle as AccountCircleIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 const styles = {
   container: {
@@ -52,7 +52,7 @@ const styles = {
   status: {
     maxWidth: 150
   }
-}
+};
 
 export class LoadingTable extends Component {
   render () {
@@ -80,13 +80,13 @@ export class LoadingTable extends Component {
                   <TableCell sx={styles.tableCell}>
                     <Grid container alignItems='center' spacing={1}>
                       <Grid item>
-                            <IconButton size='small'>
-                                <AccountCircleIcon />
-                              </IconButton>
-                          </Grid>
+                        <IconButton size='small'>
+                          <AccountCircleIcon />
+                        </IconButton>
+                      </Grid>
                       <Grid item sx={styles.box}>
-                            Loading...
-                                            </Grid>
+                        Loading...
+                      </Grid>
                     </Grid>
                   </TableCell>
                   <TableCell align='center'>
@@ -97,14 +97,14 @@ export class LoadingTable extends Component {
                   <TableCell sx={styles.statusCell}>
                     <Grid container alignItems='center' justify='space-between' spacing={1}>
                       <Grid item sx={styles.status}>
-                            Loading...
-                                            </Grid>
+                        Loading...
+                      </Grid>
                       <Grid item>
-                            {!parseInt(localStorage.viewOnly) && (
-                                <IconButton size='small'>
-                                    <EditIcon />
-                                  </IconButton>)}
-                          </Grid>
+                        {!parseInt(localStorage.viewOnly) && (
+                          <IconButton size='small'>
+                            <EditIcon />
+                          </IconButton>)}
+                      </Grid>
                     </Grid>
                   </TableCell>
                 </TableRow>
@@ -113,8 +113,8 @@ export class LoadingTable extends Component {
           </TableContainer>
         </Paper>
       </div>
-    )
-  };
+    );
+  }
 }
 
-export default LoadingTable
+export default LoadingTable;

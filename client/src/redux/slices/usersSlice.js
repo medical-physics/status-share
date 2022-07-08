@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   getUsers,
   postStatusUpdate,
@@ -6,221 +6,221 @@ import {
   updateUserProfile,
   addOneUser,
   deleteOneUser
-} from '../api/usersAPI'
+} from '../api/usersAPI';
 import {
   loadingUser,
   stopLoadingUser,
   loadingUI,
   stopLoadingUI,
   setErrors
-} from './uiSlice'
-import { setUpdateTime } from './accountSlice'
+} from './uiSlice';
+import { setUpdateTime } from './accountSlice';
 
 const initialState = {
   users: [],
   user: {},
   loadingUsersData: false
-}
+};
 
 export const getUserAsync = createAsyncThunk(
   'users/getUser',
   async (userId, { dispatch, getState }) => {
-    dispatch(loadingUI())
+    dispatch(loadingUI());
 
-    const users = getState().users.users
-    const user = users.find((element) => element.userId === userId)
+    const users = getState().users.users;
+    const user = users.find((element) => element.userId === userId);
 
     if (user) {
-      dispatch(setUser(user))
+      dispatch(setUser(user));
     } else {
-      dispatch(setUser(null))
+      dispatch(setUser(null));
     }
-    dispatch(stopLoadingUI())
+    dispatch(stopLoadingUI());
   }
-)
+);
 
 export const getUsersAsync = createAsyncThunk(
   'users/getUsers',
   async (_, { dispatch }) => {
-    dispatch(loadingUsersData())
+    dispatch(loadingUsersData());
 
-    const response = await getUsers()
-    const users = response.users
+    const response = await getUsers();
+    const users = response.users;
     if (users) {
-      dispatch(setUsers(users))
-      dispatch(setUpdateTime())
+      dispatch(setUsers(users));
+      dispatch(setUpdateTime());
     }
 
-    return users
+    return users;
   }
-)
+);
 
 export const updateStatusAsync = createAsyncThunk(
   'users/updateStatus',
   async (statusObj, { dispatch }) => {
     try {
-      dispatch(updateStatus(statusObj.statusData))
-      const response = await postStatusUpdate(statusObj.userId, statusObj.statusData)
-      return response
+      dispatch(updateStatus(statusObj.statusData));
+      const response = await postStatusUpdate(statusObj.userId, statusObj.statusData);
+      return response;
     } catch (err) {
-      console.error(err)
-      dispatch(setErrors(err.response.data))
+      console.error(err);
+      dispatch(setErrors(err.response.data));
     }
   }
-)
+);
 
 export const markPresentAsync = createAsyncThunk(
   'users/markPresent',
   async (userId, { dispatch }) => {
     try {
-      dispatch(markPresent(userId))
-      const response = await updateUserPresence(userId, true)
-      return response
+      dispatch(markPresent(userId));
+      const response = await updateUserPresence(userId, true);
+      return response;
     } catch (err) {
-      console.error(err)
-      dispatch(markNotPresent(userId))
+      console.error(err);
+      dispatch(markNotPresent(userId));
     }
   }
-)
+);
 
 export const markNotPresentAsync = createAsyncThunk(
   'users/markNotPresent',
   async (userId, { dispatch }) => {
     try {
-      dispatch(markNotPresent(userId))
-      const response = await updateUserPresence(userId, false)
-      return response
+      dispatch(markNotPresent(userId));
+      const response = await updateUserPresence(userId, false);
+      return response;
     } catch (err) {
-      console.error(err)
-      dispatch(markPresent(userId))
+      console.error(err);
+      dispatch(markPresent(userId));
     }
   }
-)
+);
 
 export const editProfileAsync = createAsyncThunk(
   'users/editProfile',
   async (profileObj, { dispatch }) => {
     try {
-      dispatch(editUser(profileObj))
-      const response = await updateUserProfile(profileObj)
-      return response
+      dispatch(editUser(profileObj));
+      const response = await updateUserProfile(profileObj);
+      return response;
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
-)
+);
 
 export const addUserAsync = createAsyncThunk(
   'users/addUser',
   async (newUserData, { dispatch }) => {
     try {
-      dispatch(loadingUser())
-      const response = await addOneUser(newUserData)
-      dispatch(stopLoadingUser())
-      dispatch(addUser(response.data))
-      return response
+      dispatch(loadingUser());
+      const response = await addOneUser(newUserData);
+      dispatch(stopLoadingUser());
+      dispatch(addUser(response.data));
+      return response;
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
-)
+);
 
 export const deleteUserAsync = createAsyncThunk(
   'users/deleteUser',
   async (userId, { dispatch }) => {
     try {
-      dispatch(deleteUser(userId))
-      const response = await deleteOneUser(userId)
-      return response
+      dispatch(deleteUser(userId));
+      const response = await deleteOneUser(userId);
+      return response;
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
-)
+);
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
     loadingUsersData: (state) => {
-      state.loadingUsersData = true
+      state.loadingUsersData = true;
     },
     setUser: (state, action) => {
-      state.user = action.payload
+      state.user = action.payload;
     },
     setUsers: (state, action) => {
-      state.users = action.payload
-      state.loadingUsersData = false
+      state.users = action.payload;
+      state.loadingUsersData = false;
     },
     markPresent: (state, action) => {
       const index1 = state.users.findIndex(
         (user) => user.userId === action.payload
-      )
-      state.users[index1].present = true
+      );
+      state.users[index1].present = true;
       if (state.user.userId === action.payload) {
-        state.user.present = true
+        state.user.present = true;
       }
     },
     markNotPresent: (state, action) => {
       const index2 = state.users.findIndex(
         (user) => user.userId === action.payload
-      )
-      state.users[index2].present = false
+      );
+      state.users[index2].present = false;
       if (state.user.userId === action.payload) {
-        state.user.present = false
+        state.user.present = false;
       }
     },
     updateStatus: (state, action) => {
       const index3 = state.users.findIndex(
         (user) => user.userId === action.payload.userId
-      )
-      state.users[index3].status = action.payload.status
-      state.users[index3].statusTime = action.payload.statusTime
+      );
+      state.users[index3].status = action.payload.status;
+      state.users[index3].statusTime = action.payload.statusTime;
       if (state.user.userId === action.payload.userId) {
-        state.user.status = action.payload.status
-        state.user.statusTime = action.payload.statusTime
+        state.user.status = action.payload.status;
+        state.user.statusTime = action.payload.statusTime;
       }
     },
     editUser: (state, action) => {
       const index4 = state.users.findIndex(
         (user) => user.userId === action.payload.userId
-      )
-      state.users[index4].name = action.payload.name
-      state.users[index4].email = action.payload.email
-      state.users[index4].phone = action.payload.phone
-      state.users[index4].team = action.payload.team
-      state.users[index4].memo = action.payload.memo
+      );
+      state.users[index4].name = action.payload.name;
+      state.users[index4].email = action.payload.email;
+      state.users[index4].phone = action.payload.phone;
+      state.users[index4].team = action.payload.team;
+      state.users[index4].memo = action.payload.memo;
       if (state.user.userId === action.payload.userId) {
-        state.user.name = action.payload.name
-        state.user.email = action.payload.email
-        state.user.phone = action.payload.phone
-        state.user.team = action.payload.team
-        state.user.memo = action.payload.memo
+        state.user.name = action.payload.name;
+        state.user.email = action.payload.email;
+        state.user.phone = action.payload.phone;
+        state.user.team = action.payload.team;
+        state.user.memo = action.payload.memo;
       }
     },
     decrementUnreadMessages: (state, action) => {
       const index5 = state.users.findIndex(
         (user) => user.userId === action.payload
-      )
-      state.users[index5].unreadMessages -= 1
+      );
+      state.users[index5].unreadMessages -= 1;
       if (state.user.userId === action.payload) {
-        state.user.unreadMessages -= 1
+        state.user.unreadMessages -= 1;
       }
     },
     addUser: (state, action) => {
-      state.users.push(action.payload.user)
+      state.users.push(action.payload.user);
     },
     deleteUser: (state, action) => {
       const index6 = state.users.findIndex(
         (user) => user.userId === action.payload
-      )
+      );
       state.users = [
         ...state.users.slice(0, index6),
         ...state.users.slice(index6 + 1)
-      ]
+      ];
     }
   }
-})
+});
 
 export const {
   loadingUsersData,
@@ -233,6 +233,6 @@ export const {
   decrementUnreadMessages,
   addUser,
   deleteUser
-} = usersSlice.actions
+} = usersSlice.actions;
 
-export default usersSlice.reducer
+export default usersSlice.reducer;

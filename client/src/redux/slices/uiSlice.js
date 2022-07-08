@@ -1,44 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
   loadingTeam: false,
   loadingUser: false,
   errors: null
-}
+};
 
 export const uiSlice = createSlice({
   name: 'UI',
   initialState,
   reducers: {
     setErrors: (state, action) => {
-      state.loading = false
-      state.errors = action.payload
+      state.loading = false;
+      state.errors = action.payload;
     },
     clearErrors: (state) => {
-      state.loading = false
-      state.errors = null
+      state.loading = false;
+      state.errors = null;
     },
     loadingUI: (state) => {
-      state.loading = true
+      state.loading = true;
     },
     stopLoadingUI: (state) => {
-      state.loading = false
+      state.loading = false;
     },
     loadingTeam: (state) => {
-      state.loadingTeam = true
+      state.loadingTeam = true;
     },
     stopLoadingTeam: (state) => {
-      state.loadingTeam = false
+      state.loadingTeam = false;
     },
     loadingUser: (state) => {
-      state.loadingUser = true
+      state.loadingUser = true;
     },
     stopLoadingUser: (state) => {
-      state.loadingUser = false
+      state.loadingUser = false;
     }
   }
-})
+});
 
 export const {
   setErrors,
@@ -49,6 +49,6 @@ export const {
   stopLoadingTeam,
   loadingUser,
   stopLoadingUser
-} = uiSlice.actions
+} = uiSlice.actions;
 
-export default uiSlice.reducer
+export default uiSlice.reducer;
