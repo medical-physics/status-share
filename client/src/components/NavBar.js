@@ -63,6 +63,7 @@ export default function NavBar () {
         {appName}
       </Typography>
       );
+
   return (
     <AppBar style={{ maxHeight: 50 }}>
       <Toolbar variant='dense'>

@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { addMessageAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
@@ -50,7 +50,6 @@ export default function SendMessageDialog (props) {
     message: ''
   });
 
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
 
   const { senderName, senderContact, subject, message } = formValue;
@@ -78,10 +77,10 @@ export default function SendMessageDialog (props) {
       message: message.trim()
     };
 
-    dispatch(addMessageAsync({
+    addMessageAsync({
       newMessageData,
       userId: props.userId
-    }));
+    });
     handleClose();
   };
 
