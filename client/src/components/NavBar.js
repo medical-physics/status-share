@@ -38,18 +38,18 @@ export default function NavBar () {
       }
     }
 
-    dispatch(getAppNameAsync());
+    getAppNameAsync();
     updateTitle();
     window.addEventListener('resize', updateTitle);
 
     return function cleanup () {
-      window.removeEventListener('resize', this.updateTitle);
+      window.removeEventListener('resize', updateTitle);
     };
   }, [dispatch]);
 
   const handleLogout = () => {
     localStorage.removeItem('admin');
-    dispatch(logoutUserAsync());
+    logoutUserAsync();
   };
 
   const title = truncatedAppName

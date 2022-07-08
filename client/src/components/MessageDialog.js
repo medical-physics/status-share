@@ -25,7 +25,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
@@ -62,16 +62,15 @@ export default function MessageDialog (props) {
 
   const { messageId, userId, readStatus } = props;
 
-  const dispatch = useDispatch();
   const message = useSelector((state) => state.mailbox.message);
   const loading = useSelector((state) => state.UI.loading);
 
   const handleOpen = () => {
     setOpen(true);
-    dispatch(getMessageAsync(messageId));
+    getMessageAsync(messageId);
 
     if (!readStatus) {
-      dispatch(markMessageReadAsync({ messageId, userId }));
+      markMessageReadAsync({ messageId, userId });
     }
   };
 
@@ -80,7 +79,7 @@ export default function MessageDialog (props) {
   };
 
   const handleDelete = () => {
-    dispatch(deleteMessageAsync({ messageId, userId }));
+    deleteMessageAsync({ messageId, userId });
     handleClose();
   };
 
