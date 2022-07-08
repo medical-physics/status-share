@@ -18,6 +18,7 @@ npm start
 ```
 
 ## Linter
-We use the [JavaScript Standard Style](https://standardjs.com/). No configuration is needed. 
-- Run `standard` in the command line from the project root to check the style of all files
-- Run `standard --fix` to automatically format all files
+We use the [JavaScript Semi-Standard Style](https://www.npmjs.com/package/semistandard) for formatting. It is a version of the JS Standard Style, just with semicolons added. No configuration is needed. 
+- Run `npm install semistandard --global` to install the CLI globally
+- Run `semistandard` in the command line from the project root to check the style of all files
+- Run `semistandard --fix` to automatically format all files
