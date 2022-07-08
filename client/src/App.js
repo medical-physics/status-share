@@ -45,12 +45,12 @@ function App () {
         <Router>
           <div className='container'>
             <Routes>
-              <Route exact path='/' element={<PrivateRoute/>} >
-                <Route exact path='/' element={<Home/>} />
-              </Route>
-              <Route exact path='/login' element={<LoginRoute/>} >
-                <Route exact path='/login' element={<Login/>} />
-              </Route>
+              {/* <Route exact path='/' element={<PrivateRoute />}> */}
+              <Route exact path='/' element={<Home />} />
+              {/* </Route>} */}
+              {/* <Route exact path='/login' element={<LoginRoute />}> */}
+              <Route exact path='/login' element={<Login />} />
+              {/* </Route> */}
             </Routes>
           </div>
         </Router>
