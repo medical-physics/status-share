@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { GithubPicker } from 'react-color'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { GithubPicker } from 'react-color';
 
 // MUI components
 import {
@@ -12,17 +12,16 @@ import {
   DialogTitle,
   IconButton,
   Grid
-} from '@mui/material'
+} from '@mui/material';
 import {
   Delete as DeleteIcon,
   Send as SendIcon,
   Close as CloseIcon,
   Edit as EditIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { updateTeamAsync, deleteTeamAsync } from '../redux/slices/teamsSlice'
+import { updateTeamAsync, deleteTeamAsync } from '../redux/slices/teamsSlice';
 
 const styles = {
   closeButton: {
@@ -46,182 +45,175 @@ const styles = {
   textField: {
     margin: '10px 20px auto 20px'
   }
-}
+};
 
-export class EditTeam extends Component {
-  state = {
-    open: false,
+export default function EditTeam (props) {
+  const [open, setOpen] = React.useState(false);
+  const [formValue, setFormValue] = React.useState({
     team: '',
     priority: '',
     color: '',
     col1: 'Name',
     col2: 'Present',
     col3: 'Status'
-  }
+  });
 
-  handleOpen = () => {
-    this.setState({
-      open: true,
-      team: this.props.teamsFields.team,
-      priority: this.props.teamsFields.priority.toString(10),
-      color: this.props.teamsFields.color,
-      col1: this.props.teamsFields.col1,
-      col2: this.props.teamsFields.col2,
-      col3: this.props.teamsFields.col3
-    })
-  }
+  const { teamsFields } = props;
+  const { team, priority, color, col1, col2, col3 } = formValue;
 
-  handleClose = () => {
-    this.setState({ open: false })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const teamData = {
-      prevTeam: this.props.teamsFields.team,
-      team: this.state.team,
-      priority: parseInt(this.state.priority),
-      color: this.state.color,
-      col1: this.state.col1,
-      col2: this.state.col2,
-      col3: this.state.col3
-    }
-    this.props.updateTeamAsync({ teamId: this.props.teamsFields.teamId, teamData })
-    this.handleClose()
-  }
-
-  handleDelete = (event) => {
-    event.preventDefault()
-    this.props.deleteTeamAsync(this.props.teamsFields.teamId)
-    this.handleClose()
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-  handleColorChange = (color) => {
-    this.setState({
-      color: color.hex
-    })
-  }
-
-  render () {
-    const { teamsFields } = this.props
-
-    const dialogMarkup = (
-      <>
-        <DialogTitle>Edit {teamsFields.team}</DialogTitle>
-        <form>
-          <DialogContent sx={styles.dialogContent}>
-            <Grid container justify='center'>
-              <Grid item>
-                <TextField
-                  id='team'
-                  name='team'
-                  type='team'
-                  label='Team Name'
-                  placeholder={teamsFields.team}
-                  value={this.state.team}
-                  onChange={this.handleChange}
-                  sx={styles.textField}
-                />
-              </Grid>
-              <Grid item style={{ marginTop: 15 }}>
-                <GithubPicker
-                  color={this.state.color}
-                  onChange={this.handleColorChange}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id='priority'
-                  name='priority'
-                  type='priority'
-                  label='Priority'
-                  placeholder={teamsFields.priority.toString(10)}
-                  value={this.state.priority}
-                  onChange={this.handleChange}
-                  sx={styles.textField}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id='col1'
-                  name='col1'
-                  type='col1'
-                  label='Col 1 Header'
-                  placeholder={teamsFields.col1}
-                  value={this.state.col1}
-                  onChange={this.handleChange}
-                  sx={styles.textField}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id='col2'
-                  name='col2'
-                  type='col2'
-                  label='Col 2 Header'
-                  placeholder={teamsFields.col2}
-                  value={this.state.col2}
-                  onChange={this.handleChange}
-                  sx={styles.textField}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id='col3'
-                  name='col3'
-                  type='col3'
-                  label='Col 3 Header'
-                  placeholder={teamsFields.col3}
-                  value={this.state.col3}
-                  onChange={this.handleChange}
-                  sx={styles.textField}
-                />
-              </Grid>
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button style={{ color: '#ef5350' }} variant='outlined' onClick={this.handleDelete}>
-              <DeleteIcon sx={styles.icon} />delete team
-            </Button>
-            <Button variant='outlined' color='secondary' onClick={this.handleSubmit} type='submit'>
-              <SendIcon sx={styles.icon} />edit team
-            </Button>
-          </DialogActions>
-        </form>
-      </>
-    )
-
-    return (
-      <>
-        <IconButton onClick={this.handleOpen} size='small'>
-          <EditIcon />
-        </IconButton>
-        <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='xs'>
-          <IconButton onClick={this.handleClose} sx={styles.closeButton} size='small'>
-            <CloseIcon />
-          </IconButton>
-          {dialogMarkup}
-        </Dialog>
-      </>
-    )
+  const handleOpen = () => {
+    setOpen(true);
+    setFormValue({
+      team: teamsFields.team,
+      priority: teamsFields.priority.toString(10),
+      color: teamsFields.color,
+      col1: teamsFields.col1,
+      col2: teamsFields.col2,
+      col3: teamsFields.col3
+    });
   };
-}
 
-const mapActionsToProps = {
-  updateTeamAsync,
-  deleteTeamAsync
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const teamData = {
+      ...formValue,
+      prevTeam: teamsFields.team,
+      priority: parseInt(priority)
+    };
+    updateTeamAsync({ teamId: teamsFields.teamId, teamData });
+    handleClose();
+  };
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+    deleteTeamAsync(teamsFields.teamId);
+    this.handleClose();
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        [name]: value
+      };
+    });
+  };
+
+  const handleColorChange = (color) => {
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        color: color.hex
+      };
+    });
+  };
+
+  const dialogMarkup = (
+    <>
+      <DialogTitle>Edit {teamsFields.team}</DialogTitle>
+      <form>
+        <DialogContent sx={styles.dialogContent}>
+          <Grid container justify='center'>
+            <Grid item>
+              <TextField
+                id='team'
+                name='team'
+                type='team'
+                label='Team Name'
+                placeholder={teamsFields.team}
+                value={team}
+                onChange={handleChange}
+                sx={styles.textField}
+              />
+            </Grid>
+            <Grid item style={{ marginTop: 15 }}>
+              <GithubPicker
+                color={color}
+                onChange={handleColorChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id='priority'
+                name='priority'
+                type='priority'
+                label='Priority'
+                placeholder={teamsFields.priority.toString(10)}
+                value={priority}
+                onChange={handleChange}
+                sx={styles.textField}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id='col1'
+                name='col1'
+                type='col1'
+                label='Col 1 Header'
+                placeholder={teamsFields.col1}
+                value={col1}
+                onChange={handleChange}
+                sx={styles.textField}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id='col2'
+                name='col2'
+                type='col2'
+                label='Col 2 Header'
+                placeholder={teamsFields.col2}
+                value={col2}
+                onChange={handleChange}
+                sx={styles.textField}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                id='col3'
+                name='col3'
+                type='col3'
+                label='Col 3 Header'
+                placeholder={teamsFields.col3}
+                value={col3}
+                onChange={handleChange}
+                sx={styles.textField}
+              />
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
+            <DeleteIcon sx={styles.icon} />delete team
+          </Button>
+          <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
+            <SendIcon sx={styles.icon} />edit team
+          </Button>
+        </DialogActions>
+      </form>
+    </>
+  );
+
+  return (
+    <>
+      <IconButton onClick={handleOpen} size='small'>
+        <EditIcon />
+      </IconButton>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>
+        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
+          <CloseIcon />
+        </IconButton>
+        {dialogMarkup}
+      </Dialog>
+    </>
+  );
 }
 
 EditTeam.propTypes = {
-  deleteTeamAsync: PropTypes.func.isRequired,
-  teamsFields: PropTypes.object.isRequired,
-  updateTeamAsync: PropTypes.func.isRequired
-}
-
-export default connect(null, mapActionsToProps)(EditTeam)
+  teamsFields: PropTypes.object.isRequired
+};
