@@ -5,8 +5,8 @@ import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Components
-import PrivateRoute from './util/PrivateRoute';
-import LoginRoute from './util/LoginRoute';
+// import PrivateRoute from './util/PrivateRoute';
+// import LoginRoute from './util/LoginRoute';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -14,7 +14,7 @@ import { store } from './redux/store/store';
 
 // Pages
 import Home from './pages/Home';
-import Login from './pages/login';
+import Login from './pages/Login';
 
 const theme = createTheme({
   palette: {

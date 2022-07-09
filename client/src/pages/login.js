@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Helmet } from 'react-helmet'
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
 // Components
-import AppIcon from '../images/icon.png'
-import BottomBar from '../components/BottomBar'
-import NavBar from '../components/NavBar'
+import AppIcon from '../images/icon.png';
+import BottomBar from '../components/BottomBar';
+import NavBar from '../components/NavBar';
 
 // MUI components
 import {
@@ -17,16 +16,15 @@ import {
   Paper,
   Checkbox,
   FormControlLabel
-} from '@mui/material'
+} from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import {
   loginUserAsync,
   getAppNameAsync,
-  // persistentLogin,
   setRememberMe
-} from '../redux/slices/accountSlice'
+} from '../redux/slices/accountSlice';
 
 const styles = {
   form: {
@@ -55,27 +53,25 @@ const styles = {
   checkbox: {
     margin: '30px 20px 30px 20px'
   }
-}
+};
 
-export class login extends Component {
-  constructor () {
-    super()
-    this.state = {
-      email: '',
-      password: '',
-      loading: false,
-      rememberMe: false,
-      errors: {}
-    }
-  };
+export default function Login (props) {
+  const [errors, setErrors] = React.useState({});
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [rememberMe, setStateRememberMe] = React.useState(false);
 
-  componentDidMount () {
-    localStorage.setItem('admin', 0)
-    localStorage.setItem('viewOnly', 0)
-    this.props.getAppNameAsync()
-  };
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.UI.loading);
+  const appName = useSelector((state) => state.account.appName);
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  React.useEffect(() => {
+    localStorage.setItem('admin', 0);
+    localStorage.setItem('viewOnly', 0);
+    getAppNameAsync();
+  });
+
+  /* static getDerivedStateFromProps (nextProps, prevState) {
     if (nextProps.UI.errors) {
       return {
         errors: nextProps.UI.errors,
@@ -84,143 +80,108 @@ export class login extends Component {
     } else {
       return prevState
     }
-  };
+  }; */
 
-  handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const userData = {
-      email: this.state.email.trim().toLowerCase().concat('@bccancer.bc.ca'),
-      password: this.state.password
-    }
+      email: email.trim().toLowerCase().concat('@bccancer.bc.ca'),
+      password
+    };
 
     // Login persistence or not
-    if (this.state.rememberMe) {
+    if (rememberMe) {
       // this.props.persistentLogin(userData, this.props.history);
-      localStorage.setItem('rememberMe', 1)
-      this.props.setRememberMe()
+      localStorage.setItem('rememberMe', 1);
+      dispatch(setRememberMe());
     } else {
-      this.props.loginUserAsync(userData, this.props.history)
-      localStorage.setItem('rememberMe', 0)
+      loginUserAsync(userData, props.history);
+      localStorage.setItem('rememberMe', 0);
     }
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-  handleCheck = (event) => {
-    this.setState({
-      [event.target.name]: event.target.checked
-    })
-  }
-
-  render () {
-    const { UI: { loading }, appName } = this.props
-    const { errors } = this.state
-
-    return (
-      <div>
-        <Helmet>
-          <title>{appName} | Login</title>
-        </Helmet>
-        <Grid container sx={styles.form} justify='center'>
-          <NavBar />
-          <Grid item sm />
-          <Grid item sm>
-            <Paper elevation={3}>
-              <Grid container alignItems='center' justify='center'>
-                <Grid item>
-                  <img src={AppIcon} sx={styles.image} alt='Status Share' />
-                </Grid>
-                <Grid item>
-                  <Typography variant='h4' sx={styles.pageTitle}>
-                    Sign In
-                      </Typography>
-                </Grid>
-              </Grid>
-              <form noValidate onSubmit={this.handleSubmit}>
-                <TextField
-                  id='email'
-                  name='email'
-                  type='email'
-                  label='Username'
-                  sx={styles.textField}
-                  helperText={errors.email}
-                  error={!!errors.email}
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-                <TextField
-                  id='password'
-                  name='password'
-                  type='password'
-                  label='Password'
-                  sx={styles.textField}
-                  helperText={errors.password}
-                  error={!!errors.password}
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
-                {errors.general && (
-                  <Typography variant='body2' sx={styles.customError}>
-                    {errors.general}
-                  </Typography>
-                )}
-                <Grid sx={styles.textField}>
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'
-                    sx={styles.button}
-                    disabled={loading}
-                  >
-                        Login
-                    {loading && (
-                          <CircularProgress size={30} sx={styles.progress} />
-                        )}
-                  </Button>
-                  <FormControlLabel
-                    control={<Checkbox
-                          name='rememberMe'
-                          checked={this.state.rememberMe}
-                          onChange={this.handleCheck}
-                          color='primary'
-                                 />}
-                    label='Remember Me'
-                    sx={styles.checkbox}
-                  />
-                </Grid>
-              </form>
-            </Paper>
-          </Grid>
-          <Grid item sm />
-          <BottomBar />
-        </Grid>
-      </div>
-    )
   };
+
+  const handleCheck = (event) => {
+    setStateRememberMe(event.target.value);
+  };
+
+  return (
+    <div>
+      <Helmet>
+        <title>{appName} | Login</title>
+      </Helmet>
+      <Grid container sx={styles.form} justify='center'>
+        <NavBar />
+        <Grid item sm />
+        <Grid item sm>
+          <Paper elevation={3}>
+            <Grid container alignItems='center' justify='center'>
+              <Grid item>
+                <img src={AppIcon} sx={styles.image} alt='Status Share' />
+              </Grid>
+              <Grid item>
+                <Typography variant='h4' sx={styles.pageTitle}>
+                  Sign In
+                </Typography>
+              </Grid>
+            </Grid>
+            <form noValidate onSubmit={handleSubmit}>
+              <TextField
+                id='email'
+                name='email'
+                type='email'
+                label='Username'
+                sx={styles.textField}
+                helperText={errors.email}
+                error={!!errors.email}
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <TextField
+                id='password'
+                name='password'
+                type='password'
+                label='Password'
+                sx={styles.textField}
+                helperText={errors.password}
+                error={!!errors.password}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              {errors.general && (
+                <Typography variant='body2' sx={styles.customError}>
+                  {errors.general}
+                </Typography>
+              )}
+              <Grid sx={styles.textField}>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  color='primary'
+                  sx={styles.button}
+                  disabled={loading}
+                >
+                  Login
+                  {loading && (
+                    <CircularProgress size={30} sx={styles.progress} />
+                  )}
+                </Button>
+                <FormControlLabel
+                  control={<Checkbox
+                    name='rememberMe'
+                    checked={rememberMe}
+                    onChange={handleCheck}
+                    color='primary'
+                           />}
+                  label='Remember Me'
+                  sx={styles.checkbox}
+                />
+              </Grid>
+            </form>
+          </Paper>
+        </Grid>
+        <Grid item sm />
+        <BottomBar />
+      </Grid>
+    </div>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  UI: state.UI,
-  appName: state.account.appName
-})
-
-const mapActionsToProps = {
-  loginUserAsync,
-  getAppNameAsync,
-  // persistentLogin,
-  setRememberMe
-}
-
-login.propTypes = {
-  appName: PropTypes.string.isRequired,
-  getAppNameAsync: PropTypes.func.isRequired,
-  loginUserAsync: PropTypes.func.isRequired,
-  // persistentLogin: PropTypes.func.isRequired,
-  UI: PropTypes.object.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(login)
