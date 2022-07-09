@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
 // MUI components
 import {
@@ -10,16 +9,16 @@ import {
   DialogContent,
   DialogTitle,
   IconButton
-} from '@mui/material'
+} from '@mui/material';
 import {
   Send as SendIcon,
   Edit as EditIcon,
   Close as CloseIcon
-} from '@mui/icons-material'
+} from '@mui/icons-material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { setAppNameAsync } from '../redux/slices/accountSlice'
+import { useSelector } from 'react-redux';
+import { setAppNameAsync } from '../redux/slices/accountSlice';
 
 const styles = {
   closeButton: {
@@ -37,92 +36,69 @@ const styles = {
   textField: {
     marginTop: 10
   }
-}
+};
 
-export class EditAppName extends Component {
-  state = {
-    appName: '',
-    open: false
-  }
+export default function EditAppName () {
+  const [open, setOpen] = React.useState(false);
+  const [stateAppName, setStateAppName] = React.useState('');
 
-  handleOpen = () => {
-    this.setState({
-      appName: this.props.appName,
-      open: true
-    })
-  }
+  const appName = useSelector((state) => state.account.appName);
 
-  handleClose = () => {
-    this.setState({ open: false })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const newAppName = {
-      appName: this.state.appName
-    }
-    this.props.setAppNameAsync(newAppName)
-    this.handleClose()
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-  render () {
-    const { appName } = this.props
-
-    return (
-      <>
-        <IconButton onClick={this.handleOpen} size='small' style={{ color: '#ffffff' }}>
-          <EditIcon />
-        </IconButton>
-        <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='sm'>
-          <IconButton onClick={this.handleClose} sx={styles.closeButton} size='small'>
-            <CloseIcon />
-          </IconButton>
-          <DialogTitle>Change web app name</DialogTitle>
-          <form>
-            <DialogContent sx={styles.dialogContent}>
-
-              <TextField
-                id='appName'
-                name='appName'
-                type='appName'
-                variant='filled'
-                size='small'
-                fullWidth
-                placeholder={appName}
-                value={this.state.appName}
-                onChange={this.handleChange}
-                sx={styles.textField}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button variant='outlined' color='secondary' onClick={this.handleSubmit} type='submit'>
-                <SendIcon sx={styles.icon} />submit
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
-      </>
-    )
+  const handleOpen = () => {
+    setStateAppName(appName);
+    setOpen(true);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newAppName = {
+      appName: stateAppName
+    };
+    setAppNameAsync(newAppName);
+    handleClose();
+  };
+
+  const handleChange = (event) => {
+    setStateAppName(event.target.value);
+  };
+
+  return (
+    <>
+      <IconButton onClick={handleOpen} size='small' style={{ color: '#ffffff' }}>
+        <EditIcon />
+      </IconButton>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
+          <CloseIcon />
+        </IconButton>
+        <DialogTitle>Change web app name</DialogTitle>
+        <form>
+          <DialogContent sx={styles.dialogContent}>
+
+            <TextField
+              id='appName'
+              name='appName'
+              type='appName'
+              variant='filled'
+              size='small'
+              fullWidth
+              placeholder={appName}
+              value={stateAppName}
+              onChange={handleChange}
+              sx={styles.textField}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
+              <SendIcon sx={styles.icon} />submit
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  appName: state.account.appName
-})
-
-const mapActionsToProps = {
-  setAppNameAsync
-}
-
-EditAppName.propTypes = {
-  appName: PropTypes.string.isRequired,
-  setAppNameAsync: PropTypes.func.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(EditAppName)

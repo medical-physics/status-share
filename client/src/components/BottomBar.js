@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 // MUI components
 import {
@@ -10,7 +9,7 @@ import {
 } from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const styles = {
   appBar: {
@@ -19,40 +18,29 @@ const styles = {
   }
 };
 
-export class BottomBar extends Component {
-  render () {
-    const { truncatedAppName } = this.props;
-    const text = truncatedAppName
-      ? (
-        <Typography variant='overline'>
-          © 2020 BC Cancer: Medical Physics...
-        </Typography>
-        )
-      : (
-        <Typography variant='overline'>
-          © 2020 BC Cancer: Medical Physics. All rights reserved.
-        </Typography>
-        );
-    return (
-      <AppBar sx={styles.appBar} color='inherit' position='fixed'>
-        <Toolbar variant='dense'>
-          <Grid justify='flex-start' container>
-            <Grid item>
-              {text}
-            </Grid>
+export default function BottomBar () {
+  const truncatedAppName = useSelector((state) => state.account.truncatedAppName);
+
+  const text = truncatedAppName
+    ? (
+      <Typography variant='overline'>
+        © 2020 BC Cancer: Medical Physics...
+      </Typography>
+      )
+    : (
+      <Typography variant='overline'>
+        © 2020 BC Cancer: Medical Physics. All rights reserved.
+      </Typography>
+      );
+  return (
+    <AppBar sx={styles.appBar} color='inherit' position='fixed'>
+      <Toolbar variant='dense'>
+        <Grid justify='flex-start' container>
+          <Grid item>
+            {text}
           </Grid>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  truncatedAppName: state.account.truncatedAppName
-});
-
-BottomBar.propTypes = {
-  truncatedAppName: PropTypes.bool.isRequired
-};
-
-export default connect(mapStateToProps)(BottomBar);
