@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import jwtDecode from 'jwt-decode'
-import { Helmet } from 'react-helmet'
-import axios from 'axios'
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { authenticate } from '../util/Authenticator';
 
 // Components
-import NavBar from '../components/NavBar'
-import UpdateBar from '../components/UpdateBar'
-import TeamTable from '../components/TeamTable'
-import LoadingTable from '../components/LoadingTable'
+import NavBar from '../components/NavBar';
+import UpdateBar from '../components/UpdateBar';
+import TeamTable from '../components/TeamTable';
+import LoadingTable from '../components/LoadingTable';
 
 // MUI Components
 import {
@@ -18,13 +16,12 @@ import {
   DialogTitle,
   Typography,
   CircularProgress
-} from '@mui/material'
+} from '@mui/material';
 
 // Redux stuff
-import { connect } from 'react-redux'
-import { getUsersAsync } from '../redux/slices/usersSlice'
-import { getTeamsAsync } from '../redux/slices/teamsSlice'
-import { logoutUserAsync, refreshTokenAsync, setAuthenticated } from '../redux/slices/accountSlice'
+import { useSelector } from 'react-redux';
+import { getUsersAsync } from '../redux/slices/usersSlice';
+import { getTeamsAsync } from '../redux/slices/teamsSlice';
 
 const styles = {
   table: {
@@ -45,194 +42,103 @@ const styles = {
     height: 20,
     margin: 15
   }
-}
+};
 
-export class home extends Component {
-  state = {
-    teams: {}
-  }
+export default function Home () {
+  const [stateTeams, setStateTeams] = React.useState({});
 
-  componentDidMount () {
-    const token = localStorage.accessToken
-    const rememberMe = localStorage.rememberMe
+  const users = useSelector((state) => state.users.users);
+  const teams = useSelector((state) => state.teams.teams);
+  const appName = useSelector((state) => state.account.appName);
+  const loadingUsersData = useSelector((state) => state.users.loadingUsersData);
+  const loadingTeamsData = useSelector((state) => state.teams.loadingTeamsData);
+  const loadingUser = useSelector((state) => state.UI.loadingUser);
+  const loadingTeam = useSelector((state) => state.UI.loadingTeam);
 
-    // If "Remember Me" is selected
-    // Token refresher – ensures token is always valid while logged in
-    if (rememberMe === 1) {
-      this.props.setAuthenticated()
-      axios.defaults.headers.common.Authorization = token
-      if (token) {
-        const decodedToken = jwtDecode(token)
-        // If token expired, refresh token
-        if (decodedToken.exp * 1000 < Date.now()) {
-          this.props.refreshTokenAsync(localStorage.refreshToken)
-          setTimeout(() => {
-            this.countdownAndRefresh()
-          }, 4000)
-          // If token valid, set timer until expiry and then refresh token
-        } else {
-          this.countdownAndRefresh()
-        }
-        // If token doesn"t exist for some reason, retrieves new token
-      } else {
-        this.props.refreshTokenAsync(localStorage.refreshToken)
-        setTimeout(() => {
-          this.countdownAndRefresh()
-        }, 4000)
+  React.useEffect(() => {
+    authenticate();
+    getTeamsAsync();
+    getUsersAsync();
+  });
+
+  const teamsObj = {};
+  const teamsFields = {};
+
+  teams.forEach((team) => {
+    teamsObj[team.teamId] = [];
+    teamsFields[team.teamId] = team;
+  });
+
+  teams.forEach((team) => {
+    users.forEach((user) => {
+      if (user.teamId === team.teamId) {
+        teamsObj[team.teamId].push(user);
       }
+    });
+  });
 
-      // If "Remember Me" not selected, logout user when token expires
-    } else if (rememberMe === 0) {
-      this.props.setAuthenticated()
-      axios.defaults.headers.common.Authorization = token
-      if (token) {
-        const decodedToken = jwtDecode(token)
-        const timeUntilExpiry = decodedToken.exp * 1000 - Date.now()
-        if (timeUntilExpiry <= 0) {
-          this.props.logoutUserAsync()
-          window.location.href = '/login'
-        } else {
-          setTimeout(() => {
-            this.props.logoutUserAsync()
-            window.location.href = '/login'
-          }, timeUntilExpiry)
-        }
-      } else {
-        /* store.dispatch(logoutUser());
-                window.location.href = "/login"; */
-      }
-    }
-
-    this.props.getTeamsAsync()
-    this.props.getUsersAsync()
-  };
-
-  countdownAndRefresh = () => {
-    const currentDecodedToken = jwtDecode(localStorage.FBIdToken)
-    const currentTimeUntilExpiry = currentDecodedToken.exp * 1000 - Date.now()
-    console.log(currentTimeUntilExpiry)
-    setTimeout(() => {
-      this.props.refreshTokenAsync(localStorage.refreshToken)
-      setTimeout(() => {
-        this.countdownAndRefresh()
-      }, 4000)
-    }, currentTimeUntilExpiry)
-  }
-
-  render () {
-    const { users, teams, loadingUsersData, loadingTeamsData, appName, loadingTeam, loadingUser } = this.props
-    const teamsObj = {}
-    const teamsFields = {}
-
-    this.props.teams.forEach((team) => {
-      teamsObj[team.teamId] = []
-      teamsFields[team.teamId] = team
-    })
-
-    this.props.teams.forEach((team) => {
-      users.forEach((user) => {
-        if (user.teamId === team.teamId) {
-          teamsObj[team.teamId].push(user)
-        }
-      })
-    })
-
-    return (
-      <div>
-        <Helmet>
-          <title>{appName} | Home</title>
-        </Helmet>
-        <Dialog open={loadingTeam}>
-          <DialogTitle>
-            <Grid sx={styles.dialog}>
-              <Typography variant='overline' sx={styles.spinnertext}>Updating teams...</Typography>
-              <CircularProgress size={20} sx={styles.spinnerdiv} />
+  return (
+    <div>
+      <Helmet>
+        <title>{appName} | Home</title>
+      </Helmet>
+      <Dialog open={loadingTeam}>
+        <DialogTitle>
+          <Grid sx={styles.dialog}>
+            <Typography variant='overline' sx={styles.spinnertext}>Updating teams...</Typography>
+            <CircularProgress size={20} sx={styles.spinnerdiv} />
+          </Grid>
+        </DialogTitle>
+      </Dialog>
+      <Dialog open={loadingUser}>
+        <DialogTitle>
+          <Grid sx={styles.dialog}>
+            <Typography variant='overline' sx={styles.spinnertext}>Adding user...</Typography>
+            <CircularProgress size={20} sx={styles.spinnerdiv} />
+          </Grid>
+        </DialogTitle>
+      </Dialog>
+      <Grid container justify='center'>
+        <UpdateBar />
+        <NavBar />
+        {loadingUsersData || loadingTeamsData
+          ? <>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
             </Grid>
-          </DialogTitle>
-        </Dialog>
-        <Dialog open={loadingUser}>
-          <DialogTitle>
-            <Grid sx={styles.dialog}>
-              <Typography variant='overline' sx={styles.spinnertext}>Adding user...</Typography>
-              <CircularProgress size={20} sx={styles.spinnerdiv} />
+            <Grid item sx={styles.table}>
+              <LoadingTable />
             </Grid>
-          </DialogTitle>
-        </Dialog>
-        <Grid container justify='center'>
-          <UpdateBar />
-          <NavBar />
-          {loadingUsersData || loadingTeamsData
-            ? <>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              <Grid item sx={styles.table}>
-                <LoadingTable />
-              </Grid>
-              </>
-            : <>
-              {teams.map((team) => {
-                return (
-                  <Box order={teamsFields[team.teamId].priority} sx={styles.table}>
-                    <TeamTable teamMembers={teamsObj[team.teamId]} teamsFields={teamsFields[team.teamId]} />
-                  </Box>
-                )
-              })}
-              <Box order={99} sx={styles.dummy} />
-              </>}
-        </Grid>
-      </div>
-    )
-  };
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+          </>
+          : <>
+            {teams.map((team) => {
+              return (
+                <Box order={teamsFields[team.teamId].priority} sx={styles.table}>
+                  <TeamTable teamMembers={teamsObj[team.teamId]} teamsFields={teamsFields[team.teamId]} />
+                </Box>
+              );
+            })}
+            <Box order={99} sx={styles.dummy} />
+          </>}
+      </Grid>
+    </div>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  users: state.users.users,
-  teams: state.teams.teams,
-  loadingUsersData: state.users.loadingUsersData,
-  loadingTeamsData: state.teams.loadingTeamsData,
-  appName: state.account.appName,
-  loadingTeam: state.UI.loadingTeam,
-  loadingUser: state.UI.loadingUser
-})
-
-const mapActionsToProps = {
-  getUsersAsync,
-  getTeamsAsync,
-  refreshTokenAsync,
-  logoutUserAsync,
-  setAuthenticated
-}
-
-home.propTypes = {
-  getTeamsAsync: PropTypes.func.isRequired,
-  getUsersAsync: PropTypes.func.isRequired,
-  refreshTokenAsync: PropTypes.func.isRequired,
-  logoutUserAsync: PropTypes.func.isRequired,
-  setAuthenticated: PropTypes.func.isRequired,
-  loadingTeam: PropTypes.bool.isRequired,
-  loadingTeamsData: PropTypes.bool.isRequired,
-  loadingUsersData: PropTypes.bool.isRequired,
-  teams: PropTypes.array.isRequired,
-  users: PropTypes.array.isRequired
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(home)

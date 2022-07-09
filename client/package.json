@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/react-color": "^3.0.6"
+    "@types/react-color": "^3.0.6",
+    "@types/react-helmet": "^6.1.5"
   }
 }
