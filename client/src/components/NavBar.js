@@ -79,7 +79,7 @@ export default function NavBar () {
                 {title}
               </Grid>
               <Grid item>
-                {(Boolean(parseInt(localStorage.admin)) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
+                {(Boolean(parseInt(localStorage.getItem('admin'))) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
               </Grid>
             </Grid>
           </Grid>

@@ -78,7 +78,7 @@ export default function TeamTable (props) {
               </Typography>
             </Grid>
             <Grid item>
-              {Boolean(parseInt(localStorage.admin)) && (<>
+              {Boolean(parseInt(localStorage.getItem('admin'))) && (<>
                 <EditTeam teamsFields={teamsFields} />
                 <AddUserDialog teamName={teamsFields.team} teamId={teamsFields.teamId} />
               </>)}
@@ -116,7 +116,7 @@ export default function TeamTable (props) {
                         {row.status}
                       </Grid>
                       <Grid item>
-                        {!parseInt(localStorage.viewOnly) && (<EditStatus userId={row.userId} />)}
+                        {!parseInt(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} />)}
                       </Grid>
                     </Grid>
                   </TableCell>

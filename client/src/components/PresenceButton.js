@@ -17,13 +17,13 @@ export default function PresenceButton (props) {
   const { user: { userId, present } } = props;
 
   const uncheckButton = () => {
-    if (!parseInt(localStorage.viewOnly)) {
+    if (!parseInt(localStorage.getItem('viewOnly'))) {
       markNotPresentAsync(userId);
     }
   };
 
   const checkButton = () => {
-    if (!parseInt(localStorage.viewOnly)) {
+    if (!parseInt(localStorage.getItem('viewOnly'))) {
       markPresentAsync(userId);
     }
   };

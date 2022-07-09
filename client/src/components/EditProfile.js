@@ -162,7 +162,7 @@ export default function EditProfile () {
               fullWidth
               sx={styles.memo}
             />
-            {Boolean(parseInt(localStorage.admin)) && (
+            {Boolean(parseInt(localStorage.getItem('admin'))) && (
               <>
                 <TextField
                   name='profileName'

@@ -99,7 +99,7 @@ export default function LoadingTable () {
                       Loading...
                     </Grid>
                     <Grid item>
-                      {!parseInt(localStorage.viewOnly) && (
+                      {!parseInt(localStorage.getItem('viewOnly')) && (
                         <IconButton size='small'>
                           <EditIcon />
                         </IconButton>)}
