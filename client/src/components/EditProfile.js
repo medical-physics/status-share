@@ -51,7 +51,7 @@ const styles = {
 export default function EditProfile () {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
-    name: '',
+    profileName: '',
     phone: '',
     email: '',
     team: '',
@@ -59,7 +59,7 @@ export default function EditProfile () {
     priority: ''
   });
 
-  const { name, phone, email, team, memo, priority } = formValue;
+  const { profileName, phone, email, team, memo, priority } = formValue;
 
   const user = useSelector((state) => state.users.user);
 
@@ -96,7 +96,10 @@ export default function EditProfile () {
   const handleSubmit = (event) => {
     event.preventDefault();
     const profileData = {
-      ...formValue,
+      name: profileName,
+      phone,
+      email,
+      memo,
       team: team.trim(),
       userId: user.userId,
       priority: parseInt(priority)
@@ -115,7 +118,7 @@ export default function EditProfile () {
           <CloseIcon />
         </IconButton>
         <DialogTitle>
-          Edit {name}"s profile
+          Edit {user.name}"s profile
         </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
@@ -162,10 +165,10 @@ export default function EditProfile () {
             {Boolean(parseInt(localStorage.admin)) && (
               <>
                 <TextField
-                  name='name'
+                  name='profileName'
                   label='Name'
                   placeholder={user.name}
-                  value={name}
+                  value={profileName}
                   onChange={handleChange}
                   fullWidth
                   sx={styles.otherText}
