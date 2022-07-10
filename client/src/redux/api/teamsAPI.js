@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const getTeams = async () => {
-  const data = await axios.get('/teams');
-  return data.json();
+  const response = await axios.get('/teams');
+  return response.data;
 };
 
 export const addTeam = async (newTeam) => {

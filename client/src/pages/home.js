@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUsersAsync } from '../redux/slices/usersSlice';
 import { getTeamsAsync } from '../redux/slices/teamsSlice';
 
@@ -47,6 +47,8 @@ const styles = {
 export default function Home () {
   const [stateTeams, setStateTeams] = React.useState({});
 
+  const dispatch = useDispatch();
+
   const users = useSelector((state) => state.users.users);
   const teams = useSelector((state) => state.teams.teams);
   const appName = useSelector((state) => state.account.appName);
@@ -56,10 +58,10 @@ export default function Home () {
   const loadingTeam = useSelector((state) => state.UI.loadingTeam);
 
   React.useEffect(() => {
-    authenticate();
-    getTeamsAsync();
-    getUsersAsync();
-  });
+    // authenticate();
+    dispatch(getTeamsAsync());
+    // dispatch(getUsersAsync());
+  }, [dispatch]);
 
   const teamsObj = {};
   const teamsFields = {};

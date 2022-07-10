@@ -13,10 +13,9 @@ const initialState = {
 
 export const getTeamsAsync = createAsyncThunk(
   'teams/getTeams',
-  async (_, { dispatch }) => {
-    dispatch(loadingTeamsData());
+  async () => {
     const response = await getTeams();
-    dispatch(setTeams(response.teams));
+    return response;
   }
 );
 
@@ -82,6 +81,16 @@ export const teamsSlice = createSlice({
       state.teams[index1].col2 = action.payload.col2;
       state.teams[index1].col3 = action.payload.col3;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTeamsAsync.pending, (state) => {
+        state.loadingTeamsData = true;
+      })
+      .addCase(getTeamsAsync.fulfilled, (state, action) => {
+        state.loadingTeamsData = false;
+        state.teams = action.payload;
+      })
   }
 });
 
