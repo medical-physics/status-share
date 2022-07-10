@@ -60,21 +60,21 @@ export default function Home () {
   React.useEffect(() => {
     // authenticate();
     dispatch(getTeamsAsync());
-    // dispatch(getUsersAsync());
+    dispatch(getUsersAsync());
   }, [dispatch]);
 
   const teamsObj = {};
   const teamsFields = {};
 
   teams.forEach((team) => {
-    teamsObj[team.teamId] = [];
-    teamsFields[team.teamId] = team;
+    teamsObj[team._id] = [];
+    teamsFields[team._id] = team;
   });
 
   teams.forEach((team) => {
     users.forEach((user) => {
-      if (user.teamId === team.teamId) {
-        teamsObj[team.teamId].push(user);
+      if (user.teamId === team._id) {
+        teamsObj[team._id].push(user);
       }
     });
   });
@@ -133,8 +133,8 @@ export default function Home () {
           : <>
             {teams.map((team) => {
               return (
-                <Box order={teamsFields[team.teamId].priority} sx={styles.table}>
-                  <TeamTable teamMembers={teamsObj[team.teamId]} teamsFields={teamsFields[team.teamId]} />
+                <Box order={teamsFields[team._id].priority} sx={styles.table}>
+                  <TeamTable teamMembers={teamsObj[team._id]} teamsFields={teamsFields[team._id]} />
                 </Box>
               );
             })}

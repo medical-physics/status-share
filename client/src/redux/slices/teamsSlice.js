@@ -90,7 +90,7 @@ export const teamsSlice = createSlice({
       .addCase(getTeamsAsync.fulfilled, (state, action) => {
         state.loadingTeamsData = false;
         state.teams = action.payload;
-      })
+      });
   }
 });
 

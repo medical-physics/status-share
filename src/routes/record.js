@@ -7,6 +7,7 @@ const auth = require('./../util/auth');
 const router = express.Router();
 
 const {
+  getUsers,
   getUser,
   postOneUser,
   updateUserDetails,
@@ -40,6 +41,7 @@ const {
 } = require('../handlers/mailbox');
 
 // User routes
+router.get('/users', getUsers);
 router.get('/user/:userId', getUser);
 router.post('/user', auth, postOneUser);
 router.post('/user/:userId', auth, updateUserDetails);

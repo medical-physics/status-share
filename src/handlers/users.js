@@ -1,6 +1,19 @@
 const User = require('../models/user');
 const Mailbox = require('../models/mailbox');
 
+// Fetch all users
+// Temporary - use change stream later on
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+
+    return res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: err.message });
+  }
+};
+
 // Fetch one user
 exports.getUser = async (req, res) => {
   const userId = req.params.userId;

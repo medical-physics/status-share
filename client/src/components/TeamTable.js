@@ -100,7 +100,7 @@ export default function TeamTable (props) {
                   <TableCell sx={styles.tableCell}>
                     <Grid container alignItems='center' spacing={1}>
                       <Grid item>
-                        <ProfileDialog userId={row.userId} unreadMessages={row.user.unreadMessages} />
+                        {/* <ProfileDialog userId={row.userId} unreadMessages={row.user.unreadMessages} /> */}
                       </Grid>
                       <Grid item sx={styles.box}>
                         {row.name}

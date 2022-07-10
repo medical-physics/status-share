@@ -42,16 +42,9 @@ export const getUserAsync = createAsyncThunk(
 export const getUsersAsync = createAsyncThunk(
   'users/getUsers',
   async (_, { dispatch }) => {
-    dispatch(loadingUsersData());
-
     const response = await getUsers();
-    const users = response.users;
-    if (users) {
-      dispatch(setUsers(users));
-      dispatch(setUpdateTime());
-    }
-
-    return users;
+    dispatch(setUpdateTime());
+    return response;
   }
 );
 
@@ -219,6 +212,16 @@ export const usersSlice = createSlice({
         ...state.users.slice(index6 + 1)
       ];
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getUsersAsync.pending, (state) => {
+        state.loadingUsersData = true;
+      })
+      .addCase(getUsersAsync.fulfilled, (state, action) => {
+        state.loadingUsersData = false;
+        state.users = action.payload;
+      });
   }
 });
 
