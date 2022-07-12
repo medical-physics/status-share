@@ -58,18 +58,18 @@ export default function EditTeam (props) {
     col3: 'Status'
   });
 
-  const { teamsFields } = props;
+  const { teamDetails } = props;
   const { team, priority, color, col1, col2, col3 } = formValue;
 
   const handleOpen = () => {
     setOpen(true);
     setFormValue({
-      team: teamsFields.team,
-      priority: teamsFields.priority.toString(10),
-      color: teamsFields.color,
-      col1: teamsFields.col1,
-      col2: teamsFields.col2,
-      col3: teamsFields.col3
+      team: teamDetails.team,
+      priority: teamDetails.priority.toString(10),
+      color: teamDetails.color,
+      col1: teamDetails.col1,
+      col2: teamDetails.col2,
+      col3: teamDetails.col3
     });
   };
 
@@ -81,16 +81,16 @@ export default function EditTeam (props) {
     event.preventDefault();
     const teamData = {
       ...formValue,
-      prevTeam: teamsFields.team,
+      prevTeam: teamDetails.team,
       priority: parseInt(priority)
     };
-    updateTeamAsync({ teamId: teamsFields.teamId, teamData });
+    updateTeamAsync({ teamId: teamDetails.teamId, teamData });
     handleClose();
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
-    deleteTeamAsync(teamsFields.teamId);
+    deleteTeamAsync(teamDetails.teamId);
     this.handleClose();
   };
 
@@ -115,7 +115,7 @@ export default function EditTeam (props) {
 
   const dialogMarkup = (
     <>
-      <DialogTitle>Edit {teamsFields.team}</DialogTitle>
+      <DialogTitle>Edit {teamDetails.team}</DialogTitle>
       <form>
         <DialogContent sx={styles.dialogContent}>
           <Grid container justify='center'>
@@ -125,7 +125,7 @@ export default function EditTeam (props) {
                 name='team'
                 type='team'
                 label='Team Name'
-                placeholder={teamsFields.team}
+                placeholder={teamDetails.team}
                 value={team}
                 onChange={handleChange}
                 sx={styles.textField}
@@ -143,7 +143,7 @@ export default function EditTeam (props) {
                 name='priority'
                 type='priority'
                 label='Priority'
-                placeholder={teamsFields.priority.toString(10)}
+                placeholder={teamDetails.priority.toString(10)}
                 value={priority}
                 onChange={handleChange}
                 sx={styles.textField}
@@ -155,7 +155,7 @@ export default function EditTeam (props) {
                 name='col1'
                 type='col1'
                 label='Col 1 Header'
-                placeholder={teamsFields.col1}
+                placeholder={teamDetails.col1}
                 value={col1}
                 onChange={handleChange}
                 sx={styles.textField}
@@ -167,7 +167,7 @@ export default function EditTeam (props) {
                 name='col2'
                 type='col2'
                 label='Col 2 Header'
-                placeholder={teamsFields.col2}
+                placeholder={teamDetails.col2}
                 value={col2}
                 onChange={handleChange}
                 sx={styles.textField}
@@ -179,7 +179,7 @@ export default function EditTeam (props) {
                 name='col3'
                 type='col3'
                 label='Col 3 Header'
-                placeholder={teamsFields.col3}
+                placeholder={teamDetails.col3}
                 value={col3}
                 onChange={handleChange}
                 sx={styles.textField}
@@ -215,5 +215,5 @@ export default function EditTeam (props) {
 }
 
 EditTeam.propTypes = {
-  teamsFields: PropTypes.object.isRequired
+  teamDetails: PropTypes.object.isRequired
 };

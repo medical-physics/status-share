@@ -61,9 +61,9 @@ const styles = {
 
 export default function TeamTable (props) {
   const rows = [];
-  const { teamsFields } = props;
+  const { teamDetails } = props;
 
-  props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user.userId, user.memo, user)); });
+  props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user._id, user.memo, user)); });
 
   return (
     <div>
@@ -72,15 +72,15 @@ export default function TeamTable (props) {
           <Grid justify='space-between' container>
             <Grid item>
               <Typography>
-                <Box fontWeight='fontWeightBold' m={1} color={teamsFields.color}>
-                  {teamsFields.team}
+                <Box fontWeight='fontWeightBold' m={1} color={teamDetails.color}>
+                  {teamDetails.team}
                 </Box>
               </Typography>
             </Grid>
             <Grid item>
               {Boolean(parseInt(localStorage.getItem('admin'))) && (<>
-                <EditTeam teamsFields={teamsFields} />
-                <AddUserDialog teamName={teamsFields.team} teamId={teamsFields.teamId} />
+                <EditTeam teamDetails={teamDetails} />
+                <AddUserDialog teamName={teamDetails.team} teamId={teamDetails._id} />
               </>)}
             </Grid>
           </Grid>
@@ -89,9 +89,9 @@ export default function TeamTable (props) {
           <Table size='small'>
             <TableHead>
               <TableRow>
-                <TableCell><Box>{teamsFields.col1}</Box></TableCell>
-                <TableCell><Box>{teamsFields.col2}</Box></TableCell>
-                <TableCell><Box>{teamsFields.col3}</Box></TableCell>
+                <TableCell><Box>{teamDetails.col1}</Box></TableCell>
+                <TableCell><Box>{teamDetails.col2}</Box></TableCell>
+                <TableCell><Box>{teamDetails.col3}</Box></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -100,7 +100,7 @@ export default function TeamTable (props) {
                   <TableCell sx={styles.tableCell}>
                     <Grid container alignItems='center' spacing={1}>
                       <Grid item>
-                        {/* <ProfileDialog userId={row.userId} unreadMessages={row.user.unreadMessages} /> */}
+                        <ProfileDialog userId={row._id} unreadMessages={row.user.unreadMessages} />
                       </Grid>
                       <Grid item sx={styles.box}>
                         {row.name}
@@ -116,7 +116,7 @@ export default function TeamTable (props) {
                         {row.status}
                       </Grid>
                       <Grid item>
-                        {!parseInt(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} />)}
+                        {!parseInt(localStorage.getItem('viewOnly')) && (<EditStatus userId={row._id} />)}
                       </Grid>
                     </Grid>
                   </TableCell>

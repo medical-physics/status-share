@@ -63,18 +63,20 @@ export default function Home () {
     dispatch(getUsersAsync());
   }, [dispatch]);
 
-  const teamsObj = {};
-  const teamsFields = {};
+  // key: team ID, value: array of users in team
+  const teamMembersMap = {};
+  // key: team ID, value: team details in object form
+  const teamDetailsMap = {};
 
   teams.forEach((team) => {
-    teamsObj[team._id] = [];
-    teamsFields[team._id] = team;
+    teamMembersMap[team._id] = [];
+    teamDetailsMap[team._id] = team;
   });
 
   teams.forEach((team) => {
     users.forEach((user) => {
       if (user.teamId === team._id) {
-        teamsObj[team._id].push(user);
+        teamMembersMap[team._id].push(user);
       }
     });
   });
@@ -133,8 +135,8 @@ export default function Home () {
           : <>
             {teams.map((team) => {
               return (
-                <Box order={teamsFields[team._id].priority} sx={styles.table}>
-                  <TeamTable teamMembers={teamsObj[team._id]} teamsFields={teamsFields[team._id]} />
+                <Box order={teamDetailsMap[team._id].priority} sx={styles.table}>
+                  <TeamTable teamMembers={teamMembersMap[team._id]} teamDetails={teamDetailsMap[team._id]} />
                 </Box>
               );
             })}
