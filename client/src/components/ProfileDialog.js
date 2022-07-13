@@ -71,7 +71,8 @@ export default function ProfileDialog (props) {
 
   const { unreadMessages, userId } = props;
 
-  const { user: { name, status, statusTime, phone, email, team, memo } } = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
+  const { name, status, statusTime, phone, email, team, memo } = user;
   const loading = useSelector((state) => state.UI.loading);
 
   const handleOpen = () => {

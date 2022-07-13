@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   getUsers,
+  getUser,
   postStatusUpdate,
   updateUserPresence,
   updateUserProfile,
@@ -10,32 +11,41 @@ import {
 import {
   loadingUser,
   stopLoadingUser,
-  loadingUI,
-  stopLoadingUI,
   setErrors
 } from './uiSlice';
 import { setUpdateTime } from './accountSlice';
 
 const initialState = {
   users: [],
-  user: {},
+  user: {
+    email:'',
+    memo: '',
+    name: '',
+    phone: '',
+    present: true,
+    priority: 1,
+    status: '',
+    statusTime: '',
+    team: '',
+    teamId: '',
+    unreadMessages: 0
+  },
   loadingUsersData: false
 };
 
 export const getUserAsync = createAsyncThunk(
   'users/getUser',
   async (userId, { dispatch, getState }) => {
-    dispatch(loadingUI());
-
+    dispatch(loadingUser());
     const users = getState().users.users;
-    const user = users.find((element) => element.userId === userId);
+    let user = users.find((element) => element.userId === userId);
 
-    if (user) {
-      dispatch(setUser(user));
-    } else {
-      dispatch(setUser(null));
+    if (!user) {
+      user = await getUser(userId);
     }
-    dispatch(stopLoadingUI());
+
+    dispatch(stopLoadingUser());
+    return user;
   }
 );
 
@@ -221,7 +231,11 @@ export const usersSlice = createSlice({
       .addCase(getUsersAsync.fulfilled, (state, action) => {
         state.loadingUsersData = false;
         state.users = action.payload;
-      });
+      })
+      .addCase(getUserAsync.pending, () => { })
+      .addCase(getUserAsync.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
   }
 });
 

@@ -5,6 +5,11 @@ export const getUsers = async () => {
   return response.data;
 };
 
+export const getUser = async (userId) => {
+  const response = await axios.get(`/user/${userId}`);
+  return response.data;
+}
+
 export const postStatusUpdate = async (userId, statusData) => {
   const data = await axios.post(`/user/status/${userId}`, statusData);
   return data.json();
