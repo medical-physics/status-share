@@ -18,6 +18,7 @@ import { setUpdateTime } from './accountSlice';
 const initialState = {
   users: [],
   user: {
+    _id: '',
     email:'',
     memo: '',
     name: '',

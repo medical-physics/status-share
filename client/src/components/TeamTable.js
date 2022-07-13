@@ -100,7 +100,7 @@ export default function TeamTable (props) {
                   <TableCell sx={styles.tableCell}>
                     <Grid container alignItems='center' spacing={1}>
                       <Grid item>
-                        <ProfileDialog userId={row._id} unreadMessages={row.user.unreadMessages} />
+                        <ProfileDialog userId={row.userId} unreadMessages={row.user.unreadMessages} />
                       </Grid>
                       <Grid item sx={styles.box}>
                         {row.name}
@@ -116,7 +116,7 @@ export default function TeamTable (props) {
                         {row.status}
                       </Grid>
                       <Grid item>
-                        {!parseInt(localStorage.getItem('viewOnly')) && (<EditStatus userId={row._id} />)}
+                        {!parseInt(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} />)}
                       </Grid>
                     </Grid>
                   </TableCell>
@@ -132,5 +132,5 @@ export default function TeamTable (props) {
 
 TeamTable.propTypes = {
   teamMembers: PropTypes.array.isRequired,
-  teamsFields: PropTypes.object.isRequired
+  teamDetails: PropTypes.object.isRequired
 };

@@ -70,7 +70,7 @@ export default function EditStatus (props) {
   };
 
   const checkUser = () => {
-    if (userId === user.userId) {
+    if (userId === user._id) {
       return user.status;
     }
   };

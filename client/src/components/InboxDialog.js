@@ -45,7 +45,8 @@ const styles = {
 export default function InboxDialog (props) {
   const [open, setOpen] = React.useState(false);
 
-  const { user: { name } } = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.user);
+  const { name } = user;
   const loading = useSelector((state) => state.mailbox.loadingMailbox);
 
   const handleOpen = () => {
