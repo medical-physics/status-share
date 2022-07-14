@@ -86,7 +86,7 @@ export default function ProfileDialog (props) {
   };
 
   const handleDelete = () => {
-    deleteUserAsync(userId);
+    dispatch(deleteUserAsync(userId));
     handleClose();
   };
 
