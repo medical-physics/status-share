@@ -135,7 +135,7 @@ export default function Home () {
           : <>
             {teams.map((team) => {
               return (
-                <Box order={teamDetailsMap[team._id].priority} sx={styles.table}>
+                <Box key={team._id} order={teamDetailsMap[team._id].priority} sx={styles.table}>
                   <TeamTable teamMembers={teamMembersMap[team._id]} teamDetails={teamDetailsMap[team._id]} />
                 </Box>
               );

@@ -30,7 +30,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getUserAsync, deleteUserAsync } from '../redux/slices/usersSlice';
 
 const styles = {
@@ -71,13 +71,14 @@ export default function ProfileDialog (props) {
 
   const { unreadMessages, userId } = props;
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const { name, status, statusTime, phone, email, team, memo } = user;
   const loading = useSelector((state) => state.UI.loading);
 
   const handleOpen = () => {
+    dispatch(getUserAsync(userId));
     setOpen(true);
-    getUserAsync(userId);
   };
 
   const handleClose = () => {
