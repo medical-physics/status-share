@@ -133,7 +133,7 @@ export default function ProfileDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography sx={styles.statusText}>
+              <Typography component={'span'} sx={styles.statusText}>
                 <Box fontWeight='fontWeightBold' m={1}>Status: </Box>
               </Typography>
             </Grid>
@@ -143,7 +143,7 @@ export default function ProfileDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography sx={styles.text2}>
+              <Typography component={'span'} sx={styles.text2}>
                 <Box fontWeight='fontWeightBold' m={1}>Since: </Box>
               </Typography>
             </Grid>
@@ -153,7 +153,7 @@ export default function ProfileDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography sx={styles.text2}>
+              <Typography component={'span'} sx={styles.text2}>
                 <Box fontWeight='fontWeightBold' m={1}>Memo: </Box>
               </Typography>
             </Grid>
