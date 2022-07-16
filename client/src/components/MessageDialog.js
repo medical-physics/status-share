@@ -25,7 +25,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
@@ -62,15 +62,16 @@ export default function MessageDialog (props) {
 
   const { messageId, userId, readStatus } = props;
 
+  const dispatch = useDispatch();
   const message = useSelector((state) => state.mailbox.message);
   const loading = useSelector((state) => state.UI.loading);
 
   const handleOpen = () => {
+    dispatch(getMessageAsync(messageId));
     setOpen(true);
-    getMessageAsync(messageId);
 
     if (!readStatus) {
-      markMessageReadAsync({ messageId, userId });
+      dispatch(markMessageReadAsync({ messageId, userId }));
     }
   };
 
@@ -130,7 +131,7 @@ export default function MessageDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography sx={styles.text1}>
+              <Typography component='span' sx={styles.text1}>
                 <Box fontWeight='fontWeightBold' m={1}>Sent at: </Box>
               </Typography>
             </Grid>
@@ -140,7 +141,7 @@ export default function MessageDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography sx={styles.text2}>
+              <Typography component='span' sx={styles.text2}>
                 <Box fontWeight='fontWeightBold' m={1}>Message: </Box>
               </Typography>
             </Grid>

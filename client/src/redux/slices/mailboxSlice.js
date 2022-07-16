@@ -20,16 +20,15 @@ export const getMessageAsync = createAsyncThunk(
   'mailbox/getMessage',
   async (messageId, { dispatch, getState }) => {
     dispatch(loadingUI());
-
     const mailbox = getState().mailbox.mailbox;
-    const message = mailbox.find((element) => element.messageId === messageId);
+    let message = mailbox.find((element) => element._id === messageId);
 
-    if (message) {
-      dispatch(setMessage(message));
-    } else {
-      dispatch(setMessage(null));
+    if (message === undefined) {
+      message = null;
     }
+
     dispatch(stopLoadingUI());
+    return message;
   }
 );
 
@@ -114,10 +113,10 @@ export const mailboxSlice = createSlice({
     },
     markMessageRead: (state, action) => {
       const index1 = state.mailbox.findIndex(
-        (message) => message.messageId === action.payload
+        (message) => message._id === action.payload
       );
       state.mailbox[index1].readStatus = true;
-      if (state.message.messageId === action.payload) {
+      if (state.message._id === action.payload) {
         state.message.readStatus = true;
       }
     },
@@ -154,7 +153,13 @@ export const mailboxSlice = createSlice({
       .addCase(getMailboxAsync.fulfilled, (state, action) => {
         state.mailbox = action.payload;
         state.loadingMailbox = false;
-      });
+      })
+      .addCase(getMessageAsync.pending, () => {})
+      .addCase(getMessageAsync.fulfilled, (state, action) => {
+        state.message = action.payload;
+      })
+      .addCase(markMessageReadAsync.pending, () => {})
+      .addCase(markMessageReadAsync.fulfilled, () => {});
   }
 });
 

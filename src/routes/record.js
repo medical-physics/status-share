@@ -43,31 +43,31 @@ const {
 // User routes
 router.get('/users', getUsers);
 router.get('/user/:userId', getUser);
-router.post('/user', auth, postOneUser);
-router.post('/user/:userId', auth, updateUserDetails);
-router.post('/user/memo/:userId', auth, updateUserMemo);
-router.post('/user/status/:userId', auth, updateUserStatus);
-router.post('/user/presence/:userId', auth, updateUserPresence);
-router.delete('/user/:userId', auth, deleteUser);
+router.post('/user', /* auth, */ postOneUser);
+router.post('/user/:userId', /* auth, */ updateUserDetails);
+router.post('/user/memo/:userId', /* auth, */ updateUserMemo);
+router.post('/user/status/:userId', /* auth, */ updateUserStatus);
+router.post('/user/presence/:userId', /* auth, */ updateUserPresence);
+router.delete('/user/:userId', /* auth, */ deleteUser);
 
 // Team routes
 router.get('/teams', getTeams);
-router.post('/team', auth, postOneTeam);
-router.delete('/team/:teamId', auth, deleteTeam);
-router.post('/team/:teamId', auth, updateTeam);
+router.post('/team', /* auth, */ postOneTeam);
+router.delete('/team/:teamId', /* auth, */ deleteTeam);
+router.post('/team/:teamId', /* auth, */ updateTeam);
 
 // App routes
 router.get('/appname', getAppName);
-router.post('/appname', auth, setAppName);
+router.post('/appname', /* auth, */ setAppName);
 router.post('/login', login);
-router.post('/refreshlogin', auth, refreshLogin);
-router.post('/register', auth, register);
+router.post('/refreshlogin', /* auth, */ refreshLogin);
+router.post('/register', /* auth, */ register);
 
 // Mailbox routes
 router.get('/mailbox/:userId', getMessages);
-router.post('/mailbox/:userId', auth, postOneMessage);
-router.delete('/mailbox/:userId/:messageId', auth, deleteMessage);
-router.post('/mailbox/read/:userId/:messageId', auth, updateMessageReadStatus);
-router.post('/mailbox/update/:userId/:messageId', auth, updateMessage);
+router.post('/mailbox/:userId', /* auth, */ postOneMessage);
+router.delete('/mailbox/:userId/:messageId', /* auth, */ deleteMessage);
+router.post('/mailbox/read/:userId/:messageId', /* auth, */ updateMessageReadStatus);
+router.post('/mailbox/update/:userId/:messageId', /* auth, */ updateMessage);
 
 module.exports = router;

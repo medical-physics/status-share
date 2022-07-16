@@ -6,11 +6,10 @@ export const getMailbox = async (userId) => {
 };
 
 export const updateMessageReadStatus = async (messageId, userId) => {
-  const data = await axios.post(
-        `/mailbox/read/${userId}/${messageId}`,
-        { readStatus: true }
+  const response = await axios.post(
+        `/mailbox/read/${userId}/${messageId}`
   );
-  return data.json();
+  return response.data;
 };
 
 export const deleteOneMessage = async (messageId, userId) => {

@@ -43,14 +43,14 @@ function App () {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
-            <Routes>
-              {/* <Route exact path='/' element={<PrivateRoute />}> */}
-              <Route exact path='/' element={<Home />} />
-              {/* </Route>} */}
-              {/* <Route exact path='/login' element={<LoginRoute />}> */}
-              <Route exact path='/login' element={<Login />} />
-              {/* </Route> */}
-            </Routes>
+          <Routes>
+            {/* <Route exact path='/' element={<PrivateRoute />}> */}
+            <Route exact path='/' element={<Home />} />
+            {/* </Route>} */}
+            {/* <Route exact path='/login' element={<LoginRoute />}> */}
+            <Route exact path='/login' element={<Login />} />
+            {/* </Route> */}
+          </Routes>
         </Router>
       </Provider>
     </ThemeProvider>

@@ -19,7 +19,7 @@ const initialState = {
   users: [],
   user: {
     _id: '',
-    email:'',
+    email: '',
     memo: '',
     name: '',
     phone: '',
@@ -41,7 +41,7 @@ export const getUserAsync = createAsyncThunk(
     const users = getState().users.users;
     let user = users.find((element) => element.userId === userId);
 
-    if (!user) {
+    if (user === undefined) {
       user = await getUser(userId);
     }
 
@@ -204,10 +204,10 @@ export const usersSlice = createSlice({
     },
     decrementUnreadMessages: (state, action) => {
       const index5 = state.users.findIndex(
-        (user) => user.userId === action.payload
+        (user) => user._id === action.payload
       );
       state.users[index5].unreadMessages -= 1;
-      if (state.user.userId === action.payload) {
+      if (state.user._id === action.payload) {
         state.user.unreadMessages -= 1;
       }
     },
@@ -236,7 +236,7 @@ export const usersSlice = createSlice({
       .addCase(getUserAsync.pending, () => { })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.user = action.payload;
-      })
+      });
   }
 });
 

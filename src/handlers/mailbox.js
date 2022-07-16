@@ -63,7 +63,7 @@ exports.updateMessageReadStatus = async (req, res) => {
     message.readStatus = true;
     await mailbox.save();
 
-    const user = User.findOne({ _id: req.params.userId });
+    const user = await User.findOne({ _id: req.params.userId });
     user.unreadMessages -= 1;
     await user.save();
 
