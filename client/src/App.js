@@ -43,7 +43,6 @@ function App () {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
-          <div className='container'>
             <Routes>
               {/* <Route exact path='/' element={<PrivateRoute />}> */}
               <Route exact path='/' element={<Home />} />
@@ -52,7 +51,6 @@ function App () {
               <Route exact path='/login' element={<Login />} />
               {/* </Route> */}
             </Routes>
-          </div>
         </Router>
       </Provider>
     </ThemeProvider>

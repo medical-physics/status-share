@@ -66,12 +66,12 @@ export default function TeamTable (props) {
   props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user._id, user.memo, user)); });
 
   return (
-    <div>
+    <>
       <Paper elevation={3}>
         <Toolbar>
           <Grid justify='space-between' container>
             <Grid item>
-              <Typography>
+              <Typography component={'span'}>
                 <Box fontWeight='fontWeightBold' m={1} color={teamDetails.color}>
                   {teamDetails.team}
                 </Box>
@@ -126,7 +126,7 @@ export default function TeamTable (props) {
           </Table>
         </TableContainer>
       </Paper>
-    </div>
+    </>
   );
 }
 

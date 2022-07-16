@@ -56,10 +56,10 @@ const styles = {
 
 export default function LoadingTable () {
   return (
-    <div>
+    <>
       <Paper elevation={3}>
         <Toolbar>
-          <Typography>
+          <Typography component={'span'}>
             <Box fontWeight='fontWeightBold' m={1}>
               Loading Team
             </Box>
@@ -111,6 +111,6 @@ export default function LoadingTable () {
           </Table>
         </TableContainer>
       </Paper>
-    </div>
+    </>
   );
 }

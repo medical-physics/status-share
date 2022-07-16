@@ -82,7 +82,7 @@ export default function Home () {
   });
 
   return (
-    <div>
+    <>
       <Helmet>
         <title>{appName} | Home</title>
       </Helmet>
@@ -143,6 +143,6 @@ export default function Home () {
             <Box order={99} sx={styles.dummy} />
           </>}
       </Grid>
-    </div>
+    </>
   );
 }
