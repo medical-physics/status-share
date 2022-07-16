@@ -35,20 +35,9 @@ export const getMessageAsync = createAsyncThunk(
 
 export const getMailboxAsync = createAsyncThunk(
   'mailbox/getMailbox',
-  async (userId, { dispatch }) => {
-    try {
-      dispatch(loadingMailboxData());
-
-      const response = await getMailbox(userId);
-      const mailbox = response.mailbox;
-
-      if (mailbox) {
-        dispatch(setMailbox(mailbox));
-        dispatch(setUpdateTime());
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  async (userId) => {
+    const messages = await getMailbox(userId);
+    return messages;
   }
 );
 
@@ -156,6 +145,16 @@ export const mailboxSlice = createSlice({
         state.message.subject = action.payload.subject;
       }
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getMailboxAsync.pending, (state) => {
+        state.loadingMailbox = true;
+      })
+      .addCase(getMailboxAsync.fulfilled, (state, action) => {
+        state.mailbox = action.payload;
+        state.loadingMailbox = false;
+      });
   }
 });
 

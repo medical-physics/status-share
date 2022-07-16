@@ -6,8 +6,7 @@ const messageSchema = new mongoose.Schema({
   senderContact: { type: String },
   senderName: { type: String },
   subject: { type: String, default: null },
-  timestamp: { type: Number },
-  userId: { type: String }
+  timestamp: { type: Number }
 });
 
 module.exports = mongoose.model('message', messageSchema);

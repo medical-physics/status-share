@@ -25,6 +25,7 @@ function createData (name, subject, timestamp, message) {
 export default function InboxTable () {
   const rows = [];
   const mailbox = useSelector((state) => state.mailbox.mailbox);
+  const userId = useSelector((state) => state.users.user._id);
 
   mailbox.forEach((message) => { rows.push(createData(message.senderName, message.subject, message.timestamp, message)); });
 
@@ -41,9 +42,9 @@ export default function InboxTable () {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.message.messageId}>
+            <TableRow key={row.message._id}>
               <TableCell>
-                <MessageDialog messageId={row.message.messageId} userId={row.message.userId} readStatus={row.message.readStatus} />
+                <MessageDialog messageId={row.message._id} userId={userId} readStatus={row.message.readStatus} />
               </TableCell>
               <TableCell>
                 {row.name}

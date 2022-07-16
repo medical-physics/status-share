@@ -19,7 +19,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMailboxAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
@@ -45,13 +45,14 @@ const styles = {
 export default function InboxDialog (props) {
   const [open, setOpen] = React.useState(false);
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const { name } = user;
   const loading = useSelector((state) => state.mailbox.loadingMailbox);
 
   const handleOpen = () => {
+    dispatch(getMailboxAsync(props.userId));
     setOpen(true);
-    getMailboxAsync(props.userId);
   };
 
   const handleClose = () => {

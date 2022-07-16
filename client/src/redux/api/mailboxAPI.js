@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const getMailbox = async (userId) => {
-  const data = await axios.get(`/mailbox/${userId}`);
-  return data.json();
+  const response = await axios.get(`/mailbox/${userId}`);
+  return response.data.messages;
 };
 
 export const updateMessageReadStatus = async (messageId, userId) => {
