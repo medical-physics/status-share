@@ -59,7 +59,7 @@ export default function LoadingTable () {
     <>
       <Paper elevation={3}>
         <Toolbar>
-          <Typography component='span'>
+          <Typography component='div'>
             <Box fontWeight='fontWeightBold' m={1}>
               Loading Team
             </Box>

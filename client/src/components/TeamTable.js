@@ -71,7 +71,7 @@ export default function TeamTable (props) {
         <Toolbar>
           <Grid justify='space-between' container>
             <Grid item>
-              <Typography component='span'>
+              <Typography component='div'>
                 <Box fontWeight='fontWeightBold' m={1} color={teamDetails.color}>
                   {teamDetails.team}
                 </Box>

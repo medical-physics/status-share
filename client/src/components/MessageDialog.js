@@ -80,7 +80,7 @@ export default function MessageDialog (props) {
   };
 
   const handleDelete = () => {
-    deleteMessageAsync({ messageId, userId });
+    dispatch(deleteMessageAsync({ messageId, userId }));
     handleClose();
   };
 
@@ -131,7 +131,7 @@ export default function MessageDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography component='span' sx={styles.text1}>
+              <Typography component='div' sx={styles.text1}>
                 <Box fontWeight='fontWeightBold' m={1}>Sent at: </Box>
               </Typography>
             </Grid>
@@ -141,7 +141,7 @@ export default function MessageDialog (props) {
           </Grid>
           <Grid container>
             <Grid item>
-              <Typography component='span' sx={styles.text2}>
+              <Typography component='div' sx={styles.text2}>
                 <Box fontWeight='fontWeightBold' m={1}>Message: </Box>
               </Typography>
             </Grid>
