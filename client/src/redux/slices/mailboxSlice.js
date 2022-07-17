@@ -122,7 +122,7 @@ export const mailboxSlice = createSlice({
     },
     deleteMessage: (state, action) => {
       const index2 = state.mailbox.findIndex(
-        (message) => message.messageId === action.payload
+        (message) => message._id === action.payload
       );
       state.mailbox = [
         ...state.mailbox.slice(0, index2),

@@ -13,8 +13,8 @@ export const updateMessageReadStatus = async (messageId, userId) => {
 };
 
 export const deleteOneMessage = async (messageId, userId) => {
-  const data = await axios.delete(`/mailbox/${userId}/${messageId}`);
-  return data.json();
+  const response = await axios.delete(`/mailbox/${userId}/${messageId}`);
+  return response.data;
 };
 
 export const addOneMessage = async (newMessageData, userId) => {
