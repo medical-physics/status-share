@@ -20,17 +20,16 @@ exports.postOneMessage = async (req, res) => {
     senderContact: req.body.senderContact,
     senderName: req.body.senderName,
     subject: req.body.subject,
-    timestamp: new Date().getTime(),
-    userId: req.params.userId
+    timestamp: new Date().toString()
   };
 
   try {
-    const mailbox = await Mailbox.findOne({ userId: newMessage.userId });
+    const mailbox = await Mailbox.findOne({ userId: req.params.userId });
     await mailbox.messages.push(newMessage);
     const subdoc = mailbox.messages[0];
     await mailbox.save();
 
-    const user = await User.findOne({ _id: newMessage.userId });
+    const user = await User.findOne({ _id: req.params.userId });
     user.unreadMessages += 1;
     await user.save();
 

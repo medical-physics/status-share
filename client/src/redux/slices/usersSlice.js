@@ -11,6 +11,8 @@ import {
 import {
   loadingUser,
   stopLoadingUser,
+  loadingUI,
+  stopLoadingUI,
   setErrors
 } from './uiSlice';
 import { setUpdateTime } from './accountSlice';
@@ -37,7 +39,7 @@ const initialState = {
 export const getUserAsync = createAsyncThunk(
   'users/getUser',
   async (userId, { dispatch, getState }) => {
-    dispatch(loadingUser());
+    dispatch(loadingUI());
     const users = getState().users.users;
     let user = users.find((element) => element.userId === userId);
 
@@ -45,7 +47,7 @@ export const getUserAsync = createAsyncThunk(
       user = await getUser(userId);
     }
 
-    dispatch(stopLoadingUser());
+    dispatch(stopLoadingUI());
     return user;
   }
 );

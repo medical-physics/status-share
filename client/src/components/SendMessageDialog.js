@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addMessageAsync } from '../redux/slices/mailboxSlice';
 
 const styles = {
@@ -50,6 +50,7 @@ export default function SendMessageDialog (props) {
     message: ''
   });
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
 
   const { senderName, senderContact, subject, message } = formValue;
@@ -69,7 +70,7 @@ export default function SendMessageDialog (props) {
     props.onClose();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     const newMessageData = {
       senderName: senderName.trim(),
       senderContact: senderContact.trim(),
@@ -77,10 +78,12 @@ export default function SendMessageDialog (props) {
       message: message.trim()
     };
 
-    addMessageAsync({
-      newMessageData,
-      userId: props.userId
-    });
+    dispatch(
+      addMessageAsync({
+        newMessageData,
+        userId: props.userId
+      })
+    );
     handleClose();
   };
 
@@ -106,7 +109,6 @@ export default function SendMessageDialog (props) {
         <DialogTitle>
           Send message to {user.name}
         </DialogTitle>
-        <form>
           <DialogContent sx={styles.dialogContent}>
             <TextField
               id='senderName'
@@ -171,7 +173,6 @@ export default function SendMessageDialog (props) {
               <SendIcon sx={styles.icon} />send
             </Button>
           </DialogActions>
-        </form>
       </Dialog>
     </>
   );

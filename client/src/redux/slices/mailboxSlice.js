@@ -70,7 +70,7 @@ export const deleteMessageAsync = createAsyncThunk(
 
 export const addMessageAsync = createAsyncThunk(
   'mailbox/addMessage',
-  async (messageObj, { dispatch }) => {
+  async (messageObj) => {
     try {
       const response = await addOneMessage(messageObj.newMessageData, messageObj.userId);
       return response;
@@ -159,7 +159,9 @@ export const mailboxSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(markMessageReadAsync.pending, () => {})
-      .addCase(markMessageReadAsync.fulfilled, () => {});
+      .addCase(markMessageReadAsync.fulfilled, () => {})
+      .addCase(addMessageAsync.pending, () => {})
+      .addCase(addMessageAsync.fulfilled, () => {});
   }
 });
 
