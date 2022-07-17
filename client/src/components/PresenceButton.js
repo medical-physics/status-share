@@ -11,20 +11,24 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
+import { useDispatch } from 'react-redux';
 import { markPresentAsync, markNotPresentAsync } from '../redux/slices/usersSlice';
 
 export default function PresenceButton (props) {
-  const { user: { userId, present } } = props;
+  const userId = props.user._id;
+  const present = props.user.present;
+
+  const dispatch = useDispatch();
 
   const uncheckButton = () => {
     if (!parseInt(localStorage.getItem('viewOnly'))) {
-      markNotPresentAsync(userId);
+      dispatch(markNotPresentAsync(userId));
     }
   };
 
   const checkButton = () => {
     if (!parseInt(localStorage.getItem('viewOnly'))) {
-      markPresentAsync(userId);
+      dispatch(markPresentAsync(userId));
     }
   };
 

@@ -160,19 +160,19 @@ export const usersSlice = createSlice({
     },
     markPresent: (state, action) => {
       const index1 = state.users.findIndex(
-        (user) => user.userId === action.payload
+        (user) => user._id === action.payload
       );
       state.users[index1].present = true;
-      if (state.user.userId === action.payload) {
+      if (state.user._id === action.payload) {
         state.user.present = true;
       }
     },
     markNotPresent: (state, action) => {
       const index2 = state.users.findIndex(
-        (user) => user.userId === action.payload
+        (user) => user._id === action.payload
       );
       state.users[index2].present = false;
-      if (state.user.userId === action.payload) {
+      if (state.user._id === action.payload) {
         state.user.present = false;
       }
     },

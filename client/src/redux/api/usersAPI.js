@@ -16,8 +16,8 @@ export const postStatusUpdate = async (userId, statusData) => {
 };
 
 export const updateUserPresence = async (userId, presence) => {
-  const data = await axios.post(`/user/presence/${userId}`, { present: presence });
-  return data.json();
+  const response = await axios.post(`/user/presence/${userId}`, { present: presence });
+  return response.data;
 };
 
 export const updateUserProfile = async (profileData) => {
