@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserAsync, updateStatusAsync } from '../redux/slices/usersSlice';
 
 const styles = {
@@ -58,27 +58,26 @@ export default function EditStatus (props) {
 
   const { userId } = props;
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const loading = useSelector((state) => state.UI.loading);
 
-  React.useEffect(() => {
-    mapUserDetailsToState(user);
-  });
-
-  const mapUserDetailsToState = (user) => {
-    setStatus(checkUser(user));
+  const mapUserDetailsToState = (focusedUser) => {
+    setStatus(checkUser(focusedUser));
   };
 
-  const checkUser = () => {
-    if (userId === user._id) {
-      return user.status;
+  const checkUser = (focusedUser) => {
+    if (userId === focusedUser._id) {
+      return focusedUser.status;
     }
   };
 
   const handleOpen = () => {
     setOpen(true);
-    getUserAsync(userId);
-    mapUserDetailsToState(user);
+    dispatch(getUserAsync(userId))
+      .then(res => {
+        mapUserDetailsToState(res.payload);
+      });
   };
 
   const handleClose = () => {
@@ -92,7 +91,7 @@ export default function EditStatus (props) {
       statusTime: new Date().toString(),
       userId
     };
-    updateStatusAsync({ userId, statusData });
+    dispatch(updateStatusAsync({ userId, statusData }));
     handleClose();
   };
 
@@ -103,7 +102,7 @@ export default function EditStatus (props) {
       statusTime: new Date().toString(),
       userId
     };
-    updateStatusAsync({ userId, statusData });
+    dispatch(updateStatusAsync({ userId, statusData }));
     handleClose();
   };
 
@@ -124,32 +123,29 @@ export default function EditStatus (props) {
       )
     : (
       <>
-        <DialogTitle>Edit {user.name}"s status</DialogTitle>
-        <form>
-          <DialogContent sx={styles.dialogContent}>
-
-            <TextField
-              id='status'
-              name='status'
-              type='status'
-              variant='filled'
-              size='small'
-              fullWidth
-              placeholder={user.status}
-              value={status}
-              onChange={handleChange}
-              sx={styles.textField}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
-              <DeleteIcon sx={styles.icon} />clear
-            </Button>
-            <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
-              <SendIcon sx={styles.icon} />submit
-            </Button>
-          </DialogActions>
-        </form>
+        <DialogTitle>Edit {user.name}'s status</DialogTitle>
+        <DialogContent sx={styles.dialogContent}>
+          <TextField
+            id='status'
+            name='status'
+            type='status'
+            variant='filled'
+            size='small'
+            fullWidth
+            placeholder={user.status}
+            value={status}
+            onChange={handleChange}
+            sx={styles.textField}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
+            <DeleteIcon sx={styles.icon} />clear
+          </Button>
+          <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
+            <SendIcon sx={styles.icon} />submit
+          </Button>
+        </DialogActions>
       </>
       );
 

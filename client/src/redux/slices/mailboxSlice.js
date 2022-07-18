@@ -154,14 +154,9 @@ export const mailboxSlice = createSlice({
         state.mailbox = action.payload;
         state.loadingMailbox = false;
       })
-      .addCase(getMessageAsync.pending, () => {})
       .addCase(getMessageAsync.fulfilled, (state, action) => {
         state.message = action.payload;
-      })
-      .addCase(markMessageReadAsync.pending, () => {})
-      .addCase(markMessageReadAsync.fulfilled, () => {})
-      .addCase(addMessageAsync.pending, () => {})
-      .addCase(addMessageAsync.fulfilled, () => {});
+      });
   }
 });
 

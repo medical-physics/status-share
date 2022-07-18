@@ -109,70 +109,70 @@ export default function SendMessageDialog (props) {
         <DialogTitle>
           Send message to {user.name}
         </DialogTitle>
-          <DialogContent sx={styles.dialogContent}>
-            <TextField
-              id='senderName'
-              name='senderName'
-              type='senderName'
-              label='Sender Name'
-              value={senderName}
-              onChange={handleChange}
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <AccountBoxIcon style={{ color: '#388e3c' }} />
-                  </InputAdornment>
-                )
-              }}
-            />
-            <TextField
-              id='senderContact'
-              name='senderContact'
-              type='senderContact'
-              label='Sender Contact'
-              value={senderContact}
-              onChange={handleChange}
-              fullWidth
-              style={{ marginTop: '12px' }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <AlternateEmailIcon style={{ color: '#388e3c' }} />
-                  </InputAdornment>
-                )
-              }}
-            />
-            <TextField
-              id='subject'
-              name='subject'
-              type='subject'
-              label='Subject'
-              value={subject}
-              onChange={handleChange}
-              fullWidth
-              style={{ marginTop: '40px' }}
-              variant='outlined'
-            />
-            <TextField
-              id='message'
-              name='message'
-              type='message'
-              label='Message'
-              variant='filled'
-              multiline
-              rows='4'
-              value={message}
-              onChange={handleChange}
-              fullWidth
-              style={{ marginTop: '9px' }}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleSubmit} variant='outlined' style={{ color: '#388e3c' }} type='submit'>
-              <SendIcon sx={styles.icon} />send
-            </Button>
-          </DialogActions>
+        <DialogContent sx={styles.dialogContent}>
+          <TextField
+            id='senderName'
+            name='senderName'
+            type='senderName'
+            label='Sender Name'
+            value={senderName}
+            onChange={handleChange}
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <AccountBoxIcon style={{ color: '#388e3c' }} />
+                </InputAdornment>
+              )
+            }}
+          />
+          <TextField
+            id='senderContact'
+            name='senderContact'
+            type='senderContact'
+            label='Sender Contact'
+            value={senderContact}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginTop: '12px' }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <AlternateEmailIcon style={{ color: '#388e3c' }} />
+                </InputAdornment>
+              )
+            }}
+          />
+          <TextField
+            id='subject'
+            name='subject'
+            type='subject'
+            label='Subject'
+            value={subject}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginTop: '40px' }}
+            variant='outlined'
+          />
+          <TextField
+            id='message'
+            name='message'
+            type='message'
+            label='Message'
+            variant='filled'
+            multiline
+            rows='4'
+            value={message}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginTop: '9px' }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSubmit} variant='outlined' style={{ color: '#388e3c' }} type='submit'>
+            <SendIcon sx={styles.icon} />send
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );

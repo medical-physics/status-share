@@ -178,11 +178,11 @@ export const usersSlice = createSlice({
     },
     updateStatus: (state, action) => {
       const index3 = state.users.findIndex(
-        (user) => user.userId === action.payload.userId
+        (user) => user._id === action.payload.userId
       );
       state.users[index3].status = action.payload.status;
       state.users[index3].statusTime = action.payload.statusTime;
-      if (state.user.userId === action.payload.userId) {
+      if (state.user._id === action.payload.userId) {
         state.user.status = action.payload.status;
         state.user.statusTime = action.payload.statusTime;
       }
@@ -235,7 +235,6 @@ export const usersSlice = createSlice({
         state.loadingUsersData = false;
         state.users = action.payload;
       })
-      .addCase(getUserAsync.pending, () => { })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.user = action.payload;
       });
