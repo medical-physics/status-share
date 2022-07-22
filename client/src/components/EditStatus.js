@@ -124,28 +124,30 @@ export default function EditStatus (props) {
     : (
       <>
         <DialogTitle>Edit {user.name}'s status</DialogTitle>
-        <DialogContent sx={styles.dialogContent}>
-          <TextField
-            id='status'
-            name='status'
-            type='status'
-            variant='filled'
-            size='small'
-            fullWidth
-            placeholder={user.status}
-            value={status}
-            onChange={handleChange}
-            sx={styles.textField}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
-            <DeleteIcon sx={styles.icon} />clear
-          </Button>
-          <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
-            <SendIcon sx={styles.icon} />submit
-          </Button>
-        </DialogActions>
+        <form>
+          <DialogContent sx={styles.dialogContent}>
+            <TextField
+              id='status'
+              name='status'
+              type='status'
+              variant='filled'
+              size='small'
+              fullWidth
+              placeholder={user.status}
+              value={status}
+              onChange={handleChange}
+              sx={styles.textField}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
+              <DeleteIcon sx={styles.icon} />clear
+            </Button>
+            <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
+              <SendIcon sx={styles.icon} />submit
+            </Button>
+          </DialogActions>
+        </form>
       </>
       );
 
