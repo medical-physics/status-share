@@ -20,7 +20,7 @@ import {
 
 // Redux stuff
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUserAsync, truncateAppName, detruncateAppName } from '../redux/slices/accountSlice';
+import { logoutUser, truncateAppName, detruncateAppName } from '../redux/slices/accountSlice';
 
 export default function NavBar () {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ export default function NavBar () {
   }, [dispatch]);
 
   const handleLogout = () => {
-    logoutUserAsync();
+    dispatch(logoutUser());
   };
 
   const title = truncatedAppName

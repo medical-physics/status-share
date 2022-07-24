@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { store } from '../redux/store/store';
 import {
-  logoutUserAsync,
+  logoutUser,
   refreshTokenAsync,
   setAuthenticated,
   checkingAuth
@@ -55,7 +55,7 @@ export const authenticate = () => {
 };
 
 const endSession = () => {
-  store.dispatch(logoutUserAsync());
+  store.dispatch(logoutUser());
   window.location.href = '/login';
 };
 

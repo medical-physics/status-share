@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   loginUser,
-  logoutUser,
   refreshAccessToken,
   getAppName,
   postAppName
@@ -52,14 +51,6 @@ export const refreshTokenAsync = createAsyncThunk(
   }
 );
 
-export const logoutUserAsync = createAsyncThunk(
-  'account/logoutUser',
-  async (_, { dispatch }) => {
-    logoutUser();
-    dispatch(setUnauthenticated());
-  }
-);
-
 export const getAppNameAsync = createAsyncThunk(
   'account/getAppName',
   async () => {
@@ -90,11 +81,6 @@ export const accountSlice = createSlice({
       state.authenticated = true;
       state.checkingAuth = false;
     },
-    setUnauthenticated: (state) => {
-      state.authenticated = false;
-      state.admin = false;
-      state.rememberMe = false;
-    },
     setAdminAccount: (state) => {
       state.admin = true;
     },
@@ -112,6 +98,14 @@ export const accountSlice = createSlice({
     },
     checkingAuth: (state) => {
       state.checkingAuth = true;
+    },
+    logoutUser: (state) => {
+      localStorage.clear();
+      delete axios.defaults.headers.common.Authorization;
+      state.authenticated = false;
+      state.admin = false;
+      state.rememberMe = false;
+      state.viewOnly = false;
     }
   },
   extraReducers: (builder) => {
@@ -150,7 +144,8 @@ export const {
   setUpdateTime,
   truncateAppName,
   detruncateAppName,
-  checkingAuth
+  checkingAuth,
+  logoutUser
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

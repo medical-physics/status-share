@@ -16,11 +16,6 @@ export const refreshAccessToken = async (refreshToken) => {
   return response.data;
 };
 
-export const logoutUser = async () => {
-  localStorage.clear();
-  delete axios.defaults.headers.common.Authorization;
-};
-
 export const getAppName = async () => {
   const response = await axios.get('/appname');
   return response.data;
