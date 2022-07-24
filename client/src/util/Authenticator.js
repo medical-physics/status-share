@@ -12,7 +12,7 @@ export const authenticate = () => {
   store.dispatch(checkingAuth());
   let accessToken = localStorage.getItem('accessToken');
   let refreshToken = localStorage.getItem('refreshToken');
-  const rememberMe = localStorage.getItem('rememberMe');
+  const rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
   let decodedAccessToken;
   let decodedRefreshToken;
   let timeUntilExpiry;

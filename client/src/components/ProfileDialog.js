@@ -163,13 +163,13 @@ export default function ProfileDialog (props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {localStorage.getItem('admin') && (
+          {JSON.parse(localStorage.getItem('admin')) && (
             <Button onClick={handleDelete} style={{ color: '#ef5350' }} variant='outlined'>
               <DeleteIcon sx={styles.buttonIcon} />delete
             </Button>)}
-          {!localStorage.getItem('viewOnly') && (<InboxDialog userId={userId} onClose={handleClose} />)}
+          {!JSON.parse(localStorage.getItem('viewOnly')) && (<InboxDialog userId={userId} onClose={handleClose} />)}
           <SendMessageDialog userId={userId} onClose={handleClose} />
-          {!localStorage.getItem('viewOnly') && (<EditProfile />)}
+          {!JSON.parse(localStorage.getItem('viewOnly')) && (<EditProfile />)}
         </DialogActions>
       </div>
       );

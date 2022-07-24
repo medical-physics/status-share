@@ -79,7 +79,7 @@ export default function NavBar () {
                 {title}
               </Grid>
               <Grid item>
-                {(localStorage.getItem('admin') || admin) && (<><EditAppName /><AddTeamDialog /></>)}
+                {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
               </Grid>
             </Grid>
           </Grid>

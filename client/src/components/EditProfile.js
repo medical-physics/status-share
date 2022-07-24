@@ -162,7 +162,7 @@ export default function EditProfile () {
               fullWidth
               sx={styles.memo}
             />
-            {localStorage.getItem('admin') && (
+            {JSON.parse(localStorage.getItem('admin')) && (
               <>
                 <TextField
                   name='profileName'

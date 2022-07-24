@@ -21,13 +21,13 @@ export default function PresenceButton (props) {
   const dispatch = useDispatch();
 
   const uncheckButton = () => {
-    if (!localStorage.getItem('viewOnly')) {
+    if (!JSON.parse(localStorage.getItem('viewOnly'))) {
       dispatch(markNotPresentAsync(userId));
     }
   };
 
   const checkButton = () => {
-    if (!localStorage.getItem('viewOnly')) {
+    if (!JSON.parse(localStorage.getItem('viewOnly'))) {
       dispatch(markPresentAsync(userId));
     }
   };
