@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // MUI components
 import {
@@ -18,7 +19,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editProfileAsync } from '../redux/slices/usersSlice';
 
 const styles = {
@@ -48,7 +49,7 @@ const styles = {
   }
 };
 
-export default function EditProfile () {
+export default function EditProfile (props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     profileName: '',
@@ -61,6 +62,7 @@ export default function EditProfile () {
 
   const { profileName, phone, email, team, memo, priority } = formValue;
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
 
   const handleOpen = () => {
@@ -70,11 +72,12 @@ export default function EditProfile () {
 
   const handleClose = () => {
     setOpen(false);
+    props.onClose();
   };
 
   const mapUserToState = () => {
     setFormValue({
-      name: user.name,
+      profileName: user.name,
       phone: user.phone,
       email: user.email,
       memo: user.memo,
@@ -104,7 +107,7 @@ export default function EditProfile () {
       userId: user._id,
       priority: parseInt(priority)
     };
-    editProfileAsync(profileData);
+    dispatch(editProfileAsync(profileData));
     handleClose();
   };
 
@@ -197,3 +200,7 @@ export default function EditProfile () {
     </>
   );
 }
+
+EditProfile.propTypes = {
+  onClose: PropTypes.func.isRequired
+};

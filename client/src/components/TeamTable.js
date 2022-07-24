@@ -96,7 +96,7 @@ export default function TeamTable (props) {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <TableRow key={row.name}>
+                <TableRow key={row.userId}>
                   <TableCell sx={styles.tableCell}>
                     <Grid container alignItems='center' spacing={1}>
                       <Grid item>

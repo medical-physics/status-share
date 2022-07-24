@@ -107,8 +107,9 @@ export const editProfileAsync = createAsyncThunk(
   'users/editProfile',
   async (profileObj, { dispatch }) => {
     try {
-      dispatch(editUser(profileObj));
+      dispatch(loadingUser());
       const response = await updateUserProfile(profileObj);
+      dispatch(stopLoadingUser());
       return response;
     } catch (err) {
       console.error(err);
@@ -186,39 +187,22 @@ export const usersSlice = createSlice({
         state.user.statusTime = action.payload.statusTime;
       }
     },
-    editUser: (state, action) => {
-      const index4 = state.users.findIndex(
-        (user) => user.userId === action.payload.userId
-      );
-      state.users[index4].name = action.payload.name;
-      state.users[index4].email = action.payload.email;
-      state.users[index4].phone = action.payload.phone;
-      state.users[index4].team = action.payload.team;
-      state.users[index4].memo = action.payload.memo;
-      if (state.user.userId === action.payload.userId) {
-        state.user.name = action.payload.name;
-        state.user.email = action.payload.email;
-        state.user.phone = action.payload.phone;
-        state.user.team = action.payload.team;
-        state.user.memo = action.payload.memo;
-      }
-    },
     decrementUnreadMessages: (state, action) => {
-      const index5 = state.users.findIndex(
+      const index4 = state.users.findIndex(
         (user) => user._id === action.payload
       );
-      state.users[index5].unreadMessages -= 1;
+      state.users[index4].unreadMessages -= 1;
       if (state.user._id === action.payload) {
         state.user.unreadMessages -= 1;
       }
     },
     deleteUser: (state, action) => {
-      const index6 = state.users.findIndex(
+      const index5 = state.users.findIndex(
         (user) => user.userId === action.payload
       );
       state.users = [
-        ...state.users.slice(0, index6),
-        ...state.users.slice(index6 + 1)
+        ...state.users.slice(0, index5),
+        ...state.users.slice(index5 + 1)
       ];
     }
   },
@@ -239,6 +223,24 @@ export const usersSlice = createSlice({
           action.payload,
           ...state.users
         ];
+      })
+      .addCase(editProfileAsync.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const index6 = state.users.findIndex(
+          (user) => user._id === action.payload._id
+        );
+        state.users[index6].name = action.payload.name;
+        state.users[index6].email = action.payload.email;
+        state.users[index6].phone = action.payload.phone;
+        state.users[index6].team = action.payload.team;
+        state.users[index6].memo = action.payload.memo;
+        if (state.user._id === action.payload._id) {
+          state.user.name = action.payload.name;
+          state.user.email = action.payload.email;
+          state.user.phone = action.payload.phone;
+          state.user.team = action.payload.team;
+          state.user.memo = action.payload.memo;
+        }
       });
   }
 });
