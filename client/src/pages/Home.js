@@ -85,7 +85,7 @@ export default function Home () {
   return (
     <>
       <Helmet>
-        <title>{`${appName || "Medical Physics"} | Home`}</title>
+        <title>{`${appName || 'Medical Physics'} | Home`}</title>
       </Helmet>
       <Dialog open={loadingTeam}>
         <DialogTitle>

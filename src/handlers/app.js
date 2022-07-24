@@ -102,12 +102,14 @@ exports.getAppName = (req, res) => {
 // Set new app name
 exports.setAppName = async (req, res) => {
   try {
-    const doc = await AppMetadata.findOne();
+    const { appName } = req.body;
+    const appMetadata = await AppMetadata.findOne();
 
-    doc.appName = req.body.appName;
-    await doc.save();
+    console.log(appName);
+    appMetadata.appName = appName;
+    await appMetadata.save();
 
-    return res.status(200).json(doc);
+    return res.status(200).json({ appName: appMetadata.appName });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.code });

@@ -33,5 +33,5 @@ exports.validateBasicAuth = (authHeader) => {
     basicAuthError,
     email,
     password
-  }
+  };
 };

@@ -67,8 +67,9 @@ export const getAppNameAsync = createAsyncThunk(
 
 export const setAppNameAsync = createAsyncThunk(
   'account/setAppName',
-  async (newAppName, { dispatch }) => {
+  async (newAppName) => {
     const response = await postAppName(newAppName);
+    localStorage.setItem('appName', response.appName);
     return response;
   }
 );
@@ -130,6 +131,9 @@ export const accountSlice = createSlice({
         localStorage.setItem('accessToken', action.payload);
       })
       .addCase(getAppNameAsync.fulfilled, (state, action) => {
+        state.appName = action.payload.appName;
+      })
+      .addCase(setAppNameAsync.fulfilled, (state, action) => {
         state.appName = action.payload.appName;
       });
   }

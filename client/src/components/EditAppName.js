@@ -17,7 +17,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAppNameAsync } from '../redux/slices/accountSlice';
 
 const styles = {
@@ -42,6 +42,7 @@ export default function EditAppName () {
   const [open, setOpen] = React.useState(false);
   const [stateAppName, setStateAppName] = React.useState('');
 
+  const dispatch = useDispatch();
   const appName = useSelector((state) => state.account.appName);
 
   const handleOpen = () => {
@@ -55,10 +56,7 @@ export default function EditAppName () {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newAppName = {
-      appName: stateAppName
-    };
-    setAppNameAsync(newAppName);
+    dispatch(setAppNameAsync(stateAppName));
     handleClose();
   };
 
