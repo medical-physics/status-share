@@ -8,14 +8,14 @@ export const loginUser = async (email, password) => {
     password: encryptedPassword
   };
 
-  const data = await axios.post('/login', credentials);
-  return data.json();
+  const response = await axios.post('/login', credentials);
+  return response.data;
 };
 
 export const refreshAccessToken = async (refreshToken) => {
   axios.defaults.headers.common.Authorization = refreshToken;
-  const data = await axios.post('/refreshLogin');
-  return data.json();
+  const response = await axios.post('/refreshLogin');
+  return response.data;
 };
 
 export const logoutUser = async () => {
@@ -24,11 +24,11 @@ export const logoutUser = async () => {
 };
 
 export const getAppName = async () => {
-  const data = await axios.get('/appname');
-  return data.json();
+  const response = await axios.get('/appname');
+  return response.data;
 };
 
 export const postAppName = async (newAppName) => {
-  const data = await axios.post('/appname', { appName: newAppName });
-  return data.json();
+  const response = await axios.post('/appname', { appName: newAppName });
+  return response.data;
 };

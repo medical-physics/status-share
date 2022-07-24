@@ -16,17 +16,14 @@ const initialState = {
   rememberMe: false,
   appName: 'Medical Physics: Status Share',
   truncatedAppName: false,
-  updateTime: new Date()
+  updateTime: new Date(),
+  loadingLogin: false
 };
 
 export const loginUserAsync = createAsyncThunk(
   'account/loginUser',
   async (credentials, { dispatch }) => {
     const response = await loginUser(credentials.email, credentials.password);
-    dispatch(setAuthorizationHeader({
-      accessToken: response.accessToken,
-      refreshToken: response.refreshToken
-    }));
     return response;
   }
 );
@@ -36,7 +33,6 @@ export const refreshTokenAsync = createAsyncThunk(
   async (token) => {
     const response = await refreshAccessToken(token);
     const accessToken = TOKEN_PREFIX.concat(' ', response.accessToken);
-    localStorage.setItem('accessToken', accessToken);
     return accessToken;
   }
 );
@@ -61,7 +57,7 @@ export const setAppNameAsync = createAsyncThunk(
   'account/setAppName',
   async (newAppName, { dispatch }) => {
     const response = await postAppName(newAppName);
-    dispatch(setAppName({ appName: response.appName }));
+    return response;
   }
 );
 
@@ -83,12 +79,6 @@ export const accountSlice = createSlice({
     setRememberMe: (state) => {
       state.rememberMe = true;
     },
-    setAppName: (state, action) => {
-      state.appName = action.payload.appName;
-    },
-    setDefaultName: (state) => {
-      state.appName = 'Medical Physics: Status Share';
-    },
     setUpdateTime: (state) => {
       state.updateTime = new Date();
     },
@@ -97,19 +87,27 @@ export const accountSlice = createSlice({
     },
     detruncateAppName: (state) => {
       state.truncatedAppName = false;
-    },
-    setAuthorizationHeader: (state, action) => {
-      const accessToken = TOKEN_PREFIX.concat(' ', action.payload.accessToken);
-      const refreshToken = TOKEN_PREFIX.concat(' ', action.payload.refreshToken);
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      axios.defaults.headers.common.Authorization = accessToken;
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUserAsync.pending, (state) => {
-
+        state.loadingLogin = true;
+      })
+      .addCase(loginUserAsync.fulfilled, (state, action) => {
+        state.loadingLogin = false;
+        const accessToken = TOKEN_PREFIX.concat(' ', action.payload.accessToken);
+        const refreshToken = TOKEN_PREFIX.concat(' ', action.payload.refreshToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        axios.defaults.headers.common.Authorization = accessToken;
+      })
+      .addCase(refreshTokenAsync.fulfilled, (state, action) => {
+        state.accessToken = action.payload;
+        localStorage.setItem('accessToken', action.payload);
+      })
+      .addCase(setAppNameAsync.fulfilled, (state, action) => {
+        state.appName = action.payload;
       });
   }
 });
@@ -120,7 +118,6 @@ export const {
   setAdminAccount,
   setRememberMe,
   setAppName,
-  setDefaultName,
   setUpdateTime,
   truncateAppName,
   detruncateAppName,

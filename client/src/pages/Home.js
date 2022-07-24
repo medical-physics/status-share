@@ -58,7 +58,7 @@ export default function Home () {
   const loadingTeam = useSelector((state) => state.UI.loadingTeam);
 
   React.useEffect(() => {
-    authenticate(dispatch);
+    authenticate();
     dispatch(getTeamsAsync());
     dispatch(getUsersAsync());
   }, [dispatch]);

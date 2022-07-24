@@ -1,70 +1,73 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import { store } from '../redux/store/store';
 import { logoutUserAsync, refreshTokenAsync, setAuthenticated } from '../redux/slices/accountSlice';
 
-export const authenticate = (dispatch) => {
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
+export const authenticate = () => {
+  let accessToken = localStorage.getItem('accessToken');
+  let refreshToken = localStorage.getItem('refreshToken');
   const rememberMe = localStorage.getItem('rememberMe');
+  let decodedAccessToken;
+  let decodedRefreshToken;
+  let timeUntilExpiry;
 
-  // If "Remember Me" is selected
-  // Token refresher – ensures token is always valid while logged in
-  if (rememberMe === 1) {
-    dispatch(setAuthenticated());
+  if (accessToken) {
+    accessToken = accessToken.split(' ')[1];
+    decodedAccessToken = jwtDecode(accessToken);
+    timeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
+    axios.defaults.headers.common.Authorization = accessToken;
+  } else {
+    endSession();
+  }
 
-    if (accessToken) {
-      axios.defaults.headers.common.Authorization = accessToken;
-      const decodedToken = jwtDecode(accessToken);
-      // If token expired, refresh token
-      if (decodedToken.exp * 1000 < Date.now()) {
-        dispatch(refreshTokenAsync(refreshToken));
-        setTimeout(() => {
-          countdownAndRefresh(dispatch, decodedToken, refreshToken);
-        }, 4000);
-        // If token valid, set timer until expiry and then refresh token
-      } else {
-        countdownAndRefresh();
-      }
-      // If token doesn"t exist for some reason, retrieves new token
-    } else {
-      dispatch(refreshTokenAsync(refreshToken));
-      setTimeout(() => {
-        countdownAndRefresh(dispatch, null, refreshToken);
-      }, 4000);
+  if (refreshToken) {
+    refreshToken = refreshToken.split(' ')[1];
+    decodedRefreshToken = jwtDecode(refreshToken);
+    const isRefreshTokenExpired = decodedRefreshToken.exp * 1000 - Date.now() <= 0;
+    if (isRefreshTokenExpired) {
+      endSession();
     }
+  }
 
-    // If "Remember Me" not selected, logout user when token expires
+  if (rememberMe === 1 && refreshToken) {
+    if (timeUntilExpiry <= 0) {
+      countDownAndRefresh(refreshToken, 0);
+    } else {
+      countDownAndRefresh(refreshToken, timeUntilExpiry);
+    }
+    store.dispatch(setAuthenticated());
   } else if (rememberMe === 0) {
-    dispatch(setAuthenticated());
-
-    if (accessToken) {
-      axios.defaults.headers.common.Authorization = accessToken;
-      const decodedToken = jwtDecode(accessToken);
-      const timeUntilExpiry = decodedToken.exp * 1000 - Date.now();
-      if (timeUntilExpiry <= 0) {
-        dispatch(logoutUserAsync());
-        window.location.href = '/login';
-      } else {
-        setTimeout(() => {
-          dispatch(logoutUserAsync());
-          window.location.href = '/login';
-        }, timeUntilExpiry);
-      }
+    if (timeUntilExpiry <= 0) {
+      endSession();
     } else {
-      /* store.dispatch(logoutUser());
-                window.location.href = "/login"; */
+      countDownAndEndSession(timeUntilExpiry);
     }
+    store.dispatch(setAuthenticated());
+  } else {
+    endSession();
   }
 };
 
-const countdownAndRefresh = (dispatch, decodedToken, refreshToken) => {
-  const currentTimeUntilExpiry = decodedToken.exp * 1000 - Date.now();
-  console.log('Time until token expiry :', currentTimeUntilExpiry);
+const endSession = () => {
+  store.dispatch(logoutUserAsync());
+  window.location.href = '/login';
+};
+
+const countDownAndEndSession = (timeUntilExpiry) => {
+  setTimeout(() => {
+    endSession();
+  }, timeUntilExpiry);
+};
+
+const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
+  console.log('Time until token expiry :', timeUntilExpiry);
 
   setTimeout(() => {
-    dispatch(refreshTokenAsync(refreshToken));
-    setTimeout(() => {
-      countdownAndRefresh();
-    }, 4000);
-  }, currentTimeUntilExpiry);
+    store.dispatch(refreshTokenAsync(refreshToken))
+      .then((res) => {
+        const decodedAccessToken = jwtDecode(res);
+        const newTimeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
+        countDownAndRefresh(refreshToken, newTimeUntilExpiry);
+      });
+  }, timeUntilExpiry);
 };
