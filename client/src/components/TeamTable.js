@@ -78,7 +78,7 @@ export default function TeamTable (props) {
               </Typography>
             </Grid>
             <Grid item>
-              {Boolean(parseInt(localStorage.getItem('admin'))) && (<>
+              {localStorage.getItem('admin') && (<>
                 <EditTeam teamDetails={teamDetails} />
                 <AddUserDialog teamName={teamDetails.team} teamId={teamDetails._id} />
               </>)}

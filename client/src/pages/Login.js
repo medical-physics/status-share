@@ -67,8 +67,6 @@ export default function Login (props) {
 
   React.useEffect(() => {
     localStorage.clear();
-    localStorage.setItem('admin', 0);
-    localStorage.setItem('viewOnly', 0);
     dispatch(getAppNameAsync());
   }, [dispatch]);
 

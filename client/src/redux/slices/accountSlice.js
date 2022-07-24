@@ -23,7 +23,8 @@ const initialState = {
   updateTime: new Date(),
   loadingLogin: false,
   checkingAuth: false,
-  errors: null
+  errors: null,
+  viewOnly: false
 };
 
 export const loginUserAsync = createAsyncThunk(
@@ -112,9 +113,12 @@ export const accountSlice = createSlice({
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         const accessToken = TOKEN_PREFIX.concat(' ', action.payload.accessToken);
         const refreshToken = TOKEN_PREFIX.concat(' ', action.payload.refreshToken);
-        console.log(accessToken, refreshToken);
+        state.admin = action.payload.admin;
+        state.viewOnly = action.payload.viewOnly;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('admin', action.payload.admin);
+        localStorage.setItem('viewOnly', action.payload.viewOnly);
         axios.defaults.headers.common.Authorization = accessToken;
         window.location.href = '/';
       })
