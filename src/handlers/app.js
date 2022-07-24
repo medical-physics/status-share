@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const AppMetadata = require('../models/appMetadata');
 const Credential = require('../models/credential');
-const { validateLoginData } = require('../util/validators');
+const { validateLoginData, validateBasicAuth } = require('../util/validators');
 
 // Use this route when creating new credentials
 // Only email and (unencrypted) password are required in the req body
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
     );
 
     credential.token = token;
-    credential.save();
+    await credential.save();
 
     return res.status(201).json(credential);
   } catch (err) {
@@ -37,16 +37,16 @@ exports.register = async (req, res) => {
 // Log in
 exports.login = async (req, res) => {
   try {
-    const inputCred = {
-      email: req.body.email,
-      password: req.body.password
-    };
-    const { valid, errors } = validateLoginData(inputCred);
+    const inputCred = validateBasicAuth(req.headers.authorization);
+    if (inputCred.basicAuthError) return res.status(400).send({ general: 'Basic auth form not provided.' });
 
+    const { valid, errors } = validateLoginData(inputCred);
     if (!valid) return res.status(400).json(errors);
 
     const credential = await Credential.findOne({ email: inputCred.email });
-    if (credential.password !== inputCred.password) {
+    const isEqual = await bcrypt.compare(inputCred.password, credential.password);
+
+    if (!isEqual) {
       return res.status(403).send({ general: 'Wrong credentials, please try again.' });
     }
 

@@ -69,7 +69,7 @@ export default function Login (props) {
     localStorage.setItem('admin', 0);
     localStorage.setItem('viewOnly', 0);
     dispatch(getAppNameAsync());
-  });
+  }, [dispatch]);
 
   /* static getDerivedStateFromProps (nextProps, prevState) {
     if (nextProps.UI.errors) {
@@ -89,15 +89,14 @@ export default function Login (props) {
       password
     };
 
-    // Login persistence or not
     if (rememberMe) {
-      // this.props.persistentLogin(userData, this.props.history);
       localStorage.setItem('rememberMe', 1);
       dispatch(setRememberMe());
     } else {
-      loginUserAsync(userData, props.history);
       localStorage.setItem('rememberMe', 0);
     }
+
+    dispatch(loginUserAsync(userData));
   };
 
   const handleCheck = (event) => {

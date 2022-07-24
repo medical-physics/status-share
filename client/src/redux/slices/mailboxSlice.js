@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loadingUI, stopLoadingUI } from './uiSlice';
-import { setUpdateTime } from './accountSlice';
 import {
   addOneMessage,
   deleteOneMessage,

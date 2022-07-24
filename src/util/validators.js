@@ -14,3 +14,24 @@ exports.validateLoginData = (data) => {
     valid: Object.keys(errors).length === 0
   };
 };
+
+exports.validateBasicAuth = (authHeader) => {
+  let basicAuthError = false;
+  let email;
+  let password;
+
+  try {
+    basicAuthError = authHeader.split(' ')[0] !== 'Basic';
+    const decodedAuth = Buffer.from(authHeader.split(' ')[1], 'base64').toString();
+    email = decodedAuth.split(':')[0];
+    password = decodedAuth.split(':')[1];
+  } catch (error) {
+    basicAuthError = true;
+  }
+
+  return {
+    basicAuthError,
+    email,
+    password
+  }
+};

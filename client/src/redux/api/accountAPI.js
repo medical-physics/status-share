@@ -1,14 +1,12 @@
-import bcrypt from 'bcryptjs';
 import axios from 'axios';
 
 export const loginUser = async (email, password) => {
-  const encryptedPassword = await bcrypt.hash(password, 10);
-  const credentials = {
-    email,
-    password: encryptedPassword
-  };
-
-  const response = await axios.post('/login', credentials);
+  const response = await axios.post('/login', {}, {
+    auth: {
+      username: email,
+      password
+    }
+  });
   return response.data;
 };
 

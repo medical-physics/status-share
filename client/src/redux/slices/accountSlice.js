@@ -6,6 +6,10 @@ import {
   getAppName,
   postAppName
 } from '../api/accountAPI';
+import {
+  loadingUI,
+  stopLoadingUI
+} from './uiSlice';
 import axios from 'axios';
 
 const TOKEN_PREFIX = 'Bearer';
@@ -24,7 +28,9 @@ const initialState = {
 export const loginUserAsync = createAsyncThunk(
   'account/loginUser',
   async (credentials, { dispatch }) => {
+    dispatch(loadingUI());
     const response = await loginUser(credentials.email, credentials.password);
+    dispatch(stopLoadingUI());
     return response;
   }
 );
@@ -48,9 +54,9 @@ export const logoutUserAsync = createAsyncThunk(
 
 export const getAppNameAsync = createAsyncThunk(
   'account/getAppName',
-  async (_, { dispatch }) => {
+  async () => {
     const response = await getAppName();
-    dispatch(setAppName({ appName: response.appName }));
+    return response;
   }
 );
 
@@ -96,11 +102,7 @@ export const accountSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUserAsync.pending, (state) => {
-        state.loadingLogin = true;
-      })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
-        state.loadingLogin = false;
         const accessToken = TOKEN_PREFIX.concat(' ', action.payload.accessToken);
         const refreshToken = TOKEN_PREFIX.concat(' ', action.payload.refreshToken);
         localStorage.setItem('accessToken', accessToken);
@@ -111,8 +113,8 @@ export const accountSlice = createSlice({
         state.accessToken = action.payload;
         localStorage.setItem('accessToken', action.payload);
       })
-      .addCase(setAppNameAsync.fulfilled, (state, action) => {
-        state.appName = action.payload;
+      .addCase(getAppNameAsync.fulfilled, (state, action) => {
+        state.appName = action.payload.appName;
       });
   }
 });
@@ -126,7 +128,7 @@ export const {
   setUpdateTime,
   truncateAppName,
   detruncateAppName,
-  setAuthorizationHeader
+  checkingAuth
 } = accountSlice.actions;
 
 export default accountSlice.reducer;
