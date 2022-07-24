@@ -114,10 +114,11 @@ exports.setAppName = async (req, res) => {
 // If valid, create new access token
 exports.refreshLogin = async (req, res) => {
   try {
-    const credential = await Credential.findOne({ _id: req.user.credentialId });
+    const decodedToken = req.decodedToken;
+    const credential = await Credential.findOne({ _id: decodedToken.credentialId });
 
     const accessToken = jwt.sign(
-      { credentialId: credential._id, email: req.user.email },
+      { credentialId: credential._id, email: decodedToken.email },
       process.env.TOKEN_KEY,
       {
         expiresIn: '1h'

@@ -2,48 +2,51 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { logoutUserAsync, refreshTokenAsync, setAuthenticated } from '../redux/slices/accountSlice';
 
-export const authenticate = () => {
-  const token = localStorage.getItem('accessToken');
+export const authenticate = (dispatch) => {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
   const rememberMe = localStorage.getItem('rememberMe');
 
   // If "Remember Me" is selected
   // Token refresher – ensures token is always valid while logged in
   if (rememberMe === 1) {
-    setAuthenticated();
-    axios.defaults.headers.common.Authorization = token;
-    if (token) {
-      const decodedToken = jwtDecode(token);
+    dispatch(setAuthenticated());
+
+    if (accessToken) {
+      axios.defaults.headers.common.Authorization = accessToken;
+      const decodedToken = jwtDecode(accessToken);
       // If token expired, refresh token
       if (decodedToken.exp * 1000 < Date.now()) {
-        refreshTokenAsync(localStorage.getItem('refreshToken'));
+        dispatch(refreshTokenAsync(refreshToken));
         setTimeout(() => {
-          this.countdownAndRefresh();
+          countdownAndRefresh(dispatch, decodedToken, refreshToken);
         }, 4000);
         // If token valid, set timer until expiry and then refresh token
       } else {
-        this.countdownAndRefresh();
+        countdownAndRefresh();
       }
       // If token doesn"t exist for some reason, retrieves new token
     } else {
-      refreshTokenAsync(localStorage.getItem('refreshToken'));
+      dispatch(refreshTokenAsync(refreshToken));
       setTimeout(() => {
-        this.countdownAndRefresh();
+        countdownAndRefresh(dispatch, null, refreshToken);
       }, 4000);
     }
 
     // If "Remember Me" not selected, logout user when token expires
   } else if (rememberMe === 0) {
-    setAuthenticated();
-    axios.defaults.headers.common.Authorization = token;
-    if (token) {
-      const decodedToken = jwtDecode(token);
+    dispatch(setAuthenticated());
+
+    if (accessToken) {
+      axios.defaults.headers.common.Authorization = accessToken;
+      const decodedToken = jwtDecode(accessToken);
       const timeUntilExpiry = decodedToken.exp * 1000 - Date.now();
       if (timeUntilExpiry <= 0) {
-        logoutUserAsync();
+        dispatch(logoutUserAsync());
         window.location.href = '/login';
       } else {
         setTimeout(() => {
-          logoutUserAsync();
+          dispatch(logoutUserAsync());
           window.location.href = '/login';
         }, timeUntilExpiry);
       }
@@ -54,13 +57,12 @@ export const authenticate = () => {
   }
 };
 
-export const countdownAndRefresh = () => {
-  const currentDecodedToken = jwtDecode(localStorage.getItem('FBIdToken'));
-  const currentTimeUntilExpiry = currentDecodedToken.exp * 1000 - Date.now();
+const countdownAndRefresh = (dispatch, decodedToken, refreshToken) => {
+  const currentTimeUntilExpiry = decodedToken.exp * 1000 - Date.now();
   console.log('Time until token expiry :', currentTimeUntilExpiry);
 
   setTimeout(() => {
-    refreshTokenAsync(localStorage.getItem('refreshToken'));
+    dispatch(refreshTokenAsync(refreshToken));
     setTimeout(() => {
       countdownAndRefresh();
     }, 4000);

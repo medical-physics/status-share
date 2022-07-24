@@ -19,11 +19,7 @@ export const refreshAccessToken = async (refreshToken) => {
 };
 
 export const logoutUser = async () => {
-  localStorage.removeItem('refreshToken');
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('admin');
-  localStorage.removeItem('rememberMe');
-  localStorage.removeItem('viewOnly');
+  localStorage.clear();
   delete axios.defaults.headers.common.Authorization;
 };
 

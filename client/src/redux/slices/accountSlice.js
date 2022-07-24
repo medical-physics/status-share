@@ -8,6 +8,8 @@ import {
 } from '../api/accountAPI';
 import axios from 'axios';
 
+const TOKEN_PREFIX = 'Bearer';
+
 const initialState = {
   authenticated: false,
   admin: false,
@@ -33,7 +35,7 @@ export const refreshTokenAsync = createAsyncThunk(
   'account/refreshToken',
   async (token) => {
     const response = await refreshAccessToken(token);
-    const accessToken = response.accessToken;
+    const accessToken = TOKEN_PREFIX.concat(' ', response.accessToken);
     localStorage.setItem('accessToken', accessToken);
     return accessToken;
   }
@@ -97,8 +99,8 @@ export const accountSlice = createSlice({
       state.truncatedAppName = false;
     },
     setAuthorizationHeader: (state, action) => {
-      const accessToken = `Bearer ${action.payload.accessToken}`;
-      const refreshToken = `Bearer ${action.payload.refreshToken}`;
+      const accessToken = TOKEN_PREFIX.concat(' ', action.payload.accessToken);
+      const refreshToken = TOKEN_PREFIX.concat(' ', action.payload.refreshToken);
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       axios.defaults.headers.common.Authorization = accessToken;
