@@ -78,11 +78,9 @@ export default function Login (props) {
     };
 
     if (rememberMe) {
-      localStorage.setItem('rememberMe', 1);
       dispatch(setRememberMe());
-    } else {
-      localStorage.setItem('rememberMe', 0);
     }
+    localStorage.setItem('rememberMe', rememberMe);
 
     dispatch(loginUserAsync(userData));
   };

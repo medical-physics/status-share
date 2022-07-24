@@ -35,14 +35,14 @@ export const authenticate = () => {
     }
   }
 
-  if (rememberMe === '1' && refreshToken) {
+  if (rememberMe && refreshToken) {
     if (timeUntilExpiry <= 0) {
       countDownAndRefresh(refreshToken, 0);
     } else {
       countDownAndRefresh(refreshToken, timeUntilExpiry);
     }
     store.dispatch(setAuthenticated());
-  } else if (rememberMe === '0') {
+  } else if (!rememberMe) {
     if (timeUntilExpiry <= 0) {
       endSession();
     } else {
