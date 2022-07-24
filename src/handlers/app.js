@@ -8,12 +8,14 @@ const { validateLoginData, validateBasicAuth } = require('../util/validators');
 // Only email and (unencrypted) password are required in the req body
 exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { admin, email, password, viewOnly } = req.body;
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     const credential = await Credential.create({
+      admin,
       email: email.toLowerCase(),
-      password: encryptedPassword
+      password: encryptedPassword,
+      viewOnly
     });
 
     const token = jwt.sign(
@@ -71,7 +73,9 @@ exports.login = async (req, res) => {
 
     return res.status(200).json({
       accessToken,
-      refreshToken
+      refreshToken,
+      admin: credential.admin,
+      viewOnly: credential.viewOnly
     });
   } catch (err) {
     console.error(err);
