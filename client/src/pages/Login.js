@@ -56,7 +56,6 @@ const styles = {
 };
 
 export default function Login (props) {
-  const [errors, setErrors] = React.useState({});
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [rememberMe, setStateRememberMe] = React.useState(false);
@@ -64,23 +63,13 @@ export default function Login (props) {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.UI.loading);
   const appName = useSelector((state) => state.account.appName);
+  const errors = useSelector((state) => state.account.errors);
 
   React.useEffect(() => {
     localStorage.setItem('admin', 0);
     localStorage.setItem('viewOnly', 0);
     dispatch(getAppNameAsync());
   }, [dispatch]);
-
-  /* static getDerivedStateFromProps (nextProps, prevState) {
-    if (nextProps.UI.errors) {
-      return {
-        errors: nextProps.UI.errors,
-        ...prevState
-      }
-    } else {
-      return prevState
-    }
-  }; */
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -100,7 +89,7 @@ export default function Login (props) {
   };
 
   const handleCheck = (event) => {
-    setStateRememberMe(event.target.value);
+    setStateRememberMe(event.target.checked);
   };
 
   return (
@@ -130,8 +119,8 @@ export default function Login (props) {
                 type='email'
                 label='Username'
                 sx={styles.textField}
-                helperText={errors.email}
-                error={!!errors.email}
+                helperText={errors?.email}
+                error={!!errors?.email}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
@@ -141,14 +130,14 @@ export default function Login (props) {
                 type='password'
                 label='Password'
                 sx={styles.textField}
-                helperText={errors.password}
-                error={!!errors.password}
+                helperText={errors?.password}
+                error={!!errors?.password}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              {errors.general && (
+              {errors?.general && (
                 <Typography variant='body2' sx={styles.customError}>
-                  {errors.general}
+                  {errors?.general}
                 </Typography>
               )}
               <Grid sx={styles.textField}>

@@ -22,16 +22,23 @@ const initialState = {
   truncatedAppName: false,
   updateTime: new Date(),
   loadingLogin: false,
-  checkingAuth: false
+  checkingAuth: false,
+  errors: null
 };
 
 export const loginUserAsync = createAsyncThunk(
   'account/loginUser',
-  async (credentials, { dispatch }) => {
+  async (credentials, { dispatch, rejectWithValue }) => {
     dispatch(loadingUI());
-    const response = await loginUser(credentials.email, credentials.password);
-    dispatch(stopLoadingUI());
-    return response;
+    try {
+      const response = await loginUser(credentials.email, credentials.password);
+
+      dispatch(stopLoadingUI());
+      return response;
+    } catch (error) {
+      dispatch(stopLoadingUI());
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 
@@ -108,6 +115,10 @@ export const accountSlice = createSlice({
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         axios.defaults.headers.common.Authorization = accessToken;
+      })
+      .addCase(loginUserAsync.rejected, (state, action) => {
+        state.errors = action.payload;
+        console.log(state.errors);
       })
       .addCase(refreshTokenAsync.fulfilled, (state, action) => {
         state.accessToken = action.payload;
