@@ -6,8 +6,8 @@ export const getTeams = async () => {
 };
 
 export const addTeam = async (newTeam) => {
-  const data = await axios.post('/team', newTeam);
-  return data.json();
+  const response = await axios.post('/team', newTeam);
+  return response.data;
 };
 
 export const updateTeam = async (teamId, teamData) => {

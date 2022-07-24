@@ -18,6 +18,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
+import { useDispatch } from 'react-redux';
 import { addTeamAsync } from '../redux/slices/teamsSlice';
 
 const styles = {
@@ -58,6 +59,8 @@ export default function AddTeamDialog () {
 
   const { team, priority, color, col1, col2, col3 } = formValue;
 
+  const dispatch = useDispatch();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -76,7 +79,7 @@ export default function AddTeamDialog () {
       col2: col2.trim(),
       col3: col3.trim()
     };
-    addTeamAsync(newTeamData);
+    dispatch(addTeamAsync(newTeamData));
     handleClose();
     setFormValue({
       team: '',

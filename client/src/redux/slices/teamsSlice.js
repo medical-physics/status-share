@@ -90,6 +90,12 @@ export const teamsSlice = createSlice({
       .addCase(getTeamsAsync.fulfilled, (state, action) => {
         state.loadingTeamsData = false;
         state.teams = action.payload;
+      })
+      .addCase(addTeamAsync.fulfilled, (state, action) => {
+        state.teams = [
+          action.payload,
+          ...state.teams
+        ];
       });
   }
 });
