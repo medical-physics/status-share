@@ -20,6 +20,7 @@ import {
 
 // Redux stuff
 import { useDispatch, useSelector } from 'react-redux';
+import { getAppNameAsync } from '../redux/slices/accountSlice';
 import { getUsersAsync } from '../redux/slices/usersSlice';
 import { getTeamsAsync } from '../redux/slices/teamsSlice';
 
@@ -45,8 +46,6 @@ const styles = {
 };
 
 export default function Home () {
-  const [stateTeams, setStateTeams] = React.useState({});
-
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users.users);
@@ -60,6 +59,7 @@ export default function Home () {
 
   React.useEffect(() => {
     authenticate();
+    dispatch(getAppNameAsync());
     dispatch(getTeamsAsync());
     dispatch(getUsersAsync());
   }, [dispatch]);
@@ -85,7 +85,7 @@ export default function Home () {
   return (
     <>
       <Helmet>
-        <title>{appName} | Home</title>
+        <title>{`${appName || "Medical Physics"} | Home`}</title>
       </Helmet>
       <Dialog open={loadingTeam}>
         <DialogTitle>

@@ -20,7 +20,7 @@ import {
 
 // Redux stuff
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUserAsync, getAppNameAsync, truncateAppName, detruncateAppName } from '../redux/slices/accountSlice';
+import { logoutUserAsync, truncateAppName, detruncateAppName } from '../redux/slices/accountSlice';
 
 export default function NavBar () {
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ export default function NavBar () {
       }
     }
 
-    getAppNameAsync();
     updateTitle();
     window.addEventListener('resize', updateTitle);
 
@@ -48,7 +47,6 @@ export default function NavBar () {
   }, [dispatch]);
 
   const handleLogout = () => {
-    localStorage.removeItem('admin');
     logoutUserAsync();
   };
 

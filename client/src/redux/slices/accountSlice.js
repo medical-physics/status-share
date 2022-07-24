@@ -63,7 +63,13 @@ export const logoutUserAsync = createAsyncThunk(
 export const getAppNameAsync = createAsyncThunk(
   'account/getAppName',
   async () => {
+    const cachedAppName = localStorage.getItem('appName');
+    if (cachedAppName) {
+      return { appName: cachedAppName };
+    }
+
     const response = await getAppName();
+    localStorage.setItem('appName', response.appName);
     return response;
   }
 );
