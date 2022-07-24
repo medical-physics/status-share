@@ -1,7 +1,12 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { store } from '../redux/store/store';
-import { logoutUserAsync, refreshTokenAsync, setAuthenticated, checkingAuth } from '../redux/slices/accountSlice';
+import {
+  logoutUserAsync,
+  refreshTokenAsync,
+  setAuthenticated,
+  checkingAuth
+} from '../redux/slices/accountSlice';
 
 export const authenticate = () => {
   store.dispatch(checkingAuth());
