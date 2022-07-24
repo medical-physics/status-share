@@ -116,7 +116,7 @@ export default function TeamTable (props) {
                         {row.status}
                       </Grid>
                       <Grid item>
-                        {!parseInt(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} />)}
+                        {!localStorage.getItem('viewOnly') && (<EditStatus userId={row.userId} />)}
                       </Grid>
                     </Grid>
                   </TableCell>
