@@ -35,14 +35,14 @@ export const authenticate = () => {
     }
   }
 
-  if (rememberMe === 1 && refreshToken) {
+  if (rememberMe === '1' && refreshToken) {
     if (timeUntilExpiry <= 0) {
       countDownAndRefresh(refreshToken, 0);
     } else {
       countDownAndRefresh(refreshToken, timeUntilExpiry);
     }
     store.dispatch(setAuthenticated());
-  } else if (rememberMe === 0) {
+  } else if (rememberMe === '0') {
     if (timeUntilExpiry <= 0) {
       endSession();
     } else {
@@ -60,13 +60,15 @@ const endSession = () => {
 };
 
 const countDownAndEndSession = (timeUntilExpiry) => {
+  console.log('Time until token expiry:'.concat(' ', timeUntilExpiry));
+
   setTimeout(() => {
     endSession();
   }, timeUntilExpiry);
 };
 
 const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
-  console.log('Time until token expiry :', timeUntilExpiry);
+  console.log('Time until token expiry:'.concat(' ', timeUntilExpiry));
 
   setTimeout(() => {
     store.dispatch(refreshTokenAsync(refreshToken))

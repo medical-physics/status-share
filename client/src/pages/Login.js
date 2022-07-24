@@ -66,6 +66,7 @@ export default function Login (props) {
   const errors = useSelector((state) => state.account.errors);
 
   React.useEffect(() => {
+    localStorage.clear();
     localStorage.setItem('admin', 0);
     localStorage.setItem('viewOnly', 0);
     dispatch(getAppNameAsync());
