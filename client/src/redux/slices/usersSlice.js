@@ -135,8 +135,9 @@ export const deleteUserAsync = createAsyncThunk(
   'users/deleteUser',
   async (userId, { dispatch }) => {
     try {
-      dispatch(deleteUser(userId));
+      dispatch(loadingUser());
       const response = await deleteOneUser(userId);
+      dispatch(stopLoadingUser());
       return response;
     } catch (err) {
       console.error(err);
@@ -196,15 +197,6 @@ export const usersSlice = createSlice({
         state.user.unreadMessages -= 1;
       }
     },
-    deleteUser: (state, action) => {
-      const index5 = state.users.findIndex(
-        (user) => user.userId === action.payload
-      );
-      state.users = [
-        ...state.users.slice(0, index5),
-        ...state.users.slice(index5 + 1)
-      ];
-    }
   },
   extraReducers: (builder) => {
     builder
@@ -226,14 +218,14 @@ export const usersSlice = createSlice({
       })
       .addCase(editProfileAsync.fulfilled, (state, action) => {
         console.log(action.payload);
-        const index6 = state.users.findIndex(
+        const index5 = state.users.findIndex(
           (user) => user._id === action.payload._id
         );
-        state.users[index6].name = action.payload.name;
-        state.users[index6].email = action.payload.email;
-        state.users[index6].phone = action.payload.phone;
-        state.users[index6].team = action.payload.team;
-        state.users[index6].memo = action.payload.memo;
+        state.users[index5].name = action.payload.name;
+        state.users[index5].email = action.payload.email;
+        state.users[index5].phone = action.payload.phone;
+        state.users[index5].team = action.payload.team;
+        state.users[index5].memo = action.payload.memo;
         if (state.user._id === action.payload._id) {
           state.user.name = action.payload.name;
           state.user.email = action.payload.email;
@@ -241,6 +233,15 @@ export const usersSlice = createSlice({
           state.user.team = action.payload.team;
           state.user.memo = action.payload.memo;
         }
+      })
+      .addCase(deleteUserAsync.fulfilled, (state, action) => {
+        const index6 = state.users.findIndex(
+          (user) => user._id === action.payload._id
+        );
+        state.users = [
+          ...state.users.slice(0, index6),
+          ...state.users.slice(index6 + 1)
+        ];
       });
   }
 });
@@ -253,8 +254,7 @@ export const {
   markNotPresent,
   updateStatus,
   editUser,
-  decrementUnreadMessages,
-  deleteUser
+  decrementUnreadMessages
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

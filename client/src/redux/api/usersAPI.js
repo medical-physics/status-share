@@ -31,6 +31,6 @@ export const addOneUser = async (newUserData) => {
 };
 
 export const deleteOneUser = async (userId) => {
-  const data = await axios.delete(`/user/${userId}`);
-  return data.json();
+  const response = await axios.delete(`/user/${userId}`);
+  return response.data;
 };

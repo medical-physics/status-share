@@ -140,7 +140,10 @@ exports.deleteUser = (req, res) => {
     User.deleteOne({ _id: userId }, (err) => {
       if (err) return res.status(404).send({ message: err.message });
 
-      return res.status(200).send({ message: `User ${userId} deleted successfully.` });
+      return res.status(200).send({
+        message: `User ${userId} deleted successfully.`,
+        _id: userId
+      });
     });
   } catch (err) {
     console.error(err);
