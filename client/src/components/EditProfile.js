@@ -79,7 +79,7 @@ export default function EditProfile () {
       email: user.email,
       memo: user.memo,
       team: user.team,
-      priority: user.priority
+      priority: user.priority.toString()
     });
   };
 
@@ -101,7 +101,7 @@ export default function EditProfile () {
       email,
       memo,
       team: team.trim(),
-      userId: user.userId,
+      userId: user._id,
       priority: parseInt(priority)
     };
     editProfileAsync(profileData);
@@ -178,7 +178,7 @@ export default function EditProfile () {
                   name='priority'
                   type='priority'
                   label='Priority (e.g. 1)'
-                  placeholder={user.priority}
+                  placeholder={user.priority.toString()}
                   value={priority}
                   onChange={handleChange}
                   fullWidth

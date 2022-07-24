@@ -80,6 +80,7 @@ export default function Home () {
         teamMembersMap[team._id].push(user);
       }
     });
+    teamMembersMap[team._id].sort((a, b) => a.priority - b.priority);
   });
 
   return (

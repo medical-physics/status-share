@@ -238,7 +238,7 @@ export const usersSlice = createSlice({
         state.users = [
           action.payload,
           ...state.users
-        ]
+        ];
       });
   }
 });
