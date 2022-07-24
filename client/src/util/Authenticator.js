@@ -8,6 +8,8 @@ import {
   checkingAuth
 } from '../redux/slices/accountSlice';
 
+const BUFFER_TIME = 4000;
+
 export const authenticate = () => {
   store.dispatch(checkingAuth());
   let accessToken = localStorage.getItem('accessToken');
@@ -36,8 +38,8 @@ export const authenticate = () => {
   }
 
   if (rememberMe && refreshToken) {
-    if (timeUntilExpiry <= 0) {
-      countDownAndRefresh(refreshToken, 0);
+    if (timeUntilExpiry <= BUFFER_TIME) {
+      countDownAndRefresh(refreshToken, BUFFER_TIME);
     } else {
       countDownAndRefresh(refreshToken, timeUntilExpiry);
     }
@@ -64,7 +66,7 @@ const countDownAndEndSession = (timeUntilExpiry) => {
 
   setTimeout(() => {
     endSession();
-  }, timeUntilExpiry);
+  }, (timeUntilExpiry - BUFFER_TIME));
 };
 
 const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
@@ -77,5 +79,5 @@ const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
         const newTimeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
         countDownAndRefresh(refreshToken, newTimeUntilExpiry);
       });
-  }, timeUntilExpiry);
+  }, (timeUntilExpiry - BUFFER_TIME));
 };
