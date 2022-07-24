@@ -54,6 +54,7 @@ export default function Home () {
   const appName = useSelector((state) => state.account.appName);
   const loadingUsersData = useSelector((state) => state.users.loadingUsersData);
   const loadingTeamsData = useSelector((state) => state.teams.loadingTeamsData);
+  const checkingAuth = useSelector((state) => state.account.checkingAuth);
   const loadingUser = useSelector((state) => state.UI.loadingUser);
   const loadingTeam = useSelector((state) => state.UI.loadingTeam);
 
@@ -105,7 +106,7 @@ export default function Home () {
       <Grid container justify='center'>
         <UpdateBar />
         <NavBar />
-        {loadingUsersData || loadingTeamsData
+        {loadingUsersData || loadingTeamsData || checkingAuth
           ? <>
             <Grid item sx={styles.table}>
               <LoadingTable />

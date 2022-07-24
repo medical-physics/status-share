@@ -17,7 +17,8 @@ const initialState = {
   appName: 'Medical Physics: Status Share',
   truncatedAppName: false,
   updateTime: new Date(),
-  loadingLogin: false
+  loadingLogin: false,
+  checkingAuth: false
 };
 
 export const loginUserAsync = createAsyncThunk(
@@ -67,6 +68,7 @@ export const accountSlice = createSlice({
   reducers: {
     setAuthenticated: (state) => {
       state.authenticated = true;
+      state.checkingAuth = false;
     },
     setUnauthenticated: (state) => {
       state.authenticated = false;
@@ -87,6 +89,9 @@ export const accountSlice = createSlice({
     },
     detruncateAppName: (state) => {
       state.truncatedAppName = false;
+    },
+    checkingAuth: (state) => {
+      state.checkingAuth = true;
     }
   },
   extraReducers: (builder) => {

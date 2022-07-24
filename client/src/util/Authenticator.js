@@ -1,9 +1,10 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { store } from '../redux/store/store';
-import { logoutUserAsync, refreshTokenAsync, setAuthenticated } from '../redux/slices/accountSlice';
+import { logoutUserAsync, refreshTokenAsync, setAuthenticated, checkingAuth } from '../redux/slices/accountSlice';
 
 export const authenticate = () => {
+  store.dispatch(checkingAuth());
   let accessToken = localStorage.getItem('accessToken');
   let refreshToken = localStorage.getItem('refreshToken');
   const rememberMe = localStorage.getItem('rememberMe');
