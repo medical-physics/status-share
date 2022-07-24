@@ -40,7 +40,7 @@ exports.postOneUser = async (req, res) => {
     present: true,
     memo: '',
     priority: req.body.priority,
-    unreadMessages: 1
+    unreadMessages: 0
   };
 
   try {

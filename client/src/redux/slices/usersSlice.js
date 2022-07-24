@@ -123,7 +123,6 @@ export const addUserAsync = createAsyncThunk(
       dispatch(loadingUser());
       const response = await addOneUser(newUserData);
       dispatch(stopLoadingUser());
-      dispatch(addUser(response.data));
       return response;
     } catch (err) {
       console.error(err);
@@ -213,9 +212,6 @@ export const usersSlice = createSlice({
         state.user.unreadMessages -= 1;
       }
     },
-    addUser: (state, action) => {
-      state.users.push(action.payload.user);
-    },
     deleteUser: (state, action) => {
       const index6 = state.users.findIndex(
         (user) => user.userId === action.payload
@@ -237,6 +233,12 @@ export const usersSlice = createSlice({
       })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.user = action.payload;
+      })
+      .addCase(addUserAsync.fulfilled, (state, action) => {
+        state.users = [
+          action.payload,
+          ...state.users
+        ]
       });
   }
 });
@@ -250,7 +252,6 @@ export const {
   updateStatus,
   editUser,
   decrementUnreadMessages,
-  addUser,
   deleteUser
 } = usersSlice.actions;
 

@@ -17,6 +17,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
+import { useDispatch } from 'react-redux';
 import { addUserAsync } from '../redux/slices/usersSlice';
 
 const styles = {
@@ -51,10 +52,11 @@ export default function AddUserDialog (props) {
     teamId: '',
     priority: '1'
   });
-
   const { userName, email, phone, team, priority } = formValue;
 
   const { teamName, teamId } = props;
+
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -67,8 +69,21 @@ export default function AddUserDialog (props) {
     });
   };
 
+  const revertState = () => {
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        userName: '',
+        email: '',
+        phone: '',
+        priority: '1'
+      };
+    });
+  };
+
   const handleClose = () => {
     setOpen(false);
+    revertState();
   };
 
   const handleSubmit = (event) => {
@@ -81,16 +96,8 @@ export default function AddUserDialog (props) {
       teamId: teamId.trim(),
       priority: parseInt(priority.trim())
     };
-    addUserAsync(newUserData);
+    dispatch(addUserAsync(newUserData));
     handleClose();
-    setFormValue({
-      userNme: '',
-      email: '',
-      phone: '',
-      team: '',
-      teamId: '',
-      priority: ''
-    });
   };
 
   const handleChange = (event) => {
