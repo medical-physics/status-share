@@ -1,4 +1,6 @@
+const Mailbox = require('../models/mailbox');
 const Team = require('../models/team');
+const User = require('../models/user');
 
 // Fetch all teams
 exports.getTeams = async (req, res) => {
@@ -65,10 +67,20 @@ exports.updateTeam = async (req, res) => {
 exports.deleteTeam = async (req, res) => {
   try {
     const teamId = req.params.teamId;
-    Team.deleteOne({ _id: teamId }, (err) => {
+    Team.deleteOne({ _id: teamId }, async (err) => {
       if (err) return res.status(404).send({ message: err.message });
 
-      return res.status(200).send({ message: `Team ${teamId} deleted successfully.` });
+      const users = await User.find({ teamId: teamId });
+
+      users.forEach(async (user) => {
+        await User.deleteOne({ _id: user._id });
+        await Mailbox.deleteOne({ userId: user._id });
+      });
+
+      return res.status(200).send({
+        message: `Team ${teamId} deleted successfully.`,
+        _id: teamId
+      });
     });
   } catch (err) {
     console.error(err);

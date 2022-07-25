@@ -49,7 +49,7 @@ export const updateTeamAsync = createAsyncThunk(
 
 export const deleteTeamAsync = createAsyncThunk(
   'teams/deleteTeam',
-  async (teamId, { dispatch }) => {
+  async (teamId) => {
     try {
       const response = await deleteTeam(teamId);
       return response;
@@ -95,6 +95,15 @@ export const teamsSlice = createSlice({
         state.teams = [
           action.payload,
           ...state.teams
+        ];
+      })
+      .addCase(deleteTeamAsync.fulfilled, (state, action) => {
+        const index2 = state.teams.findIndex(
+          (team) => team._id === action.payload._id
+        );
+        state.teams = [
+          ...state.teams.slice(0, index2),
+          ...state.teams.slice(index2 + 1)
         ];
       });
   }

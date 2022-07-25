@@ -16,6 +16,6 @@ export const updateTeam = async (teamId, teamData) => {
 };
 
 export const deleteTeam = async (teamId) => {
-  const data = await axios.delete(`/team/${teamId}`);
-  return data.json();
+  const response = await axios.delete(`/team/${teamId}`);
+  return response.data;
 };

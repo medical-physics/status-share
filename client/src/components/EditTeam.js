@@ -21,6 +21,7 @@ import {
 } from '@mui/icons-material';
 
 // Redux stuff
+import { useDispatch } from 'react-redux';
 import { updateTeamAsync, deleteTeamAsync } from '../redux/slices/teamsSlice';
 
 const styles = {
@@ -61,11 +62,13 @@ export default function EditTeam (props) {
   const { teamDetails } = props;
   const { team, priority, color, col1, col2, col3 } = formValue;
 
+  const dispatch = useDispatch();
+
   const handleOpen = () => {
     setOpen(true);
     setFormValue({
       team: teamDetails.team,
-      priority: teamDetails.priority.toString(10),
+      priority: teamDetails.priority.toString(),
       color: teamDetails.color,
       col1: teamDetails.col1,
       col2: teamDetails.col2,
@@ -84,14 +87,14 @@ export default function EditTeam (props) {
       prevTeam: teamDetails.team,
       priority: parseInt(priority)
     };
-    updateTeamAsync({ teamId: teamDetails.teamId, teamData });
+    dispatch(updateTeamAsync({ teamId: teamDetails._id, teamData }));
     handleClose();
   };
 
   const handleDelete = (event) => {
     event.preventDefault();
-    deleteTeamAsync(teamDetails.teamId);
-    this.handleClose();
+    dispatch(deleteTeamAsync(teamDetails._id));
+    handleClose();
   };
 
   const handleChange = (event) => {
