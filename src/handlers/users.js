@@ -137,8 +137,10 @@ exports.deleteUser = (req, res) => {
   const userId = req.params.userId;
 
   try {
-    User.deleteOne({ _id: userId }, (err) => {
+    User.deleteOne({ _id: userId }, async (err) => {
       if (err) return res.status(404).send({ message: err.message });
+
+      await Mailbox.deleteOne({ userId: userId });
 
       return res.status(200).send({
         message: `User ${userId} deleted successfully.`,
