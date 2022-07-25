@@ -105,7 +105,6 @@ exports.setAppName = async (req, res) => {
     const { appName } = req.body;
     const appMetadata = await AppMetadata.findOne();
 
-    console.log(appName);
     appMetadata.appName = appName;
     await appMetadata.save();
 

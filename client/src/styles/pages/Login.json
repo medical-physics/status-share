@@ -1,0 +1,48 @@
+{
+  "form": {
+    "margin": "200px auto auto auto",
+    "textAlign": "center"
+  },
+  "pageTitle": {
+    "margin": "20px auto 20px auto"
+  },
+  "textField": {
+    "margin": "20px auto auto auto",
+    "width": 300
+  },
+  "submission": {
+    "margin": "20px auto auto auto",
+    "width": 300,
+    "display": "flex"
+  },
+  "button": {
+    "margin": "30px 10px 30px 10px"
+  },
+  "customError": {
+    "color": "red",
+    "fonstSize": "0.8rem"
+  },
+  "image": {
+    "width": 45,
+    "height": 45,
+    "margin": "auto 15px auto auto"
+  },
+  "checkbox": {
+    "margin": "30px auto 30px 20px",
+    "width": 200
+  },
+  "titleBox": {
+    "display": "flex",
+    "alignItems": "center",
+    "justifyContent": "center"
+  },
+  "titleSubBox": {
+    "marginTop": "15px"
+  },
+  "formPaper": {
+    "borderRadius": 4
+  },
+  "progress": {
+    "marginLeft": "10px"
+  }
+}

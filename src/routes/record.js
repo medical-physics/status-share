@@ -42,7 +42,7 @@ const {
 
 // User routes
 router.get('/users', auth, getUsers);
-router.get('/user/:userId', getUser);
+router.get('/user/:userId', auth, getUser);
 router.post('/user', auth, postOneUser);
 router.post('/user/:userId', auth, updateUserDetails);
 router.post('/user/memo/:userId', auth, updateUserMemo);

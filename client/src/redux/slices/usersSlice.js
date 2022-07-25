@@ -196,7 +196,7 @@ export const usersSlice = createSlice({
       if (state.user._id === action.payload) {
         state.user.unreadMessages -= 1;
       }
-    },
+    }
   },
   extraReducers: (builder) => {
     builder

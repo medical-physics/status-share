@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from '../styles/components/NavBar.json';
 
 // Components
 import EditAppName from './EditAppName';
@@ -8,6 +9,7 @@ import AddTeamDialog from './AddTeamDialog';
 // MUI components
 import {
   AppBar,
+  Box,
   Toolbar,
   Button,
   Grid,
@@ -52,25 +54,25 @@ export default function NavBar () {
 
   const title = truncatedAppName
     ? (
-      <Typography noWrap style={{ margin: '0px 0px 0px 5px' }} variant='overline'>
+      <Typography noWrap style={styles.margin} variant='overline'>
         {appName.slice(0, 12).concat('...')}
       </Typography>
       )
     : (
-      <Typography noWrap style={{ margin: '0px 0px 0px 5px' }} variant='overline'>
+      <Typography noWrap style={styles.margin} variant='overline'>
         {appName}
       </Typography>
       );
 
   return (
-    <AppBar style={{ maxHeight: 50 }}>
+    <AppBar sx={styles.appBar}>
       <Toolbar variant='dense'>
-        <Grid justify='space-between' alignItems='center' container>
-          <Grid item>
+        <Box sx={styles.barBox}>
+          <Box>
             <Grid container alignItems='center'>
               <Grid item>
                 <IconButton size='small'>
-                  <CheckCircleOutlineIcon style={{ color: '#ffffff' }} />
+                  <CheckCircleOutlineIcon sx={styles.icon} />
                 </IconButton>
               </Grid>
               <Grid item>
@@ -80,14 +82,12 @@ export default function NavBar () {
                 {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
               </Grid>
             </Grid>
-          </Grid>
+          </Box>
           {authenticated && (
-            <Grid item>
-              <Button onClick={handleLogout} color='inherit' variant='outlined' size='small' component={Link} to='/login'>
-                Sign Out
-              </Button>
-            </Grid>)}
-        </Grid>
+            <Button onClick={handleLogout} color='inherit' variant='outlined' size='small' component={Link} to='/login'>
+              Sign Out
+            </Button>)}
+        </Box>
       </Toolbar>
     </AppBar>
   );

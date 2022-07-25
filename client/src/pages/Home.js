@@ -110,7 +110,7 @@ export default function Home () {
           </Grid>
         </DialogTitle>
       </Dialog>
-      <Grid container justify='center'>
+      <Grid container>
         <UpdateBar />
         <NavBar />
         {loadingUsersData || loadingTeamsData || checkingAuth

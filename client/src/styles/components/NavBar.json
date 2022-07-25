@@ -1,0 +1,15 @@
+{
+  "appBar": {
+    "maxHeight": 50
+  },
+  "title": {
+    "margin": "0px 0px 0px 5px"
+  },
+  "icon": {
+    "color": "#ffffff"
+  },
+  "barBox": {
+    "display": "flex",
+    "justifyContent": "flex-end"
+  }
+}

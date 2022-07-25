@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import styles from '../styles/pages/Login.json';
 
 // Components
 import AppIcon from '../images/icon.png';
@@ -8,6 +9,7 @@ import NavBar from '../components/NavBar';
 
 // MUI components
 import {
+  Box,
   Grid,
   Typography,
   TextField,
@@ -26,36 +28,7 @@ import {
   setRememberMe
 } from '../redux/slices/accountSlice';
 
-const styles = {
-  form: {
-    margin: '150px auto auto auto',
-    textAlign: 'center'
-  },
-  pageTitle: {
-    margin: '20px auto 20px auto'
-  },
-  textField: {
-    margin: '20px auto auto auto',
-    width: 300
-  },
-  button: {
-    margin: '30px 10px 30px 10px'
-  },
-  customError: {
-    color: 'red',
-    fonstSize: '0.8rem'
-  },
-  image: {
-    width: 45,
-    height: 45,
-    margin: 'auto 15px auto auto'
-  },
-  checkbox: {
-    margin: '30px 20px 30px 20px'
-  }
-};
-
-export default function Login (props) {
+export default function Login () {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [rememberMe, setStateRememberMe] = React.useState(false);
@@ -98,17 +71,17 @@ export default function Login (props) {
         <NavBar />
         <Grid item sm />
         <Grid item sm>
-          <Paper elevation={3}>
-            <Grid container alignItems='center' justify='center'>
-              <Grid item>
-                <img src={AppIcon} sx={styles.image} alt='Status Share' />
-              </Grid>
-              <Grid item>
+          <Paper elevation={4} sx={styles.formPaper}>
+            <Box sx={styles.titleBox}>
+              <Box sx={styles.titleSubBox}>
+                <img src={AppIcon} style={styles.image} alt='Status Share' />
+              </Box>
+              <Box sx={styles.titleSubBox}>
                 <Typography variant='h4' sx={styles.pageTitle}>
                   Sign In
                 </Typography>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
             <form noValidate onSubmit={handleSubmit}>
               <TextField
                 id='email'
@@ -137,7 +110,7 @@ export default function Login (props) {
                   {errors?.general}
                 </Typography>
               )}
-              <Grid sx={styles.textField}>
+              <Box sx={styles.submission}>
                 <Button
                   type='submit'
                   variant='contained'
@@ -160,7 +133,7 @@ export default function Login (props) {
                   label='Remember Me'
                   sx={styles.checkbox}
                 />
-              </Grid>
+              </Box>
             </form>
           </Paper>
         </Grid>
