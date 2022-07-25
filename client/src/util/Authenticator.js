@@ -20,10 +20,10 @@ export const authenticate = () => {
   let timeUntilExpiry;
 
   if (accessToken) {
+    axios.defaults.headers.common.Authorization = accessToken;
     accessToken = accessToken.split(' ')[1];
     decodedAccessToken = jwtDecode(accessToken);
     timeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
-    axios.defaults.headers.common.Authorization = accessToken;
   } else {
     endSession();
   }
@@ -54,11 +54,13 @@ export const authenticate = () => {
   } else {
     endSession();
   }
+  return Promise.resolve('Authentication successful.');
 };
 
 const endSession = () => {
   store.dispatch(logoutUser());
   window.location.href = '/login';
+  return Promise.reject(new Error('Authentication failed or session expired.'));
 };
 
 const countDownAndEndSession = (timeUntilExpiry) => {

@@ -23,6 +23,6 @@ export const addOneMessage = async (newMessageData, userId) => {
 };
 
 export const editOneMessage = async (messageData, messageId, userId) => {
-  const data = await axios.post(`/mailbox/update/${userId}/${messageId}`, messageData);
-  return data.json();
+  const response = await axios.post(`/mailbox/update/${userId}/${messageId}`, messageData);
+  return response.data;
 };
