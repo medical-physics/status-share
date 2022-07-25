@@ -11,8 +11,8 @@ export const addTeam = async (newTeam) => {
 };
 
 export const updateTeam = async (teamId, teamData) => {
-  const data = await axios.post(`/team${teamId}`, teamData);
-  return data.json();
+  const response = await axios.post(`/team/${teamId}`, teamData);
+  return response.data;
 };
 
 export const deleteTeam = async (teamId) => {

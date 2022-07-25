@@ -3,7 +3,8 @@ import { loadingTeam, stopLoadingTeam } from './uiSlice';
 import {
   getTeams,
   addTeam,
-  deleteTeam
+  deleteTeam,
+  updateTeam
 } from '../api/teamsAPI';
 
 const initialState = {
@@ -38,7 +39,7 @@ export const updateTeamAsync = createAsyncThunk(
   async (teamObj, { dispatch }) => {
     try {
       dispatch(loadingTeam());
-      const response = await addTeam(teamObj.teamId, teamObj.teamData);
+      const response = await updateTeam(teamObj.teamId, teamObj.teamData);
       dispatch(stopLoadingTeam());
       return response;
     } catch (err) {
@@ -69,17 +70,6 @@ export const teamsSlice = createSlice({
     setTeams: (state, action) => {
       state.teams = action.payload;
       state.loadingTeamsData = false;
-    },
-    updateTeam: (state, action) => {
-      const index1 = state.teams.findIndex(
-        (team) => team.teamId === action.payload.teamId
-      );
-      state.teams[index1].team = action.payload.team;
-      state.teams[index1].priority = action.payload.priority;
-      state.teams[index1].color = action.payload.color;
-      state.teams[index1].col1 = action.payload.col1;
-      state.teams[index1].col2 = action.payload.col2;
-      state.teams[index1].col3 = action.payload.col3;
     }
   },
   extraReducers: (builder) => {
@@ -98,21 +88,31 @@ export const teamsSlice = createSlice({
         ];
       })
       .addCase(deleteTeamAsync.fulfilled, (state, action) => {
-        const index2 = state.teams.findIndex(
+        const index1 = state.teams.findIndex(
           (team) => team._id === action.payload._id
         );
         state.teams = [
-          ...state.teams.slice(0, index2),
-          ...state.teams.slice(index2 + 1)
+          ...state.teams.slice(0, index1),
+          ...state.teams.slice(index1 + 1)
         ];
+      })
+      .addCase(updateTeamAsync.fulfilled, (state, action) => {
+        const index2 = state.teams.findIndex(
+          (team) => team._id === action.payload._id
+        );
+        state.teams[index2].team = action.payload.team;
+        state.teams[index2].priority = action.payload.priority;
+        state.teams[index2].color = action.payload.color;
+        state.teams[index2].col1 = action.payload.col1;
+        state.teams[index2].col2 = action.payload.col2;
+        state.teams[index2].col3 = action.payload.col3;
       });
   }
 });
 
 export const {
   loadingTeamsData,
-  setTeams,
-  updateTeam
+  setTeams
 } = teamsSlice.actions;
 
 export default teamsSlice.reducer;
