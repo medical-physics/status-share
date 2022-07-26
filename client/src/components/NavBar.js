@@ -65,10 +65,11 @@ export default function NavBar () {
       );
 
   return (
-    <AppBar sx={styles.appBar}>
-      <Toolbar variant='dense'>
-        <Box sx={styles.barBox}>
-          <Box>
+    <Box sx={styles.barBox}>
+      <AppBar sx={styles.appBar}>
+        <Toolbar variant='dense'>
+          <Grid container sx={styles.barBox}>
+          <Grid item>
             <Grid container alignItems='center'>
               <Grid item>
                 <IconButton size='small'>
@@ -82,13 +83,16 @@ export default function NavBar () {
                 {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
               </Grid>
             </Grid>
-          </Box>
+          </Grid>
           {authenticated && (
+            <Grid>
             <Button onClick={handleLogout} color='inherit' variant='outlined' size='small' component={Link} to='/login'>
               Sign Out
-            </Button>)}
-        </Box>
-      </Toolbar>
-    </AppBar>
+            </Button>
+            </Grid>)}
+            </Grid>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }

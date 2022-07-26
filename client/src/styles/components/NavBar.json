@@ -10,6 +10,6 @@
   },
   "barBox": {
     "display": "flex",
-    "justifyContent": "flex-end"
+    "justifyContent": "space-between"
   }
 }
