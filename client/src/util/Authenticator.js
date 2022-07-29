@@ -29,8 +29,7 @@ export const authenticate = () => {
   }
 
   if (refreshToken) {
-    refreshToken = refreshToken.split(' ')[1];
-    decodedRefreshToken = jwtDecode(refreshToken);
+    decodedRefreshToken = jwtDecode(refreshToken.split(' ')[1]);
     const isRefreshTokenExpired = decodedRefreshToken.exp * 1000 - Date.now() <= 0;
     if (isRefreshTokenExpired) {
       endSession();
