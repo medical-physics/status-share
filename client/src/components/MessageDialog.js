@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import styles from '../styles/components/MessageDialog.json';
 
 // MUI components
 import {
@@ -27,35 +28,6 @@ import {
 // Redux stuff
 import { useDispatch, useSelector } from 'react-redux';
 import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from '../redux/slices/mailboxSlice';
-
-const styles = {
-  spinnerDiv: {
-    textAlign: 'center',
-    marginTop: 15,
-    marginBottom: 15
-  },
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '92%',
-    marginTop: 7
-  },
-  text1: {
-    margin: '20px auto 0px 10px'
-  },
-  text2: {
-    margin: '10px auto 0px 10px'
-  },
-  icon: {
-    margin: '20px auto 0px 10px'
-  },
-  dialogContent: {
-    height: 350
-  },
-  buttonIcon: {
-    margin: 'auto 5px auto auto'
-  }
-};
 
 export default function MessageDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -113,7 +85,14 @@ export default function MessageDialog (props) {
       )
     : (
       <div>
-        <DialogTitle>{message.subject}</DialogTitle>
+        <DialogTitle>
+          <Grid sx={styles.dialogTitle}>
+            {message.subject}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
         <DialogContent sx={styles.dialogContent}>
           <Grid container>
             <Grid item>
@@ -162,9 +141,6 @@ export default function MessageDialog (props) {
     <>
       {renderButton()}
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         {dialogMarkup}
       </Dialog>
     </>

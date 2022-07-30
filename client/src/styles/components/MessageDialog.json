@@ -1,0 +1,26 @@
+{
+  "spinnerDiv": {
+    "textAlign": "center",
+    "marginTop": 15,
+    "marginBottom": 15
+  },
+  "text1": {
+    "margin": "20px auto 0px 10px"
+  },
+  "text2": {
+    "margin": "10px auto 0px 10px"
+  },
+  "icon": {
+    "margin": "20px auto 0px 10px"
+  },
+  "dialogContent": {
+    "height": 350
+  },
+  "buttonIcon": {
+    "margin": "auto 5px auto auto"
+  },
+  "dialogTitle": {
+    "display": "flex",
+    "justifyContent": "space-between"
+  }
+}
