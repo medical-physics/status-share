@@ -33,11 +33,12 @@ export default function EditTeam (props) {
     color: '',
     col1: 'Name',
     col2: 'Present',
-    col3: 'Status'
+    col3: 'Status',
+    hyperlink: ''
   });
 
   const { teamDetails } = props;
-  const { team, priority, color, col1, col2, col3 } = formValue;
+  const { team, priority, color, col1, col2, col3, hyperlink } = formValue;
 
   const dispatch = useDispatch();
 
@@ -49,7 +50,8 @@ export default function EditTeam (props) {
       color: teamDetails.color,
       col1: teamDetails.col1,
       col2: teamDetails.col2,
-      col3: teamDetails.col3
+      col3: teamDetails.col3,
+      hyperlink: teamDetails.hyperlink
     });
   };
 
@@ -163,6 +165,16 @@ export default function EditTeam (props) {
               label='Col 3 Header'
               placeholder={teamDetails.col3}
               value={col3}
+              onChange={handleChange}
+              fullWidth
+              sx={styles.textField}
+            />
+            <TextField
+              id='hyperlink'
+              name='hyperlink'
+              type='hyperlink'
+              label='Hyperlink'
+              value={hyperlink}
               onChange={handleChange}
               fullWidth
               sx={styles.textField}

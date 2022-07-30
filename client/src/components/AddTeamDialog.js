@@ -30,10 +30,11 @@ export default function AddTeamDialog () {
     color: '#1a237e',
     col1: 'Name',
     col2: 'Present',
-    col3: 'Status'
+    col3: 'Status',
+    hyperlink: ''
   });
 
-  const { team, priority, color, col1, col2, col3 } = formValue;
+  const { team, priority, color, col1, col2, col3, hyperlink } = formValue;
 
   const dispatch = useDispatch();
 
@@ -53,7 +54,8 @@ export default function AddTeamDialog () {
       color: color.trim(),
       col1: col1.trim(),
       col2: col2.trim(),
-      col3: col3.trim()
+      col3: col3.trim(),
+      hyperlink: hyperlink.trim()
     };
     dispatch(addTeamAsync(newTeamData));
     handleClose();
@@ -63,7 +65,8 @@ export default function AddTeamDialog () {
       color: '',
       col1: 'Name',
       col2: 'Present',
-      col3: 'Status'
+      col3: 'Status',
+      hyperlink: ''
     });
   };
 
@@ -156,6 +159,16 @@ export default function AddTeamDialog () {
                 type='col3'
                 label='Col 3 Header'
                 value={col3}
+                onChange={handleChange}
+                fullWidth
+                sx={styles.textField}
+              />
+              <TextField
+                id='hyperlink'
+                name='hyperlink'
+                type='hyperlink'
+                label='Hyperlink'
+                value={hyperlink}
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}

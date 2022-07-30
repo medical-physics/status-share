@@ -23,7 +23,8 @@ exports.postOneTeam = async (req, res) => {
       color: req.body.color,
       col1: req.body.col1,
       col2: req.body.col2,
-      col3: req.body.col3
+      col3: req.body.col3,
+      hyperlink: req.body.hyperlink
     };
 
     const team = await Team.create({ ...newTeam });
@@ -44,7 +45,8 @@ exports.updateTeam = async (req, res) => {
     color: req.body.color,
     col1: req.body.col1,
     col2: req.body.col2,
-    col3: req.body.col3
+    col3: req.body.col3,
+    hyperlink: req.body.hyperlink
   };
   const teamId = req.params.teamId;
 
