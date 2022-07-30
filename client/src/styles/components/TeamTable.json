@@ -30,5 +30,10 @@
   "header": {
     "display": "flex",
     "justifyContent": "space-between"
+  },
+  "nameCell": {
+    "display": "flex",
+    "justifyContent": "start",
+    "alignItems": "center"
   }
 }

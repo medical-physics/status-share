@@ -67,7 +67,7 @@ export default function TeamTable (props) {
               {rows.map((row) => (
                 <TableRow key={row.userId}>
                   <TableCell sx={styles.tableCell}>
-                    <Grid container alignItems='center' spacing={1}>
+                    <Grid container sx={styles.nameCell}>
                       <Grid item>
                         <ProfileDialog userId={row.userId} unreadMessages={row.user.unreadMessages} />
                       </Grid>
