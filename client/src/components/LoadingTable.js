@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/components/TeamTable.json';
 
 // MUI components
 import {
@@ -20,39 +21,6 @@ import {
   Edit as EditIcon,
   AccountCircle as AccountCircleIcon
 } from '@mui/icons-material';
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  statusCell: {
-    width: 180,
-    flexWrap: 'wrap',
-    fontSize: 12
-  },
-  // style for font size
-  resize: {
-    fontSize: 12
-  },
-  tableCell: {
-    width: 140,
-    fontSize: 13
-  },
-  tableCell2: {
-    width: 15
-  },
-  checkbox: {
-    width: 10,
-    height: 10
-  },
-  box: {
-    maxWidth: 110
-  },
-  status: {
-    maxWidth: 150
-  }
-};
 
 export default function LoadingTable () {
   return (
