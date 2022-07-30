@@ -69,28 +69,28 @@ export default function NavBar () {
       <AppBar sx={styles.appBar}>
         <Toolbar variant='dense'>
           <Grid container sx={styles.barBox}>
-          <Grid item>
-            <Grid container alignItems='center'>
-              <Grid item>
-                <IconButton size='small'>
-                  <CheckCircleOutlineIcon sx={styles.icon} />
-                </IconButton>
-              </Grid>
-              <Grid item sx={styles.title}>
-                {title}
-              </Grid>
-              <Grid item sx={styles.dialogGroup}>
-                {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
+            <Grid item>
+              <Grid container alignItems='center'>
+                <Grid item>
+                  <IconButton size='small'>
+                    <CheckCircleOutlineIcon sx={styles.icon} />
+                  </IconButton>
+                </Grid>
+                <Grid item sx={styles.title}>
+                  {title}
+                </Grid>
+                <Grid item sx={styles.dialogGroup}>
+                  {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
+                </Grid>
               </Grid>
             </Grid>
+            {authenticated && (
+              <Grid>
+                <Button onClick={handleLogout} color='inherit' variant='outlined' size='small' component={Link} to='/login'>
+                  Sign Out
+                </Button>
+              </Grid>)}
           </Grid>
-          {authenticated && (
-            <Grid>
-            <Button onClick={handleLogout} color='inherit' variant='outlined' size='small' component={Link} to='/login'>
-              Sign Out
-            </Button>
-            </Grid>)}
-            </Grid>
         </Toolbar>
       </AppBar>
     </Box>

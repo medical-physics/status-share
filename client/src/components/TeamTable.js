@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/components/TeamTable.json';
 
 // Components
 import ProfileDialog from './ProfileDialog';
@@ -27,38 +28,6 @@ function createData (name, present, status, userId, memo, user) {
   return { name, present, status, userId, memo, user };
 }
 
-const styles = {
-  container: {
-    margin: 20
-  },
-  statusCell: {
-    width: 180,
-    flexWrap: 'wrap',
-    fontSize: 12
-  },
-  // style for font size
-  resize: {
-    fontSize: 12
-  },
-  tableCell: {
-    width: 140,
-    fontSize: 13
-  },
-  tableCell2: {
-    width: 15
-  },
-  checkbox: {
-    width: 10,
-    height: 10
-  },
-  box: {
-    maxWidth: 110
-  },
-  status: {
-    maxWidth: 150
-  }
-};
-
 export default function TeamTable (props) {
   const rows = [];
   const { teamDetails } = props;
@@ -69,7 +38,7 @@ export default function TeamTable (props) {
     <>
       <Paper elevation={3}>
         <Toolbar>
-          <Grid justify='space-between' container>
+          <Grid container sx={styles.header}>
             <Grid item>
               <Typography component='div'>
                 <Box fontWeight='fontWeightBold' m={1} color={teamDetails.color}>

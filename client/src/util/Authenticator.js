@@ -13,7 +13,7 @@ const BUFFER_TIME = 4000;
 export const authenticate = () => {
   store.dispatch(checkingAuth());
   let accessToken = localStorage.getItem('accessToken');
-  let refreshToken = localStorage.getItem('refreshToken');
+  const refreshToken = localStorage.getItem('refreshToken');
   const rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
   let decodedAccessToken;
   let decodedRefreshToken;

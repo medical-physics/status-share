@@ -25,6 +25,8 @@ import { getAppNameAsync } from '../redux/slices/accountSlice';
 import { getUsersAsync } from '../redux/slices/usersSlice';
 import { getTeamsAsync } from '../redux/slices/teamsSlice';
 
+const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 export default function Home () {
   const dispatch = useDispatch();
 
@@ -55,7 +57,7 @@ export default function Home () {
     if (teams.length % 2 !== 0) {
       setShowDummyDiv(true);
     }
-  }, [teams])
+  }, [teams]);
 
   // key: team ID, value: array of users in team
   const teamMembersMap = {};
@@ -97,38 +99,18 @@ export default function Home () {
           </Grid>
         </DialogTitle>
       </Dialog>
-        <UpdateBar />
-        <NavBar />
+      <UpdateBar />
+      <NavBar />
       <Grid container sx={styles.homeContainer}>
         {loadingUsersData || loadingTeamsData || checkingAuth
           ? <>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
-            <Grid item sx={styles.table}>
-              <LoadingTable />
-            </Grid>
+            {LOADING_TABLES_ARRAY.map((number) => {
+              return (
+                <Grid key={number} item sx={styles.table}>
+                  <LoadingTable />
+                </Grid>
+              );
+            })}
             <Box order={99} sx={styles.dummy} />
           </>
           : <>
@@ -139,7 +121,7 @@ export default function Home () {
                 </Box>
               );
             })}
-            {showDummyDiv &&  <Box order={99} sx={styles.dummy} />}
+            {showDummyDiv && <Box order={99} sx={styles.dummy} />}
           </>}
       </Grid>
     </>
