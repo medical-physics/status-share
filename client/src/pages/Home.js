@@ -36,6 +36,7 @@ export default function Home () {
   const checkingAuth = useSelector((state) => state.account.checkingAuth);
   const loadingUser = useSelector((state) => state.UI.loadingUser);
   const loadingTeam = useSelector((state) => state.UI.loadingTeam);
+  const [showDummyDiv, setShowDummyDiv] = React.useState(false);
 
   React.useEffect(() => {
     authenticate()
@@ -49,6 +50,12 @@ export default function Home () {
         console.log(err);
       });
   }, [dispatch]);
+
+  React.useEffect(() => {
+    if (teams.length % 2 !== 0) {
+      setShowDummyDiv(true);
+    }
+  }, [teams])
 
   // key: team ID, value: array of users in team
   const teamMembersMap = {};
@@ -128,7 +135,7 @@ export default function Home () {
                 </Box>
               );
             })}
-            <Box order={99} sx={styles.dummy} />
+            {showDummyDiv &&  <Box order={99} sx={styles.dummy} />}
           </>}
       </Grid>
     </>

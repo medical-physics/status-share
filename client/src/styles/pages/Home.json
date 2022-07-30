@@ -1,7 +1,7 @@
 {
   "table": {
     "width": 482,
-    "margin": "10px"
+    "margin": 5
   },
   "homeContainer": {
     "display": "flex",
@@ -20,6 +20,6 @@
   "dummy": {
     "width": 482,
     "height": 20,
-    "margin": 15
+    "margin": 5
   }
 }
