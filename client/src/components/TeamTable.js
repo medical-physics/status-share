@@ -80,11 +80,7 @@ export default function TeamTable (props) {
                     <PresenceButton user={row.user} />
                   </TableCell>
                   <TableCell sx={styles.statusCell}>
-                    <Grid container alignItems='center' justify='space-between' spacing={1}>
-                      <Grid item>
-                        {!JSON.parse(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} status={row.status} />)}
-                      </Grid>
-                    </Grid>
+                    {!JSON.parse(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} status={row.status} />)}
                   </TableCell>
                 </TableRow>
               ))}
