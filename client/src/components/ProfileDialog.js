@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import styles from '../styles/components/ProfileDialog.json';
 
 // Components
 import ProfileButton from './ProfileButton';
@@ -33,34 +34,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserAsync, deleteUserAsync } from '../redux/slices/usersSlice';
 
-const styles = {
-  spinnerDiv: {
-    textAlign: 'center',
-    marginTop: 15,
-    marginBottom: 15
-  },
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '92%',
-    marginTop: 7
-  },
-  icon: {
-    margin: '5px 8px auto 15px'
-  },
-  statusText: {
-    margin: '20px auto 0px 10px'
-  },
-  text2: {
-    margin: '10px auto 0px 10px'
-  },
-  dialogContent: {
-    height: 250
-  },
-  buttonIcon: {
-    margin: 'auto 5px auto auto'
-  }
-};
+const DEFAULT_DIV = <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>;
 
 function capitalize (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -95,22 +69,31 @@ export default function ProfileDialog (props) {
       <div>
         <DialogTitle>Loading...</DialogTitle>
         <DialogContent sx={styles.dialogContent}>
-          <div sx={styles.spinnerDiv}>
-            <CircularProgress size={80} thickness={2} />
-          </div>
+          <Grid sx={styles.spinnerGrid}>
+            <div>
+              <CircularProgress size={80} thickness={3} />
+            </div>
+          </Grid>
         </DialogContent>
       </div>
       )
     : (
       <div>
-        <DialogTitle>{name}</DialogTitle>
+        <DialogTitle>
+          <Grid sx={styles.dialogTitle}>
+            {name}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
         <DialogContent sx={styles.dialogContent}>
           <Grid container justify='flex-start'>
             <Grid item>
               <Grid container alignItems='center' justify='center'>
                 <Grid item><PhoneIcon color='secondary' sx={styles.icon} /></Grid>
                 <Grid item>
-                  <Typography>{phone}</Typography>
+                  {phone || DEFAULT_DIV}
                 </Grid>
               </Grid>
             </Grid>
@@ -118,7 +101,7 @@ export default function ProfileDialog (props) {
               <Grid container alignItems='center' justify='center'>
                 <Grid item><EmailIcon color='secondary' sx={styles.icon} /></Grid>
                 <Grid item>
-                  <Typography>{email}</Typography>
+                  {email || DEFAULT_DIV}
                 </Grid>
               </Grid>
             </Grid>
@@ -178,9 +161,6 @@ export default function ProfileDialog (props) {
     <>
       <ProfileButton onClick={handleOpen} unreadMessages={unreadMessages} />
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         {dialogMarkup}
       </Dialog>
     </>
