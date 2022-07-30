@@ -21,8 +21,13 @@ import {
   Typography,
   Box,
   Grid,
-  Toolbar
+  Toolbar,
+  IconButton,
+  Link
 } from '@mui/material';
+import {
+  Link as LinkIcon
+} from '@mui/icons-material';
 
 function createData (name, present, status, userId, memo, user) {
   return { name, present, status, userId, memo, user };
@@ -39,12 +44,18 @@ export default function TeamTable (props) {
       <Paper elevation={3}>
         <Toolbar>
           <Grid container sx={styles.header}>
-            <Grid item>
+            <Grid item sx={styles.teamTitle}>
               <Typography component='div'>
                 <Box fontWeight='fontWeightBold' m={1} color={teamDetails.color}>
                   {teamDetails.team}
                 </Box>
               </Typography>
+              {teamDetails.hyperlink &&
+                <Link href={teamDetails.hyperlink} rel="noopener noreferrer" target="_blank">
+                  <IconButton>
+                    <LinkIcon sx={{ color: teamDetails.color }} />
+                  </IconButton>
+                </Link>}
             </Grid>
             <Grid item>
               {JSON.parse(localStorage.getItem('admin')) && (<>
