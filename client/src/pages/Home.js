@@ -126,6 +126,10 @@ export default function Home () {
             <Grid item sx={styles.table}>
               <LoadingTable />
             </Grid>
+            <Grid item sx={styles.table}>
+              <LoadingTable />
+            </Grid>
+            <Box order={99} sx={styles.dummy} />
           </>
           : <>
             {teams.map((team) => {

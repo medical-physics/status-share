@@ -1,12 +1,12 @@
 {
   "table": {
     "width": 482,
-    "margin": 5
+    "margin": 3
   },
   "homeContainer": {
     "display": "flex",
     "justifyContent": "center",
-    "marginTop": "100px"
+    "marginTop": 10
   },
   "spinnerdiv": {
     "margin": "auto 10px auto 15px"
@@ -20,6 +20,6 @@
   "dummy": {
     "width": 482,
     "height": 20,
-    "margin": 5
+    "margin": 3
   }
 }
