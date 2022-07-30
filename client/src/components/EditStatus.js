@@ -5,6 +5,7 @@ import styles from '../styles/components/EditStatus.json';
 // MUI components
 import {
   Box,
+  Grid,
   TextField,
   Dialog,
   DialogActions,
@@ -89,15 +90,24 @@ export default function EditStatus (props) {
       <>
         <DialogTitle>Loading...</DialogTitle>
         <DialogContent sx={styles.dialogContent}>
-          <div sx={styles.spinnerDiv}>
-            <CircularProgress size={40} thickness={2} />
-          </div>
+          <Grid sx={styles.spinnerGrid}>
+            <div sx={styles.spinnerDiv}>
+              <CircularProgress size={50} thickness={3} />
+            </div>
+          </Grid>
         </DialogContent>
       </>
       )
     : (
       <>
-        <DialogTitle>Edit {user.name}'s status</DialogTitle>
+        <DialogTitle>
+          <Grid sx={styles.dialogTitle}>
+            {`Edit ${user.name}'s status`}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
             <TextField
@@ -105,7 +115,6 @@ export default function EditStatus (props) {
               name='status'
               type='status'
               variant='filled'
-              size='small'
               fullWidth
               placeholder={status}
               value={statusState}
@@ -133,9 +142,6 @@ export default function EditStatus (props) {
         </div>
       </Box>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         {dialogMarkup}
       </Dialog>
     </>

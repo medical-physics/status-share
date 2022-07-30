@@ -4,12 +4,6 @@
     "marginTop": 15,
     "marginBottom": 15
   },
-  "closeButton": {
-    "textAlign": "center",
-    "position": "absolute",
-    "left": "92%",
-    "marginTop": 7
-  },
   "icon": {
     "margin": "1px 8px auto 8px"
   },
@@ -20,7 +14,6 @@
     "height": 80
   },
   "textField": {
-    "marginTop": 10
   },
   "statusBox": {
     "border": "1px solid #c4def6",
@@ -32,5 +25,13 @@
   "statusText": {
     "margin": 2,
     "width": 150
+  },
+  "dialogTitle": {
+    "display": "flex",
+    "justifyContent": "space-between"
+  },
+  "spinnerGrid": {
+    "display": "flex",
+    "justifyContent": "center"
   }
 }
