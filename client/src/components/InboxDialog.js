@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/components/InboxDialog.json';
 
 // Components
 import InboxTable from './InboxTable';
 
 // MUI components
 import {
+  Grid,
   Dialog,
   Button,
   DialogContent,
@@ -21,26 +23,6 @@ import {
 // Redux stuff
 import { useDispatch, useSelector } from 'react-redux';
 import { getMailboxAsync } from '../redux/slices/mailboxSlice';
-
-const styles = {
-  spinnerDiv: {
-    textAlign: 'center',
-    marginTop: 15,
-    marginBottom: 15
-  },
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '92%',
-    marginTop: 7
-  },
-  dialogContent: {
-    height: 450
-  },
-  buttonIcon: {
-    margin: 'auto 5px auto auto'
-  }
-};
 
 export default function InboxDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -73,7 +55,14 @@ export default function InboxDialog (props) {
       )
     : (
       <div>
-        <DialogTitle>Inbox: {name}</DialogTitle>
+        <DialogTitle>
+          <Grid sx={styles.dialogTitle}>
+            {`Inbox: ${name}`}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
         <DialogContent sx={styles.dialogContent}>
           <InboxTable />
         </DialogContent>
@@ -86,9 +75,6 @@ export default function InboxDialog (props) {
         <AllInboxIcon sx={styles.buttonIcon} /> inbox
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         {dialogMarkup}
       </Dialog>
     </>
