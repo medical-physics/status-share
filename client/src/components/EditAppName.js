@@ -1,7 +1,9 @@
 import React from 'react';
+import styles from '../styles/components/EditAppName.json';
 
 // MUI components
 import {
+  Grid,
   TextField,
   Dialog,
   DialogActions,
@@ -19,24 +21,6 @@ import {
 // Redux stuff
 import { useDispatch, useSelector } from 'react-redux';
 import { setAppNameAsync } from '../redux/slices/accountSlice';
-
-const styles = {
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '90%',
-    marginTop: 7
-  },
-  icon: {
-    margin: '5px 8px auto 15px'
-  },
-  dialogContent: {
-    height: 80
-  },
-  textField: {
-    marginTop: 10
-  }
-};
 
 export default function EditAppName () {
   const [open, setOpen] = React.useState(false);
@@ -70,13 +54,16 @@ export default function EditAppName () {
         <EditIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
-        <DialogTitle>Change web app name</DialogTitle>
+        <DialogTitle>
+          <Grid sx={styles.dialogTitle}>
+            Change website name
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
-
             <TextField
               id='appName'
               name='appName'
@@ -87,7 +74,6 @@ export default function EditAppName () {
               placeholder={appName}
               value={stateAppName}
               onChange={handleChange}
-              sx={styles.textField}
             />
           </DialogContent>
           <DialogActions>

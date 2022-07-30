@@ -13,8 +13,6 @@
   "dialogContent": {
     "height": 80
   },
-  "textField": {
-  },
   "statusBox": {
     "border": "1px solid #c4def6",
     "borderRadius": 1,

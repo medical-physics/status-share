@@ -119,7 +119,6 @@ export default function EditStatus (props) {
               placeholder={status}
               value={statusState}
               onChange={handleChange}
-              sx={styles.textField}
             />
           </DialogContent>
           <DialogActions>
