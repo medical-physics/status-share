@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/components/SendMessageDialog.json';
 
 // MUI components
 import {
+  Grid,
   Dialog,
   DialogActions,
   Button,
@@ -22,24 +24,6 @@ import {
 // Redux stuff
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageAsync } from '../redux/slices/mailboxSlice';
-
-const styles = {
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '92%',
-    marginTop: 7
-  },
-  icon: {
-    margin: '1px 8px auto 8px'
-  },
-  dialogContent: {
-    height: 350
-  },
-  buttonIcon: {
-    margin: 'auto 5px auto auto'
-  }
-};
 
 export default function SendMessageDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -103,11 +87,13 @@ export default function SendMessageDialog (props) {
         <SendIcon sx={styles.buttonIcon} /> message
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         <DialogTitle>
-          Send message to {user.name}
+          <Grid sx={styles.dialogTitle}>
+            {`Send message to ${user.name}`}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
         </DialogTitle>
         <DialogContent sx={styles.dialogContent}>
           <TextField
@@ -118,6 +104,7 @@ export default function SendMessageDialog (props) {
             value={senderName}
             onChange={handleChange}
             fullWidth
+            sx={styles.textField}
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -134,7 +121,7 @@ export default function SendMessageDialog (props) {
             value={senderContact}
             onChange={handleChange}
             fullWidth
-            style={{ marginTop: '12px' }}
+            sx={styles.textField}
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -151,7 +138,7 @@ export default function SendMessageDialog (props) {
             value={subject}
             onChange={handleChange}
             fullWidth
-            style={{ marginTop: '40px' }}
+            sx={{ marginTop: '40px' }}
             variant='outlined'
           />
           <TextField
@@ -165,7 +152,7 @@ export default function SendMessageDialog (props) {
             value={message}
             onChange={handleChange}
             fullWidth
-            style={{ marginTop: '9px' }}
+            sx={{ marginTop: '9px' }}
           />
         </DialogContent>
         <DialogActions>
