@@ -76,10 +76,10 @@ export default function NavBar () {
                   <CheckCircleOutlineIcon sx={styles.icon} />
                 </IconButton>
               </Grid>
-              <Grid item>
+              <Grid item sx={styles.title}>
                 {title}
               </Grid>
-              <Grid item>
+              <Grid item sx={styles.dialogGroup}>
                 {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
               </Grid>
             </Grid>
