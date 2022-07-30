@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GithubPicker } from 'react-color';
+import styles from '../styles/components/EditTeaam.json';
 
 // MUI components
 import {
@@ -23,30 +24,6 @@ import {
 // Redux stuff
 import { useDispatch } from 'react-redux';
 import { updateTeamAsync, deleteTeamAsync } from '../redux/slices/teamsSlice';
-
-const styles = {
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '90%',
-    marginTop: 7
-  },
-  icon: {
-    margin: '5px 8px auto 15px'
-  },
-  statusText: {
-    margin: '20px auto 0px 10px'
-  },
-  text2: {
-    margin: '10px auto 0px 10px'
-  },
-  dialogContent: {
-    height: 400
-  },
-  textField: {
-    margin: '10px 20px auto 20px'
-  }
-};
 
 export default function EditTeam (props) {
   const [open, setOpen] = React.useState(false);
@@ -118,76 +95,78 @@ export default function EditTeam (props) {
 
   const dialogMarkup = (
     <>
-      <DialogTitle>Edit {teamDetails.team}</DialogTitle>
+      <DialogTitle>
+        <Grid sx={styles.dialogTitle}>
+          {`Edit ${teamDetails.team}`}
+          <IconButton onClick={handleClose} size='small'>
+            <CloseIcon />
+          </IconButton>
+        </Grid>
+      </DialogTitle>
       <form>
         <DialogContent sx={styles.dialogContent}>
-          <Grid container justify='center'>
-            <Grid item>
-              <TextField
-                id='team'
-                name='team'
-                type='team'
-                label='Team Name'
-                placeholder={teamDetails.team}
-                value={team}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-            <Grid item style={{ marginTop: 15 }}>
+          <Grid container sx={styles.dialogContainer}>
+            <TextField
+              id='team'
+              name='team'
+              type='team'
+              label='Team Name'
+              placeholder={teamDetails.team}
+              value={team}
+              onChange={handleChange}
+              fullWidth
+              sx={styles.textField}
+            />
+            <Grid item sx={styles.colorPicker}>
               <GithubPicker
                 color={color}
                 onChange={handleColorChange}
               />
             </Grid>
-            <Grid item>
-              <TextField
-                id='priority'
-                name='priority'
-                type='priority'
-                label='Priority'
-                placeholder={teamDetails.priority.toString(10)}
-                value={priority}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id='col1'
-                name='col1'
-                type='col1'
-                label='Col 1 Header'
-                placeholder={teamDetails.col1}
-                value={col1}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id='col2'
-                name='col2'
-                type='col2'
-                label='Col 2 Header'
-                placeholder={teamDetails.col2}
-                value={col2}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id='col3'
-                name='col3'
-                type='col3'
-                label='Col 3 Header'
-                placeholder={teamDetails.col3}
-                value={col3}
-                onChange={handleChange}
-                sx={styles.textField}
-              />
-            </Grid>
+            <TextField
+              id='priority'
+              name='priority'
+              type='priority'
+              label='Priority'
+              placeholder={teamDetails.priority.toString(10)}
+              value={priority}
+              onChange={handleChange}
+              fullWidth
+              sx={styles.textField}
+            />
+            <TextField
+              id='col1'
+              name='col1'
+              type='col1'
+              label='Col 1 Header'
+              placeholder={teamDetails.col1}
+              value={col1}
+              onChange={handleChange}
+              fullWidth
+              sx={styles.textField}
+            />
+            <TextField
+              id='col2'
+              name='col2'
+              type='col2'
+              label='Col 2 Header'
+              placeholder={teamDetails.col2}
+              value={col2}
+              onChange={handleChange}
+              fullWidth
+              sx={styles.textField}
+            />
+            <TextField
+              id='col3'
+              name='col3'
+              type='col3'
+              label='Col 3 Header'
+              placeholder={teamDetails.col3}
+              value={col3}
+              onChange={handleChange}
+              fullWidth
+              sx={styles.textField}
+            />
           </Grid>
         </DialogContent>
         <DialogActions>
@@ -208,9 +187,6 @@ export default function EditTeam (props) {
         <EditIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         {dialogMarkup}
       </Dialog>
     </>
