@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { authenticate } from '../util/Authenticator';
+import styles from '../styles/pages/Home.json';
 
 // Components
 import NavBar from '../components/NavBar';
@@ -23,27 +24,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAppNameAsync } from '../redux/slices/accountSlice';
 import { getUsersAsync } from '../redux/slices/usersSlice';
 import { getTeamsAsync } from '../redux/slices/teamsSlice';
-
-const styles = {
-  table: {
-    width: 482,
-    margin: 15
-  },
-  spinnerdiv: {
-    margin: 'auto 10px auto 15px'
-  },
-  spinnertext: {
-    margin: 'auto auto 10px auto'
-  },
-  dialog: {
-    width: 210
-  },
-  dummy: {
-    width: 482,
-    height: 20,
-    margin: 15
-  }
-};
 
 export default function Home () {
   const dispatch = useDispatch();
@@ -110,9 +90,9 @@ export default function Home () {
           </Grid>
         </DialogTitle>
       </Dialog>
-      <Grid container>
         <UpdateBar />
         <NavBar />
+      <Grid container sx={styles.homeContainer}>
         {loadingUsersData || loadingTeamsData || checkingAuth
           ? <>
             <Grid item sx={styles.table}>

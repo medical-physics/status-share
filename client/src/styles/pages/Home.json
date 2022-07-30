@@ -1,0 +1,25 @@
+{
+  "table": {
+    "width": 482,
+    "margin": "10px"
+  },
+  "homeContainer": {
+    "display": "flex",
+    "justifyContent": "center",
+    "marginTop": "100px"
+  },
+  "spinnerdiv": {
+    "margin": "auto 10px auto 15px"
+  },
+  "spinnertext": {
+    "margin": "auto auto 10px auto"
+  },
+  "dialog": {
+    "width": 210
+  },
+  "dummy": {
+    "width": 482,
+    "height": 20,
+    "margin": 15
+  }
+}
