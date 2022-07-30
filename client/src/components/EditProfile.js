@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/components/EditProfile.json';
 
 // MUI components
 import {
@@ -21,33 +22,6 @@ import {
 // Redux stuff
 import { useDispatch, useSelector } from 'react-redux';
 import { editProfileAsync } from '../redux/slices/usersSlice';
-
-const styles = {
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '92%',
-    marginTop: 7
-  },
-  icon: {
-    margin: 'auto 5px auto auto'
-  },
-  dialogContent: {
-    textAlign: 'center',
-    height: 280
-  },
-  memo: {
-    marginTop: 30
-  },
-  otherText: {
-    marginTop: 8
-  },
-  shortText: {
-    marginTop: 8,
-    marginRight: 15,
-    width: 250
-  }
-};
 
 export default function EditProfile (props) {
   const [open, setOpen] = React.useState(false);
@@ -117,39 +91,37 @@ export default function EditProfile (props) {
         <EditIcon sx={styles.icon} />  edit
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         <DialogTitle>
-          Edit {user.name}"s profile
+          <Grid sx={styles.dialogTitle}>
+            {`Edit ${user.name}'s profile`}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
         </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
-            <Grid container>
-              <Grid item>
-                <TextField
-                  id='phone'
-                  name='phone'
-                  type='phone'
-                  label='Phone'
-                  placeholder={user.phone}
-                  value={phone}
-                  onChange={handleChange}
-                  sx={styles.shortText}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id='email'
-                  name='email'
-                  type='email'
-                  label='Email'
-                  placeholder={user.email}
-                  value={email}
-                  onChange={handleChange}
-                  sx={styles.shortText}
-                />
-              </Grid>
+            <Grid container sx={styles.shortTextContainer}>
+              <TextField
+                id='phone'
+                name='phone'
+                type='phone'
+                label='Phone'
+                placeholder={user.phone}
+                value={phone}
+                onChange={handleChange}
+                sx={styles.shortText}
+              />
+              <TextField
+                id='email'
+                name='email'
+                type='email'
+                label='Email'
+                placeholder={user.email}
+                value={email}
+                onChange={handleChange}
+                sx={styles.shortText}
+              />
             </Grid>
             <TextField
               id='memo'

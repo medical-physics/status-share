@@ -1,0 +1,26 @@
+{
+  "icon": {
+    "margin": "auto 5px auto auto"
+  },
+  "dialogContent": {
+    "textAlign": "center",
+    "height": 300
+  },
+  "memo": {
+    "marginTop": 2
+  },
+  "otherText": {
+    "marginTop": 2
+  },
+  "shortText": {
+    "width": 250
+  },
+  "dialogTitle": {
+    "display": "flex",
+    "justifyContent": "space-between"
+  },
+  "shortTextContainer": {
+    "display": "flex",
+    "justifyContent": "space-between"
+  }
+}
