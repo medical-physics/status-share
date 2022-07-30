@@ -1,0 +1,23 @@
+{
+  "icon": {
+    "margin": "auto 5px auto auto"
+  },
+  "dialogContent": {
+    "height": 450
+  },
+  "textField": {
+    "marginTop": 2
+  },
+  "colorPicker": {
+    "marginTop": 2,
+    "marginBottom": 2
+  },
+  "dialogContainer": {
+    "display": "flex",
+    "justifyContent": "center"
+  },
+  "dialogTitle": {
+    "display": "flex",
+    "justifyContent": "space-between"
+  }
+}
