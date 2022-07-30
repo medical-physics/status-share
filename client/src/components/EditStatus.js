@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/components/EditStatus.json';
 
 // MUI components
 import {
+  Box,
   TextField,
   Dialog,
   DialogActions,
@@ -14,7 +16,6 @@ import {
 } from '@mui/material';
 import {
   Delete as DeleteIcon,
-  Edit as EditIcon,
   Send as SendIcon,
   Close as CloseIcon
 } from '@mui/icons-material';
@@ -23,47 +24,20 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAsync, updateStatusAsync } from '../redux/slices/usersSlice';
 
-const styles = {
-  spinnerDiv: {
-    textAlign: 'center',
-    marginTop: 15,
-    marginBottom: 15
-  },
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '92%',
-    marginTop: 7
-  },
-  icon: {
-    margin: '1px 8px auto 8px'
-  },
-  statusText: {
-    margin: '20px auto 0px 10px'
-  },
-  text2: {
-    margin: '10px auto 0px 10px'
-  },
-  dialogContent: {
-    height: 80
-  },
-  textField: {
-    marginTop: 10
-  }
-};
+const DEFAULT_STATUS = <>&nbsp;&nbsp;&nbsp;</>;
 
 export default function EditStatus (props) {
-  const [status, setStatus] = React.useState('');
+  const [statusState, setStatusState] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
-  const { userId } = props;
+  const { userId, status } = props;
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const loading = useSelector((state) => state.UI.loading);
 
   const mapUserDetailsToState = (focusedUser) => {
-    setStatus(checkUser(focusedUser));
+    setStatusState(checkUser(focusedUser));
   };
 
   const checkUser = (focusedUser) => {
@@ -87,7 +61,7 @@ export default function EditStatus (props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const statusData = {
-      status,
+      status: statusState,
       statusTime: new Date().toString(),
       userId
     };
@@ -107,7 +81,7 @@ export default function EditStatus (props) {
   };
 
   const handleChange = (event) => {
-    setStatus(event.target.value);
+    setStatusState(event.target.value);
   };
 
   const dialogMarkup = loading
@@ -133,8 +107,8 @@ export default function EditStatus (props) {
               variant='filled'
               size='small'
               fullWidth
-              placeholder={user.status}
-              value={status}
+              placeholder={status}
+              value={statusState}
               onChange={handleChange}
               sx={styles.textField}
             />
@@ -153,9 +127,11 @@ export default function EditStatus (props) {
 
   return (
     <>
-      <IconButton onClick={handleOpen} size='small'>
-        <EditIcon />
-      </IconButton>
+      <Box onClick={handleOpen} sx={styles.statusBox}>
+        <div style={styles.statusText}>
+          {status || DEFAULT_STATUS}
+        </div>
+      </Box>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
         <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
           <CloseIcon />
@@ -167,5 +143,6 @@ export default function EditStatus (props) {
 }
 
 EditStatus.propTypes = {
-  userId: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired
 };

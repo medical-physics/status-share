@@ -1,0 +1,36 @@
+{
+  "spinnerDiv": {
+    "textAlign": "center",
+    "marginTop": 15,
+    "marginBottom": 15
+  },
+  "closeButton": {
+    "textAlign": "center",
+    "position": "absolute",
+    "left": "92%",
+    "marginTop": 7
+  },
+  "icon": {
+    "margin": "1px 8px auto 8px"
+  },
+  "text2": {
+    "margin": "10px auto 0px 10px"
+  },
+  "dialogContent": {
+    "height": 80
+  },
+  "textField": {
+    "marginTop": 10
+  },
+  "statusBox": {
+    "border": "1px solid #c4def6",
+    "borderRadius": 1,
+    "&:hover": {
+      "cursor": "pointer"
+    }
+  },
+  "statusText": {
+    "margin": 2,
+    "width": 150
+  }
+}
