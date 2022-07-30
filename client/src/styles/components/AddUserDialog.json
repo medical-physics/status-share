@@ -1,0 +1,15 @@
+{
+  "icon": {
+    "margin": "auto 5px auto auto"
+  },
+  "dialogContent": {
+    "height": 300
+  },
+  "textField": {
+    "marginTop": 2
+  },
+  "dialogTitle": {
+    "display": "flex",
+    "justifyContent": "space-between"
+  }
+}

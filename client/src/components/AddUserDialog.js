@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/components/AddUserDialog.json';
 
 // MUI components
 import {
+  Grid,
   Dialog,
   DialogActions,
   Button,
@@ -19,28 +21,6 @@ import {
 // Redux stuff
 import { useDispatch } from 'react-redux';
 import { addUserAsync } from '../redux/slices/usersSlice';
-
-const styles = {
-  closeButton: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: '90%',
-    marginTop: 7
-  },
-  icon: {
-    margin: 'auto 5px auto auto'
-  },
-  dialogContent: {
-    textAlign: 'center',
-    height: 250
-  },
-  memo: {
-    marginTop: 30
-  },
-  otherText: {
-    marginTop: 8
-  }
-};
 
 export default function AddUserDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -116,11 +96,13 @@ export default function AddUserDialog (props) {
         <AddIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>
-        <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
-          <CloseIcon />
-        </IconButton>
         <DialogTitle>
-          Add new user to {teamName}
+          <Grid sx={styles.dialogTitle}>
+            {`Add new user to ${teamName}`}
+            <IconButton onClick={handleClose} size='small'>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
         </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
@@ -132,7 +114,7 @@ export default function AddUserDialog (props) {
               label='Name'
               value={userName}
               onChange={handleChange}
-              sx={styles.otherText}
+              sx={styles.textField}
               fullWidth
             />
             <TextField
@@ -142,7 +124,7 @@ export default function AddUserDialog (props) {
               label='Email'
               value={email}
               onChange={handleChange}
-              sx={styles.otherText}
+              sx={styles.textField}
               fullWidth
             />
             <TextField
@@ -152,7 +134,7 @@ export default function AddUserDialog (props) {
               label='Phone'
               value={phone}
               onChange={handleChange}
-              sx={styles.otherText}
+              sx={styles.textField}
               fullWidth
             />
             <TextField
@@ -163,7 +145,7 @@ export default function AddUserDialog (props) {
               label='Priority'
               value={priority}
               onChange={handleChange}
-              sx={styles.otherText}
+              sx={styles.textField}
               fullWidth
             />
           </DialogContent>
