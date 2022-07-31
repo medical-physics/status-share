@@ -18,7 +18,6 @@ import {
 } from '@mui/material';
 import {
   RadioButtonUnchecked as RadioButtonUncheckedIcon,
-  Edit as EditIcon,
   AccountCircle as AccountCircleIcon
 } from '@mui/icons-material';
 
@@ -65,12 +64,6 @@ export default function LoadingTable () {
                   <Grid container alignItems='center' justify='space-between' spacing={1}>
                     <Grid item sx={styles.status}>
                       Loading...
-                    </Grid>
-                    <Grid item>
-                      {!JSON.parse(localStorage.getItem('viewOnly')) && (
-                        <IconButton size='small'>
-                          <EditIcon />
-                        </IconButton>)}
                     </Grid>
                   </Grid>
                 </TableCell>
