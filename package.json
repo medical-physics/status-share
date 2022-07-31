@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.3",
-    "semistandard": "^16.0.1"
+    "semistandard": "^16.0.1",
+    "socket.io": "^4.5.1"
   }
 }

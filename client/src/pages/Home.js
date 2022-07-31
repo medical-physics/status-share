@@ -66,7 +66,7 @@ export default function Home () {
     } else {
       setShowLoadingTables(true);
     }
-  }, [loadingUsersData, loadingTeamsData, checkingAuth])
+  }, [loadingUsersData, loadingTeamsData, checkingAuth]);
 
   return (
     <>

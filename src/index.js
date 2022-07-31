@@ -17,14 +17,25 @@ const options = {
   cert: fs.readFileSync(__dirname + '/../localhost.pem')
 };
 
-const server = https.createServer(options, app);
+const server = https
+  .createServer(options, app)
+  .listen(port, async () => {
+    try {
+      await mongoose.connect(process.env.ATLAS_URI);
+      console.log('Successfully connected to MongoDB');
+      console.log(`Server running on port: ${port}`);
+    } catch (err) {
+      console.log(`Error while connecting to MongoDB: ${err}`);
+    }
+  });
 
-server.listen(port, async () => {
-  try {
-    await mongoose.connect(process.env.ATLAS_URI);
-    console.log('Successfully connected to MongoDB');
-    console.log(`Server running on port: ${port}`);
-  } catch (err) {
-    console.log(`Error while connecting to MongoDB: ${err}`);
+const io = require('socket.io')(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: 'https://localhost:3000'
   }
+});
+
+io.on('socketConnection', (socket) => {
+  console.log('Connected to socket.io');
 });
