@@ -42,6 +42,8 @@ export default function Home () {
   const teamMembersMap = useSelector((state) => selectTeamMembersMap(state));
   const isTokenValid = useSelector((state) => selectIsAccessTokenValid(state));
 
+  const [showLoadingTables, setShowLoadingTables] = React.useState(true);
+
   React.useEffect(() => {
     authenticate();
   }, []);
@@ -57,6 +59,14 @@ export default function Home () {
       console.log(err);
     }
   }, [dispatch, isTokenValid]);
+
+  React.useEffect(() => {
+    if (!loadingUsersData && !loadingTeamsData && !checkingAuth) {
+      setShowLoadingTables(false);
+    } else {
+      setShowLoadingTables(true);
+    }
+  }, [loadingUsersData, loadingTeamsData, checkingAuth])
 
   return (
     <>
@@ -82,7 +92,7 @@ export default function Home () {
       <UpdateBar />
       <NavBar />
       <Grid container sx={styles.homeContainer}>
-        {loadingUsersData || loadingTeamsData || checkingAuth
+        {showLoadingTables
           ? <>
             {LOADING_TABLES_ARRAY.map((number) => {
               return (

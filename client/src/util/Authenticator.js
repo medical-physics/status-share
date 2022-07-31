@@ -73,7 +73,7 @@ const countDownAndEndSession = (timeUntilExpiry) => {
   console.log('Time until token expiry:'.concat(' ', timeUntilExpiry));
 
   setTimeout(() => {
-    endSession();
+    return endSession();
   }, (timeUntilExpiry - BUFFER_TIME));
 };
 
