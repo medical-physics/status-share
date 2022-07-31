@@ -94,6 +94,7 @@ const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
       })
       .catch((err) => {
         console.log(err);
+        return endSession();
       });
   }, (timeUntilExpiry - BUFFER_TIME));
 };
