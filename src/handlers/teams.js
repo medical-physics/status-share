@@ -53,6 +53,15 @@ exports.updateTeam = async (req, res) => {
   try {
     const team = await Team.findOne({ _id: teamId });
 
+    if (updatedTeam.team !== team.team) {
+      const users = await User.find({ teamId: teamId });
+
+      users.forEach(async (user) => {
+        user.team = updatedTeam.team;
+        user.save();
+      });
+    }
+
     for (const key of Object.keys(updatedTeam)) {
       team[key] = updatedTeam[key];
     }
