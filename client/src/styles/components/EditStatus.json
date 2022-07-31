@@ -21,7 +21,7 @@
     }
   },
   "statusText": {
-    "margin": 2
+    "margin": 4
   },
   "dialogTitle": {
     "display": "flex",
