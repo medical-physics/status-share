@@ -80,7 +80,7 @@ const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
   setTimeout(() => {
     store.dispatch(refreshTokenAsync(refreshToken))
       .then((res) => {
-        const decodedAccessToken = jwtDecode(res);
+        const decodedAccessToken = jwtDecode(res.payload.split(' ')[1]);
         const newTimeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
         countDownAndRefresh(refreshToken, newTimeUntilExpiry);
       });

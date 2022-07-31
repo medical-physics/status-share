@@ -41,7 +41,7 @@ export const getUserAsync = createAsyncThunk(
   async (userId, { dispatch, getState }) => {
     dispatch(loadingUI());
     const users = getState().users.users;
-    let user = await users.find((element) => element.userId === userId);
+    let user = await users.find((element) => element._id === userId);
 
     if (user === undefined) {
       user = await getUser(userId);
