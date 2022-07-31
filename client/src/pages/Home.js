@@ -70,7 +70,7 @@ export default function Home () {
       <Dialog open={loadingUser}>
         <DialogTitle>
           <Grid sx={styles.dialog}>
-            <Typography variant='overline' sx={styles.spinnertext}>Adding user...</Typography>
+            <Typography variant='overline' sx={styles.spinnertext}>Updating users...</Typography>
             <CircularProgress size={20} sx={styles.spinnerdiv} />
           </Grid>
         </DialogTitle>
@@ -97,6 +97,7 @@ export default function Home () {
                 </Box>
               );
             })}
+            <Box order={99} sx={styles.dummy} />
             <Box order={99} sx={styles.dummy} />
           </>}
       </Grid>

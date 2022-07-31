@@ -22,8 +22,7 @@ import {
   Box,
   Grid,
   Toolbar,
-  IconButton,
-  Link
+  IconButton
 } from '@mui/material';
 import {
   Link as LinkIcon
@@ -51,11 +50,11 @@ export default function TeamTable (props) {
                 </Box>
               </Typography>
               {teamDetails.hyperlink &&
-                <Link href={teamDetails.hyperlink} rel="noopener noreferrer" target="_blank">
+                <a href={teamDetails.hyperlink} rel="noopener noreferrer" target="_blank">
                   <IconButton>
                     <LinkIcon sx={{ color: teamDetails.color }} />
                   </IconButton>
-                </Link>}
+                </a>}
             </Grid>
             <Grid item>
               {JSON.parse(localStorage.getItem('admin')) && (<>

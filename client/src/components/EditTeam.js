@@ -176,6 +176,7 @@ export default function EditTeam (props) {
               label='Hyperlink'
               value={hyperlink}
               onChange={handleChange}
+              helperText={'URLs must begin with https://'}
               fullWidth
               sx={styles.textField}
             />

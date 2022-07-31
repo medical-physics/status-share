@@ -10,7 +10,7 @@ import {
 
 const BUFFER_TIME = 4000;
 
-export const authenticate = () => {
+export const authenticate = async () => {
   store.dispatch(checkingAuth());
   let accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
@@ -60,7 +60,7 @@ export const authenticate = () => {
   return Promise.resolve('Authentication successful.');
 };
 
-const endSession = () => {
+const endSession = async () => {
   store.dispatch(logoutUser());
   window.location.href = '/login';
   return Promise.reject(new Error('Authentication failed or session expired.'));
