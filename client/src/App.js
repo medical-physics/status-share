@@ -5,8 +5,8 @@ import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Components
-// import PrivateRoute from './util/PrivateRoute';
-// import LoginRoute from './util/LoginRoute';
+import PrivateRoute from './util/PrivateRoute';
+import LoginRoute from './util/LoginRoute';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -44,12 +44,12 @@ function App () {
       <Provider store={store}>
         <Router>
           <Routes>
-            {/* <Route exact path='/' element={<PrivateRoute />}> */}
-            <Route exact path='/' element={<Home />} />
-            {/* </Route>} */}
-            {/* <Route exact path='/login' element={<LoginRoute />}> */}
-            <Route exact path='/login' element={<Login />} />
-            {/* </Route> */}
+            <Route exact path='/' element={<PrivateRoute />}>
+              <Route exact path='/' element={<Home />} />
+            </Route>
+            <Route exact path='/login' element={<LoginRoute />}>
+              <Route exact path='/login' element={<Login />} />
+            </Route>
           </Routes>
         </Router>
       </Provider>
