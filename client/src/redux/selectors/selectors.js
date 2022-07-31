@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import { BUFFER_TIME } from '../../util/Authenticator';
 import { createSelector } from 'reselect';
 
 const selectTeams = state => state.teams.teams;
@@ -8,7 +9,7 @@ const selectUsers = state => state.users.users;
 export const selectTeamDetailsMap = createSelector(
   selectTeams,
   (teams) => {
-    let map = {};
+    const map = {};
 
     teams.forEach((team) => {
       map[team._id] = team;
@@ -22,19 +23,21 @@ export const selectTeamMembersMap = createSelector(
   selectUsers,
   selectTeams,
   (users, teams) => {
-    let map = {};
+    const map = {};
 
-    teams.forEach((team) => {
-      map[team._id] = [];
-    });
+    if (users.length && teams.length) {
+      teams.forEach((team) => {
+        map[team._id] = [];
+      });
 
-    users.forEach((user) => {
-      map[user.teamId].push(user);
-    });
+      users.forEach((user) => {
+        map[user.teamId].push(user);
+      });
 
-    teams.forEach((team) => {
-      map[team._id].sort((a, b) => a.priority - b.priority);
-    });
+      teams.forEach((team) => {
+        map[team._id].sort((a, b) => a.priority - b.priority);
+      });
+    }
 
     return map;
   }
@@ -46,8 +49,13 @@ export const selectIsAccessTokenValid = createSelector(
   selectAccessToken,
   (token) => {
     if (token) {
-      const isValid = jwtDecode(token);
-      return isValid;
+      try {
+        const decodedToken = jwtDecode(token);
+        const timeUntilExpiry = decodedToken.exp * 1000 - Date.now();
+        return timeUntilExpiry >= BUFFER_TIME;
+      } catch (err) {
+        console.log(err);
+      }
     }
     return false;
   }

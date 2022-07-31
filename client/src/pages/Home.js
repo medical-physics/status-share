@@ -44,7 +44,7 @@ export default function Home () {
 
   React.useEffect(() => {
     authenticate();
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     try {

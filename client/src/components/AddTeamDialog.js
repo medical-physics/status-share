@@ -169,7 +169,7 @@ export default function AddTeamDialog () {
                 type='hyperlink'
                 label='Hyperlink'
                 value={hyperlink}
-                helperText={'URLs must begin with https://'}
+                helperText='URLs must begin with https://'
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}

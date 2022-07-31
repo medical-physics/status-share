@@ -50,7 +50,7 @@ export default function TeamTable (props) {
                 </Box>
               </Typography>
               {teamDetails.hyperlink &&
-                <a href={teamDetails.hyperlink} rel="noopener noreferrer" target="_blank">
+                <a href={teamDetails.hyperlink} rel='noopener noreferrer' target='_blank'>
                   <IconButton>
                     <LinkIcon sx={{ color: teamDetails.color }} />
                   </IconButton>

@@ -47,8 +47,7 @@ export const refreshTokenAsync = createAsyncThunk(
   'account/refreshToken',
   async (token) => {
     const response = await refreshAccessToken(token);
-    const accessToken = TOKEN_PREFIX.concat(' ', response.accessToken);
-    return accessToken;
+    return response;
   }
 );
 
@@ -133,8 +132,9 @@ export const accountSlice = createSlice({
         state.errors = action.payload;
       })
       .addCase(refreshTokenAsync.fulfilled, (state, action) => {
-        state.accessToken = action.payload;
-        localStorage.setItem('accessToken', action.payload);
+        state.accessToken = action.payload.accessToken;
+        const accessToken = TOKEN_PREFIX.concat(' ', action.payload.accessToken);
+        localStorage.setItem('accessToken', accessToken);
       })
       .addCase(getAppNameAsync.fulfilled, (state, action) => {
         state.appName = action.payload.appName;

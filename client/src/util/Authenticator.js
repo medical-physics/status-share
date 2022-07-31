@@ -9,7 +9,7 @@ import {
   setToken
 } from '../redux/slices/accountSlice';
 
-const BUFFER_TIME = 4000;
+export const BUFFER_TIME = 4000;
 
 export const authenticate = async () => {
   store.dispatch(checkingAuth());
@@ -83,13 +83,17 @@ const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
   setTimeout(() => {
     store.dispatch(refreshTokenAsync(refreshToken))
       .then((res) => {
-        const decodedAccessToken = jwtDecode(res.payload.split(' ')[1]);
-        const newTimeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
-        store.dispatch(setAuthenticated());
-        countDownAndRefresh(refreshToken, newTimeUntilExpiry);
+        try {
+          const decodedAccessToken = jwtDecode(res.payload.accessToken);
+          const newTimeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
+          store.dispatch(setAuthenticated());
+          countDownAndRefresh(refreshToken, newTimeUntilExpiry);
+        } catch (err) {
+          throw err;
+        }
       })
       .catch((err) => {
-        throw err;
+        console.log(err);
       });
   }, (timeUntilExpiry - BUFFER_TIME));
 };
