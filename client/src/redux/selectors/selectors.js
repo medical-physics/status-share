@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode';
 import { createSelector } from 'reselect';
 
 const selectTeams = state => state.teams.teams;
@@ -36,5 +37,18 @@ export const selectTeamMembersMap = createSelector(
     });
 
     return map;
+  }
+);
+
+const selectAccessToken = state => state.account.accessToken;
+
+export const selectIsAccessTokenValid = createSelector(
+  selectAccessToken,
+  (token) => {
+    if (token) {
+      const isValid = jwtDecode(token);
+      return isValid;
+    }
+    return false;
   }
 );

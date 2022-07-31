@@ -5,7 +5,8 @@ import {
   logoutUser,
   refreshTokenAsync,
   setAuthenticated,
-  checkingAuth
+  checkingAuth,
+  setToken
 } from '../redux/slices/accountSlice';
 
 const BUFFER_TIME = 4000;
@@ -25,39 +26,41 @@ export const authenticate = async () => {
       accessToken = accessToken.split(' ')[1];
       decodedAccessToken = jwtDecode(accessToken);
       timeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
+      store.dispatch(setToken(accessToken));
     } else {
-      endSession();
+      return endSession();
     }
 
     if (refreshToken) {
       decodedRefreshToken = jwtDecode(refreshToken.split(' ')[1]);
       const isRefreshTokenExpired = decodedRefreshToken.exp * 1000 - Date.now() <= 0;
       if (isRefreshTokenExpired) {
-        endSession();
+        return endSession();
       }
     }
   } catch (err) {
-    endSession();
+    return endSession();
   }
 
   if (rememberMe && refreshToken) {
     if (timeUntilExpiry <= BUFFER_TIME) {
       countDownAndRefresh(refreshToken, BUFFER_TIME);
     } else {
+      store.dispatch(setAuthenticated());
       countDownAndRefresh(refreshToken, timeUntilExpiry);
     }
-    store.dispatch(setAuthenticated());
+    return Promise.resolve('Authentication successful.');
   } else if (!rememberMe) {
     if (timeUntilExpiry <= 0) {
-      endSession();
+      return endSession();
     } else {
       countDownAndEndSession(timeUntilExpiry);
+      store.dispatch(setAuthenticated());
+      return Promise.resolve('Authentication successful.');
     }
-    store.dispatch(setAuthenticated());
   } else {
-    endSession();
+    return endSession();
   }
-  return Promise.resolve('Authentication successful.');
 };
 
 const endSession = async () => {
@@ -75,14 +78,18 @@ const countDownAndEndSession = (timeUntilExpiry) => {
 };
 
 const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
-  console.log('Time until token expiry:'.concat(' ', timeUntilExpiry));
+  console.log('Time until token refresh:'.concat(' ', timeUntilExpiry));
 
   setTimeout(() => {
     store.dispatch(refreshTokenAsync(refreshToken))
       .then((res) => {
         const decodedAccessToken = jwtDecode(res.payload.split(' ')[1]);
         const newTimeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
+        store.dispatch(setAuthenticated());
         countDownAndRefresh(refreshToken, newTimeUntilExpiry);
+      })
+      .catch((err) => {
+        throw err;
       });
   }, (timeUntilExpiry - BUFFER_TIME));
 };

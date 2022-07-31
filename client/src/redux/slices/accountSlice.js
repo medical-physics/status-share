@@ -23,7 +23,8 @@ const initialState = {
   loadingLogin: false,
   checkingAuth: false,
   errors: null,
-  viewOnly: false
+  viewOnly: false,
+  accessToken: ''
 };
 
 export const loginUserAsync = createAsyncThunk(
@@ -82,6 +83,9 @@ export const accountSlice = createSlice({
       state.authenticated = true;
       state.checkingAuth = false;
     },
+    setToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
     setAdminAccount: (state) => {
       state.admin = true;
     },
@@ -107,6 +111,7 @@ export const accountSlice = createSlice({
       state.admin = false;
       state.rememberMe = false;
       state.viewOnly = false;
+      state.accessToken = '';
     }
   },
   extraReducers: (builder) => {
@@ -116,6 +121,7 @@ export const accountSlice = createSlice({
         const refreshToken = TOKEN_PREFIX.concat(' ', action.payload.refreshToken);
         state.admin = action.payload.admin;
         state.viewOnly = action.payload.viewOnly;
+        state.accessToken = action.payload.accessToken;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('admin', action.payload.admin);
@@ -141,7 +147,7 @@ export const accountSlice = createSlice({
 
 export const {
   setAuthenticated,
-  setUnauthenticated,
+  setToken,
   setAdminAccount,
   setRememberMe,
   setAppName,

@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAppNameAsync } from '../redux/slices/accountSlice';
 import { getUsersAsync } from '../redux/slices/usersSlice';
 import { getTeamsAsync } from '../redux/slices/teamsSlice';
-import { selectTeamDetailsMap, selectTeamMembersMap } from '../redux/selectors/selectors';
+import { selectIsAccessTokenValid, selectTeamDetailsMap, selectTeamMembersMap } from '../redux/selectors/selectors';
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
@@ -40,19 +40,23 @@ export default function Home () {
   const loadingTeam = useSelector((state) => state.UI.loadingTeam);
   const teamDetailsMap = useSelector((state) => selectTeamDetailsMap(state));
   const teamMembersMap = useSelector((state) => selectTeamMembersMap(state));
+  const isTokenValid = useSelector((state) => selectIsAccessTokenValid(state));
 
   React.useEffect(() => {
-    authenticate()
-      .then((res) => {
-        console.log(res);
+    authenticate();
+  }, [])
+
+  React.useEffect(() => {
+    try {
+      if (isTokenValid) {
         dispatch(getAppNameAsync());
         dispatch(getTeamsAsync());
         dispatch(getUsersAsync());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [dispatch]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dispatch, isTokenValid]);
 
   return (
     <>
