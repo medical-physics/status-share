@@ -118,10 +118,12 @@ export default function Login () {
                   sx={styles.button}
                   disabled={loading}
                 >
-                  Login
-                  {loading && (
-                    <CircularProgress size={30} sx={styles.progress} />
-                  )}
+                  <Grid container sx={styles.buttonContainer}>
+                    Login
+                    {loading && (
+                      <CircularProgress size={15} thickness={5} sx={styles.progress} />
+                    )}
+                  </Grid>
                 </Button>
                 <FormControlLabel
                   control={<Checkbox

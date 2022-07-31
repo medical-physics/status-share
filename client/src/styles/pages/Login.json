@@ -16,7 +16,13 @@
     "display": "flex"
   },
   "button": {
+    "width": 120,
     "margin": "30px 10px 30px 10px"
+  },
+  "buttonContainer": {
+    "display": "flex",
+    "justifyContent": "center",
+    "alignItems": "center"
   },
   "customError": {
     "color": "red",
@@ -43,6 +49,6 @@
     "borderRadius": 4
   },
   "progress": {
-    "marginLeft": "10px"
+    "marginLeft": 1
   }
 }
