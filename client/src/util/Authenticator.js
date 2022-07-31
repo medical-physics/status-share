@@ -19,21 +19,25 @@ export const authenticate = () => {
   let decodedRefreshToken;
   let timeUntilExpiry;
 
-  if (accessToken) {
-    axios.defaults.headers.common.Authorization = accessToken;
-    accessToken = accessToken.split(' ')[1];
-    decodedAccessToken = jwtDecode(accessToken);
-    timeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
-  } else {
-    endSession();
-  }
-
-  if (refreshToken) {
-    decodedRefreshToken = jwtDecode(refreshToken.split(' ')[1]);
-    const isRefreshTokenExpired = decodedRefreshToken.exp * 1000 - Date.now() <= 0;
-    if (isRefreshTokenExpired) {
+  try {
+    if (accessToken) {
+      axios.defaults.headers.common.Authorization = accessToken;
+      accessToken = accessToken.split(' ')[1];
+      decodedAccessToken = jwtDecode(accessToken);
+      timeUntilExpiry = decodedAccessToken.exp * 1000 - Date.now();
+    } else {
       endSession();
     }
+
+    if (refreshToken) {
+      decodedRefreshToken = jwtDecode(refreshToken.split(' ')[1]);
+      const isRefreshTokenExpired = decodedRefreshToken.exp * 1000 - Date.now() <= 0;
+      if (isRefreshTokenExpired) {
+        endSession();
+      }
+    }
+  } catch (err) {
+    endSession();
   }
 
   if (rememberMe && refreshToken) {
