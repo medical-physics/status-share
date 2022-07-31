@@ -24,13 +24,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAppNameAsync } from '../redux/slices/accountSlice';
 import { getUsersAsync } from '../redux/slices/usersSlice';
 import { getTeamsAsync } from '../redux/slices/teamsSlice';
+import { selectTeamDetailsMap, selectTeamMembersMap } from '../redux/selectors/selectors';
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export default function Home () {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state.users.users);
   const teams = useSelector((state) => state.teams.teams);
   const appName = useSelector((state) => state.account.appName);
   const loadingUsersData = useSelector((state) => state.users.loadingUsersData);
@@ -38,7 +38,8 @@ export default function Home () {
   const checkingAuth = useSelector((state) => state.account.checkingAuth);
   const loadingUser = useSelector((state) => state.UI.loadingUser);
   const loadingTeam = useSelector((state) => state.UI.loadingTeam);
-  const [showDummyDiv, setShowDummyDiv] = React.useState(false);
+  const teamDetailsMap = useSelector((state) => selectTeamDetailsMap(state));
+  const teamMembersMap = useSelector((state) => selectTeamMembersMap(state));
 
   React.useEffect(() => {
     authenticate()
@@ -52,31 +53,6 @@ export default function Home () {
         console.log(err);
       });
   }, [dispatch]);
-
-  React.useEffect(() => {
-    if (teams.length % 2 !== 0) {
-      setShowDummyDiv(true);
-    }
-  }, [teams]);
-
-  // key: team ID, value: array of users in team
-  const teamMembersMap = {};
-  // key: team ID, value: team details in object form
-  const teamDetailsMap = {};
-
-  teams.forEach((team) => {
-    teamMembersMap[team._id] = [];
-    teamDetailsMap[team._id] = team;
-  });
-
-  teams.forEach((team) => {
-    users.forEach((user) => {
-      if (user.teamId === team._id) {
-        teamMembersMap[team._id].push(user);
-      }
-    });
-    teamMembersMap[team._id].sort((a, b) => a.priority - b.priority);
-  });
 
   return (
     <>
@@ -121,7 +97,7 @@ export default function Home () {
                 </Box>
               );
             })}
-            {showDummyDiv && <Box order={99} sx={styles.dummy} />}
+            <Box order={99} sx={styles.dummy} />
           </>}
       </Grid>
     </>

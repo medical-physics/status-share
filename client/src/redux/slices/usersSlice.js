@@ -217,7 +217,6 @@ export const usersSlice = createSlice({
         ];
       })
       .addCase(editProfileAsync.fulfilled, (state, action) => {
-        console.log(action.payload);
         const index5 = state.users.findIndex(
           (user) => user._id === action.payload._id
         );
