@@ -7,7 +7,7 @@ class UsersConnection {
     this.changeStream = User.watch();
 
     socket.on('getUsers', () => this.getUsers());
-    socket.on('disconnectUsers', () => this.disconnect());
+    socket.on('disconnect', () => this.disconnect());
     socket.on('connect_error', (err) => {
       console.log(`connect_error due to ${err.message}`);
     });

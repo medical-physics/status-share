@@ -48,8 +48,7 @@ function App () {
     newSocket.on('teams', (data) => { console.log(data); });
     newSocket.emit('getTeams');
     return () => {
-      newSocket.emit('disconnectUsers');
-      newSocket.emit('disconnectTeams');
+      newSocket.emit('disconnect');
       newSocket.close();
     };
   }, []);

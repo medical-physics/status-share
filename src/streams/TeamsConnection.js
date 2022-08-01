@@ -7,7 +7,7 @@ class TeamsConnection {
     this.changeStream = Team.watch();
 
     socket.on('getTeams', () => this.getTeams());
-    socket.on('disconnectTeams', () => this.disconnect());
+    socket.on('disconnect', () => this.disconnect());
     socket.on('connect_error', (err) => {
       console.log(`connect_error due to ${err.message}`);
     });
