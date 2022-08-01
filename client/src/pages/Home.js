@@ -8,6 +8,7 @@ import NavBar from '../components/NavBar';
 import UpdateBar from '../components/UpdateBar';
 import TeamTable from '../components/TeamTable';
 import LoadingTable from '../components/LoadingTable';
+import SocketWrapper from '../util/stream/SocketWrapper';
 
 // MUI Components
 import {
@@ -69,7 +70,7 @@ export default function Home () {
   }, [loadingUsersData, loadingTeamsData, checkingAuth]);
 
   return (
-    <>
+    <SocketWrapper>
       <Helmet>
         <title>{`${appName || 'Medical Physics'} | Home`}</title>
       </Helmet>
@@ -115,6 +116,6 @@ export default function Home () {
             <Box order={99} sx={styles.dummy} />
           </>}
       </Grid>
-    </>
+    </SocketWrapper>
   );
 }

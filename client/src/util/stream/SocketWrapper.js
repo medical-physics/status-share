@@ -4,7 +4,7 @@ import {
   handleUsersStreamChange,
   handleTeamsStreamChange
 } from './Streams';
-import BASE_ENDPOINT from '../../App';
+import { BASE_ENDPOINT } from '../../App';
 
 const SocketIoContext = React.createContext();
 
@@ -14,28 +14,36 @@ export const useSocketIoContext = () => {
 };
 
 export const SocketWrapper = (props) => {
+  const [socket, setSocket] = React.useState();
 
   React.useEffect(() => {
-    const newSocket = io(BASE_ENDPOINT);
-    newSocket.on('users', (data) => {
+    setSocket(io(BASE_ENDPOINT));
+  }, [])
+
+  React.useEffect(() => {
+    socket.on('users', (data) => {
       console.log(data);
       handleUsersStreamChange(data);
     });
-    newSocket.emit('getUsers');
-    newSocket.on('teams', (data) => {
+    socket.emit('getUsers');
+
+    socket.on('teams', (data) => {
       console.log(data);
       handleTeamsStreamChange(data);
     });
-    newSocket.emit('getTeams');
+    socket.emit('getTeams');
+
     return () => {
-      newSocket.disconnect();
-      newSocket.close();
+      socket.disconnect();
+      socket.close();
     };
-  }, []);
+  }, [socket]);
 
   return (
-    <SocketIoContext.Provider>
+    <SocketIoContext.Provider value={socket}>
       {props.children}
     </SocketIoContext.Provider>
   )
 }
+
+export default SocketWrapper;
