@@ -31,11 +31,15 @@ export const selectTeamMembersMap = createSelector(
       });
 
       users.forEach((user) => {
-        map[user.teamId].push(user);
+        if (map[user.teamId]) {
+          map[user.teamId].push(user);
+        }
       });
 
       teams.forEach((team) => {
-        map[team._id].sort((a, b) => a.priority - b.priority);
+        if (map[team._id]) {
+          map[team._id].sort((a, b) => a.priority - b.priority);
+        }
       });
     }
 
