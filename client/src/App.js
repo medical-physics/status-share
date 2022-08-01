@@ -4,6 +4,10 @@ import './App.css';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import io from 'socket.io-client';
+import {
+  handleUsersStreamChange,
+  handleTeamsStreamChange
+} from './util/Streams';
 
 // Components
 import PrivateRoute from './util/PrivateRoute';
@@ -43,9 +47,9 @@ axios.defaults.baseURL = BASE_ENDPOINT;
 function App () {
   React.useEffect(() => {
     const newSocket = io(BASE_ENDPOINT);
-    newSocket.on('users', (data) => { console.log(data); });
+    newSocket.on('users', (data) => { handleUsersStreamChange(data); });
     newSocket.emit('getUsers');
-    newSocket.on('teams', (data) => { console.log(data); });
+    newSocket.on('teams', (data) => { handleTeamsStreamChange(data); });
     newSocket.emit('getTeams');
     return () => {
       newSocket.disconnect();
