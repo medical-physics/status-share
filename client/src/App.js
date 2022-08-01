@@ -3,11 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import io from 'socket.io-client';
-import {
-  handleUsersStreamChange,
-  handleTeamsStreamChange
-} from './util/Streams';
 
 // Components
 import PrivateRoute from './util/PrivateRoute';
@@ -18,7 +13,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store/store';
 
 // Pages
-import Home from './pages/Home';
+import SocketWrapper from './util/stream/SocketWrapper';
 import Login from './pages/Login';
 
 const theme = createTheme({
@@ -45,25 +40,13 @@ const BASE_ENDPOINT = 'https://localhost:5000';
 axios.defaults.baseURL = BASE_ENDPOINT;
 
 function App () {
-  React.useEffect(() => {
-    const newSocket = io(BASE_ENDPOINT);
-    newSocket.on('users', (data) => { handleUsersStreamChange(data); });
-    newSocket.emit('getUsers');
-    newSocket.on('teams', (data) => { handleTeamsStreamChange(data); });
-    newSocket.emit('getTeams');
-    return () => {
-      newSocket.disconnect();
-      newSocket.close();
-    };
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
           <Routes>
             <Route exact path='/' element={<PrivateRoute />}>
-              <Route exact path='/' element={<Home />} />
+              <Route exact path='/' element={<SocketWrapper />} />
             </Route>
             <Route exact path='/login' element={<LoginRoute />}>
               <Route exact path='/login' element={<Login />} />

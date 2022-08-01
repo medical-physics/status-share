@@ -1,14 +1,14 @@
-import { store } from '../redux/store/store';
+import { store } from '../../redux/store/store';
 import {
   insertUserFromStream,
   deleteUserFromStream,
   updateUserFromStream
-} from '../redux/slices/usersSlice';
+} from '../../redux/slices/usersSlice';
 import {
   insertTeamFromStream,
   deleteTeamFromStream,
   updateTeamFromStream
-} from '../redux/slices/teamsSlice';
+} from '../../redux/slices/teamsSlice';
 
 export const handleUsersStreamChange = (data) => {
   switch (data.operationType) {

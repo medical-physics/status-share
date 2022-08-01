@@ -22,12 +22,13 @@ class TeamsConnection {
 
   disconnect = async () => {
     await this.changeStream.close();
+    console.log('Disconnected from teams stream.')
   }
 }
 
 const establishTeamsStream = (io) => {
   io.on('connection', (socket) => {
-    console.log('Successfully connected to teams stream.');
+    console.log('Connected to teams stream.');
     new TeamsConnection(io, socket);
   });
 }

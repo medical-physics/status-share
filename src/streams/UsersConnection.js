@@ -22,12 +22,13 @@ class UsersConnection {
 
   disconnect = async () => {
     await this.changeStream.close();
+    console.log('Disconnected from users stream.')
   }
 }
 
 const establishUsersStream = (io) => {
   io.on('connection', (socket) => {
-    console.log('Successfully connected to users stream.');
+    console.log('Connected to users stream.');
     new UsersConnection(io, socket);
   });
 }
