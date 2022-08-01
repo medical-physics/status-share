@@ -280,7 +280,10 @@ export const {
   markNotPresent,
   updateStatus,
   editUser,
-  decrementUnreadMessages
+  decrementUnreadMessages,
+  insertUserFromStream,
+  deleteUserFromStream,
+  updateUserFromStream
 } = usersSlice.actions;
 
 export default usersSlice.reducer;
