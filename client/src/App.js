@@ -45,8 +45,11 @@ function App () {
     const newSocket = io(BASE_ENDPOINT);
     newSocket.on('users', (data) => { console.log(data); });
     newSocket.emit('getUsers');
+    newSocket.on('teams', (data) => { console.log(data); });
+    newSocket.emit('getTeams');
     return () => {
-      newSocket.emit('disconnect');
+      newSocket.emit('disconnectUsers');
+      newSocket.emit('disconnectTeams');
       newSocket.close();
     };
   }, []);

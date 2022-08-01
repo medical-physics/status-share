@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(require('./routes/record'));
 
 const establishUsersStream = require('./streams/UsersConnection');
+const establishTeamsStream = require('./streams/TeamsConnection');
 
 const options = {
   key: fs.readFileSync(__dirname + '/../localhost-key.pem'),
@@ -41,3 +42,4 @@ const io = socketio(server, {
 });
 
 establishUsersStream(io);
+establishTeamsStream(io);
