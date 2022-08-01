@@ -196,6 +196,33 @@ export const usersSlice = createSlice({
       if (state.user._id === action.payload) {
         state.user.unreadMessages -= 1;
       }
+    },
+    insertUserFromStream: (state, action) => {
+      state.users = [
+        ...state.users,
+        action.payload
+      ];
+    },
+    deleteUserFromStream: (state, action) => {
+      const index5 = state.users.findIndex(
+        (user) => user._id === action.payload
+      );
+      if (index5 >= 0) {
+        state.users = [
+          ...state.users.slice(0, index5),
+          ...state.users.slice(index5 + 1)
+        ];
+      }
+    },
+    updateUserFromStream: (state, action) => {
+      const index6 = state.users.findIndex(
+        (user) => user._id === action.payload._id
+      );
+      if (index6 >= 0) {
+        for (const [key, value] of Object.entries(action.payload.updatedFields)) {
+          state.users[index6][key] = value;
+        }
+      }
     }
   },
   extraReducers: (builder) => {
@@ -217,14 +244,14 @@ export const usersSlice = createSlice({
         ];
       })
       .addCase(editProfileAsync.fulfilled, (state, action) => {
-        const index5 = state.users.findIndex(
+        const index7 = state.users.findIndex(
           (user) => user._id === action.payload._id
         );
-        state.users[index5].name = action.payload.name;
-        state.users[index5].email = action.payload.email;
-        state.users[index5].phone = action.payload.phone;
-        state.users[index5].team = action.payload.team;
-        state.users[index5].memo = action.payload.memo;
+        state.users[index7].name = action.payload.name;
+        state.users[index7].email = action.payload.email;
+        state.users[index7].phone = action.payload.phone;
+        state.users[index7].team = action.payload.team;
+        state.users[index7].memo = action.payload.memo;
         if (state.user._id === action.payload._id) {
           state.user.name = action.payload.name;
           state.user.email = action.payload.email;
@@ -234,12 +261,12 @@ export const usersSlice = createSlice({
         }
       })
       .addCase(deleteUserAsync.fulfilled, (state, action) => {
-        const index6 = state.users.findIndex(
+        const index8 = state.users.findIndex(
           (user) => user._id === action.payload._id
         );
         state.users = [
-          ...state.users.slice(0, index6),
-          ...state.users.slice(index6 + 1)
+          ...state.users.slice(0, index8),
+          ...state.users.slice(index8 + 1)
         ];
       });
   }
