@@ -237,12 +237,6 @@ export const usersSlice = createSlice({
       .addCase(getUserAsync.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(addUserAsync.fulfilled, (state, action) => {
-        state.users = [
-          action.payload,
-          ...state.users
-        ];
-      })
       .addCase(editProfileAsync.fulfilled, (state, action) => {
         const index7 = state.users.findIndex(
           (user) => user._id === action.payload._id
@@ -259,15 +253,6 @@ export const usersSlice = createSlice({
           state.user.team = action.payload.team;
           state.user.memo = action.payload.memo;
         }
-      })
-      .addCase(deleteUserAsync.fulfilled, (state, action) => {
-        const index8 = state.users.findIndex(
-          (user) => user._id === action.payload._id
-        );
-        state.users = [
-          ...state.users.slice(0, index8),
-          ...state.users.slice(index8 + 1)
-        ];
       });
   }
 });

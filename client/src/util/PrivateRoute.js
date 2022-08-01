@@ -4,8 +4,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = () => {
   const authenticated = useSelector((state) => state.account.authenticated);
+  const checkingAuth = useSelector((state) => state.account.checkingAuth);
 
-  return (authenticated === false && !JSON.parse(localStorage.getItem('rememberMe')))
+  return (checkingAuth === false && authenticated === false && !localStorage.getItem('refreshToken'))
     ? <Navigate to='/login' />
     : <Outlet />;
 };

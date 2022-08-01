@@ -25,7 +25,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   loginUserAsync,
   getAppNameAsync,
-  setRememberMe
+  setRememberMe,
+  checkingAuth
 } from '../redux/slices/accountSlice';
 
 export default function Login () {
@@ -54,7 +55,7 @@ export default function Login () {
       dispatch(setRememberMe());
     }
     localStorage.setItem('rememberMe', rememberMe);
-
+    dispatch(checkingAuth());
     dispatch(loginUserAsync(userData));
   };
 

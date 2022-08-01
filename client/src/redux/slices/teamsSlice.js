@@ -108,21 +108,6 @@ export const teamsSlice = createSlice({
         state.loadingTeamsData = false;
         state.teams = action.payload;
       })
-      .addCase(addTeamAsync.fulfilled, (state, action) => {
-        state.teams = [
-          action.payload,
-          ...state.teams
-        ];
-      })
-      .addCase(deleteTeamAsync.fulfilled, (state, action) => {
-        const index3 = state.teams.findIndex(
-          (team) => team._id === action.payload._id
-        );
-        state.teams = [
-          ...state.teams.slice(0, index3),
-          ...state.teams.slice(index3 + 1)
-        ];
-      })
       .addCase(updateTeamAsync.fulfilled, (state, action) => {
         const index4 = state.teams.findIndex(
           (team) => team._id === action.payload._id
