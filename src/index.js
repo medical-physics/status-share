@@ -6,11 +6,14 @@ const port = process.env.PORT || 5000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const socketio = require('socket.io');
 require('dotenv').config();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(require('./routes/record'));
+
+const establishUsersStream = require('./streams/UsersConnection');
 
 const options = {
   key: fs.readFileSync(__dirname + '/../localhost-key.pem'),
@@ -29,13 +32,12 @@ const server = https
     }
   });
 
-const io = require('socket.io')(server, {
+const io = socketio(server, {
   pingTimeout: 60000,
   cors: {
-    origin: 'https://localhost:3000'
+    origin: '*',
+    methods: ['GET', 'POST']
   }
 });
 
-io.on('socketConnection', (socket) => {
-  console.log('Connected to socket.io');
-});
+establishUsersStream(io);

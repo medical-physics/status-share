@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import io from 'socket.io-client';
 
 // Components
 import PrivateRoute from './util/PrivateRoute';
@@ -36,9 +37,20 @@ const theme = createTheme({
   }
 });
 
-axios.defaults.baseURL = 'https://localhost:5000';
+const BASE_ENDPOINT = 'https://localhost:5000';
+axios.defaults.baseURL = BASE_ENDPOINT;
 
 function App () {
+  React.useEffect(() => {
+    const newSocket = io(BASE_ENDPOINT);
+    newSocket.on('users', (data) => { console.log(data); });
+    newSocket.emit('getUsers');
+    return () => {
+      newSocket.emit('disconnect');
+      newSocket.close();
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
