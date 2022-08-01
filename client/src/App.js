@@ -13,7 +13,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store/store';
 
 // Pages
-import SocketWrapper from './util/stream/SocketWrapper';
+import Home from './pages/Home';
 import Login from './pages/Login';
 
 const theme = createTheme({
@@ -46,7 +46,7 @@ function App () {
         <Router>
           <Routes>
             <Route exact path='/' element={<PrivateRoute />}>
-              <Route exact path='/' element={<SocketWrapper />} />
+              <Route exact path='/' element={<Home />} />
             </Route>
             <Route exact path='/login' element={<LoginRoute />}>
               <Route exact path='/login' element={<Login />} />

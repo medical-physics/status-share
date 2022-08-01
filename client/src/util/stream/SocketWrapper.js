@@ -13,7 +13,7 @@ export const useSocketIoContext = () => {
   return context;
 };
 
-export const SocketWrapper = (props) => {
+export const SocketWrapper = ({ children }) => {
   const [socket, setSocket] = React.useState();
 
   React.useEffect(() => {
@@ -21,27 +21,29 @@ export const SocketWrapper = (props) => {
   }, [])
 
   React.useEffect(() => {
-    socket.on('users', (data) => {
-      console.log(data);
-      handleUsersStreamChange(data);
-    });
-    socket.emit('getUsers');
+    if (socket) {
+      socket.on('users', (data) => {
+        console.log(data);
+        handleUsersStreamChange(data);
+      });
+      socket.emit('getUsers');
 
-    socket.on('teams', (data) => {
-      console.log(data);
-      handleTeamsStreamChange(data);
-    });
-    socket.emit('getTeams');
+      socket.on('teams', (data) => {
+        console.log(data);
+        handleTeamsStreamChange(data);
+      });
+      socket.emit('getTeams');
 
-    return () => {
-      socket.disconnect();
-      socket.close();
-    };
+      return () => {
+        socket.disconnect();
+        socket.close();
+      };
+    }
   }, [socket]);
 
   return (
     <SocketIoContext.Provider value={socket}>
-      {props.children}
+      {children}
     </SocketIoContext.Provider>
   )
 }
