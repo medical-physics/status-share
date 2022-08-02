@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const jwt = require('jsonwebtoken');
+const sslRedirect = require('heroku-ssl-redirect');
 require('dotenv').config();
 
 app.use(cors());
@@ -22,6 +23,7 @@ const buildPath = path.join(__dirname, '..', 'client', 'build');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(buildPath));
+  app.use(sslRedirect());
   app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
   });
