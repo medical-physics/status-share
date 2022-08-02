@@ -1,4 +1,4 @@
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -21,13 +21,13 @@ const establishTeamsStream = require('./streams/TeamsConnection');
 const buildPath = path.join(__dirname, '..', 'build');
 app.use(express.static(buildPath));
 
-const options = {
+/* const options = {
   key: fs.readFileSync(path.join(__dirname, '..', 'localhost-key.pem')),
   cert: fs.readFileSync(path.join(__dirname, '..', 'localhost.pem'))
-};
+}; */
 
-const server = https
-  .createServer(options, app)
+const server = http
+  .createServer(app)
   .listen(port, async () => {
     try {
       await mongoose.connect(process.env.ATLAS_URI);
