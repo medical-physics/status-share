@@ -18,8 +18,14 @@ app.use(require('./routes/record'));
 const establishUsersStream = require('./streams/UsersConnection');
 const establishTeamsStream = require('./streams/TeamsConnection');
 
-const buildPath = path.join(__dirname, '..', 'build');
-app.use(express.static(buildPath));
+const buildPath = path.join(__dirname, '..', 'client', 'build');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(buildPath));
+  app.length('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
+  });
+}
 
 /* const options = {
   key: fs.readFileSync(path.join(__dirname, '..', 'localhost-key.pem')),
