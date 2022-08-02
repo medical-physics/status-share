@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const jwt = require('jsonwebtoken');
-const sslRedirect = require('heroku-ssl-redirect');
+const sslRedirect = require('heroku-ssl-redirect').default;
 require('dotenv').config();
 
 app.use(cors());
