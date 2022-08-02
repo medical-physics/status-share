@@ -16,7 +16,7 @@ class UsersConnection {
   getUsers = () => {
     this.changeStream
       .on('change', (data) => {
-        this.io.sockets.emit('users', data);
+        this.socket.emit('users', data);
       });
   }
 

@@ -16,7 +16,7 @@ class TeamsConnection {
   getTeams = () => {
     this.changeStream
       .on('change', (data) => {
-        this.io.sockets.emit('teams', data);
+        this.socket.emit('teams', data);
       });
   }
 

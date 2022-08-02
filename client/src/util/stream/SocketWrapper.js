@@ -24,7 +24,6 @@ export const SocketWrapper = ({ children }) => {
 
   React.useEffect(() => {
     if (isTokenValid) {
-      console.log(isTokenValid, accessToken);
       const newSocket = io(BASE_ENDPOINT, {
         query: {
           token: accessToken
@@ -37,13 +36,11 @@ export const SocketWrapper = ({ children }) => {
   React.useEffect(() => {
     if (socket) {
       socket.on('users', (data) => {
-        console.log(data);
         handleUsersStreamChange(data);
       });
       socket.emit('getUsers');
 
       socket.on('teams', (data) => {
-        console.log(data);
         handleTeamsStreamChange(data);
       });
       socket.emit('getTeams');
