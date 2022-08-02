@@ -1,6 +1,14 @@
 # Status Share
 An internal tool used by the Medical Physics and Radiation Therapy departments at BC Cancer to track employee and machine statuses and send internal memos.
 
+## Environments
+- When developing in your local environment, switch to the `dev` branch.
+- Ensure that nodemon is installed globally on your system.
+```
+npm install -g nodemon
+```
+- The `main` branch is the production branch and should never be committed to directly. 
+
 ## Running the Application
 - Server
   - Create a `.env` file in the project root
