@@ -8,6 +8,11 @@ An internal tool used by the Medical Physics and Radiation Therapy departments a
 npm install -g nodemon
 ```
 - The `main` branch is the production branch and should never be committed to directly. 
+- When developing, branch off of the `dev` branch and create pull requests to the `dev` branch for each feature.
+```
+git checkout dev
+git checkout -b NEW_BRANCH_NAME
+```
 
 ## Running the Application
 - Server
