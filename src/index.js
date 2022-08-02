@@ -18,6 +18,9 @@ app.use(require('./routes/record'));
 const establishUsersStream = require('./streams/UsersConnection');
 const establishTeamsStream = require('./streams/TeamsConnection');
 
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
+
 const options = {
   key: fs.readFileSync(path.join(__dirname, '..', 'localhost-key.pem')),
   cert: fs.readFileSync(path.join(__dirname, '..', 'localhost.pem'))

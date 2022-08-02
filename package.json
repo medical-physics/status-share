@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm install && (cd client && npm run build)",
     "start": "node ./src/index.js"
   },
   "author": "",
