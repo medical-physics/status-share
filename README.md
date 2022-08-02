@@ -11,6 +11,7 @@ npm install -g nodemon
 - When developing, branch off of the `dev` branch and create pull requests to the `dev` branch for each feature.
 ```
 git checkout dev
+git pull
 git checkout -b NEW_BRANCH_NAME
 ```
 
