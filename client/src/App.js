@@ -36,7 +36,7 @@ const theme = createTheme({
   }
 });
 
-export const BASE_ENDPOINT = 'https://localhost:5000';
+export const BASE_ENDPOINT = process.env.baseURL || 'https://localhost:5000';
 axios.defaults.baseURL = BASE_ENDPOINT;
 
 function App () {

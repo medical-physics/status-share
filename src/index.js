@@ -38,7 +38,7 @@ const server = https
 const io = socketio(server, {
   pingTimeout: 60000,
   cors: {
-    origin: 'https://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST']
   }
 });
