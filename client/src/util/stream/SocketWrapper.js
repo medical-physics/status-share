@@ -6,6 +6,10 @@ import {
 } from './Streams';
 import { BASE_ENDPOINT } from '../../App';
 
+// Redux
+import { useSelector } from 'react-redux';
+import { selectIsAccessTokenValid } from '../../redux/selectors/selectors';
+
 const SocketIoContext = React.createContext();
 
 export const useSocketIoContext = () => {
@@ -15,10 +19,20 @@ export const useSocketIoContext = () => {
 
 export const SocketWrapper = ({ children }) => {
   const [socket, setSocket] = React.useState();
+  const accessToken = useSelector((state) => state.account.accessToken);
+  const isTokenValid = useSelector((state) => selectIsAccessTokenValid(state));
 
   React.useEffect(() => {
-    setSocket(io(BASE_ENDPOINT));
-  }, [])
+    if (isTokenValid) {
+      console.log(isTokenValid, accessToken);
+      const newSocket = io(BASE_ENDPOINT, {
+        query: {
+          token: accessToken
+        }
+      });
+      setSocket(newSocket);
+    }
+  }, [accessToken, isTokenValid]);
 
   React.useEffect(() => {
     if (socket) {
@@ -45,7 +59,7 @@ export const SocketWrapper = ({ children }) => {
     <SocketIoContext.Provider value={socket}>
       {children}
     </SocketIoContext.Provider>
-  )
-}
+  );
+};
 
 export default SocketWrapper;

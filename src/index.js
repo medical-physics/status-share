@@ -1,5 +1,6 @@
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
@@ -7,6 +8,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 app.use(cors());
@@ -17,8 +19,8 @@ const establishUsersStream = require('./streams/UsersConnection');
 const establishTeamsStream = require('./streams/TeamsConnection');
 
 const options = {
-  key: fs.readFileSync(__dirname + '/../localhost-key.pem'),
-  cert: fs.readFileSync(__dirname + '/../localhost.pem')
+  key: fs.readFileSync(path.join(__dirname, '..', 'localhost-key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, '..', 'localhost.pem'))
 };
 
 const server = https
@@ -36,8 +38,24 @@ const server = https
 const io = socketio(server, {
   pingTimeout: 60000,
   cors: {
-    origin: '*',
+    origin: 'https://localhost:3000',
     methods: ['GET', 'POST']
+  }
+});
+
+io.use((socket, next) => {
+  if (socket.handshake?.query?.token) {
+    const token = socket.handshake.query.token;
+
+    try {
+      const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
+      socket.decoded = decodedToken;
+      next();
+    } catch (err) {
+      next(new Error('Socket.io authentication error.'));
+    }
+  } else {
+    next(new Error('Socket.io authentication error.'));
   }
 });
 
