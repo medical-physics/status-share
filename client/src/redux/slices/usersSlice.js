@@ -35,7 +35,8 @@ const initialState = {
     teamId: '',
     unreadMessages: 0
   },
-  loadingUsersData: false
+  loadingUsersData: false,
+  subscriberExcludedUser: ''
 };
 
 export const getUserAsync = createAsyncThunk(
@@ -107,8 +108,9 @@ export const markNotPresentAsync = createAsyncThunk(
 
 export const setCheckInPeriodAsync = createAsyncThunk(
   'users/setCheckInPeriod',
-  async (checkInObj) => {
+  async (checkInObj, { dispatch }) => {
     try {
+      dispatch(setSubscriberExcludedUser(checkInObj.userId));
       const response = await updateUserCheckIn(checkInObj.userId, checkInObj.checkIn);
       return response;
     } catch (err) {
@@ -237,6 +239,9 @@ export const usersSlice = createSlice({
           state.users[index6][key] = value;
         }
       }
+    },
+    setSubscriberExcludedUser: (state, action) => {
+      state.subscriberExcludedUser = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -282,7 +287,8 @@ export const {
   decrementUnreadMessages,
   insertUserFromStream,
   deleteUserFromStream,
-  updateUserFromStream
+  updateUserFromStream,
+  setSubscriberExcludedUser
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

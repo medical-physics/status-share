@@ -33,6 +33,7 @@ const marks = [
 export default function CheckInSelector (props) {
   const userId = props.user._id;
   const subscribedCheckInPeriod = useSelector((state) => selectUser(state, userId));
+  const subscriberExcludedUser = useSelector((state) => state.users.subscriberExcludedUser);
   const [checkInPeriod, setCheckInPeriod] = React.useState(props.user.checkIn);
   const [checkInText, setCheckInText] = React.useState('––');
   const [styling, setStyling] = React.useState(styles.selectNone);
@@ -59,8 +60,10 @@ export default function CheckInSelector (props) {
   }, [checkInPeriod]);
 
   React.useEffect(() => {
-    setCheckInPeriod(subscribedCheckInPeriod);
-  }, [subscribedCheckInPeriod, setCheckInPeriod]);
+    if (subscriberExcludedUser !== userId) {
+      setCheckInPeriod(subscribedCheckInPeriod);
+    }
+  }, [subscriberExcludedUser, userId, subscribedCheckInPeriod, setCheckInPeriod]);
 
   const handleChange = (event) => {
     setCheckInPeriod(event.target.value);
