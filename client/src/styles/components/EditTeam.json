@@ -18,5 +18,11 @@
   },
   "colorPicker": {
     "marginTop": 2
+  },
+  "checkInRow": {
+    "display": "flex",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "margin": "10px auto auto 5px"
   }
 }

@@ -17,6 +17,9 @@
   "tableCell2": {
     "width": 15
   },
+  "checkInCell": {
+    "width": 100
+  },
   "checkbox": {
     "width": 10,
     "height": 10
@@ -39,6 +42,11 @@
   "teamTitle": {
     "display": "flex",
     "justifyContent": "start",
-    "alignItems": "center"
+    "alignItems": "center",
+    "width": 140
+  },
+  "presenceHeader": {
+    "display": "flex",
+    "justifyContent": "center"
   }
 }

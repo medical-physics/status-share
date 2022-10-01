@@ -4,6 +4,7 @@ const teamSchema = new mongoose.Schema({
   col1: { type: String, default: 'Name' },
   col2: { type: String, default: 'Present' },
   col3: { type: String, default: 'Status' },
+  checkInCol: { type: Boolean, default: false },
   color: { type: String },
   hyperlink: { type: String },
   priority: { type: Number },

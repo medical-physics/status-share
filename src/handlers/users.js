@@ -30,6 +30,7 @@ exports.getUser = async (req, res) => {
 // Create one user
 exports.postOneUser = async (req, res) => {
   const newUser = {
+    checkIn: 0,
     email: req.body.email,
     name: req.body.name,
     phone: req.body.phone,
@@ -126,6 +127,22 @@ exports.updateUserPresence = async (req, res) => {
     await user.save();
 
     return res.status(200).json({ present: req.body.present });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: err.message });
+  }
+};
+
+// Update a user's check-in period
+exports.updateUserCheckIn = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    user.checkIn = req.body.checkIn;
+    await user.save();
+
+    return res.status(200).json({ checkIn: req.body.checkIn });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });

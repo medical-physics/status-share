@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GithubPicker } from 'react-color';
-import styles from '../styles/components/EditTeaam.json';
+import styles from '../styles/components/EditTeam.json';
 
 // MUI components
 import {
+  Checkbox,
   TextField,
   Dialog,
   DialogActions,
@@ -34,11 +35,12 @@ export default function EditTeam (props) {
     col1: 'Name',
     col2: 'Present',
     col3: 'Status',
+    checkInCol: false,
     hyperlink: ''
   });
 
   const { teamDetails } = props;
-  const { team, priority, color, col1, col2, col3, hyperlink } = formValue;
+  const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } = formValue;
 
   const dispatch = useDispatch();
 
@@ -51,6 +53,7 @@ export default function EditTeam (props) {
       col1: teamDetails.col1,
       col2: teamDetails.col2,
       col3: teamDetails.col3,
+      checkInCol,
       hyperlink: teamDetails.hyperlink
     });
   };
@@ -91,6 +94,15 @@ export default function EditTeam (props) {
       return {
         ...prevState,
         color: color.hex
+      };
+    });
+  };
+
+  const handleCheckChange = (event) => {
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        checkInCol: event.target.checked
       };
     });
   };
@@ -169,6 +181,19 @@ export default function EditTeam (props) {
               fullWidth
               sx={styles.textField}
             />
+            <Grid container sx={styles.checkInRow}>
+              <Grid item>
+                Check-In Column
+              </Grid>
+              <Grid item>
+                <Checkbox
+                  id='checkInCol'
+                  name='checkInCol'
+                  value={checkInCol}
+                  onChange={handleCheckChange}
+                />
+              </Grid>
+            </Grid>
             <TextField
               id='hyperlink'
               name='hyperlink'

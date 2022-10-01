@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+  checkIn: { type: Number, default: 0 },
   email: { type: String, default: null },
   memo: { type: String, default: null },
   name: { type: String },

@@ -1,0 +1,23 @@
+{
+  "selectNone": {
+    "color": "#9e9e9e",
+    "width": 50
+  },
+  "selectAM": {
+    "color": "#ffa000",
+    "width": 50
+  },
+  "selectPM": {
+    "color": "#3f51b5",
+    "width": 50
+  },
+  "checkInText": {
+    "margin": "auto auto auto 15px"
+  },
+  "tableCell": {
+    "display": "flex",
+    "justifyContent": "start",
+    "alignItems": "center",
+    "width": 90
+  }
+}

@@ -19,5 +19,11 @@
   "dialogTitle": {
     "display": "flex",
     "justifyContent": "space-between"
+  },
+  "checkInRow": {
+    "display": "flex",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "margin": "10px auto auto 5px"
   }
 }

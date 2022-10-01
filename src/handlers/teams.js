@@ -24,6 +24,7 @@ exports.postOneTeam = async (req, res) => {
       col1: req.body.col1,
       col2: req.body.col2,
       col3: req.body.col3,
+      checkInCol: req.body.checkInCol,
       hyperlink: req.body.hyperlink
     };
 
@@ -46,6 +47,7 @@ exports.updateTeam = async (req, res) => {
     col1: req.body.col1,
     col2: req.body.col2,
     col3: req.body.col3,
+    checkInCol: req.body.checkInCol,
     hyperlink: req.body.hyperlink
   };
   const teamId = req.params.teamId;

@@ -6,7 +6,8 @@ import {
   updateUserPresence,
   updateUserProfile,
   addOneUser,
-  deleteOneUser
+  deleteOneUser,
+  updateUserCheckIn
 } from '../api/usersAPI';
 import {
   loadingUser,
@@ -21,6 +22,7 @@ const initialState = {
   users: [],
   user: {
     _id: '',
+    checkIn: 0,
     email: '',
     memo: '',
     name: '',
@@ -99,6 +101,18 @@ export const markNotPresentAsync = createAsyncThunk(
     } catch (err) {
       console.error(err);
       dispatch(markPresent(userId));
+    }
+  }
+);
+
+export const setCheckInPeriodAsync = createAsyncThunk(
+  'users/setCheckInPeriod',
+  async (checkInObj) => {
+    try {
+      const response = await updateUserCheckIn(checkInObj.userId, checkInObj.checkIn);
+      return response;
+    } catch (err) {
+      console.error(err);
     }
   }
 );

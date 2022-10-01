@@ -14,6 +14,7 @@ const {
   updateUserStatus,
   updateUserMemo,
   updateUserPresence,
+  updateUserCheckIn,
   deleteUser
 } = require('../handlers/users');
 
@@ -48,6 +49,7 @@ router.post('/user/:userId', auth, updateUserDetails);
 router.post('/user/memo/:userId', auth, updateUserMemo);
 router.post('/user/status/:userId', auth, updateUserStatus);
 router.post('/user/presence/:userId', auth, updateUserPresence);
+router.post('/user/checkin/:userId', auth, updateUserCheckIn);
 router.delete('/user/:userId', auth, deleteUser);
 
 // Team routes

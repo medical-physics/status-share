@@ -20,6 +20,11 @@ export const updateUserPresence = async (userId, presence) => {
   return response.data;
 };
 
+export const updateUserCheckIn = async (userId, checkIn) => {
+  const response = await axios.post(`/user/checkin/${userId}`, { checkIn });
+  return response.data;
+};
+
 export const updateUserProfile = async (profileData) => {
   const response = await axios.post(`/user/${profileData.userId}`, profileData);
   return response.data;

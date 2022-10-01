@@ -8,6 +8,7 @@ import PresenceButton from './PresenceButton';
 import EditStatus from './EditStatus';
 import AddUserDialog from './AddUserDialog';
 import EditTeam from './EditTeam';
+import CheckInSelector from './CheckInSelector';
 
 // MUI components
 import {
@@ -69,7 +70,9 @@ export default function TeamTable (props) {
             <TableHead>
               <TableRow>
                 <TableCell><Box>{teamDetails.col1}</Box></TableCell>
-                <TableCell><Box>{teamDetails.col2}</Box></TableCell>
+                <TableCell><Box sx={styles.presenceHeader}>{teamDetails.col2}</Box></TableCell>
+                {teamDetails.checkInCol &&
+                  <TableCell><Box>Check-In</Box></TableCell>}
                 <TableCell><Box>{teamDetails.col3}</Box></TableCell>
               </TableRow>
             </TableHead>
@@ -89,6 +92,10 @@ export default function TeamTable (props) {
                   <TableCell align='center'>
                     <PresenceButton user={row.user} />
                   </TableCell>
+                  {teamDetails.checkInCol &&
+                    <TableCell sx={styles.checkInCell}>
+                      <CheckInSelector user={row.user} />
+                    </TableCell>}
                   <TableCell sx={styles.statusCell}>
                     {!JSON.parse(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} status={row.status} />)}
                   </TableCell>

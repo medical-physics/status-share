@@ -4,6 +4,7 @@ import styles from '../styles/components/AddTeamDialog.json';
 
 // MUI components
 import {
+  Checkbox,
   Dialog,
   DialogActions,
   Button,
@@ -31,10 +32,11 @@ export default function AddTeamDialog () {
     col1: 'Name',
     col2: 'Present',
     col3: 'Status',
+    checkInCol: false,
     hyperlink: ''
   });
 
-  const { team, priority, color, col1, col2, col3, hyperlink } = formValue;
+  const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } = formValue;
 
   const dispatch = useDispatch();
 
@@ -55,6 +57,7 @@ export default function AddTeamDialog () {
       col1: col1.trim(),
       col2: col2.trim(),
       col3: col3.trim(),
+      checkInCol,
       hyperlink: hyperlink.trim()
     };
     dispatch(addTeamAsync(newTeamData));
@@ -66,6 +69,7 @@ export default function AddTeamDialog () {
       col1: 'Name',
       col2: 'Present',
       col3: 'Status',
+      checkInCol: false,
       hyperlink: ''
     });
   };
@@ -85,6 +89,15 @@ export default function AddTeamDialog () {
       return {
         ...prevState,
         color: color.hex
+      };
+    });
+  };
+
+  const handleCheckChange = (event) => {
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        checkInCol: event.target.checked
       };
     });
   };
@@ -163,6 +176,19 @@ export default function AddTeamDialog () {
                 fullWidth
                 sx={styles.textField}
               />
+              <Grid container sx={styles.checkInRow}>
+                <Grid item>
+                  Check-In Column
+                </Grid>
+                <Grid item>
+                  <Checkbox
+                    id='checkInCol'
+                    name='checkInCol'
+                    value={checkInCol}
+                    onChange={handleCheckChange}
+                  />
+                </Grid>
+              </Grid>
               <TextField
                 id='hyperlink'
                 name='hyperlink'
