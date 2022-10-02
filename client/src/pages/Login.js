@@ -26,7 +26,8 @@ import {
   loginUserAsync,
   getAppNameAsync,
   setRememberMe,
-  checkingAuth
+  checkingAuth,
+  logoutUser
 } from '../redux/slices/accountSlice';
 
 export default function Login () {
@@ -41,6 +42,7 @@ export default function Login () {
 
   React.useEffect(() => {
     localStorage.clear();
+    dispatch(logoutUser());
     dispatch(getAppNameAsync());
   }, [dispatch]);
 
