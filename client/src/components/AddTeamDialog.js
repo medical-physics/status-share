@@ -184,7 +184,7 @@ export default function AddTeamDialog () {
                   <Checkbox
                     id='checkInCol'
                     name='checkInCol'
-                    value={checkInCol}
+                    checked={checkInCol}
                     onChange={handleCheckChange}
                   />
                 </Grid>

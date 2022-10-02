@@ -97,7 +97,7 @@ export default function TeamTable (props) {
                       <CheckInSelector user={row.user} />
                     </TableCell>}
                   <TableCell sx={styles.statusCell}>
-                    {!JSON.parse(localStorage.getItem('viewOnly')) && (<EditStatus userId={row.userId} status={row.status} />)}
+                    <EditStatus userId={row.userId} status={row.status} />
                   </TableCell>
                 </TableRow>
               ))}

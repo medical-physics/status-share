@@ -48,11 +48,13 @@ export default function EditStatus (props) {
   };
 
   const handleOpen = () => {
-    setOpen(true);
-    dispatch(getUserAsync(userId))
-      .then(res => {
-        mapUserDetailsToState(res.payload);
-      });
+    if (!JSON.parse(localStorage.getItem('viewOnly'))) {
+      setOpen(true);
+      dispatch(getUserAsync(userId))
+        .then(res => {
+          mapUserDetailsToState(res.payload);
+        });
+    }
   };
 
   const handleClose = () => {

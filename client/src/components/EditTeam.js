@@ -53,7 +53,7 @@ export default function EditTeam (props) {
       col1: teamDetails.col1,
       col2: teamDetails.col2,
       col3: teamDetails.col3,
-      checkInCol,
+      checkInCol: teamDetails.checkInCol,
       hyperlink: teamDetails.hyperlink
     });
   };
@@ -189,7 +189,7 @@ export default function EditTeam (props) {
                 <Checkbox
                   id='checkInCol'
                   name='checkInCol'
-                  value={checkInCol}
+                  checked={checkInCol}
                   onChange={handleCheckChange}
                 />
               </Grid>

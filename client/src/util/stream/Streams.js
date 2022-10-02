@@ -9,6 +9,7 @@ import {
   deleteTeamFromStream,
   updateTeamFromStream
 } from '../../redux/slices/teamsSlice';
+import { setUpdateTime } from '../../redux/slices/accountSlice';
 
 export const handleUsersStreamChange = (data) => {
   switch (data.operationType) {
@@ -19,6 +20,7 @@ export const handleUsersStreamChange = (data) => {
       store.dispatch(deleteUserFromStream(data.documentKey._id));
       break;
     case 'update':
+      store.dispatch(setUpdateTime());
       store.dispatch(updateUserFromStream({
         _id: data.documentKey._id,
         updatedFields: data.updateDescription.updatedFields
