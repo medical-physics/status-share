@@ -7,7 +7,7 @@
     "start": "node ./src/index.js",
     "build": "npm install && (cd client && npm install && npm run build)",
     "dev:server": "nodemon ./src/index.js",
-    "dev:client": "cd client && npm run dev:start"
+    "dev:client": "cd client && npm start"
   },
   "author": "",
   "license": "ISC",

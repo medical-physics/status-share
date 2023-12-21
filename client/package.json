@@ -38,8 +38,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
-    "dev:start": "HTTPS=true SSL_CRT_FILE=../development.pem SSL_KEY_FILE=../development-key.pem react-app-rewired start"
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
