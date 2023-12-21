@@ -3,7 +3,7 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    ecmaVersion: 12
+    ecmaVersion: 15
   },
   extends: [
     'semistandard'

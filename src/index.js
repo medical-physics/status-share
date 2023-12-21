@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 let server;
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
   const options = {
     key: fs.readFileSync(path.join(__dirname, '..', 'development-key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '..', 'development.pem'))
