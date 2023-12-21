@@ -1,4 +1,5 @@
-const http = require('http');
+const http = require('http')
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -32,13 +33,18 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-/* const options = {
-  key: fs.readFileSync(path.join(__dirname, '..', 'localhost-key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, '..', 'localhost.pem'))
-}; */
+let server;
+if (process.env.NODE_ENV == 'development') {
+  const options = {
+    key: fs.readFileSync(path.join(__dirname, '..', 'development-key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, '..', 'development.pem'))
+  };
+  server = https.createServer(options, app)
+} else {
+  server = http.createServer(app)
+}
 
-const server = http
-  .createServer(app)
+server
   .listen(port, async () => {
     try {
       await mongoose.connect(process.env.ATLAS_URI);
