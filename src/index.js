@@ -1,5 +1,4 @@
-const http = require('http')
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -39,9 +38,9 @@ if (process.env.NODE_ENV == 'development') {
     key: fs.readFileSync(path.join(__dirname, '..', 'development-key.pem')),
     cert: fs.readFileSync(path.join(__dirname, '..', 'development.pem'))
   };
-  server = https.createServer(options, app)
+  server = http.createServer(options, app);
 } else {
-  server = http.createServer(app)
+  server = http.createServer(app);
 }
 
 server
