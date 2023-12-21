@@ -1,6 +1,6 @@
-const Mailbox = require('../models/mailbox');
-const Team = require('../models/team');
-const User = require('../models/user');
+const Mailbox = require("../models/mailbox");
+const Team = require("../models/team");
+const User = require("../models/user");
 
 // Fetch all teams
 exports.getTeams = async (req, res) => {

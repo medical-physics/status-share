@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const credentialSchema = new mongoose.Schema({
   admin: { type: Boolean, default: false },
@@ -8,4 +8,4 @@ const credentialSchema = new mongoose.Schema({
   viewOnly: { type: Boolean, default: false }
 });
 
-module.exports = mongoose.model('credential', credentialSchema);
+module.exports = mongoose.model("credential", credentialSchema);

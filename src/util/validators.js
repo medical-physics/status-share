@@ -1,13 +1,13 @@
 const isEmpty = (string) => {
-  if (string.trim() === '') return true;
+  if (string.trim() === "") return true;
   else return false;
 };
 
 exports.validateLoginData = (data) => {
   const errors = {};
 
-  if (data.email === '@bccancer.bc.ca') errors.email = 'Must not be empty';
-  if (isEmpty(data.password)) errors.password = 'Must not be empty';
+  if (data.email === "@bccancer.bc.ca") errors.email = "Must not be empty";
+  if (isEmpty(data.password)) errors.password = "Must not be empty";
 
   return {
     errors,
@@ -21,10 +21,10 @@ exports.validateBasicAuth = (authHeader) => {
   let password;
 
   try {
-    basicAuthError = authHeader.split(' ')[0] !== 'Basic';
-    const decodedAuth = Buffer.from(authHeader.split(' ')[1], 'base64').toString();
-    email = decodedAuth.split(':')[0];
-    password = decodedAuth.split(':')[1];
+    basicAuthError = authHeader.split(" ")[0] !== "Basic";
+    const decodedAuth = Buffer.from(authHeader.split(" ")[1], "base64").toString();
+    email = decodedAuth.split(":")[0];
+    password = decodedAuth.split(":")[1];
   } catch (error) {
     basicAuthError = true;
   }

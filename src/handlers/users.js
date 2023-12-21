@@ -1,5 +1,5 @@
-const User = require('../models/user');
-const Mailbox = require('../models/mailbox');
+const User = require("../models/user");
+const Mailbox = require("../models/mailbox");
 
 // Fetch all users
 // Temporary - use change stream later on
@@ -36,10 +36,10 @@ exports.postOneUser = async (req, res) => {
     phone: req.body.phone,
     team: req.body.team,
     teamId: req.body.teamId,
-    status: '',
+    status: "",
     statusTime: new Date().toString(),
     present: true,
-    memo: '',
+    memo: "",
     priority: req.body.priority,
     unreadMessages: 0
   };
@@ -93,7 +93,7 @@ exports.updateUserMemo = async (req, res) => {
     user.memo = req.body.memo;
     await user.save();
 
-    return res.status(200).json({ message: 'User memo updated successfully.' });
+    return res.status(200).json({ message: "User memo updated successfully." });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });
@@ -110,7 +110,7 @@ exports.updateUserStatus = async (req, res) => {
     user.statusTime = req.body.statusTime;
     await user.save();
 
-    return res.status(200).json({ message: 'User status updated successfully.' });
+    return res.status(200).json({ message: "User status updated successfully." });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });

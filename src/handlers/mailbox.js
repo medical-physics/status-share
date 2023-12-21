@@ -1,5 +1,5 @@
-const Mailbox = require('../models/mailbox');
-const User = require('../models/user');
+const Mailbox = require("../models/mailbox");
+const User = require("../models/user");
 
 // Fetch mailbox for one user
 exports.getMessages = async (req, res) => {
@@ -47,7 +47,7 @@ exports.deleteMessage = async (req, res) => {
     await mailbox.messages.id(req.params.messageId).remove();
     await mailbox.save();
 
-    return res.status(200).json({ message: 'Message deleted successfully.' });
+    return res.status(200).json({ message: "Message deleted successfully." });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });
