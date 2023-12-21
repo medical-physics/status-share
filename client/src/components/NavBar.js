@@ -72,7 +72,7 @@ export default function NavBar () {
             <Grid item>
               <Grid container alignItems='center'>
                 <Grid item>
-                  <IconButton size='small'>
+                  <IconButton size='small' sx={{ cursor: 'default' }}>
                     <CheckCircleOutlineIcon sx={styles.icon} />
                   </IconButton>
                 </Grid>

@@ -157,7 +157,7 @@ exports.deleteUser = (req, res) => {
     User.deleteOne({ _id: userId }, async (err) => {
       if (err) return res.status(404).send({ message: err.message });
 
-      await Mailbox.deleteOne({ userId: userId });
+      await Mailbox.deleteOne({ userId });
 
       return res.status(200).send({
         message: `User ${userId} deleted successfully.`,

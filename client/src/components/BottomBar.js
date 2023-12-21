@@ -24,12 +24,12 @@ export default function BottomBar () {
   const text = truncatedAppName
     ? (
       <Typography variant='overline'>
-        © 2020 BC Cancer: Medical Physics...
+        © 2024 BC Cancer: Medical Physics...
       </Typography>
       )
     : (
       <Typography variant='overline'>
-        © 2020 BC Cancer: Medical Physics. All rights reserved.
+        © 2024 BC Cancer: Medical Physics. All rights reserved.
       </Typography>
       );
   return (

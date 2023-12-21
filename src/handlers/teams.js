@@ -56,7 +56,7 @@ exports.updateTeam = async (req, res) => {
     const team = await Team.findOne({ _id: teamId });
 
     if (updatedTeam.team !== team.team) {
-      const users = await User.find({ teamId: teamId });
+      const users = await User.find({ teamId });
 
       users.forEach(async (user) => {
         user.team = updatedTeam.team;
@@ -83,7 +83,7 @@ exports.deleteTeam = async (req, res) => {
     Team.deleteOne({ _id: teamId }, async (err) => {
       if (err) return res.status(404).send({ message: err.message });
 
-      const users = await User.find({ teamId: teamId });
+      const users = await User.find({ teamId });
 
       users.forEach(async (user) => {
         await User.deleteOne({ _id: user._id });

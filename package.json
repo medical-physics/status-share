@@ -26,5 +26,13 @@
   "engines": {
     "npm": "8.12.1",
     "node": "18.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-semistandard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1"
   }
 }
