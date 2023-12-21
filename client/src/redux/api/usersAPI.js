@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const getUsers = async () => {
-  const response = await axios.get('/users');
+  const response = await axios.get("/users");
   return response.data;
 };
 
@@ -31,7 +31,7 @@ export const updateUserProfile = async (profileData) => {
 };
 
 export const addOneUser = async (newUserData) => {
-  const response = await axios.post('/user', newUserData);
+  const response = await axios.post("/user", newUserData);
   return response.data;
 };
 

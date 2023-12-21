@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loadingTeam, stopLoadingTeam } from './uiSlice';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadingTeam, stopLoadingTeam } from "./uiSlice";
 import {
   getTeams,
   addTeam,
   deleteTeam,
   updateTeam
-} from '../api/teamsAPI';
+} from "../api/teamsAPI";
 
 const initialState = {
   loadingTeamsData: false,
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export const getTeamsAsync = createAsyncThunk(
-  'teams/getTeams',
+  "teams/getTeams",
   async () => {
     const response = await getTeams();
     return response;
@@ -21,7 +21,7 @@ export const getTeamsAsync = createAsyncThunk(
 );
 
 export const addTeamAsync = createAsyncThunk(
-  'teams/addTeam',
+  "teams/addTeam",
   async (newTeam, { dispatch }) => {
     try {
       dispatch(loadingTeam());
@@ -35,7 +35,7 @@ export const addTeamAsync = createAsyncThunk(
 );
 
 export const updateTeamAsync = createAsyncThunk(
-  'teams/updateTeam',
+  "teams/updateTeam",
   async (teamObj, { dispatch }) => {
     try {
       dispatch(loadingTeam());
@@ -49,7 +49,7 @@ export const updateTeamAsync = createAsyncThunk(
 );
 
 export const deleteTeamAsync = createAsyncThunk(
-  'teams/deleteTeam',
+  "teams/deleteTeam",
   async (teamId) => {
     try {
       const response = await deleteTeam(teamId);
@@ -61,7 +61,7 @@ export const deleteTeamAsync = createAsyncThunk(
 );
 
 export const teamsSlice = createSlice({
-  name: 'teams',
+  name: "teams",
   initialState,
   reducers: {
     loadingTeamsData: (state) => {

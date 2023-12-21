@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const getMailbox = async (userId) => {
   const response = await axios.get(`/mailbox/${userId}`);
@@ -7,7 +7,7 @@ export const getMailbox = async (userId) => {
 
 export const updateMessageReadStatus = async (messageId, userId) => {
   const response = await axios.post(
-        `/mailbox/read/${userId}/${messageId}`
+    `/mailbox/read/${userId}/${messageId}`
   );
   return response.data;
 };

@@ -1,34 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
-import axios from 'axios';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import axios from "axios";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 // Components
-import PrivateRoute from './util/PrivateRoute';
-import LoginRoute from './util/LoginRoute';
+import PrivateRoute from "./util/PrivateRoute";
+import LoginRoute from "./util/LoginRoute";
 
 // Redux
-import { Provider } from 'react-redux';
-import { store } from './redux/store/store';
+import { Provider } from "react-redux";
+import { store } from "./redux/store/store";
 
 // Pages
-import Home from './pages/Home';
-import Login from './pages/Login';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#534bae',
-      main: '#1a237e',
-      dark: '#000051',
-      contrastText: '#ffffff'
+      light: "#534bae",
+      main: "#1a237e",
+      dark: "#000051",
+      contrastText: "#ffffff"
     },
     secondary: {
-      light: '#8e99f3',
-      main: '#5c6bc0',
-      dark: '#26418f',
-      contrastText: '#ffffff'
+      light: "#8e99f3",
+      main: "#5c6bc0",
+      dark: "#26418f",
+      contrastText: "#ffffff"
     }
   },
   typography: {
@@ -36,7 +36,7 @@ const theme = createTheme({
   }
 });
 
-export const BASE_ENDPOINT = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+export const BASE_ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:5000";
 axios.defaults.baseURL = BASE_ENDPOINT;
 
 function App () {

@@ -1,5 +1,5 @@
-import React from 'react';
-import dayjs from 'dayjs';
+import React from "react";
+import dayjs from "dayjs";
 
 // MUI components
 import {
@@ -7,10 +7,10 @@ import {
   Toolbar,
   Grid,
   Typography
-} from '@mui/material';
+} from "@mui/material";
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const styles = {
   appBar: {
@@ -28,7 +28,7 @@ export default function UpdateBar () {
         <Grid justify='flex-start' alignItems='center' container>
           <Grid item>
             <Typography variant='overline'>
-              Last updated at: {dayjs(updateTime).format('h:mm:ss a, MMMM DD')}
+              Last updated at: {dayjs(updateTime).format("h:mm:ss a, MMMM DD")}
             </Typography>
           </Grid>
         </Grid>

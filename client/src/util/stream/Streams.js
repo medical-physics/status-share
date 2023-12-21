@@ -1,51 +1,51 @@
-import { store } from '../../redux/store/store';
+import { store } from "../../redux/store/store";
 import {
   insertUserFromStream,
   deleteUserFromStream,
   updateUserFromStream
-} from '../../redux/slices/usersSlice';
+} from "../../redux/slices/usersSlice";
 import {
   insertTeamFromStream,
   deleteTeamFromStream,
   updateTeamFromStream
-} from '../../redux/slices/teamsSlice';
-import { setUpdateTime } from '../../redux/slices/accountSlice';
+} from "../../redux/slices/teamsSlice";
+import { setUpdateTime } from "../../redux/slices/accountSlice";
 
 export const handleUsersStreamChange = (data) => {
   switch (data.operationType) {
-    case 'insert':
-      store.dispatch(insertUserFromStream(data.fullDocument));
-      break;
-    case 'delete':
-      store.dispatch(deleteUserFromStream(data.documentKey._id));
-      break;
-    case 'update':
-      store.dispatch(setUpdateTime());
-      store.dispatch(updateUserFromStream({
-        _id: data.documentKey._id,
-        updatedFields: data.updateDescription.updatedFields
-      }));
-      break;
-    default:
-      break;
+  case "insert":
+    store.dispatch(insertUserFromStream(data.fullDocument));
+    break;
+  case "delete":
+    store.dispatch(deleteUserFromStream(data.documentKey._id));
+    break;
+  case "update":
+    store.dispatch(setUpdateTime());
+    store.dispatch(updateUserFromStream({
+      _id: data.documentKey._id,
+      updatedFields: data.updateDescription.updatedFields
+    }));
+    break;
+  default:
+    break;
   }
 };
 
 export const handleTeamsStreamChange = (data) => {
   switch (data.operationType) {
-    case 'insert':
-      store.dispatch(insertTeamFromStream(data.fullDocument));
-      break;
-    case 'delete':
-      store.dispatch(deleteTeamFromStream(data.documentKey._id));
-      break;
-    case 'update':
-      store.dispatch(updateTeamFromStream({
-        _id: data.documentKey._id,
-        updatedFields: data.updateDescription.updatedFields
-      }));
-      break;
-    default:
-      break;
+  case "insert":
+    store.dispatch(insertTeamFromStream(data.fullDocument));
+    break;
+  case "delete":
+    store.dispatch(deleteTeamFromStream(data.documentKey._id));
+    break;
+  case "update":
+    store.dispatch(updateTeamFromStream({
+      _id: data.documentKey._id,
+      updatedFields: data.updateDescription.updatedFields
+    }));
+    break;
+  default:
+    break;
   }
 };

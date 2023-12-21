@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/AddUserDialog.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/AddUserDialog.json";
 
 // MUI components
 import {
@@ -12,25 +12,25 @@ import {
   DialogTitle,
   IconButton,
   TextField
-} from '@mui/material';
+} from "@mui/material";
 import {
   Add as AddIcon,
   Close as CloseIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch } from 'react-redux';
-import { addUserAsync } from '../redux/slices/usersSlice';
+import { useDispatch } from "react-redux";
+import { addUserAsync } from "../redux/slices/usersSlice";
 
 export default function AddUserDialog (props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
-    userName: '',
-    email: '',
-    phone: '',
-    team: '',
-    teamId: '',
-    priority: '1'
+    userName: "",
+    email: "",
+    phone: "",
+    team: "",
+    teamId: "",
+    priority: "1"
   });
   const { userName, email, phone, team, priority } = formValue;
 
@@ -53,10 +53,10 @@ export default function AddUserDialog (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        userName: '',
-        email: '',
-        phone: '',
-        priority: '1'
+        userName: "",
+        email: "",
+        phone: "",
+        priority: "1"
       };
     });
   };

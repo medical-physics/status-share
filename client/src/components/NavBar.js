@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from '../styles/components/NavBar.json';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "../styles/components/NavBar.json";
 
 // Components
-import EditAppName from './EditAppName';
-import AddTeamDialog from './AddTeamDialog';
+import EditAppName from "./EditAppName";
+import AddTeamDialog from "./AddTeamDialog";
 
 // MUI components
 import {
@@ -15,14 +15,14 @@ import {
   Grid,
   IconButton,
   Typography
-} from '@mui/material';
+} from "@mui/material";
 import {
   CheckCircleOutline as CheckCircleOutlineIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser, truncateAppName, detruncateAppName } from '../redux/slices/accountSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser, truncateAppName, detruncateAppName } from "../redux/slices/accountSlice";
 
 export default function NavBar () {
   const dispatch = useDispatch();
@@ -41,10 +41,10 @@ export default function NavBar () {
     }
 
     updateTitle();
-    window.addEventListener('resize', updateTitle);
+    window.addEventListener("resize", updateTitle);
 
     return function cleanup () {
-      window.removeEventListener('resize', updateTitle);
+      window.removeEventListener("resize", updateTitle);
     };
   }, [dispatch]);
 
@@ -55,14 +55,14 @@ export default function NavBar () {
   const title = truncatedAppName
     ? (
       <Typography noWrap style={styles.margin} variant='overline'>
-        {appName.slice(0, 12).concat('...')}
+        {appName.slice(0, 12).concat("...")}
       </Typography>
-      )
+    )
     : (
       <Typography noWrap style={styles.margin} variant='overline'>
         {appName}
       </Typography>
-      );
+    );
 
   return (
     <Box sx={styles.barBox}>
@@ -72,7 +72,7 @@ export default function NavBar () {
             <Grid item>
               <Grid container alignItems='center'>
                 <Grid item>
-                  <IconButton size='small' sx={{ cursor: 'default' }}>
+                  <IconButton size='small' sx={{ cursor: "default" }}>
                     <CheckCircleOutlineIcon sx={styles.icon} />
                   </IconButton>
                 </Grid>
@@ -80,7 +80,7 @@ export default function NavBar () {
                   {title}
                 </Grid>
                 <Grid item sx={styles.dialogGroup}>
-                  {(JSON.parse(localStorage.getItem('admin')) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
+                  {(JSON.parse(localStorage.getItem("admin")) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
                 </Grid>
               </Grid>
             </Grid>

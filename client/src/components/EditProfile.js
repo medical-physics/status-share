@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/EditProfile.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/EditProfile.json";
 
 // MUI components
 import {
@@ -12,26 +12,26 @@ import {
   Grid,
   IconButton,
   TextField
-} from '@mui/material';
+} from "@mui/material";
 import {
   Edit as EditIcon,
   Send as SendIcon,
   Close as CloseIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { editProfileAsync } from '../redux/slices/usersSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { editProfileAsync } from "../redux/slices/usersSlice";
 
 export default function EditProfile (props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
-    profileName: '',
-    phone: '',
-    email: '',
-    team: '',
-    memo: '',
-    priority: ''
+    profileName: "",
+    phone: "",
+    email: "",
+    team: "",
+    memo: "",
+    priority: ""
   });
 
   const { profileName, phone, email, team, memo, priority } = formValue;
@@ -137,7 +137,7 @@ export default function EditProfile (props) {
               fullWidth
               sx={styles.memo}
             />
-            {JSON.parse(localStorage.getItem('admin')) && (
+            {JSON.parse(localStorage.getItem("admin")) && (
               <>
                 <TextField
                   name='profileName'

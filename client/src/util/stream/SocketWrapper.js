@@ -1,14 +1,15 @@
-import React from 'react';
-import io from 'socket.io-client';
+import React from "react";
+import io from "socket.io-client";
+import PropTypes from "prop-types";
 import {
   handleUsersStreamChange,
   handleTeamsStreamChange
-} from './Streams';
-import { BASE_ENDPOINT } from '../../App';
+} from "./Streams";
+import { BASE_ENDPOINT } from "../../App";
 
 // Redux
-import { useSelector } from 'react-redux';
-import { selectIsAccessTokenValid } from '../../redux/selectors/selectors';
+import { useSelector } from "react-redux";
+import { selectIsAccessTokenValid } from "../../redux/selectors/selectors";
 
 const SocketIoContext = React.createContext();
 
@@ -35,15 +36,15 @@ export const SocketWrapper = ({ children }) => {
 
   React.useEffect(() => {
     if (socket) {
-      socket.on('users', (data) => {
+      socket.on("users", (data) => {
         handleUsersStreamChange(data);
       });
-      socket.emit('getUsers');
+      socket.emit("getUsers");
 
-      socket.on('teams', (data) => {
+      socket.on("teams", (data) => {
         handleTeamsStreamChange(data);
       });
-      socket.emit('getTeams');
+      socket.emit("getTeams");
 
       return () => {
         socket.disconnect();
@@ -60,3 +61,7 @@ export const SocketWrapper = ({ children }) => {
 };
 
 export default SocketWrapper;
+
+SocketWrapper.propTypes = {
+  children: PropTypes.object.isRequired
+};

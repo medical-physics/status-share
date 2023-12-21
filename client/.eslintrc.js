@@ -1,10 +1,9 @@
 module.exports = {
   "env": {
     "browser": true,
-    "es2021": true,
-    "node": true
+    "es2021": true
   },
-  "extends": "eslint:recommended",
+  "extends": "plugin:react/recommended",
   "overrides": [
     {
       "env": {
@@ -29,5 +28,6 @@ module.exports = {
     "indent": ["error", 2],
     "quotes": ["error", "double"],
     "semi": ["error", "always"]
-  }
+  },
+  "root": true
 };

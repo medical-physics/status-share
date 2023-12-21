@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../styles/components/TeamTable.json';
+import React from "react";
+import styles from "../styles/components/TeamTable.json";
 
 // MUI components
 import {
@@ -15,11 +15,11 @@ import {
   Box,
   Grid,
   Toolbar
-} from '@mui/material';
+} from "@mui/material";
 import {
   RadioButtonUnchecked as RadioButtonUncheckedIcon,
   AccountCircle as AccountCircleIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 export default function LoadingTable () {
   return (

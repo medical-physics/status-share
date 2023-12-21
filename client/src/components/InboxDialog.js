@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/InboxDialog.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/InboxDialog.json";
 
 // Components
-import InboxTable from './InboxTable';
+import InboxTable from "./InboxTable";
 
 // MUI components
 import {
@@ -14,15 +14,15 @@ import {
   DialogTitle,
   CircularProgress,
   IconButton
-} from '@mui/material';
+} from "@mui/material";
 import {
   Close as CloseIcon,
   AllInbox as AllInboxIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { getMailboxAsync } from '../redux/slices/mailboxSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { getMailboxAsync } from "../redux/slices/mailboxSlice";
 
 export default function InboxDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -47,12 +47,12 @@ export default function InboxDialog (props) {
       <div>
         <DialogTitle>Loading...</DialogTitle>
         <DialogContent sx={styles.dialogContent}>
-          <div sx={styles.spinnerDiv}>
+          <div style={styles.spinnerDiv}>
             <CircularProgress size={80} thickness={2} />
           </div>
         </DialogContent>
       </div>
-      )
+    )
     : (
       <div>
         <DialogTitle>
@@ -67,11 +67,11 @@ export default function InboxDialog (props) {
           <InboxTable />
         </DialogContent>
       </div>
-      );
+    );
 
   return (
     <>
-      <Button onClick={handleOpen} style={{ color: '#388e3c' }} variant='outlined'>
+      <Button onClick={handleOpen} style={{ color: "#388e3c" }} variant='outlined'>
         <AllInboxIcon sx={styles.buttonIcon} /> inbox
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>

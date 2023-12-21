@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../styles/components/EditAppName.json';
+import React from "react";
+import styles from "../styles/components/EditAppName.json";
 
 // MUI components
 import {
@@ -11,20 +11,20 @@ import {
   DialogContent,
   DialogTitle,
   IconButton
-} from '@mui/material';
+} from "@mui/material";
 import {
   Send as SendIcon,
   Edit as EditIcon,
   Close as CloseIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setAppNameAsync } from '../redux/slices/accountSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { setAppNameAsync } from "../redux/slices/accountSlice";
 
 export default function EditAppName () {
   const [open, setOpen] = React.useState(false);
-  const [stateAppName, setStateAppName] = React.useState('');
+  const [stateAppName, setStateAppName] = React.useState("");
 
   const dispatch = useDispatch();
   const appName = useSelector((state) => state.account.appName);
@@ -50,7 +50,7 @@ export default function EditAppName () {
 
   return (
     <>
-      <IconButton onClick={handleOpen} size='small' style={{ color: '#ffffff' }}>
+      <IconButton onClick={handleOpen} size='small' style={{ color: "#ffffff" }}>
         <EditIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>

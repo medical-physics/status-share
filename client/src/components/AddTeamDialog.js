@@ -1,6 +1,6 @@
-import React from 'react';
-import { GithubPicker } from 'react-color';
-import styles from '../styles/components/AddTeamDialog.json';
+import React from "react";
+import { GithubPicker } from "react-color";
+import styles from "../styles/components/AddTeamDialog.json";
 
 // MUI components
 import {
@@ -13,27 +13,27 @@ import {
   IconButton,
   TextField,
   Grid
-} from '@mui/material';
+} from "@mui/material";
 import {
   Close as CloseIcon,
   Add as AddIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch } from 'react-redux';
-import { addTeamAsync } from '../redux/slices/teamsSlice';
+import { useDispatch } from "react-redux";
+import { addTeamAsync } from "../redux/slices/teamsSlice";
 
 export default function AddTeamDialog () {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
-    team: '',
-    priority: '1',
-    color: '#1a237e',
-    col1: 'Name',
-    col2: 'Present',
-    col3: 'Status',
+    team: "",
+    priority: "1",
+    color: "#1a237e",
+    col1: "Name",
+    col2: "Present",
+    col3: "Status",
     checkInCol: false,
-    hyperlink: ''
+    hyperlink: ""
   });
 
   const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } = formValue;
@@ -63,14 +63,14 @@ export default function AddTeamDialog () {
     dispatch(addTeamAsync(newTeamData));
     handleClose();
     setFormValue({
-      team: '',
-      priority: '',
-      color: '',
-      col1: 'Name',
-      col2: 'Present',
-      col3: 'Status',
+      team: "",
+      priority: "",
+      color: "",
+      col1: "Name",
+      col2: "Present",
+      col3: "Status",
       checkInCol: false,
-      hyperlink: ''
+      hyperlink: ""
     });
   };
 
@@ -104,7 +104,7 @@ export default function AddTeamDialog () {
 
   return (
     <>
-      <IconButton onClick={handleOpen} size='small' style={{ color: '#ffffff' }}>
+      <IconButton onClick={handleOpen} size='small' style={{ color: "#ffffff" }}>
         <AddIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>

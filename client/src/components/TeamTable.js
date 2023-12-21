@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/TeamTable.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/TeamTable.json";
 
 // Components
-import ProfileDialog from './ProfileDialog';
-import PresenceButton from './PresenceButton';
-import EditStatus from './EditStatus';
-import AddUserDialog from './AddUserDialog';
-import EditTeam from './EditTeam';
-import CheckInSelector from './CheckInSelector';
+import ProfileDialog from "./ProfileDialog";
+import PresenceButton from "./PresenceButton";
+import EditStatus from "./EditStatus";
+import AddUserDialog from "./AddUserDialog";
+import EditTeam from "./EditTeam";
+import CheckInSelector from "./CheckInSelector";
 
 // MUI components
 import {
@@ -24,10 +24,10 @@ import {
   Grid,
   Toolbar,
   IconButton
-} from '@mui/material';
+} from "@mui/material";
 import {
   Link as LinkIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 function createData (name, present, status, userId, memo, user) {
   return { name, present, status, userId, memo, user };
@@ -58,7 +58,7 @@ export default function TeamTable (props) {
                 </a>}
             </Grid>
             <Grid item>
-              {JSON.parse(localStorage.getItem('admin')) && (<>
+              {JSON.parse(localStorage.getItem("admin")) && (<>
                 <EditTeam teamDetails={teamDetails} />
                 <AddUserDialog teamName={teamDetails.team} teamId={teamDetails._id} />
               </>)}

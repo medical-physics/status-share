@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // MUI components
 import {
@@ -6,14 +6,14 @@ import {
   Toolbar,
   Grid,
   Typography
-} from '@mui/material';
+} from "@mui/material";
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const styles = {
   appBar: {
-    top: 'auto',
+    top: "auto",
     bottom: 0
   }
 };
@@ -26,12 +26,12 @@ export default function BottomBar () {
       <Typography variant='overline'>
         © 2024 BC Cancer: Medical Physics...
       </Typography>
-      )
+    )
     : (
       <Typography variant='overline'>
         © 2024 BC Cancer: Medical Physics. All rights reserved.
       </Typography>
-      );
+    );
   return (
     <AppBar sx={styles.appBar} color='inherit' position='fixed'>
       <Toolbar variant='dense'>

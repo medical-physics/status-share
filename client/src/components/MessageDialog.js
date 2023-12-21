@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
-import styles from '../styles/components/MessageDialog.json';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
+import styles from "../styles/components/MessageDialog.json";
 
 // MUI components
 import {
@@ -15,7 +15,7 @@ import {
   IconButton,
   Typography,
   Box
-} from '@mui/material';
+} from "@mui/material";
 import {
   DraftsOutlined as DraftsOutlinedIcon,
   Close as CloseIcon,
@@ -23,11 +23,11 @@ import {
   Mail as MailIcon,
   AccountBox as AccountBoxIcon,
   AlternateEmail as AlternateEmailIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from '../redux/slices/mailboxSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from "../redux/slices/mailboxSlice";
 
 export default function MessageDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -59,13 +59,13 @@ export default function MessageDialog (props) {
   const renderButton = () => {
     if (readStatus) {
       return (
-        <IconButton onClick={handleOpen} style={{ color: '#388e3c' }} size='small'>
+        <IconButton onClick={handleOpen} style={{ color: "#388e3c" }} size='small'>
           <DraftsOutlinedIcon />
         </IconButton>
       );
     } else {
       return (
-        <IconButton onClick={handleOpen} style={{ color: '#388e3c' }} size='small'>
+        <IconButton onClick={handleOpen} style={{ color: "#388e3c" }} size='small'>
           <MailIcon />
         </IconButton>
       );
@@ -77,12 +77,12 @@ export default function MessageDialog (props) {
       <div>
         <DialogTitle>Loading...</DialogTitle>
         <DialogContent sx={styles.dialogContent}>
-          <div sx={styles.spinnerDiv}>
+          <div style={styles.spinnerDiv}>
             <CircularProgress size={80} thickness={2} />
           </div>
         </DialogContent>
       </div>
-      )
+    )
     : (
       <div>
         <DialogTitle>
@@ -96,13 +96,13 @@ export default function MessageDialog (props) {
         <DialogContent sx={styles.dialogContent}>
           <Grid container>
             <Grid item>
-              <AccountBoxIcon style={{ color: '#388e3c' }} sx={styles.icon} />
+              <AccountBoxIcon style={{ color: "#388e3c" }} sx={styles.icon} />
             </Grid>
             <Grid item>
               <Typography sx={styles.text1} noWrap>{message.senderName}</Typography>
             </Grid>
             <Grid item>
-              <AlternateEmailIcon style={{ color: '#388e3c' }} sx={styles.icon} />
+              <AlternateEmailIcon style={{ color: "#388e3c" }} sx={styles.icon} />
             </Grid>
             <Grid item>
               <Typography sx={styles.text1} noWrap>{message.senderContact}</Typography>
@@ -115,7 +115,7 @@ export default function MessageDialog (props) {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography sx={styles.text1}>{dayjs(message.timestamp).format('h:mm a, MMMM DD YYYY')}</Typography>
+              <Typography sx={styles.text1}>{dayjs(message.timestamp).format("h:mm a, MMMM DD YYYY")}</Typography>
             </Grid>
           </Grid>
           <Grid container>
@@ -130,12 +130,12 @@ export default function MessageDialog (props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDelete} style={{ color: '#ef5350' }} variant='outlined'>
+          <Button onClick={handleDelete} style={{ color: "#ef5350" }} variant='outlined'>
             <DeleteIcon sx={styles.buttonIcon} />delete
           </Button>
         </DialogActions>
       </div>
-      );
+    );
 
   return (
     <>

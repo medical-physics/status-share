@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { GithubPicker } from 'react-color';
-import styles from '../styles/components/EditTeam.json';
+import React from "react";
+import PropTypes from "prop-types";
+import { GithubPicker } from "react-color";
+import styles from "../styles/components/EditTeam.json";
 
 // MUI components
 import {
@@ -14,29 +14,29 @@ import {
   DialogTitle,
   IconButton,
   Grid
-} from '@mui/material';
+} from "@mui/material";
 import {
   Delete as DeleteIcon,
   Send as SendIcon,
   Close as CloseIcon,
   Edit as EditIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch } from 'react-redux';
-import { updateTeamAsync, deleteTeamAsync } from '../redux/slices/teamsSlice';
+import { useDispatch } from "react-redux";
+import { updateTeamAsync, deleteTeamAsync } from "../redux/slices/teamsSlice";
 
 export default function EditTeam (props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
-    team: '',
-    priority: '',
-    color: '',
-    col1: 'Name',
-    col2: 'Present',
-    col3: 'Status',
+    team: "",
+    priority: "",
+    color: "",
+    col1: "Name",
+    col2: "Present",
+    col3: "Status",
     checkInCol: false,
-    hyperlink: ''
+    hyperlink: ""
   });
 
   const { teamDetails } = props;
@@ -208,7 +208,7 @@ export default function EditTeam (props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
+          <Button style={{ color: "#ef5350" }} variant='outlined' onClick={handleDelete}>
             <DeleteIcon sx={styles.icon} />delete team
           </Button>
           <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>

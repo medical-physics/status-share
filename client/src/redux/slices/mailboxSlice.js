@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loadingUI, stopLoadingUI } from './uiSlice';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadingUI, stopLoadingUI } from "./uiSlice";
 import {
   addOneMessage,
   deleteOneMessage,
   editOneMessage,
   getMailbox,
   updateMessageReadStatus
-} from '../api/mailboxAPI';
-import { decrementUnreadMessages } from './usersSlice';
+} from "../api/mailboxAPI";
+import { decrementUnreadMessages } from "./usersSlice";
 
 const initialState = {
   mailbox: [],
@@ -16,7 +16,7 @@ const initialState = {
 };
 
 export const getMessageAsync = createAsyncThunk(
-  'mailbox/getMessage',
+  "mailbox/getMessage",
   async (messageId, { dispatch, getState }) => {
     dispatch(loadingUI());
     const mailbox = getState().mailbox.mailbox;
@@ -32,7 +32,7 @@ export const getMessageAsync = createAsyncThunk(
 );
 
 export const getMailboxAsync = createAsyncThunk(
-  'mailbox/getMailbox',
+  "mailbox/getMailbox",
   async (userId) => {
     const messages = await getMailbox(userId);
     return messages;
@@ -40,7 +40,7 @@ export const getMailboxAsync = createAsyncThunk(
 );
 
 export const markMessageReadAsync = createAsyncThunk(
-  'mailbox/markMessageRead',
+  "mailbox/markMessageRead",
   async (messageObj, { dispatch }) => {
     try {
       dispatch(markMessageRead(messageObj.messageId));
@@ -55,7 +55,7 @@ export const markMessageReadAsync = createAsyncThunk(
 );
 
 export const deleteMessageAsync = createAsyncThunk(
-  'mailbox/deleteMessage',
+  "mailbox/deleteMessage",
   async (messageObj, { dispatch }) => {
     try {
       dispatch(deleteMessage(messageObj.messageId));
@@ -68,7 +68,7 @@ export const deleteMessageAsync = createAsyncThunk(
 );
 
 export const addMessageAsync = createAsyncThunk(
-  'mailbox/addMessage',
+  "mailbox/addMessage",
   async (messageObj) => {
     try {
       const response = await addOneMessage(messageObj.newMessageData, messageObj.userId);
@@ -80,7 +80,7 @@ export const addMessageAsync = createAsyncThunk(
 );
 
 export const editMessageAsync = createAsyncThunk(
-  'mailbox/editMessage',
+  "mailbox/editMessage",
   async (messageObj, { dispatch }) => {
     try {
       dispatch(editMessage(messageObj.messageData));
@@ -97,7 +97,7 @@ export const editMessageAsync = createAsyncThunk(
 );
 
 export const mailboxSlice = createSlice({
-  name: 'mailbox',
+  name: "mailbox",
   initialState,
   reducers: {
     loadingMailboxData: (state) => {

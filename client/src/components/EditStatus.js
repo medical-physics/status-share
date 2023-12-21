@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/EditStatus.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/EditStatus.json";
 
 // MUI components
 import {
@@ -14,21 +14,21 @@ import {
   DialogTitle,
   CircularProgress,
   IconButton
-} from '@mui/material';
+} from "@mui/material";
 import {
   Delete as DeleteIcon,
   Send as SendIcon,
   Close as CloseIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserAsync, updateStatusAsync } from '../redux/slices/usersSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { getUserAsync, updateStatusAsync } from "../redux/slices/usersSlice";
 
 const DEFAULT_STATUS = <>&nbsp;&nbsp;&nbsp;</>;
 
 export default function EditStatus (props) {
-  const [statusState, setStatusState] = React.useState('');
+  const [statusState, setStatusState] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
   const { userId, status } = props;
@@ -48,7 +48,7 @@ export default function EditStatus (props) {
   };
 
   const handleOpen = () => {
-    if (!JSON.parse(localStorage.getItem('viewOnly'))) {
+    if (!JSON.parse(localStorage.getItem("viewOnly"))) {
       setOpen(true);
       dispatch(getUserAsync(userId))
         .then(res => {
@@ -75,7 +75,7 @@ export default function EditStatus (props) {
   const handleDelete = (event) => {
     event.preventDefault();
     const statusData = {
-      status: '',
+      status: "",
       statusTime: new Date().toString(),
       userId
     };
@@ -93,13 +93,13 @@ export default function EditStatus (props) {
         <DialogTitle>Loading...</DialogTitle>
         <DialogContent sx={styles.dialogContent}>
           <Grid sx={styles.spinnerGrid}>
-            <div sx={styles.spinnerDiv}>
+            <div style={styles.spinnerDiv}>
               <CircularProgress size={50} thickness={3} />
             </div>
           </Grid>
         </DialogContent>
       </>
-      )
+    )
     : (
       <>
         <DialogTitle>
@@ -124,7 +124,7 @@ export default function EditStatus (props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button style={{ color: '#ef5350' }} variant='outlined' onClick={handleDelete}>
+            <Button style={{ color: "#ef5350" }} variant='outlined' onClick={handleDelete}>
               <DeleteIcon sx={styles.icon} />clear
             </Button>
             <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
@@ -133,7 +133,7 @@ export default function EditStatus (props) {
           </DialogActions>
         </form>
       </>
-      );
+    );
 
   return (
     <>

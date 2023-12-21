@@ -1,11 +1,11 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import styles from '../styles/pages/Login.json';
+import React from "react";
+import { Helmet } from "react-helmet";
+import styles from "../styles/pages/Login.json";
 
 // Components
-import AppIcon from '../images/icon.png';
-import BottomBar from '../components/BottomBar';
-import NavBar from '../components/NavBar';
+import AppIcon from "../images/icon.png";
+import BottomBar from "../components/BottomBar";
+import NavBar from "../components/NavBar";
 
 // MUI components
 import {
@@ -18,21 +18,21 @@ import {
   Paper,
   Checkbox,
   FormControlLabel
-} from '@mui/material';
+} from "@mui/material";
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   loginUserAsync,
   getAppNameAsync,
   setRememberMe,
   checkingAuth,
   logoutUser
-} from '../redux/slices/accountSlice';
+} from "../redux/slices/accountSlice";
 
 export default function Login () {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [rememberMe, setStateRememberMe] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -49,14 +49,14 @@ export default function Login () {
   const handleSubmit = (event) => {
     event.preventDefault();
     const userData = {
-      email: email.trim().toLowerCase().concat('@bccancer.bc.ca'),
+      email: email.trim().toLowerCase().concat("@bccancer.bc.ca"),
       password
     };
 
     if (rememberMe) {
       dispatch(setRememberMe());
     }
-    localStorage.setItem('rememberMe', rememberMe);
+    localStorage.setItem("rememberMe", rememberMe);
     dispatch(checkingAuth());
     dispatch(loginUserAsync(userData));
   };
@@ -134,7 +134,7 @@ export default function Login () {
                     checked={rememberMe}
                     onChange={handleCheck}
                     color='primary'
-                          />}
+                  />}
                   label='Remember Me'
                   sx={styles.checkbox}
                 />

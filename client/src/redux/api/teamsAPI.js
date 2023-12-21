@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const getTeams = async () => {
-  const response = await axios.get('/teams');
+  const response = await axios.get("/teams");
   return response.data;
 };
 
 export const addTeam = async (newTeam) => {
-  const response = await axios.post('/team', newTeam);
+  const response = await axios.post("/team", newTeam);
   return response.data;
 };
 

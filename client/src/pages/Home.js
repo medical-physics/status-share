@@ -1,14 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { authenticate } from '../util/Authenticator';
-import styles from '../styles/pages/Home.json';
+import React from "react";
+import { Helmet } from "react-helmet";
+import { authenticate } from "../util/Authenticator";
+import styles from "../styles/pages/Home.json";
 
 // Components
-import NavBar from '../components/NavBar';
-import UpdateBar from '../components/UpdateBar';
-import TeamTable from '../components/TeamTable';
-import LoadingTable from '../components/LoadingTable';
-import SocketWrapper from '../util/stream/SocketWrapper';
+import NavBar from "../components/NavBar";
+import UpdateBar from "../components/UpdateBar";
+import TeamTable from "../components/TeamTable";
+import LoadingTable from "../components/LoadingTable";
+import SocketWrapper from "../util/stream/SocketWrapper";
 
 // MUI Components
 import {
@@ -18,14 +18,14 @@ import {
   DialogTitle,
   Typography,
   CircularProgress
-} from '@mui/material';
+} from "@mui/material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { getAppNameAsync } from '../redux/slices/accountSlice';
-import { getUsersAsync } from '../redux/slices/usersSlice';
-import { getTeamsAsync } from '../redux/slices/teamsSlice';
-import { selectIsAccessTokenValid, selectTeamDetailsMap, selectTeamMembersMap } from '../redux/selectors/selectors';
+import { useDispatch, useSelector } from "react-redux";
+import { getAppNameAsync } from "../redux/slices/accountSlice";
+import { getUsersAsync } from "../redux/slices/usersSlice";
+import { getTeamsAsync } from "../redux/slices/teamsSlice";
+import { selectIsAccessTokenValid, selectTeamDetailsMap, selectTeamMembersMap } from "../redux/selectors/selectors";
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
@@ -72,7 +72,7 @@ export default function Home () {
   return (
     <SocketWrapper>
       <Helmet>
-        <title>{`${appName || 'Medical Physics'} | Home`}</title>
+        <title>{`${appName || "Medical Physics"} | Home`}</title>
       </Helmet>
       <Dialog open={loadingTeam}>
         <DialogTitle>

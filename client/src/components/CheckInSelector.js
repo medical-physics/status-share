@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/CheckInSelector.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/CheckInSelector.json";
 
 // MUI components
 import {
   Grid,
   Slider
-} from '@mui/material';
+} from "@mui/material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setCheckInPeriodAsync } from '../redux/slices/usersSlice';
-import { createSelector } from 'reselect';
+import { useDispatch, useSelector } from "react-redux";
+import { setCheckInPeriodAsync } from "../redux/slices/usersSlice";
+import { createSelector } from "reselect";
 
 const selectUser = createSelector(
   [
@@ -35,27 +35,27 @@ export default function CheckInSelector (props) {
   const subscribedCheckInPeriod = useSelector((state) => selectUser(state, userId));
   const subscriberExcludedUser = useSelector((state) => state.users.subscriberExcludedUser);
   const [checkInPeriod, setCheckInPeriod] = React.useState(props.user.checkIn);
-  const [checkInText, setCheckInText] = React.useState('––');
+  const [checkInText, setCheckInText] = React.useState("––");
   const [styling, setStyling] = React.useState(styles.selectNone);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     switch (checkInPeriod) {
-      case 0:
-        setCheckInText('––');
-        setStyling(styles.selectNone);
-        break;
-      case 1:
-        setCheckInText('AM');
-        setStyling(styles.selectAM);
-        break;
-      case 2:
-        setCheckInText('PM');
-        setStyling(styles.selectPM);
-        break;
-      default:
-        setStyling(styles.selectNone);
+    case 0:
+      setCheckInText("––");
+      setStyling(styles.selectNone);
+      break;
+    case 1:
+      setCheckInText("AM");
+      setStyling(styles.selectAM);
+      break;
+    case 2:
+      setCheckInText("PM");
+      setStyling(styles.selectPM);
+      break;
+    default:
+      setStyling(styles.selectNone);
     }
   }, [checkInPeriod]);
 
@@ -67,7 +67,7 @@ export default function CheckInSelector (props) {
 
   const handleChange = (event) => {
     setCheckInPeriod(event.target.value);
-    if (!JSON.parse(localStorage.getItem('viewOnly'))) {
+    if (!JSON.parse(localStorage.getItem("viewOnly"))) {
       dispatch(setCheckInPeriodAsync({ userId, checkIn: event.target.value }));
     }
   };

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   getUsers,
   getUser,
@@ -8,39 +8,39 @@ import {
   addOneUser,
   deleteOneUser,
   updateUserCheckIn
-} from '../api/usersAPI';
+} from "../api/usersAPI";
 import {
   loadingUser,
   stopLoadingUser,
   loadingUI,
   stopLoadingUI,
   setErrors
-} from './uiSlice';
-import { setUpdateTime } from './accountSlice';
+} from "./uiSlice";
+import { setUpdateTime } from "./accountSlice";
 
 const initialState = {
   users: [],
   user: {
-    _id: '',
+    _id: "",
     checkIn: 0,
-    email: '',
-    memo: '',
-    name: '',
-    phone: '',
+    email: "",
+    memo: "",
+    name: "",
+    phone: "",
     present: true,
     priority: 1,
-    status: '',
-    statusTime: '',
-    team: '',
-    teamId: '',
+    status: "",
+    statusTime: "",
+    team: "",
+    teamId: "",
     unreadMessages: 0
   },
   loadingUsersData: false,
-  subscriberExcludedUser: ''
+  subscriberExcludedUser: ""
 };
 
 export const getUserAsync = createAsyncThunk(
-  'users/getUser',
+  "users/getUser",
   async (userId, { dispatch, getState }) => {
     dispatch(loadingUI());
     const users = getState().users.users;
@@ -56,7 +56,7 @@ export const getUserAsync = createAsyncThunk(
 );
 
 export const getUsersAsync = createAsyncThunk(
-  'users/getUsers',
+  "users/getUsers",
   async (_, { dispatch }) => {
     const response = await getUsers();
     dispatch(setUpdateTime());
@@ -65,7 +65,7 @@ export const getUsersAsync = createAsyncThunk(
 );
 
 export const updateStatusAsync = createAsyncThunk(
-  'users/updateStatus',
+  "users/updateStatus",
   async (statusObj, { dispatch }) => {
     try {
       dispatch(updateStatus(statusObj.statusData));
@@ -79,7 +79,7 @@ export const updateStatusAsync = createAsyncThunk(
 );
 
 export const markPresentAsync = createAsyncThunk(
-  'users/markPresent',
+  "users/markPresent",
   async (userId, { dispatch }) => {
     try {
       dispatch(markPresent(userId));
@@ -93,7 +93,7 @@ export const markPresentAsync = createAsyncThunk(
 );
 
 export const markNotPresentAsync = createAsyncThunk(
-  'users/markNotPresent',
+  "users/markNotPresent",
   async (userId, { dispatch }) => {
     try {
       dispatch(markNotPresent(userId));
@@ -107,7 +107,7 @@ export const markNotPresentAsync = createAsyncThunk(
 );
 
 export const setCheckInPeriodAsync = createAsyncThunk(
-  'users/setCheckInPeriod',
+  "users/setCheckInPeriod",
   async (checkInObj, { dispatch }) => {
     try {
       dispatch(setSubscriberExcludedUser(checkInObj.userId));
@@ -120,7 +120,7 @@ export const setCheckInPeriodAsync = createAsyncThunk(
 );
 
 export const editProfileAsync = createAsyncThunk(
-  'users/editProfile',
+  "users/editProfile",
   async (profileObj, { dispatch }) => {
     try {
       dispatch(loadingUser());
@@ -134,7 +134,7 @@ export const editProfileAsync = createAsyncThunk(
 );
 
 export const addUserAsync = createAsyncThunk(
-  'users/addUser',
+  "users/addUser",
   async (newUserData, { dispatch }) => {
     try {
       dispatch(loadingUser());
@@ -148,7 +148,7 @@ export const addUserAsync = createAsyncThunk(
 );
 
 export const deleteUserAsync = createAsyncThunk(
-  'users/deleteUser',
+  "users/deleteUser",
   async (userId, { dispatch }) => {
     try {
       dispatch(loadingUser());
@@ -162,7 +162,7 @@ export const deleteUserAsync = createAsyncThunk(
 );
 
 export const usersSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState,
   reducers: {
     loadingUsersData: (state) => {

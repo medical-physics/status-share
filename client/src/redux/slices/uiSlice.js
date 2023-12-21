@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const uiSlice = createSlice({
-  name: 'UI',
+  name: "UI",
   initialState,
   reducers: {
     setErrors: (state, action) => {

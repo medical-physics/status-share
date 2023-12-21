@@ -1,6 +1,6 @@
-import jwtDecode from 'jwt-decode';
-import { BUFFER_TIME } from '../../util/Authenticator';
-import { createSelector } from 'reselect';
+import jwtDecode from "jwt-decode";
+import { BUFFER_TIME } from "../../util/Authenticator";
+import { createSelector } from "reselect";
 
 const selectTeams = state => state.teams.teams;
 

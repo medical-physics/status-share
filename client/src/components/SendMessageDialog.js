@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from '../styles/components/SendMessageDialog.json';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "../styles/components/SendMessageDialog.json";
 
 // MUI components
 import {
@@ -13,25 +13,25 @@ import {
   IconButton,
   TextField,
   InputAdornment
-} from '@mui/material';
+} from "@mui/material";
 import {
   Close as CloseIcon,
   Send as SendIcon,
   AccountBox as AccountBoxIcon,
   AlternateEmail as AlternateEmailIcon
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { addMessageAsync } from '../redux/slices/mailboxSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { addMessageAsync } from "../redux/slices/mailboxSlice";
 
 export default function SendMessageDialog (props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
-    senderName: '',
-    senderContact: '',
-    subject: '',
-    message: ''
+    senderName: "",
+    senderContact: "",
+    subject: "",
+    message: ""
   });
 
   const dispatch = useDispatch();
@@ -46,10 +46,10 @@ export default function SendMessageDialog (props) {
   const handleClose = () => {
     setOpen(false);
     setFormValue({
-      senderName: '',
-      senderContact: '',
-      subject: '',
-      message: ''
+      senderName: "",
+      senderContact: "",
+      subject: "",
+      message: ""
     });
     props.onClose();
   };
@@ -83,7 +83,7 @@ export default function SendMessageDialog (props) {
 
   return (
     <>
-      <Button onClick={handleOpen} style={{ color: '#388e3c' }} variant='outlined'>
+      <Button onClick={handleOpen} style={{ color: "#388e3c" }} variant='outlined'>
         <SendIcon sx={styles.buttonIcon} /> message
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
@@ -108,7 +108,7 @@ export default function SendMessageDialog (props) {
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
-                  <AccountBoxIcon style={{ color: '#388e3c' }} />
+                  <AccountBoxIcon style={{ color: "#388e3c" }} />
                 </InputAdornment>
               )
             }}
@@ -125,7 +125,7 @@ export default function SendMessageDialog (props) {
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
-                  <AlternateEmailIcon style={{ color: '#388e3c' }} />
+                  <AlternateEmailIcon style={{ color: "#388e3c" }} />
                 </InputAdornment>
               )
             }}
@@ -138,7 +138,7 @@ export default function SendMessageDialog (props) {
             value={subject}
             onChange={handleChange}
             fullWidth
-            sx={{ marginTop: '40px' }}
+            sx={{ marginTop: "40px" }}
             variant='outlined'
           />
           <TextField
@@ -152,11 +152,11 @@ export default function SendMessageDialog (props) {
             value={message}
             onChange={handleChange}
             fullWidth
-            sx={{ marginTop: '9px' }}
+            sx={{ marginTop: "9px" }}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} variant='outlined' style={{ color: '#388e3c' }} type='submit'>
+          <Button onClick={handleSubmit} variant='outlined' style={{ color: "#388e3c" }} type='submit'>
             <SendIcon sx={styles.icon} />send
           </Button>
         </DialogActions>

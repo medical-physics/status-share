@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const loginUser = async (email, password) => {
-  const response = await axios.post('/login', {}, {
+  const response = await axios.post("/login", {}, {
     auth: {
       username: email,
       password
@@ -12,16 +12,16 @@ export const loginUser = async (email, password) => {
 
 export const refreshAccessToken = async (refreshToken) => {
   axios.defaults.headers.common.Authorization = refreshToken;
-  const response = await axios.post('/refreshLogin');
+  const response = await axios.post("/refreshLogin");
   return response.data;
 };
 
 export const getAppName = async () => {
-  const response = await axios.get('/appname');
+  const response = await axios.get("/appname");
   return response.data;
 };
 
 export const postAppName = async (newAppName) => {
-  const response = await axios.post('/appname', { appName: newAppName });
+  const response = await axios.post("/appname", { appName: newAppName });
   return response.data;
 };

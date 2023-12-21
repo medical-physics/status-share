@@ -1,8 +1,8 @@
-import React from 'react';
-import dayjs from 'dayjs';
+import React from "react";
+import dayjs from "dayjs";
 
 // Components
-import MessageDialog from './MessageDialog';
+import MessageDialog from "./MessageDialog";
 
 // MUI components
 import {
@@ -13,10 +13,10 @@ import {
   TableHead,
   TableRow,
   Box
-} from '@mui/material';
+} from "@mui/material";
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 function createData (name, subject, timestamp, message) {
   return { name, subject, timestamp, message };
@@ -53,7 +53,7 @@ export default function InboxTable () {
                 {row.subject}
               </TableCell>
               <TableCell>
-                {dayjs(row.timestamp).format('h:mm a, MMMM DD YYYY')}
+                {dayjs(row.timestamp).format("h:mm a, MMMM DD YYYY")}
               </TableCell>
             </TableRow>
           ))}
