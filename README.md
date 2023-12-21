@@ -14,7 +14,7 @@ An internal tool used by the Medical Physics and Radiation Therapy departments a
 ## Local Development
 To get started, create a `.env` file in the project root, ask admin ([@schung53](https://www.github.com/schung53)) for secrets, and add them to `.env`.
 
-Install dependencies:
+Install dependencies.
 ```
 npm install && (cd client && npm install)
 ```
