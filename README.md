@@ -30,6 +30,6 @@ npm run dev:client
 ```
 
 ## Contributors
-- Development: James S. Chung ([@schung53](https://www.github.com/schung53))
+- Development: James Chung ([@schung53](https://www.github.com/schung53))
 - Product: Don Ta (BC Cancer)
 
