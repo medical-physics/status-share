@@ -19,7 +19,7 @@ import {
   Add as AddIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch } from 'react-redux';
 import { addTeamAsync } from '../redux/slices/teamsSlice';
 
