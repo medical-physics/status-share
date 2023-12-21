@@ -30,7 +30,7 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserAsync, deleteUserAsync } from '../redux/slices/usersSlice';
 

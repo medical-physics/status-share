@@ -9,7 +9,7 @@ import {
   Typography
 } from '@mui/material';
 
-// Redux stuff
+// Redux
 import { useSelector } from 'react-redux';
 
 const styles = {

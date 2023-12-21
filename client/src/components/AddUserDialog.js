@@ -18,7 +18,7 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch } from 'react-redux';
 import { addUserAsync } from '../redux/slices/usersSlice';
 

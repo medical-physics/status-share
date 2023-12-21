@@ -21,7 +21,7 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAsync, updateStatusAsync } from '../redux/slices/usersSlice';
 

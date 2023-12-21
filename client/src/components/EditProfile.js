@@ -19,7 +19,7 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { editProfileAsync } from '../redux/slices/usersSlice';
 

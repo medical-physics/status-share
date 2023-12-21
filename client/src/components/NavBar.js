@@ -20,7 +20,7 @@ import {
   CheckCircleOutline as CheckCircleOutlineIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser, truncateAppName, detruncateAppName } from '../redux/slices/accountSlice';
 

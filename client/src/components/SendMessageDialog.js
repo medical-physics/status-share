@@ -21,7 +21,7 @@ import {
   AlternateEmail as AlternateEmailIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageAsync } from '../redux/slices/mailboxSlice';
 

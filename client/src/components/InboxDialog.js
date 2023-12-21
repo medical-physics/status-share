@@ -20,7 +20,7 @@ import {
   AllInbox as AllInboxIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getMailboxAsync } from '../redux/slices/mailboxSlice';
 

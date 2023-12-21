@@ -22,7 +22,7 @@ import {
   Edit as EditIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch } from 'react-redux';
 import { updateTeamAsync, deleteTeamAsync } from '../redux/slices/teamsSlice';
 

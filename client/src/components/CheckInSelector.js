@@ -8,7 +8,7 @@ import {
   Slider
 } from '@mui/material';
 
-// Redux stuff
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setCheckInPeriodAsync } from '../redux/slices/usersSlice';
 import { createSelector } from 'reselect';

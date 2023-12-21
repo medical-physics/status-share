@@ -20,7 +20,7 @@ import {
   FormControlLabel
 } from '@mui/material';
 
-// Redux stuff
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import {
   loginUserAsync,

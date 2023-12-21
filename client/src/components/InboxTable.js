@@ -15,7 +15,7 @@ import {
   Box
 } from '@mui/material';
 
-// Redux stuff
+// Redux
 import { useSelector } from 'react-redux';
 
 function createData (name, subject, timestamp, message) {

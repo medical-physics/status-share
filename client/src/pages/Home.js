@@ -20,7 +20,7 @@ import {
   CircularProgress
 } from '@mui/material';
 
-// Redux stuff
+// Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getAppNameAsync } from '../redux/slices/accountSlice';
 import { getUsersAsync } from '../redux/slices/usersSlice';

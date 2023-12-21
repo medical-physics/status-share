@@ -10,7 +10,7 @@ import {
   RadioButtonUnchecked as RadioButtonUncheckedIcon
 } from '@mui/icons-material';
 
-// Redux stuff
+// Redux
 import { useDispatch } from 'react-redux';
 import { markPresentAsync, markNotPresentAsync } from '../redux/slices/usersSlice';
 
