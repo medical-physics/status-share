@@ -4,10 +4,12 @@ body{
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
     background-color: rgb(245, 245, 245);
+    margin: 0;
 }
-.container{
-    margin: 0px auto 0px auto;
-}
-.nav-container{
-    margin: auto;
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/inter-light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }

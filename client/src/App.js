@@ -15,6 +15,7 @@ import { store } from "./redux/store/store";
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import LoginV2 from "./pages/LoginV2";
 
 const theme = createTheme({
   palette: {
@@ -29,6 +30,9 @@ const theme = createTheme({
       main: "#5c6bc0",
       dark: "#26418f",
       contrastText: "#ffffff"
+    },
+    primaryV2: {
+      main: "#0DBFD5"
     }
   },
   typography: {
@@ -50,6 +54,9 @@ function App () {
             </Route>
             <Route exact path='/login' element={<LoginRoute />}>
               <Route exact path='/login' element={<Login />} />
+            </Route>
+            <Route exact path='/loginv2' element={<LoginRoute />}>
+              <Route exact path='/loginv2' element={<LoginV2 />} />
             </Route>
           </Routes>
         </Router>
