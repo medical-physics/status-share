@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/pages/LoginV2.json";
-import "../styles/pages/login-v2.css";
+import "../styles/pages/login.css";
 
 // Components
 import BcCancerLogo from "../images/bc-cancer-logo.png";
@@ -8,6 +8,7 @@ import BcCancerLogo from "../images/bc-cancer-logo.png";
 // MUI components
 import {
   Checkbox,
+  CircularProgress,
   FormControlLabel
 } from "@mui/material";
 
@@ -60,7 +61,7 @@ export default function Login () {
     <div className="page-container">
       <div className="nav-bar">
         <img src={BcCancerLogo} className="bc-cancer-logo" />
-        <p className="app-name">Medical Physics: Status Share</p>
+        <p className="app-name">{appName}</p>
       </div>
       <div className="divider" />
       <div className="form-container">
@@ -108,7 +109,9 @@ export default function Login () {
                 sx={styles.checkboxContainer}
               />
               <button type="submit">
-                Submit
+                {loading ? (
+                  <CircularProgress size={15} thickness={5} sx={styles.progress} />
+                ) : "Submit"}
               </button>
             </div>
           </div>
