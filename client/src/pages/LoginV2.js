@@ -3,7 +3,7 @@ import styles from "../styles/pages/LoginV2.json";
 import "../styles/pages/login.css";
 
 // Components
-import BcCancerLogo from "../images/bc-cancer-logo.png";
+import NavBar from "../components/NavBarV2";
 
 // MUI components
 import {
@@ -59,11 +59,7 @@ export default function Login () {
 
   return (
     <div className="page-container">
-      <div className="nav-bar">
-        <img src={BcCancerLogo} className="bc-cancer-logo" />
-        <p className="app-name">{appName}</p>
-      </div>
-      <div className="divider" />
+      <NavBar />
       <div className="form-container">
         <form noValidate onSubmit={handleSubmit}>
           <p className="form-title">Sign In</p>
