@@ -69,17 +69,32 @@ export default function Login () {
           <div className="input-container">
             <input 
               className="form-input"
+              style={{ marginTop: "30px" }}
               placeholder="Username"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
+            <div className="error-message">
+              {errors?.email &&
+                <p className="error-text">{errors?.email}</p>
+              }
+            </div>
             <input 
               className="form-input"
+              style={{ marginTop: "20px" }}
               placeholder="Password"
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+            <div className="error-message">
+              {errors?.password &&
+                <p className="error-text">{errors?.password}</p>
+              }
+              {errors?.general &&
+                <p className="error-text">{errors?.general}</p>
+              }
+            </div>
             <div className="button-container">
               <FormControlLabel
                 control={<Checkbox
