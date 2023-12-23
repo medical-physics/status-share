@@ -13,20 +13,20 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Grid
+  Grid,
 } from "@mui/material";
 import {
   Delete as DeleteIcon,
   Send as SendIcon,
   Close as CloseIcon,
-  Edit as EditIcon
+  Edit as EditIcon,
 } from "@mui/icons-material";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTeamAsync, deleteTeamAsync } from "../redux/slices/teamsSlice";
 
-export default function EditTeam (props) {
+export default function EditTeam(props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     team: "",
@@ -36,13 +36,15 @@ export default function EditTeam (props) {
     col2: "Present",
     col3: "Status",
     checkInCol: false,
-    hyperlink: ""
+    hyperlink: "",
   });
 
   const { teamDetails } = props;
-  const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } = formValue;
+  const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } =
+    formValue;
 
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,7 +56,7 @@ export default function EditTeam (props) {
       col2: teamDetails.col2,
       col3: teamDetails.col3,
       checkInCol: teamDetails.checkInCol,
-      hyperlink: teamDetails.hyperlink
+      hyperlink: teamDetails.hyperlink,
     });
   };
 
@@ -67,7 +69,7 @@ export default function EditTeam (props) {
     const teamData = {
       ...formValue,
       prevTeam: teamDetails.team,
-      priority: parseInt(priority)
+      priority: parseInt(priority),
     };
     dispatch(updateTeamAsync({ teamId: teamDetails._id, teamData }));
     handleClose();
@@ -84,7 +86,7 @@ export default function EditTeam (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
     });
   };
@@ -93,7 +95,7 @@ export default function EditTeam (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        color: color.hex
+        color: color.hex,
       };
     });
   };
@@ -102,7 +104,7 @@ export default function EditTeam (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        checkInCol: event.target.checked
+        checkInCol: event.target.checked,
       };
     });
   };
@@ -112,7 +114,7 @@ export default function EditTeam (props) {
       <DialogTitle>
         <Grid sx={styles.dialogTitle}>
           {`Edit ${teamDetails.team}`}
-          <IconButton onClick={handleClose} size='small'>
+          <IconButton onClick={handleClose} size="small">
             <CloseIcon />
           </IconButton>
         </Grid>
@@ -121,10 +123,10 @@ export default function EditTeam (props) {
         <DialogContent sx={styles.dialogContent}>
           <Grid container sx={styles.dialogContainer}>
             <TextField
-              id='team'
-              name='team'
-              type='team'
-              label='Team Name'
+              id="team"
+              name="team"
+              type="team"
+              label="Team Name"
               placeholder={teamDetails.team}
               value={team}
               onChange={handleChange}
@@ -132,16 +134,13 @@ export default function EditTeam (props) {
               sx={styles.textField}
             />
             <Grid item sx={styles.colorPicker}>
-              <GithubPicker
-                color={color}
-                onChange={handleColorChange}
-              />
+              <GithubPicker color={color} onChange={handleColorChange} />
             </Grid>
             <TextField
-              id='priority'
-              name='priority'
-              type='priority'
-              label='Priority'
+              id="priority"
+              name="priority"
+              type="priority"
+              label="Priority"
               placeholder={teamDetails.priority.toString(10)}
               value={priority}
               onChange={handleChange}
@@ -149,10 +148,10 @@ export default function EditTeam (props) {
               sx={styles.textField}
             />
             <TextField
-              id='col1'
-              name='col1'
-              type='col1'
-              label='Col 1 Header'
+              id="col1"
+              name="col1"
+              type="col1"
+              label="Col 1 Header"
               placeholder={teamDetails.col1}
               value={col1}
               onChange={handleChange}
@@ -160,10 +159,10 @@ export default function EditTeam (props) {
               sx={styles.textField}
             />
             <TextField
-              id='col2'
-              name='col2'
-              type='col2'
-              label='Col 2 Header'
+              id="col2"
+              name="col2"
+              type="col2"
+              label="Col 2 Header"
               placeholder={teamDetails.col2}
               value={col2}
               onChange={handleChange}
@@ -171,10 +170,10 @@ export default function EditTeam (props) {
               sx={styles.textField}
             />
             <TextField
-              id='col3'
-              name='col3'
-              type='col3'
-              label='Col 3 Header'
+              id="col3"
+              name="col3"
+              type="col3"
+              label="Col 3 Header"
               placeholder={teamDetails.col3}
               value={col3}
               onChange={handleChange}
@@ -182,37 +181,45 @@ export default function EditTeam (props) {
               sx={styles.textField}
             />
             <Grid container sx={styles.checkInRow}>
-              <Grid item>
-                Check-In Column
-              </Grid>
+              <Grid item>Check-In Column</Grid>
               <Grid item>
                 <Checkbox
-                  id='checkInCol'
-                  name='checkInCol'
+                  id="checkInCol"
+                  name="checkInCol"
                   checked={checkInCol}
                   onChange={handleCheckChange}
                 />
               </Grid>
             </Grid>
             <TextField
-              id='hyperlink'
-              name='hyperlink'
-              type='hyperlink'
-              label='Hyperlink'
+              id="hyperlink"
+              name="hyperlink"
+              type="hyperlink"
+              label="Hyperlink"
               value={hyperlink}
               onChange={handleChange}
-              helperText='URLs must begin with https://'
               fullWidth
               sx={styles.textField}
             />
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button style={{ color: "#ef5350" }} variant='outlined' onClick={handleDelete}>
-            <DeleteIcon sx={styles.icon} />delete team
+          <Button
+            style={{ color: "#ef5350" }}
+            variant="outlined"
+            onClick={handleDelete}
+          >
+            <DeleteIcon sx={styles.icon} />
+            delete team
           </Button>
-          <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
-            <SendIcon sx={styles.icon} />edit team
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleSubmit}
+            type="submit"
+          >
+            <SendIcon sx={styles.icon} />
+            edit team
           </Button>
         </DialogActions>
       </form>
@@ -221,10 +228,14 @@ export default function EditTeam (props) {
 
   return (
     <>
-      <IconButton onClick={handleOpen} size='small'>
+      <IconButton
+        onClick={handleOpen}
+        size="small"
+        sx={{ color: darkMode ? "#d3d0ca" : "" }}
+      >
         <EditIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
         {dialogMarkup}
       </Dialog>
     </>
@@ -232,5 +243,5 @@ export default function EditTeam (props) {
 }
 
 EditTeam.propTypes = {
-  teamDetails: PropTypes.object.isRequired
+  teamDetails: PropTypes.object.isRequired,
 };

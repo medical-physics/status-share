@@ -12,18 +12,15 @@ import {
   DialogTitle,
   IconButton,
   TextField,
-  Grid
+  Grid,
 } from "@mui/material";
-import {
-  Close as CloseIcon,
-  Add as AddIcon
-} from "@mui/icons-material";
+import { Close as CloseIcon, Add as AddIcon } from "@mui/icons-material";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTeamAsync } from "../redux/slices/teamsSlice";
 
-export default function AddTeamDialog () {
+export default function AddTeamDialog() {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     team: "",
@@ -33,12 +30,14 @@ export default function AddTeamDialog () {
     col2: "Present",
     col3: "Status",
     checkInCol: false,
-    hyperlink: ""
+    hyperlink: "",
   });
 
-  const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } = formValue;
+  const { team, priority, color, col1, col2, col3, checkInCol, hyperlink } =
+    formValue;
 
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   const handleOpen = () => {
     setOpen(true);
@@ -58,7 +57,7 @@ export default function AddTeamDialog () {
       col2: col2.trim(),
       col3: col3.trim(),
       checkInCol,
-      hyperlink: hyperlink.trim()
+      hyperlink: hyperlink.trim(),
     };
     dispatch(addTeamAsync(newTeamData));
     handleClose();
@@ -70,7 +69,7 @@ export default function AddTeamDialog () {
       col2: "Present",
       col3: "Status",
       checkInCol: false,
-      hyperlink: ""
+      hyperlink: "",
     });
   };
 
@@ -79,7 +78,7 @@ export default function AddTeamDialog () {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
     });
   };
@@ -88,7 +87,7 @@ export default function AddTeamDialog () {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        color: color.hex
+        color: color.hex,
       };
     });
   };
@@ -97,21 +96,29 @@ export default function AddTeamDialog () {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        checkInCol: event.target.checked
+        checkInCol: event.target.checked,
       };
     });
   };
 
   return (
     <>
-      <IconButton onClick={handleOpen} size='small' style={{ color: "#ffffff" }}>
+      <IconButton
+        onClick={handleOpen}
+        size="small"
+        style={{ color: "#ffffff" }}
+      >
         <AddIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
         <DialogTitle>
           <Grid sx={styles.dialogTitle}>
             Add a new team
-            <IconButton onClick={handleClose} sx={styles.closeButton} size='small'>
+            <IconButton
+              onClick={handleClose}
+              sx={styles.closeButton}
+              size="small"
+            >
               <CloseIcon />
             </IconButton>
           </Grid>
@@ -121,81 +128,75 @@ export default function AddTeamDialog () {
             <Grid container sx={styles.dialogContainer}>
               <TextField
                 required
-                id='team'
-                name='team'
-                type='team'
-                label='Team Name'
+                id="team"
+                name="team"
+                type="team"
+                label="Team Name"
                 value={team}
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}
               />
               <Grid item sx={styles.colorPicker}>
-                <GithubPicker
-                  color={color}
-                  onChange={handleColorChange}
-                />
+                <GithubPicker color={color} onChange={handleColorChange} />
               </Grid>
               <TextField
                 required
-                id='priority'
-                name='priority'
-                type='priority'
-                label='Priority'
+                id="priority"
+                name="priority"
+                type="priority"
+                label="Priority"
                 value={priority}
                 onChange={handleChange}
                 fullWidth
               />
               <TextField
-                id='col1'
-                name='col1'
-                type='col1'
-                label='Col 1 Header'
+                id="col1"
+                name="col1"
+                type="col1"
+                label="Col 1 Header"
                 value={col1}
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}
               />
               <TextField
-                id='col2'
-                name='col2'
-                type='col2'
-                label='Col 2 Header'
+                id="col2"
+                name="col2"
+                type="col2"
+                label="Col 2 Header"
                 value={col2}
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}
               />
               <TextField
-                id='col3'
-                name='col3'
-                type='col3'
-                label='Col 3 Header'
+                id="col3"
+                name="col3"
+                type="col3"
+                label="Col 3 Header"
                 value={col3}
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}
               />
               <Grid container sx={styles.checkInRow}>
-                <Grid item>
-                  Check-In Column
-                </Grid>
+                <Grid item>Check-In Column</Grid>
                 <Grid item>
                   <Checkbox
-                    id='checkInCol'
-                    name='checkInCol'
+                    id="checkInCol"
+                    name="checkInCol"
                     checked={checkInCol}
                     onChange={handleCheckChange}
                   />
                 </Grid>
               </Grid>
               <TextField
-                id='hyperlink'
-                name='hyperlink'
-                type='hyperlink'
-                label='Hyperlink'
+                id="hyperlink"
+                name="hyperlink"
+                type="hyperlink"
+                label="Hyperlink"
                 value={hyperlink}
-                helperText='URLs must begin with https://'
                 onChange={handleChange}
                 fullWidth
                 sx={styles.textField}
@@ -203,8 +204,14 @@ export default function AddTeamDialog () {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleSubmit} variant='outlined' color='secondary' type='submit'>
-              <AddIcon sx={styles.icon} />create team
+            <Button
+              onClick={handleSubmit}
+              sx={{ color: darkMode ? "#d3d0ca" : "" }}
+              variant="outlined"
+              type="submit"
+            >
+              <AddIcon sx={styles.icon} />
+              create team
             </Button>
           </DialogActions>
         </form>

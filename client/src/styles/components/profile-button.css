@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+  align-items: center;
+  .name-text {
+    margin-left: 5px;
+  }
+}

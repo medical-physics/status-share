@@ -2,11 +2,14 @@ button {
   border: none;
   border-radius: 4px;
   background-color: #0DBFD5;
-  color: #0D1117;
   font-size: 17px;
   font-weight: bold;
   padding: 10px 20px;
   cursor: pointer;
+}
+
+a:link {
+  text-decoration: none;
 }
 
 .divider {
@@ -17,7 +20,7 @@ button {
 .nav-bar {
   height: 15vh;
   transition: height 0.3s ease-in-out;
-  background-color: black;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,4 +44,31 @@ button {
 
 .nav-bar.logged-in {
   height: 10vh;
+}
+
+.nav-bar.dark-mode {
+  background-color: black;
+}
+
+.sign-out-button {
+  font-family: 'Inter';
+  font-size: 13px;
+  margin: 0;
+}
+
+.sign-out-button.dark-mode {
+  color: black;
+}
+
+.dark-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+  background: #0D1117;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
 }

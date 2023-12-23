@@ -9,11 +9,23 @@ button {
   cursor: pointer;
 }
 
+input[type=text]:focus {
+  outline: 1px solid #0DBFD5;
+}
+
+input[type=password]:focus {
+  outline: 1px solid #0DBFD5;
+}
+
 .page-container {
-  background-color: #0D1117;
+  background-color: #EEEEEE;
   min-height: 100vh;
   font-family: 'Inter';
   color: #0DBFD5;
+}
+
+.page-container.dark-mode {
+  background-color: #0D1117;
 }
 
 .form-container {
@@ -33,13 +45,19 @@ button {
 .form-input {
   width: 300px;
   height: 50px;
-  background-color: #21262D;
+  background-color: white;
   border: 1px solid;
   border-color: #7A7A7A;
   border-radius: 5px;
   color: #7A7A7A;
   padding-left: 10px;
   font-size: 15px;
+}
+
+.form-input.dark-mode {
+  background-color: #21262D;
+  border-color: #7A7A7A;
+  color: #7A7A7A;
 }
 
 .button-container {
@@ -50,7 +68,11 @@ button {
   position: fixed;
   bottom: 10px;
   left: 4vw;
-  color: white;
+  color: black;
+}
+
+.bottom-text.dark-mode {
+  color: #d3d0ca;
 }
 
 .error-message {
@@ -61,5 +83,6 @@ button {
   margin-top: 10px;
   .error-text {
     margin-left: 10px;
+    font-size: 14px;
   }
 }

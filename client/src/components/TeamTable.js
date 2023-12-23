@@ -23,79 +23,145 @@ import {
   Box,
   Grid,
   Toolbar,
-  IconButton
+  IconButton,
 } from "@mui/material";
-import {
-  Link as LinkIcon
-} from "@mui/icons-material";
+import { Link as LinkIcon } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
-function createData (name, present, status, userId, memo, user) {
+function createData(name, present, status, userId, memo, user) {
   return { name, present, status, userId, memo, user };
 }
 
-export default function TeamTable (props) {
+export default function TeamTable(props) {
   const rows = [];
   const { teamDetails } = props;
+  const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
-  props.teamMembers.forEach((user) => { rows.push(createData(user.name, user.present, user.status, user._id, user.memo, user)); });
+  props.teamMembers.forEach((user) => {
+    rows.push(
+      createData(
+        user.name,
+        user.present,
+        user.status,
+        user._id,
+        user.memo,
+        user
+      )
+    );
+  });
 
   return (
     <>
-      <Paper elevation={3}>
+      <Paper
+        sx={{
+          borderRadius: 2,
+          backgroundColor: darkMode ? "#161b22" : "",
+          border: "1px solid",
+          borderColor: darkMode ? "#1e4173" : "#7A7A7A",
+        }}
+        elevation={0}
+      >
         <Toolbar>
           <Grid container sx={styles.header}>
             <Grid item sx={styles.teamTitle}>
-              <Typography component='div'>
-                <Box fontWeight='fontWeightBold' m={1} color={teamDetails.color}>
+              <Typography component="div">
+                <Box
+                  fontWeight="fontWeightBold"
+                  m={1}
+                  color={teamDetails.color}
+                >
                   {teamDetails.team}
                 </Box>
               </Typography>
-              {teamDetails.hyperlink &&
-                <a href={teamDetails.hyperlink} rel='noopener noreferrer' target='_blank'>
+              {teamDetails.hyperlink && (
+                <a
+                  href={teamDetails.hyperlink}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <IconButton>
                     <LinkIcon sx={{ color: teamDetails.color }} />
                   </IconButton>
-                </a>}
+                </a>
+              )}
             </Grid>
             <Grid item>
-              {JSON.parse(localStorage.getItem("admin")) && (<>
-                <EditTeam teamDetails={teamDetails} />
-                <AddUserDialog teamName={teamDetails.team} teamId={teamDetails._id} />
-              </>)}
+              {JSON.parse(localStorage.getItem("admin")) && (
+                <>
+                  <EditTeam teamDetails={teamDetails} />
+                  <AddUserDialog
+                    teamName={teamDetails.team}
+                    teamId={teamDetails._id}
+                  />
+                </>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
         <TableContainer>
-          <Table size='small'>
+          <Table size="small">
             <TableHead>
-              <TableRow>
-                <TableCell><Box>{teamDetails.col1}</Box></TableCell>
-                <TableCell><Box sx={styles.presenceHeader}>{teamDetails.col2}</Box></TableCell>
-                {teamDetails.checkInCol &&
-                  <TableCell><Box>Check-In</Box></TableCell>}
-                <TableCell><Box>{teamDetails.col3}</Box></TableCell>
+              <TableRow
+                sx={{
+                  "&:last-child td, &:last-child th": {
+                    borderColor: darkMode ? "#1e4173" : "",
+                  },
+                }}
+              >
+                <TableCell>
+                  <Box sx={{ color: darkMode ? "#d3d0ca" : "black" }}>
+                    {teamDetails.col1}
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box
+                    sx={{
+                      ...styles.presenceHeader,
+                      color: darkMode ? "#d3d0ca" : "black",
+                    }}
+                  >
+                    {teamDetails.col2}
+                  </Box>
+                </TableCell>
+                {!isMobile && teamDetails.checkInCol && (
+                  <TableCell>
+                    <Box sx={{ color: darkMode ? "#d3d0ca" : "black" }}>
+                      Check-In
+                    </Box>
+                  </TableCell>
+                )}
+                <TableCell>
+                  <Box sx={{ color: darkMode ? "#d3d0ca" : "black" }}>
+                    {teamDetails.col3}
+                  </Box>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <TableRow key={row.userId}>
+                <TableRow
+                  key={row.userId}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                    td: { borderColor: darkMode ? "#1e4173" : "" },
+                  }}
+                >
                   <TableCell sx={styles.tableCell}>
-                    <Grid container sx={styles.nameCell}>
-                      <Grid item>
-                        <ProfileDialog userId={row.userId} unreadMessages={row.user.unreadMessages} />
-                      </Grid>
-                      <Grid item sx={styles.box}>
-                        {row.name}
-                      </Grid>
-                    </Grid>
+                    <ProfileDialog
+                      userId={row.userId}
+                      unreadMessages={row.user.unreadMessages}
+                      name={row.user.name}
+                    />
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align="center">
                     <PresenceButton user={row.user} />
                   </TableCell>
-                  {teamDetails.checkInCol &&
+                  {!isMobile && teamDetails.checkInCol && (
                     <TableCell sx={styles.checkInCell}>
                       <CheckInSelector user={row.user} />
-                    </TableCell>}
+                    </TableCell>
+                  )}
                   <TableCell sx={styles.statusCell}>
                     <EditStatus userId={row.userId} status={row.status} />
                   </TableCell>
@@ -111,5 +177,5 @@ export default function TeamTable (props) {
 
 TeamTable.propTypes = {
   teamMembers: PropTypes.array.isRequired,
-  teamDetails: PropTypes.object.isRequired
+  teamDetails: PropTypes.object.isRequired,
 };

@@ -63,5 +63,5 @@ export const SocketWrapper = ({ children }) => {
 export default SocketWrapper;
 
 SocketWrapper.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.object.isRequired
 };

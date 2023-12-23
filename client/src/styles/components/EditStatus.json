@@ -14,7 +14,7 @@
     "height": 80
   },
   "statusBox": {
-    "border": "1px solid #c4def6",
+    "border": "1px solid",
     "borderRadius": 1,
     "&:hover": {
       "cursor": "pointer"

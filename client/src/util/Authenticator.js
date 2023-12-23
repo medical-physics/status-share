@@ -98,3 +98,10 @@ const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
       });
   }, (timeUntilExpiry - BUFFER_TIME));
 };
+
+export const clearCachedAccountDetails = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("admin");
+  localStorage.removeItem("viewOnly");
+};

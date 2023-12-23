@@ -15,48 +15,42 @@ import { store } from "./redux/store/store";
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import LoginV2 from "./pages/LoginV2";
 
 const theme = createTheme({
   palette: {
     primary: {
       light: "#534bae",
-      main: "#1a237e",
+      main: "#0DBFD5",
       dark: "#000051",
-      contrastText: "#ffffff"
+      contrastText: "#ffffff",
     },
     secondary: {
       light: "#8e99f3",
-      main: "#5c6bc0",
+      main: "#0DBFD5",
       dark: "#26418f",
-      contrastText: "#ffffff"
+      contrastText: "#ffffff",
     },
-    primaryV2: {
-      main: "#0DBFD5"
-    }
   },
   typography: {
-    useNextVariants: true
-  }
+    useNextVariants: true,
+  },
 });
 
-export const BASE_ENDPOINT = process.env.REACT_APP_API_URL || "http://localhost:8080";
+export const BASE_ENDPOINT =
+  process.env.REACT_APP_API_URL || "http://localhost:8080";
 axios.defaults.baseURL = BASE_ENDPOINT;
 
-function App () {
+function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
           <Routes>
-            <Route exact path='/' element={<PrivateRoute />}>
-              <Route exact path='/' element={<Home />} />
+            <Route exact path="/" element={<PrivateRoute />}>
+              <Route exact path="/" element={<Home />} />
             </Route>
-            <Route exact path='/login' element={<LoginRoute />}>
-              <Route exact path='/login' element={<Login />} />
-            </Route>
-            <Route exact path='/loginv2' element={<LoginRoute />}>
-              <Route exact path='/loginv2' element={<LoginV2 />} />
+            <Route exact path="/login" element={<LoginRoute />}>
+              <Route exact path="/login" element={<Login />} />
             </Route>
           </Routes>
         </Router>
