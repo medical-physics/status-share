@@ -10,6 +10,7 @@ import {
   stopLoadingUI
 } from "./uiSlice";
 import axios from "axios";
+import { clearCachedAccountDetails } from "../../util/Authenticator";
 
 const TOKEN_PREFIX = "Bearer";
 
@@ -106,14 +107,14 @@ export const accountSlice = createSlice({
     },
     setDarkMode: (state) => {
       state.darkMode = true;
-      localStorage.setItem("darkMode", true);
+      localStorage.setItem("darkMode", "true");
     },
     setLightMode: (state) => {
       state.darkMode = false;
-      localStorage.setItem("darkMode", false);
+      localStorage.setItem("darkMode", "false");
     },
     logoutUser: (state) => {
-      localStorage.clear();
+      clearCachedAccountDetails();
       delete axios.defaults.headers.common.Authorization;
       state.authenticated = false;
       state.admin = false;

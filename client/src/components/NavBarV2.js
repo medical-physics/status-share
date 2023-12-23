@@ -6,6 +6,7 @@ import "../styles/components/nav-bar.css";
 // Components
 import EditAppName from "./EditAppName";
 import AddTeamDialog from "./AddTeamDialog";
+import DarkModeSwitch from "./DarkModeSwitch";
 import BcCancerLogo from "../images/bc-cancer-logo.png";
 
 // MUI components
@@ -57,9 +58,7 @@ export default function NavBar() {
   };
 
   const navBarClasses = authenticated
-    ? darkMode
-      ? "nav-bar logged-in dark-mode"
-      : "nav-bar logged-in"
+    ? "nav-bar logged-in"
     : "nav-bar";
   const logoClasses = authenticated
     ? "bc-cancer-logo logged-in"
@@ -67,20 +66,23 @@ export default function NavBar() {
 
   return (
     <div>
-      <div className={navBarClasses}>
+      <div className={navBarClasses + (darkMode ? " dark-mode" : "")}>
         <div className="title-container">
           <img src={BcCancerLogo} className={logoClasses} />
           <p className="app-name">{appName}</p>
         </div>
-        {authenticated && (
-          <button
-            onClick={handleLogout}
-            type="submit"
-            style={{ marginRight: "4vw", color: darkMode ? "black" : "white" }}
-          >
-            Sign Out
-          </button>
-        )}
+        <div className="title-container" style={{ marginRight: "4vw" }}>
+          <DarkModeSwitch />
+          {authenticated && (
+            <button
+              onClick={handleLogout}
+              type="submit"
+              style={{ color: darkMode ? "black" : "white" }}
+            >
+              Sign Out
+            </button>
+          )}
+        </div>
       </div>
       <div className="divider" />
     </div>

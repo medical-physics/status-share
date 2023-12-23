@@ -21,6 +21,8 @@ import {
   checkingAuth,
   logoutUser
 } from "../redux/slices/accountSlice";
+import { initializeDarkMode } from "../util/DarkMode";
+import { clearCachedAccountDetails } from "../util/Authenticator";
 
 export default function Login () {
   const [email, setEmail] = React.useState("");
@@ -31,9 +33,11 @@ export default function Login () {
   const loading = useSelector((state) => state.UI.loading);
   const appName = useSelector((state) => state.account.appName);
   const errors = useSelector((state) => state.account.errors);
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   React.useEffect(() => {
-    localStorage.clear();
+    initializeDarkMode();
+    clearCachedAccountDetails();
     dispatch(logoutUser());
     dispatch(getAppNameAsync());
   }, [dispatch]);
@@ -58,7 +62,7 @@ export default function Login () {
   };
 
   return (
-    <div className="page-container">
+    <div className={"page-container" + (darkMode ? " dark-mode" : "")}>
       <NavBar />
       <div className="form-container">
         <form noValidate onSubmit={handleSubmit}>
@@ -113,7 +117,7 @@ export default function Login () {
           </div>
         </form>
       </div>
-      <p className="bottom-text">© 2024 BC Cancer: Medical Physics. All rights reserved.</p>
+      <p className={"bottom-text" + (darkMode ? " dark-mode" : "")}>© 2024 BC Cancer: Medical Physics. All rights reserved.</p>
     </div>
   );
 }

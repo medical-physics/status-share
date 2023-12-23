@@ -10,10 +10,14 @@ button {
 }
 
 .page-container {
-  background-color: #0D1117;
+  background-color: white;
   min-height: 100vh;
   font-family: 'Inter';
   color: #0DBFD5;
+}
+
+.page-container.dark-mode {
+  background-color: #0D1117;
 }
 
 .form-container {
@@ -50,6 +54,10 @@ button {
   position: fixed;
   bottom: 10px;
   left: 4vw;
+  color: black;
+}
+
+.bottom-text.dark-mode {
   color: white;
 }
 

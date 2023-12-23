@@ -48,6 +48,7 @@ export default function Home() {
   const teamDetailsMap = useSelector((state) => selectTeamDetailsMap(state));
   const teamMembersMap = useSelector((state) => selectTeamMembersMap(state));
   const isTokenValid = useSelector((state) => selectIsAccessTokenValid(state));
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   const [showLoadingTables, setShowLoadingTables] = React.useState(true);
 
@@ -78,7 +79,7 @@ export default function Home() {
 
   return (
     <SocketWrapper>
-      <div className="page-container">
+      <div className={"page-container" + (darkMode ? " dark-mode" : "")}>
         <Dialog open={loadingTeam}>
           <DialogTitle>
             <Grid sx={styles.dialog}>
