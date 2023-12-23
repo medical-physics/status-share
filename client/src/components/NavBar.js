@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/components/NavBar.json";
+import "../styles/components/nav-bar.css";
 
 // Components
 import EditAppName from "./EditAppName";
 import AddTeamDialog from "./AddTeamDialog";
+import DarkModeSwitch from "./DarkModeSwitch";
+import BcCancerLogo from "../images/bc-cancer-logo.png";
 
 // MUI components
 import {
@@ -14,25 +17,27 @@ import {
   Button,
   Grid,
   IconButton,
-  Typography
+  Typography,
 } from "@mui/material";
-import {
-  CheckCircleOutline as CheckCircleOutlineIcon
-} from "@mui/icons-material";
+import { CheckCircleOutline as CheckCircleOutlineIcon } from "@mui/icons-material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, truncateAppName, detruncateAppName } from "../redux/slices/accountSlice";
+import {
+  logoutUser,
+  truncateAppName,
+  detruncateAppName,
+} from "../redux/slices/accountSlice";
 
-export default function NavBar () {
+export default function NavBar() {
   const dispatch = useDispatch();
   const authenticated = useSelector((state) => state.account.authenticated);
   const appName = useSelector((state) => state.account.appName);
   const admin = useSelector((state) => state.account.admin);
-  const truncatedAppName = useSelector((state) => state.account.truncatedAppName);
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   React.useEffect(() => {
-    function updateTitle () {
+    function updateTitle() {
       if (window.innerWidth < 550) {
         dispatch(truncateAppName());
       } else {
@@ -43,7 +48,7 @@ export default function NavBar () {
     updateTitle();
     window.addEventListener("resize", updateTitle);
 
-    return function cleanup () {
+    return function cleanup() {
       window.removeEventListener("resize", updateTitle);
     };
   }, [dispatch]);
@@ -52,47 +57,34 @@ export default function NavBar () {
     dispatch(logoutUser());
   };
 
-  const title = truncatedAppName
-    ? (
-      <Typography noWrap style={styles.margin} variant='overline'>
-        {appName.slice(0, 12).concat("...")}
-      </Typography>
-    )
-    : (
-      <Typography noWrap style={styles.margin} variant='overline'>
-        {appName}
-      </Typography>
-    );
+  const navBarClasses = authenticated
+    ? "nav-bar logged-in"
+    : "nav-bar";
+  const logoClasses = authenticated
+    ? "bc-cancer-logo logged-in"
+    : "bc-cancer-logo";
 
   return (
-    <Box sx={styles.barBox}>
-      <AppBar sx={styles.appBar}>
-        <Toolbar variant='dense'>
-          <Grid container sx={styles.barBox}>
-            <Grid item>
-              <Grid container alignItems='center'>
-                <Grid item>
-                  <IconButton size='small' sx={{ cursor: "default" }}>
-                    <CheckCircleOutlineIcon sx={styles.icon} />
-                  </IconButton>
-                </Grid>
-                <Grid item sx={styles.title}>
-                  {title}
-                </Grid>
-                <Grid item sx={styles.dialogGroup}>
-                  {(JSON.parse(localStorage.getItem("admin")) || admin) && (<><EditAppName /><AddTeamDialog /></>)}
-                </Grid>
-              </Grid>
-            </Grid>
-            {authenticated && (
-              <Grid>
-                <Button onClick={handleLogout} color='inherit' variant='outlined' size='small' component={Link} to='/login'>
-                  Sign Out
-                </Button>
-              </Grid>)}
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <div>
+      <div className={navBarClasses + (darkMode ? " dark-mode" : "")}>
+        <div className="title-container">
+          <img src={BcCancerLogo} className={logoClasses} />
+          <p className="app-name">{appName}</p>
+        </div>
+        <div className="title-container" style={{ marginRight: "4vw" }}>
+          <DarkModeSwitch />
+          {authenticated && (
+            <button
+              onClick={handleLogout}
+              type="submit"
+              style={{ marginLeft: "10px", color: darkMode ? "black" : "white" }}
+            >
+              Sign Out
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="divider" />
+    </div>
   );
 }

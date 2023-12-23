@@ -1,7 +1,11 @@
 import React from "react";
+import "../styles/components/dark-mode-switch.css";
 
 // MUI components
 import { Switch } from "@mui/material";
+import {
+  LightMode as LightModeIcon
+} from "@mui/icons-material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -20,9 +24,12 @@ export default function DarkModeSwitch() {
   };
 
   return (
-    <Switch
-      checked={darkMode}
-      onChange={handleChange}
-    />
+    <div className="container">
+      <LightModeIcon />
+      <Switch
+        checked={darkMode}
+        onChange={handleChange}
+      />
+    </div>
   );
 }

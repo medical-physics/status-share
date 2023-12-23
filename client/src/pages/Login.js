@@ -1,24 +1,12 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import styles from "../styles/pages/Login.json";
+import "../styles/pages/login.css";
 
 // Components
-import AppIcon from "../images/icon.png";
-import BottomBar from "../components/BottomBar";
 import NavBar from "../components/NavBar";
 
 // MUI components
-import {
-  Box,
-  Grid,
-  Typography,
-  TextField,
-  Button,
-  CircularProgress,
-  Paper,
-  Checkbox,
-  FormControlLabel
-} from "@mui/material";
+import { Checkbox, CircularProgress, FormControlLabel } from "@mui/material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -27,10 +15,12 @@ import {
   getAppNameAsync,
   setRememberMe,
   checkingAuth,
-  logoutUser
+  logoutUser,
 } from "../redux/slices/accountSlice";
+import { initializeDarkMode } from "../util/DarkMode";
+import { clearCachedAccountDetails } from "../util/Authenticator";
 
-export default function Login () {
+export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rememberMe, setStateRememberMe] = React.useState(false);
@@ -39,9 +29,11 @@ export default function Login () {
   const loading = useSelector((state) => state.UI.loading);
   const appName = useSelector((state) => state.account.appName);
   const errors = useSelector((state) => state.account.errors);
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   React.useEffect(() => {
-    localStorage.clear();
+    initializeDarkMode();
+    clearCachedAccountDetails();
     dispatch(logoutUser());
     dispatch(getAppNameAsync());
   }, [dispatch]);
@@ -50,7 +42,7 @@ export default function Login () {
     event.preventDefault();
     const userData = {
       email: email.trim().toLowerCase().concat("@bccancer.bc.ca"),
-      password
+      password,
     };
 
     if (rememberMe) {
@@ -66,85 +58,70 @@ export default function Login () {
   };
 
   return (
-    <div>
-      <Helmet>
-        <title>{appName} | Login</title>
-      </Helmet>
-      <Grid container sx={styles.form} justify='center'>
-        <NavBar />
-        <Grid item sm />
-        <Grid item sm>
-          <Paper elevation={4} sx={styles.formPaper}>
-            <Box sx={styles.titleBox}>
-              <Box sx={styles.titleSubBox}>
-                <img src={AppIcon} style={styles.image} alt='Status Share' />
-              </Box>
-              <Box sx={styles.titleSubBox}>
-                <Typography variant='h4' sx={styles.pageTitle}>
-                  Sign In
-                </Typography>
-              </Box>
-            </Box>
-            <form noValidate onSubmit={handleSubmit}>
-              <TextField
-                id='email'
-                name='email'
-                type='email'
-                label='Username'
-                sx={styles.textField}
-                helperText={errors?.email}
-                error={!!errors?.email}
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-              <TextField
-                id='password'
-                name='password'
-                type='password'
-                label='Password'
-                sx={styles.textField}
-                helperText={errors?.password}
-                error={!!errors?.password}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              {errors?.general && (
-                <Typography variant='body2' sx={styles.customError}>
-                  {errors?.general}
-                </Typography>
+    <div className={"page-container" + (darkMode ? " dark-mode" : "")}>
+      <NavBar />
+      <div className="form-container">
+        <form noValidate onSubmit={handleSubmit}>
+          <p className="form-title">Sign In</p>
+          <div className="input-container">
+            <input
+              className="form-input"
+              style={{ marginTop: "30px" }}
+              placeholder="Username"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <div className="error-message">
+              {errors?.email && <p className="error-text">{errors?.email}</p>}
+            </div>
+            <input
+              className="form-input"
+              style={{ marginTop: "20px" }}
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <div className="error-message">
+              {errors?.password && (
+                <p className="error-text">{errors?.password}</p>
               )}
-              <Box sx={styles.submission}>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  color='primary'
-                  sx={styles.button}
-                  disabled={loading}
-                >
-                  <Grid container sx={styles.buttonContainer}>
-                    Login
-                    {loading && (
-                      <CircularProgress size={15} thickness={5} sx={styles.progress} />
-                    )}
-                  </Grid>
-                </Button>
-                <FormControlLabel
-                  control={<Checkbox
-                    name='rememberMe'
+              {errors?.general && (
+                <p className="error-text">{errors?.general}</p>
+              )}
+            </div>
+            <div className="button-container">
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="rememberMe"
                     checked={rememberMe}
                     onChange={handleCheck}
-                    color='primary'
-                  />}
-                  label='Remember Me'
-                  sx={styles.checkbox}
-                />
-              </Box>
-            </form>
-          </Paper>
-        </Grid>
-        <Grid item sm />
-        <BottomBar />
-      </Grid>
+                    color="primary"
+                    sx={styles.checkbox}
+                  />
+                }
+                label="Remember me"
+                sx={styles.checkboxContainer}
+              />
+              <button type="submit">
+                {loading ? (
+                  <CircularProgress
+                    size={15}
+                    thickness={5}
+                    sx={styles.progress}
+                  />
+                ) : (
+                  "Submit"
+                )}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p className={"bottom-text" + (darkMode ? " dark-mode" : "")}>
+        © 2024 BC Cancer: Medical Physics. All rights reserved.
+      </p>
     </div>
   );
 }
