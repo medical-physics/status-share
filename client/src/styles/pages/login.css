@@ -19,7 +19,7 @@ input[type=password]:focus {
 
 .page-container {
   background-color: #EEEEEE;
-  min-height: 100vh;
+  min-height: 93vh;
   font-family: 'Inter';
   color: #0DBFD5;
 }
@@ -64,11 +64,19 @@ input[type=password]:focus {
   margin-top: 40px;
 }
 
+.footer {
+  background-color: #EEEEEE;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+}
+
+.footer.dark-mode {
+  background-color: #0D1117;
+}
+
 .bottom-text {
-  position: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  left: 4vw;
+  margin-left: 4vw;
   color: black;
 }
 

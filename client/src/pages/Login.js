@@ -58,80 +58,84 @@ export default function Login() {
   };
 
   return (
-    <div className={"page-container" + (darkMode ? " dark-mode" : "")}>
-      <NavBar />
-      <div className="form-container">
-        <form noValidate onSubmit={handleSubmit}>
-          <p className="form-title">Sign In</p>
-          <div className="input-container">
-            <input
-              className={"form-input" + (darkMode ? " dark-mode" : "")}
-              style={{ marginTop: "30px" }}
-              placeholder="Username"
-              type="text"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <div className="error-message">
-              {errors?.email && <p className="error-text">{errors?.email}</p>}
-            </div>
-            <input
-              className={"form-input" + (darkMode ? " dark-mode" : "")}
-              style={{ marginTop: "20px" }}
-              placeholder="Password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <div className="error-message">
-              {errors?.password && (
-                <p className="error-text">{errors?.password}</p>
-              )}
-              {errors?.general && (
-                <p className="error-text">{errors?.general}</p>
-              )}
-            </div>
-            <div className="button-container">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="rememberMe"
-                    checked={rememberMe}
-                    onChange={handleCheck}
-                    color="primary"
-                    sx={{
-                      ...styles.checkbox,
-                      color: darkMode ? "#7A7A7A" : "#0D1117",
-                    }}
-                  />
-                }
-                label="Remember me"
-                sx={{
-                  ...styles.checkboxContainer,
-                  color: darkMode ? "#7A7A7A" : "#0D1117",
-                }}
+    <>
+      <div className={"page-container" + (darkMode ? " dark-mode" : "")}>
+        <NavBar />
+        <div className="form-container">
+          <form noValidate onSubmit={handleSubmit}>
+            <p className="form-title">Sign In</p>
+            <div className="input-container">
+              <input
+                className={"form-input" + (darkMode ? " dark-mode" : "")}
+                style={{ marginTop: "30px" }}
+                placeholder="Username"
+                type="text"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
-              <button
-                type="submit"
-                style={{ color: darkMode ? "#0D1117" : "#EEEEEE" }}
-              >
-                {loading ? (
-                  <CircularProgress
-                    size={15}
-                    thickness={5}
-                    sx={styles.progress}
-                  />
-                ) : (
-                  "Submit"
+              <div className="error-message">
+                {errors?.email && <p className="error-text">{errors?.email}</p>}
+              </div>
+              <input
+                className={"form-input" + (darkMode ? " dark-mode" : "")}
+                style={{ marginTop: "20px" }}
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <div className="error-message">
+                {errors?.password && (
+                  <p className="error-text">{errors?.password}</p>
                 )}
-              </button>
+                {errors?.general && (
+                  <p className="error-text">{errors?.general}</p>
+                )}
+              </div>
+              <div className="button-container">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="rememberMe"
+                      checked={rememberMe}
+                      onChange={handleCheck}
+                      color="primary"
+                      sx={{
+                        ...styles.checkbox,
+                        color: darkMode ? "#7A7A7A" : "#0D1117",
+                      }}
+                    />
+                  }
+                  label="Remember me"
+                  sx={{
+                    ...styles.checkboxContainer,
+                    color: darkMode ? "#7A7A7A" : "#0D1117",
+                  }}
+                />
+                <button
+                  type="submit"
+                  style={{ color: darkMode ? "#0D1117" : "#EEEEEE" }}
+                >
+                  {loading ? (
+                    <CircularProgress
+                      size={15}
+                      thickness={5}
+                      sx={styles.progress}
+                    />
+                  ) : (
+                    "Submit"
+                  )}
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-      <p className={"bottom-text" + (darkMode ? " dark-mode" : "")}>
-        © 2024 BC Cancer: Medical Physics. All rights reserved.
-      </p>
-    </div>
+      <div className={"footer" + (darkMode ? " dark-mode" : "")}>
+        <p className={"bottom-text" + (darkMode ? " dark-mode" : "")}>
+          © 2024 BC Cancer: Medical Physics. All rights reserved.
+        </p>
+      </div>
+    </>
   );
 }
