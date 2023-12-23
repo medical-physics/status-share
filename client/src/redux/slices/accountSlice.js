@@ -15,6 +15,7 @@ import { clearCachedAccountDetails } from "../../util/Authenticator";
 const TOKEN_PREFIX = "Bearer";
 
 const initialState = {
+  isMobile: false,
   darkMode: false,
   authenticated: false,
   admin: false,
@@ -113,6 +114,9 @@ export const accountSlice = createSlice({
       state.darkMode = false;
       localStorage.setItem("darkMode", "false");
     },
+    setIsMobile: (state, action) => {
+      state.isMobile = action.payload;
+    },
     logoutUser: (state) => {
       clearCachedAccountDetails();
       delete axios.defaults.headers.common.Authorization;
@@ -167,6 +171,7 @@ export const {
   checkingAuth,
   setDarkMode,
   setLightMode,
+  setIsMobile,
   logoutUser
 } = accountSlice.actions;
 

@@ -49,3 +49,26 @@ a:link {
 .nav-bar.dark-mode {
   background-color: black;
 }
+
+.sign-out-button {
+  font-family: 'Inter';
+  font-size: 13px;
+  margin: 0;
+}
+
+.sign-out-button.dark-mode {
+  color: black;
+}
+
+.dark-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+  background: #0D1117;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
+}

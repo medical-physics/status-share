@@ -36,6 +36,7 @@ export default function TeamTable(props) {
   const rows = [];
   const { teamDetails } = props;
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   props.teamMembers.forEach((user) => {
     rows.push(
@@ -123,7 +124,7 @@ export default function TeamTable(props) {
                     {teamDetails.col2}
                   </Box>
                 </TableCell>
-                {teamDetails.checkInCol && (
+                {!isMobile && teamDetails.checkInCol && (
                   <TableCell>
                     <Box sx={{ color: darkMode ? "#d3d0ca" : "black" }}>
                       Check-In
@@ -168,7 +169,7 @@ export default function TeamTable(props) {
                   <TableCell align="center">
                     <PresenceButton user={row.user} />
                   </TableCell>
-                  {teamDetails.checkInCol && (
+                  {!isMobile && teamDetails.checkInCol && (
                     <TableCell sx={styles.checkInCell}>
                       <CheckInSelector user={row.user} />
                     </TableCell>
