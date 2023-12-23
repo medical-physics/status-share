@@ -65,8 +65,9 @@ input[type=password]:focus {
 }
 
 .bottom-text {
-  position: absolute;
-  bottom: 10px;
+  position: flex;
+  flex-direction: column;
+  min-height: 100vh;
   left: 4vw;
   color: black;
 }

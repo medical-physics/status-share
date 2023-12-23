@@ -99,13 +99,22 @@ export default function Login() {
                     checked={rememberMe}
                     onChange={handleCheck}
                     color="primary"
-                    sx={{ ...styles.checkbox, color: darkMode ? "#7A7A7A" : "#0D1117" }}
+                    sx={{
+                      ...styles.checkbox,
+                      color: darkMode ? "#7A7A7A" : "#0D1117",
+                    }}
                   />
                 }
                 label="Remember me"
-                sx={{ ...styles.checkboxContainer, color: darkMode ? "#7A7A7A" : "#0D1117" }}
+                sx={{
+                  ...styles.checkboxContainer,
+                  color: darkMode ? "#7A7A7A" : "#0D1117",
+                }}
               />
-              <button type="submit" style={{ color: darkMode ? "#0D1117" : "#EEEEEE" }}>
+              <button
+                type="submit"
+                style={{ color: darkMode ? "#0D1117" : "#EEEEEE" }}
+              >
                 {loading ? (
                   <CircularProgress
                     size={15}
