@@ -14,7 +14,12 @@ a:link {
 
 .divider {
   height: 10px;
+  transition: height 0.3s ease-in-out;
   background-color: #0DBFD5;
+}
+
+.divider.logged-in {
+  height: 6px;
 }
 
 .nav-bar {

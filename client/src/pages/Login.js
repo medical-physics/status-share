@@ -120,7 +120,10 @@ export default function Login() {
                     <CircularProgress
                       size={15}
                       thickness={5}
-                      sx={styles.progress}
+                      sx={{
+                        ...styles.progress,
+                        color: darkMode ? "#0D1117" : "#EEEEEE",
+                      }}
                     />
                   ) : (
                     "Submit"

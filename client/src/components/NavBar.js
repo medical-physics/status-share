@@ -104,14 +104,19 @@ export default function NavBar() {
               variant="contained"
               component={Link}
               to="/login"
-              sx={{ marginLeft: "10px", "&:hover": { backgroundColor: "#2FA2B9" } }}
+              sx={{
+                marginLeft: "10px",
+                "&:hover": { backgroundColor: "#2FA2B9" },
+              }}
             >
-              <p className={"sign-out-button" + (darkMode ? " dark-mode" : "")}>Sign Out</p>
+              <p className={"sign-out-button" + (darkMode ? " dark-mode" : "")}>
+                Sign Out
+              </p>
             </Button>
           )}
         </div>
       </div>
-      <div className="divider" />
+      <div className={"divider" + (authenticated ? " logged-in" : "" )} />
     </div>
   );
 }

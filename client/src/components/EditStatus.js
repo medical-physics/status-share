@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "../styles/components/EditStatus.json";
+import "../styles/components/edit-status.css";
 
 // MUI components
 import {
@@ -101,43 +102,63 @@ export default function EditStatus(props) {
   ) : (
     <>
       <DialogTitle>
-        <Grid sx={styles.dialogTitle}>
+        <Grid sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}>
           {`Edit ${user.name}'s status`}
           <IconButton onClick={handleClose} size="small">
-            <CloseIcon />
+            <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
           </IconButton>
         </Grid>
       </DialogTitle>
       <form>
         <DialogContent sx={styles.dialogContent}>
-          <TextField
-            id="status"
-            name="status"
-            type="status"
-            variant="filled"
-            fullWidth
-            placeholder={status}
+          <input
+            className={"status-input" + (darkMode ? " dark-mode" : "")}
+            placeholder="Status"
+            type="text"
             value={statusState}
             onChange={handleChange}
           />
         </DialogContent>
         <DialogActions>
           <Button
-            style={{ color: "#ef5350" }}
-            variant="outlined"
+            variant="contained"
+            disableElevation
             onClick={handleDelete}
+            sx={{
+              backgroundColor: "#FA7070",
+              color: darkMode ? "#31304D" : "#EEEEEE",
+              padding: "5px 10px 3px 2px",
+              "&:hover": { backgroundColor: "#BE3144" },
+              marginBottom: "1vh",
+            }}
           >
-            <DeleteIcon sx={styles.icon} />
-            clear
+            <div className="button-content">
+              <DeleteIcon
+                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+              />
+              clear
+            </div>
           </Button>
           <Button
-            variant="outlined"
-            color="secondary"
+            variant="contained"
+            disableElevation
+            color="primary"
             onClick={handleSubmit}
             type="submit"
+            sx={{
+              color: darkMode ? "#31304D" : "#EEEEEE",
+              padding: "5px 10px 3px 2px",
+              "&:hover": { backgroundColor: "#2FA2B9" },
+              marginRight: "15px",
+              marginBottom: "1vh",
+            }}
           >
-            <SendIcon sx={styles.icon} />
-            submit
+            <div className="button-content">
+              <SendIcon
+                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+              />
+              submit
+            </div>
           </Button>
         </DialogActions>
       </form>
@@ -157,7 +178,29 @@ export default function EditStatus(props) {
           {status || DEFAULT_STATUS}
         </div>
       </Box>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         {dialogMarkup}
       </Dialog>
     </>
