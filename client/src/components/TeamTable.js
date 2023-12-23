@@ -59,6 +59,7 @@ export default function TeamTable(props) {
           border: "1px solid",
           borderColor: "#1e4173",
         }}
+        elevation={0}
       >
         <Toolbar>
           <Grid container sx={styles.header}>
