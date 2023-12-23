@@ -129,6 +129,7 @@ export default function EditStatus(props) {
               color: darkMode ? "#31304D" : "#EEEEEE",
               padding: "5px 10px 3px 2px",
               "&:hover": { backgroundColor: "#BE3144" },
+              marginRight: "5px",
               marginBottom: "1vh",
             }}
           >

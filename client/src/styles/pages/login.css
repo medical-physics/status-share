@@ -9,11 +9,19 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: #2FA2B9;
+}
+
 input[type=text]:focus {
   outline: 1px solid #0DBFD5;
 }
 
 input[type=password]:focus {
+  outline: 1px solid #0DBFD5;
+}
+
+input[type=number]:focus {
   outline: 1px solid #0DBFD5;
 }
 

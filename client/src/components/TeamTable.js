@@ -34,11 +34,11 @@ function createData(name, present, status, userId, memo, user) {
 
 export default function TeamTable(props) {
   const rows = [];
-  const { teamDetails } = props;
+  const { teamDetails, teamMembers } = props;
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
 
-  props.teamMembers.forEach((user) => {
+  teamMembers.forEach((user) => {
     rows.push(
       createData(
         user.name,
@@ -88,6 +88,7 @@ export default function TeamTable(props) {
                 <AddUserDialog
                   teamName={teamDetails.team}
                   teamId={teamDetails._id}
+                  teamSize={teamMembers.length || 0}
                 />
               </>
             )}

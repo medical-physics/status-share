@@ -1,0 +1,22 @@
+.user-input {
+  min-width: 96%;
+  height: 50px;
+  background-color: white;
+  border: 1px solid;
+  border-color: #7A7A7A;
+  border-radius: 5px;
+  color: #7A7A7A;
+  padding-left: 10px;
+  font-size: 15px;
+}
+
+.user-input.dark-mode {
+  background-color: #21262D;
+  border-color: #7A7A7A;
+  color: #7A7A7A;
+}
+
+.number-input {
+  min-width: 0;
+  width: 15% !important;
+}

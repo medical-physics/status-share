@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "../styles/components/AddUserDialog.json";
+import "../styles/components/add-user-dialog.css";
 
 // MUI components
 import {
@@ -31,7 +32,7 @@ export default function AddUserDialog(props) {
   });
   const { userName, email, phone, team, priority } = formValue;
 
-  const { teamName, teamId } = props;
+  const { teamName, teamId, teamSize } = props;
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.account.darkMode);
@@ -97,63 +98,111 @@ export default function AddUserDialog(props) {
       >
         <AddIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="xs"
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         <DialogTitle>
-          <Grid sx={styles.dialogTitle}>
+          <Grid
+            sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}
+          >
             {`Add new user to ${teamName}`}
             <IconButton onClick={handleClose} size="small">
-              <CloseIcon />
+              <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
             </IconButton>
           </Grid>
         </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
-            <TextField
-              required
-              id="name"
+            <input
+              className={"user-input" + (darkMode ? " dark-mode" : "")}
+              placeholder="Name*"
               name="userName"
-              type="name"
-              label="Name"
+              type="text"
               value={userName}
               onChange={handleChange}
-              sx={styles.textField}
-              fullWidth
             />
-            <TextField
-              id="email"
+            <input
+              className={"user-input" + (darkMode ? " dark-mode" : "")}
+              placeholder="Email"
               name="email"
-              type="email"
-              label="Email"
+              type="text"
               value={email}
               onChange={handleChange}
-              sx={styles.textField}
-              fullWidth
+              style={{ marginTop: "15px" }}
             />
-            <TextField
-              id="phone"
+            <input
+              className={"user-input" + (darkMode ? " dark-mode" : "")}
+              placeholder="Phone"
               name="phone"
-              type="phone"
-              label="Phone"
+              type="text"
               value={phone}
               onChange={handleChange}
-              sx={styles.textField}
-              fullWidth
+              style={{ marginTop: "15px" }}
             />
-            <TextField
-              required
-              id="priority"
-              name="priority"
-              type="priority"
-              label="Priority"
-              value={priority}
-              onChange={handleChange}
-              sx={styles.textField}
-              fullWidth
-            />
+            <div
+              style={{
+                marginTop: "15px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "start",
+              }}
+            >
+              <p
+                style={{ color: darkMode ? "#d3d0ca" : "", marginLeft: "10px" }}
+              >
+                Priority
+              </p>
+              <input
+                className={
+                  "user-input number-input" + (darkMode ? " dark-mode" : "")
+                }
+                name="priority"
+                type="number"
+                value={priority}
+                onChange={handleChange}
+                style={{ marginLeft: "15px" }}
+                min={1}
+                max={teamSize + 1}
+              />
+            </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleSubmit} variant="outlined" type="submit">
-              <AddIcon sx={styles.icon} />
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              disableElevation
+              type="submit"
+              sx={{
+                color: darkMode ? "#31304D" : "#EEEEEE",
+                padding: "6px 10px 3px 4px",
+                "&:hover": { backgroundColor: "#2FA2B9" },
+                marginRight: "15px",
+                marginBottom: "1vh",
+              }}
+            >
+              <AddIcon
+                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "3px" }}
+              />
               create user
             </Button>
           </DialogActions>
@@ -166,4 +215,5 @@ export default function AddUserDialog(props) {
 AddUserDialog.propTypes = {
   teamId: PropTypes.string.isRequired,
   teamName: PropTypes.string.isRequired,
+  teamSize: PropTypes.number.isRequired,
 };
