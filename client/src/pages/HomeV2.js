@@ -18,7 +18,7 @@ import {
   Dialog,
   DialogTitle,
   Typography,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 
 // Redux
@@ -26,11 +26,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAppNameAsync } from "../redux/slices/accountSlice";
 import { getUsersAsync } from "../redux/slices/usersSlice";
 import { getTeamsAsync } from "../redux/slices/teamsSlice";
-import { selectIsAccessTokenValid, selectTeamDetailsMap, selectTeamMembersMap } from "../redux/selectors/selectors";
+import {
+  selectIsAccessTokenValid,
+  selectTeamDetailsMap,
+  selectTeamMembersMap,
+} from "../redux/selectors/selectors";
+import { initializeDarkMode } from "../util/DarkMode";
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-export default function Home () {
+export default function Home() {
   const dispatch = useDispatch();
 
   const teams = useSelector((state) => state.teams.teams);
@@ -48,6 +53,7 @@ export default function Home () {
 
   React.useEffect(() => {
     authenticate();
+    initializeDarkMode();
   }, []);
 
   React.useEffect(() => {
@@ -73,7 +79,60 @@ export default function Home () {
   return (
     <SocketWrapper>
       <div className="page-container">
+        <Dialog open={loadingTeam}>
+          <DialogTitle>
+            <Grid sx={styles.dialog}>
+              <Typography variant="overline" sx={styles.spinnertext}>
+                Updating teams...
+              </Typography>
+              <CircularProgress size={20} sx={styles.spinnerdiv} />
+            </Grid>
+          </DialogTitle>
+        </Dialog>
+        <Dialog open={loadingUser}>
+          <DialogTitle>
+            <Grid sx={styles.dialog}>
+              <Typography variant="overline" sx={styles.spinnertext}>
+                Updating users...
+              </Typography>
+              <CircularProgress size={20} sx={styles.spinnerdiv} />
+            </Grid>
+          </DialogTitle>
+        </Dialog>
         <NavBar />
+        <Grid container sx={styles.homeContainer}>
+          {showLoadingTables ? (
+            <>
+              {LOADING_TABLES_ARRAY.map((number) => {
+                return (
+                  <Grid key={number} item sx={styles.table}>
+                    <LoadingTable />
+                  </Grid>
+                );
+              })}
+              <Box order={99} sx={styles.dummy} />
+            </>
+          ) : (
+            <>
+              {teams.map((team) => {
+                return (
+                  <Box
+                    key={team._id}
+                    order={teamDetailsMap[team._id].priority}
+                    sx={styles.table}
+                  >
+                    <TeamTable
+                      teamMembers={teamMembersMap[team._id] || []}
+                      teamDetails={teamDetailsMap[team._id] || {}}
+                    />
+                  </Box>
+                );
+              })}
+              <Box order={99} sx={styles.dummy} />
+              <Box order={99} sx={styles.dummy} />
+            </>
+          )}
+        </Grid>
       </div>
     </SocketWrapper>
   );

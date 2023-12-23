@@ -14,6 +14,7 @@ import axios from "axios";
 const TOKEN_PREFIX = "Bearer";
 
 const initialState = {
+  darkMode: false,
   authenticated: false,
   admin: false,
   rememberMe: false,
@@ -103,6 +104,14 @@ export const accountSlice = createSlice({
     checkingAuth: (state) => {
       state.checkingAuth = true;
     },
+    setDarkMode: (state) => {
+      state.darkMode = true;
+      localStorage.setItem("darkMode", true);
+    },
+    setLightMode: (state) => {
+      state.darkMode = false;
+      localStorage.setItem("darkMode", false);
+    },
     logoutUser: (state) => {
       localStorage.clear();
       delete axios.defaults.headers.common.Authorization;
@@ -155,6 +164,8 @@ export const {
   truncateAppName,
   detruncateAppName,
   checkingAuth,
+  setDarkMode,
+  setLightMode,
   logoutUser
 } = accountSlice.actions;
 

@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store/store";
 
 // Pages
-import Home from "./pages/Home";
+import Home from "./pages/HomeV2";
 import Login from "./pages/Login";
 import LoginV2 from "./pages/LoginV2";
 

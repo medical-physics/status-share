@@ -16,25 +16,27 @@ import {
   Button,
   Grid,
   IconButton,
-  Typography
+  Typography,
 } from "@mui/material";
-import {
-  CheckCircleOutline as CheckCircleOutlineIcon
-} from "@mui/icons-material";
+import { CheckCircleOutline as CheckCircleOutlineIcon } from "@mui/icons-material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, truncateAppName, detruncateAppName } from "../redux/slices/accountSlice";
+import {
+  logoutUser,
+  truncateAppName,
+  detruncateAppName,
+} from "../redux/slices/accountSlice";
 
-export default function NavBar () {
+export default function NavBar() {
   const dispatch = useDispatch();
   const authenticated = useSelector((state) => state.account.authenticated);
   const appName = useSelector((state) => state.account.appName);
   const admin = useSelector((state) => state.account.admin);
-  const truncatedAppName = useSelector((state) => state.account.truncatedAppName);
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   React.useEffect(() => {
-    function updateTitle () {
+    function updateTitle() {
       if (window.innerWidth < 550) {
         dispatch(truncateAppName());
       } else {
@@ -45,7 +47,7 @@ export default function NavBar () {
     updateTitle();
     window.addEventListener("resize", updateTitle);
 
-    return function cleanup () {
+    return function cleanup() {
       window.removeEventListener("resize", updateTitle);
     };
   }, [dispatch]);
@@ -54,20 +56,14 @@ export default function NavBar () {
     dispatch(logoutUser());
   };
 
-  const title = truncatedAppName
-    ? (
-      <Typography noWrap style={styles.margin} variant='overline'>
-        {appName.slice(0, 12).concat("...")}
-      </Typography>
-    )
-    : (
-      <Typography noWrap style={styles.margin} variant='overline'>
-        {appName}
-      </Typography>
-    );
-
-  const navBarClasses = authenticated ? "nav-bar logged-in" : "nav-bar";
-  const logoClasses = authenticated ? "bc-cancer-logo logged-in" : "bc-cancer-logo";
+  const navBarClasses = authenticated
+    ? darkMode
+      ? "nav-bar logged-in dark-mode"
+      : "nav-bar logged-in"
+    : "nav-bar";
+  const logoClasses = authenticated
+    ? "bc-cancer-logo logged-in"
+    : "bc-cancer-logo";
 
   return (
     <div>
@@ -76,10 +72,15 @@ export default function NavBar () {
           <img src={BcCancerLogo} className={logoClasses} />
           <p className="app-name">{appName}</p>
         </div>
-        {authenticated && 
-          <button onClick={handleLogout} type="submit" style={{ marginRight: "4vw" }}>
+        {authenticated && (
+          <button
+            onClick={handleLogout}
+            type="submit"
+            style={{ marginRight: "4vw", color: darkMode ? "black" : "white" }}
+          >
             Sign Out
-          </button>}
+          </button>
+        )}
       </div>
       <div className="divider" />
     </div>
