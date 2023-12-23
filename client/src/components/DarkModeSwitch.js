@@ -29,6 +29,14 @@ export default function DarkModeSwitch() {
       <Switch
         checked={darkMode}
         onChange={handleChange}
+        sx={{
+          "& .MuiSwitch-thumb": {
+            backgroundColor: "#0DBFD5"
+          },
+          "& .MuiSwitch-track": {
+            backgroundColor: "#A9A9A9"
+          }
+        }}
       />
     </div>
   );

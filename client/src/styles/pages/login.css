@@ -65,7 +65,7 @@ input[type=password]:focus {
 }
 
 .bottom-text {
-  position: fixed;
+  position: absolute;
   bottom: 10px;
   left: 4vw;
   color: black;
@@ -85,4 +85,8 @@ input[type=password]:focus {
     margin-left: 10px;
     font-size: 14px;
   }
+}
+
+@media (max-width: 500px) {
+  
 }

@@ -23,7 +23,7 @@ export default function ProfileButton(props) {
           {!isMobile && (
             <IconButton
               onClick={onClick}
-              style={{ marginTop: "-3px", color: "#b4004e" }}
+              style={{ marginTop: "-2px", color: "#b4004e" }}
               size="small"
             >
               <NotificationsIcon />
@@ -47,7 +47,7 @@ export default function ProfileButton(props) {
             <IconButton
               onClick={onClick}
               size="small"
-              sx={{ marginTop: "-3px", color: darkMode ? "#d3d0ca" : "" }}
+              sx={{ marginTop: "-2px", color: darkMode ? "#d3d0ca" : "" }}
             >
               <AccountCircleIcon />
             </IconButton>
