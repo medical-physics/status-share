@@ -6,7 +6,7 @@
   "homeContainer": {
     "display": "flex",
     "justifyContent": "center",
-    "marginTop": 5
+    "marginTop": 3
   },
   "spinnerdiv": {
     "margin": "auto 10px auto 15px"

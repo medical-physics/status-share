@@ -57,7 +57,7 @@ export default function TeamTable(props) {
           borderRadius: 2,
           backgroundColor: darkMode ? "#161b22" : "",
           border: "1px solid",
-          borderColor: "#1e4173",
+          borderColor: darkMode ? "#1e4173" : "#7A7A7A",
         }}
         elevation={0}
       >
@@ -101,7 +101,13 @@ export default function TeamTable(props) {
         <TableContainer>
           <Table size="small">
             <TableHead>
-              <TableRow sx={{ "&:last-child td, &:last-child th": { borderColor: darkMode ? "#1e4173" : "" } }}>
+              <TableRow
+                sx={{
+                  "&:last-child td, &:last-child th": {
+                    borderColor: darkMode ? "#1e4173" : "",
+                  },
+                }}
+              >
                 <TableCell>
                   <Box sx={{ color: darkMode ? "#d3d0ca" : "black" }}>
                     {teamDetails.col1}

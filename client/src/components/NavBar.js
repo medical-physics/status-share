@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/components/NavBar.json";
 import "../styles/components/nav-bar.css";
+import { BASE_ENDPOINT } from "../App";
 
 // Components
 import EditAppName from "./EditAppName";
@@ -57,9 +58,7 @@ export default function NavBar() {
     dispatch(logoutUser());
   };
 
-  const navBarClasses = authenticated
-    ? "nav-bar logged-in"
-    : "nav-bar";
+  const navBarClasses = authenticated ? "nav-bar logged-in" : "nav-bar";
   const logoClasses = authenticated
     ? "bc-cancer-logo logged-in"
     : "bc-cancer-logo";
@@ -77,9 +76,14 @@ export default function NavBar() {
             <button
               onClick={handleLogout}
               type="submit"
-              style={{ marginLeft: "10px", color: darkMode ? "black" : "white" }}
+              style={{ marginLeft: "10px" }}
             >
-              Sign Out
+              <a
+                href={window.location.pathname.replace(/\/+$/, "") + "/login"}
+                style={{ color: darkMode ? "black" : "white" }}
+              >
+                Sign Out
+              </a>
             </button>
           )}
         </div>

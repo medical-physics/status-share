@@ -65,9 +65,10 @@ export default function Login() {
           <p className="form-title">Sign In</p>
           <div className="input-container">
             <input
-              className="form-input"
+              className={"form-input" + (darkMode ? " dark-mode" : "")}
               style={{ marginTop: "30px" }}
               placeholder="Username"
+              type="text"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -75,7 +76,7 @@ export default function Login() {
               {errors?.email && <p className="error-text">{errors?.email}</p>}
             </div>
             <input
-              className="form-input"
+              className={"form-input" + (darkMode ? " dark-mode" : "")}
               style={{ marginTop: "20px" }}
               placeholder="Password"
               type="password"
@@ -98,13 +99,13 @@ export default function Login() {
                     checked={rememberMe}
                     onChange={handleCheck}
                     color="primary"
-                    sx={styles.checkbox}
+                    sx={{ ...styles.checkbox, color: darkMode ? "#7A7A7A" : "#0D1117" }}
                   />
                 }
                 label="Remember me"
-                sx={styles.checkboxContainer}
+                sx={{ ...styles.checkboxContainer, color: darkMode ? "#7A7A7A" : "#0D1117" }}
               />
-              <button type="submit" style={{ color: darkMode ? "#0D1117" : "white" }}>
+              <button type="submit" style={{ color: darkMode ? "#0D1117" : "#EEEEEE" }}>
                 {loading ? (
                   <CircularProgress
                     size={15}

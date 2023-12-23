@@ -9,6 +9,14 @@ button {
   cursor: pointer;
 }
 
+input[type=text]:focus {
+  outline: 1px solid #0DBFD5;
+}
+
+input[type=password]:focus {
+  outline: 1px solid #0DBFD5;
+}
+
 .page-container {
   background-color: #EEEEEE;
   min-height: 100vh;
@@ -37,13 +45,19 @@ button {
 .form-input {
   width: 300px;
   height: 50px;
-  background-color: #21262D;
+  background-color: white;
   border: 1px solid;
   border-color: #7A7A7A;
   border-radius: 5px;
   color: #7A7A7A;
   padding-left: 10px;
   font-size: 15px;
+}
+
+.form-input.dark-mode {
+  background-color: #21262D;
+  border-color: #7A7A7A;
+  color: #7A7A7A;
 }
 
 .button-container {
@@ -58,7 +72,7 @@ button {
 }
 
 .bottom-text.dark-mode {
-  color: white;
+  color: #d3d0ca;
 }
 
 .error-message {
@@ -69,5 +83,6 @@ button {
   margin-top: 10px;
   .error-text {
     margin-left: 10px;
+    font-size: 14px;
   }
 }

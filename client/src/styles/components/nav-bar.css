@@ -8,6 +8,10 @@ button {
   cursor: pointer;
 }
 
+a:link {
+  text-decoration: none;
+}
+
 .divider {
   height: 10px;
   background-color: #0DBFD5;
