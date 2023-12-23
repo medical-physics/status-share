@@ -148,23 +148,11 @@ export default function TeamTable(props) {
                   }}
                 >
                   <TableCell sx={styles.tableCell}>
-                    <Grid container sx={styles.nameCell}>
-                      <Grid item>
-                        <ProfileDialog
-                          userId={row.userId}
-                          unreadMessages={row.user.unreadMessages}
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        sx={{
-                          ...styles.box,
-                          color: darkMode ? "#d3d0ca" : "black",
-                        }}
-                      >
-                        {row.name}
-                      </Grid>
-                    </Grid>
+                    <ProfileDialog
+                      userId={row.userId}
+                      unreadMessages={row.user.unreadMessages}
+                      name={row.user.name}
+                    />
                   </TableCell>
                   <TableCell align="center">
                     <PresenceButton user={row.user} />
