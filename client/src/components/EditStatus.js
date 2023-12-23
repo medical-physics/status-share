@@ -13,12 +13,12 @@ import {
   DialogContent,
   DialogTitle,
   CircularProgress,
-  IconButton
+  IconButton,
 } from "@mui/material";
 import {
   Delete as DeleteIcon,
   Send as SendIcon,
-  Close as CloseIcon
+  Close as CloseIcon,
 } from "@mui/icons-material";
 
 // Redux
@@ -27,7 +27,7 @@ import { getUserAsync, updateStatusAsync } from "../redux/slices/usersSlice";
 
 const DEFAULT_STATUS = <>&nbsp;&nbsp;&nbsp;</>;
 
-export default function EditStatus (props) {
+export default function EditStatus(props) {
   const [statusState, setStatusState] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
@@ -36,6 +36,7 @@ export default function EditStatus (props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const loading = useSelector((state) => state.UI.loading);
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   const mapUserDetailsToState = (focusedUser) => {
     setStatusState(checkUser(focusedUser));
@@ -50,10 +51,9 @@ export default function EditStatus (props) {
   const handleOpen = () => {
     if (!JSON.parse(localStorage.getItem("viewOnly"))) {
       setOpen(true);
-      dispatch(getUserAsync(userId))
-        .then(res => {
-          mapUserDetailsToState(res.payload);
-        });
+      dispatch(getUserAsync(userId)).then((res) => {
+        mapUserDetailsToState(res.payload);
+      });
     }
   };
 
@@ -66,7 +66,7 @@ export default function EditStatus (props) {
     const statusData = {
       status: statusState,
       statusTime: new Date().toString(),
-      userId
+      userId,
     };
     dispatch(updateStatusAsync({ userId, statusData }));
     handleClose();
@@ -77,7 +77,7 @@ export default function EditStatus (props) {
     const statusData = {
       status: "",
       statusTime: new Date().toString(),
-      userId
+      userId,
     };
     dispatch(updateStatusAsync({ userId, statusData }));
     handleClose();
@@ -87,62 +87,77 @@ export default function EditStatus (props) {
     setStatusState(event.target.value);
   };
 
-  const dialogMarkup = loading
-    ? (
-      <>
-        <DialogTitle>Loading...</DialogTitle>
+  const dialogMarkup = loading ? (
+    <>
+      <DialogTitle>Loading...</DialogTitle>
+      <DialogContent sx={styles.dialogContent}>
+        <Grid sx={styles.spinnerGrid}>
+          <div style={styles.spinnerDiv}>
+            <CircularProgress size={50} thickness={3} />
+          </div>
+        </Grid>
+      </DialogContent>
+    </>
+  ) : (
+    <>
+      <DialogTitle>
+        <Grid sx={styles.dialogTitle}>
+          {`Edit ${user.name}'s status`}
+          <IconButton onClick={handleClose} size="small">
+            <CloseIcon />
+          </IconButton>
+        </Grid>
+      </DialogTitle>
+      <form>
         <DialogContent sx={styles.dialogContent}>
-          <Grid sx={styles.spinnerGrid}>
-            <div style={styles.spinnerDiv}>
-              <CircularProgress size={50} thickness={3} />
-            </div>
-          </Grid>
+          <TextField
+            id="status"
+            name="status"
+            type="status"
+            variant="filled"
+            fullWidth
+            placeholder={status}
+            value={statusState}
+            onChange={handleChange}
+          />
         </DialogContent>
-      </>
-    )
-    : (
-      <>
-        <DialogTitle>
-          <Grid sx={styles.dialogTitle}>
-            {`Edit ${user.name}'s status`}
-            <IconButton onClick={handleClose} size='small'>
-              <CloseIcon />
-            </IconButton>
-          </Grid>
-        </DialogTitle>
-        <form>
-          <DialogContent sx={styles.dialogContent}>
-            <TextField
-              id='status'
-              name='status'
-              type='status'
-              variant='filled'
-              fullWidth
-              placeholder={status}
-              value={statusState}
-              onChange={handleChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button style={{ color: "#ef5350" }} variant='outlined' onClick={handleDelete}>
-              <DeleteIcon sx={styles.icon} />clear
-            </Button>
-            <Button variant='outlined' color='secondary' onClick={handleSubmit} type='submit'>
-              <SendIcon sx={styles.icon} />submit
-            </Button>
-          </DialogActions>
-        </form>
-      </>
-    );
+        <DialogActions>
+          <Button
+            style={{ color: "#ef5350" }}
+            variant="outlined"
+            onClick={handleDelete}
+          >
+            <DeleteIcon sx={styles.icon} />
+            clear
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleSubmit}
+            type="submit"
+          >
+            <SendIcon sx={styles.icon} />
+            submit
+          </Button>
+        </DialogActions>
+      </form>
+    </>
+  );
 
   return (
     <>
-      <Box onClick={handleOpen} sx={styles.statusBox}>
-        <div style={styles.statusText}>
+      <Box
+        onClick={handleOpen}
+        sx={{
+          ...styles.statusBox,
+          borderColor: darkMode ? "#1e4173" : "#c4def6",
+        }}
+      >
+        <div style={{ ...styles.statusText, color: darkMode ? "#d3d0ca" : "" }}>
           {status || DEFAULT_STATUS}
         </div>
       </Box>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         {dialogMarkup}
       </Dialog>
     </>
@@ -151,5 +166,5 @@ export default function EditStatus (props) {
 
 EditStatus.propTypes = {
   userId: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired
+  status: PropTypes.string.isRequired,
 };

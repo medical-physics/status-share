@@ -11,18 +11,15 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  TextField
+  TextField,
 } from "@mui/material";
-import {
-  Add as AddIcon,
-  Close as CloseIcon
-} from "@mui/icons-material";
+import { Add as AddIcon, Close as CloseIcon } from "@mui/icons-material";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUserAsync } from "../redux/slices/usersSlice";
 
-export default function AddUserDialog (props) {
+export default function AddUserDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     userName: "",
@@ -30,13 +27,14 @@ export default function AddUserDialog (props) {
     phone: "",
     team: "",
     teamId: "",
-    priority: "1"
+    priority: "1",
   });
   const { userName, email, phone, team, priority } = formValue;
 
   const { teamName, teamId } = props;
 
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   const handleOpen = () => {
     setOpen(true);
@@ -44,7 +42,7 @@ export default function AddUserDialog (props) {
       return {
         ...prevState,
         team: teamName,
-        teamId: teamId
+        teamId: teamId,
       };
     });
   };
@@ -56,7 +54,7 @@ export default function AddUserDialog (props) {
         userName: "",
         email: "",
         phone: "",
-        priority: "1"
+        priority: "1",
       };
     });
   };
@@ -74,7 +72,7 @@ export default function AddUserDialog (props) {
       phone: phone.trim(),
       team: team.trim(),
       teamId: teamId.trim(),
-      priority: parseInt(priority.trim())
+      priority: parseInt(priority.trim()),
     };
     dispatch(addUserAsync(newUserData));
     handleClose();
@@ -85,21 +83,25 @@ export default function AddUserDialog (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
     });
   };
 
   return (
     <>
-      <IconButton onClick={handleOpen} size='small'>
+      <IconButton
+        onClick={handleOpen}
+        sx={{ color: darkMode ? "#d3d0ca" : "" }}
+        size="small"
+      >
         <AddIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='xs'>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
         <DialogTitle>
           <Grid sx={styles.dialogTitle}>
             {`Add new user to ${teamName}`}
-            <IconButton onClick={handleClose} size='small'>
+            <IconButton onClick={handleClose} size="small">
               <CloseIcon />
             </IconButton>
           </Grid>
@@ -108,30 +110,30 @@ export default function AddUserDialog (props) {
           <DialogContent sx={styles.dialogContent}>
             <TextField
               required
-              id='name'
-              name='userName'
-              type='name'
-              label='Name'
+              id="name"
+              name="userName"
+              type="name"
+              label="Name"
               value={userName}
               onChange={handleChange}
               sx={styles.textField}
               fullWidth
             />
             <TextField
-              id='email'
-              name='email'
-              type='email'
-              label='Email'
+              id="email"
+              name="email"
+              type="email"
+              label="Email"
               value={email}
               onChange={handleChange}
               sx={styles.textField}
               fullWidth
             />
             <TextField
-              id='phone'
-              name='phone'
-              type='phone'
-              label='Phone'
+              id="phone"
+              name="phone"
+              type="phone"
+              label="Phone"
               value={phone}
               onChange={handleChange}
               sx={styles.textField}
@@ -139,10 +141,10 @@ export default function AddUserDialog (props) {
             />
             <TextField
               required
-              id='priority'
-              name='priority'
-              type='priority'
-              label='Priority'
+              id="priority"
+              name="priority"
+              type="priority"
+              label="Priority"
               value={priority}
               onChange={handleChange}
               sx={styles.textField}
@@ -150,8 +152,9 @@ export default function AddUserDialog (props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleSubmit} variant='outlined' color='secondary' type='submit'>
-              <AddIcon sx={styles.icon} />create user
+            <Button onClick={handleSubmit} variant="outlined" type="submit">
+              <AddIcon sx={styles.icon} />
+              create user
             </Button>
           </DialogActions>
         </form>
@@ -162,5 +165,5 @@ export default function AddUserDialog (props) {
 
 AddUserDialog.propTypes = {
   teamId: PropTypes.string.isRequired,
-  teamName: PropTypes.string.isRequired
+  teamName: PropTypes.string.isRequired,
 };

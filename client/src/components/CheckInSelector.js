@@ -34,6 +34,7 @@ export default function CheckInSelector (props) {
   const userId = props.user._id;
   const subscribedCheckInPeriod = useSelector((state) => selectUser(state, userId));
   const subscriberExcludedUser = useSelector((state) => state.users.subscriberExcludedUser);
+  const darkMode = useSelector((state) => state.account.darkMode);
   const [checkInPeriod, setCheckInPeriod] = React.useState(props.user.checkIn);
   const [checkInText, setCheckInText] = React.useState("––");
   const [styling, setStyling] = React.useState(styles.selectNone);
@@ -86,7 +87,7 @@ export default function CheckInSelector (props) {
           sx={styling}
         />
       </Grid>
-      <Grid item sx={styles.checkInText}>
+      <Grid item sx={{ ...styles.checkInText, color: darkMode ? "#d3d0ca" : "black" }}>
         {checkInText}
       </Grid>
     </Grid>

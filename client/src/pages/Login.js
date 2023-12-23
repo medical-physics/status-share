@@ -104,7 +104,7 @@ export default function Login() {
                 label="Remember me"
                 sx={styles.checkboxContainer}
               />
-              <button type="submit">
+              <button type="submit" style={{ color: darkMode ? "#0D1117" : "white" }}>
                 {loading ? (
                   <CircularProgress
                     size={15}
