@@ -11,20 +11,20 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  TextField
+  TextField,
 } from "@mui/material";
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
   Send as SendIcon,
-  Close as CloseIcon
+  Close as CloseIcon,
 } from "@mui/icons-material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { editProfileAsync, deleteUserAsync } from "../redux/slices/usersSlice";
 
-export default function EditProfile (props) {
+export default function EditProfile(props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     profileName: "",
@@ -32,7 +32,7 @@ export default function EditProfile (props) {
     email: "",
     team: "",
     memo: "",
-    priority: ""
+    priority: "",
   });
 
   const { profileName, phone, email, team, memo, priority } = formValue;
@@ -58,7 +58,7 @@ export default function EditProfile (props) {
       email: user.email,
       memo: user.memo,
       team: user.team,
-      priority: user.priority.toString()
+      priority: user.priority.toString(),
     });
   };
 
@@ -67,7 +67,7 @@ export default function EditProfile (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
     });
   };
@@ -81,7 +81,7 @@ export default function EditProfile (props) {
       memo,
       team: team.trim(),
       userId: user._id,
-      priority: parseInt(priority)
+      priority: parseInt(priority),
     };
     dispatch(editProfileAsync(profileData));
     handleClose();
@@ -115,11 +115,11 @@ export default function EditProfile (props) {
           edit
         </div>
       </Button>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogTitle>
           <Grid sx={styles.dialogTitle}>
             {`Edit ${user.name}'s profile`}
-            <IconButton onClick={handleClose} size='small'>
+            <IconButton onClick={handleClose} size="small">
               <CloseIcon />
             </IconButton>
           </Grid>
@@ -128,20 +128,20 @@ export default function EditProfile (props) {
           <DialogContent sx={styles.dialogContent}>
             <Grid container sx={styles.shortTextContainer}>
               <TextField
-                id='phone'
-                name='phone'
-                type='phone'
-                label='Phone'
+                id="phone"
+                name="phone"
+                type="phone"
+                label="Phone"
                 placeholder={user.phone}
                 value={phone}
                 onChange={handleChange}
                 sx={styles.shortText}
               />
               <TextField
-                id='email'
-                name='email'
-                type='email'
-                label='Email'
+                id="email"
+                name="email"
+                type="email"
+                label="Email"
                 placeholder={user.email}
                 value={email}
                 onChange={handleChange}
@@ -149,13 +149,13 @@ export default function EditProfile (props) {
               />
             </Grid>
             <TextField
-              id='memo'
-              name='memo'
-              type='memo'
-              label='Memo'
-              variant='filled'
+              id="memo"
+              name="memo"
+              type="memo"
+              label="Memo"
+              variant="filled"
               multiline
-              rows='2'
+              rows="2"
               placeholder={user.memo}
               value={memo}
               onChange={handleChange}
@@ -165,8 +165,8 @@ export default function EditProfile (props) {
             {JSON.parse(localStorage.getItem("admin")) && (
               <>
                 <TextField
-                  name='profileName'
-                  label='Name'
+                  name="profileName"
+                  label="Name"
                   placeholder={user.name}
                   value={profileName}
                   onChange={handleChange}
@@ -174,10 +174,10 @@ export default function EditProfile (props) {
                   sx={styles.otherText}
                 />
                 <TextField
-                  id='priority'
-                  name='priority'
-                  type='priority'
-                  label='Priority (e.g. 1)'
+                  id="priority"
+                  name="priority"
+                  type="priority"
+                  label="Priority (e.g. 1)"
                   placeholder={user.priority.toString()}
                   value={priority}
                   onChange={handleChange}
@@ -198,8 +198,14 @@ export default function EditProfile (props) {
                 delete
               </Button>
             )}
-            <Button onClick={handleSubmit} variant='outlined' color='secondary' type='submit'>
-              <SendIcon sx={styles.icon} />submit
+            <Button
+              onClick={handleSubmit}
+              variant="outlined"
+              color="secondary"
+              type="submit"
+            >
+              <SendIcon sx={styles.icon} />
+              submit
             </Button>
           </DialogActions>
         </form>
@@ -209,5 +215,5 @@ export default function EditProfile (props) {
 }
 
 EditProfile.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
