@@ -14,6 +14,7 @@ import {
   TextField
 } from "@mui/material";
 import {
+  Delete as DeleteIcon,
   Edit as EditIcon,
   Send as SendIcon,
   Close as CloseIcon
@@ -21,7 +22,7 @@ import {
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { editProfileAsync } from "../redux/slices/usersSlice";
+import { editProfileAsync, deleteUserAsync } from "../redux/slices/usersSlice";
 
 export default function EditProfile (props) {
   const [open, setOpen] = React.useState(false);
@@ -38,6 +39,7 @@ export default function EditProfile (props) {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
+  const darkMode = useSelector((state) => state.account.darkMode);
 
   const handleOpen = () => {
     setOpen(true);
@@ -85,10 +87,33 @@ export default function EditProfile (props) {
     handleClose();
   };
 
+  const handleDelete = () => {
+    dispatch(deleteUserAsync(user._id));
+    handleClose();
+  };
+
   return (
     <>
-      <Button onClick={handleOpen} variant='outlined' color='secondary'>
-        <EditIcon sx={styles.icon} />  edit
+      <Button
+        variant="contained"
+        disableElevation
+        color="primary"
+        onClick={handleOpen}
+        type="submit"
+        sx={{
+          color: darkMode ? "#31304D" : "#EEEEEE",
+          padding: "5px 10px 3px 7px",
+          "&:hover": { backgroundColor: "#2FA2B9" },
+          marginRight: "15px",
+          marginBottom: "1vh",
+        }}
+      >
+        <div className="button-content">
+          <EditIcon
+            sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+          />
+          edit
+        </div>
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
         <DialogTitle>
@@ -163,6 +188,16 @@ export default function EditProfile (props) {
             )}
           </DialogContent>
           <DialogActions>
+            {JSON.parse(localStorage.getItem("admin")) && (
+              <Button
+                onClick={handleDelete}
+                style={{ color: "#ef5350" }}
+                variant="outlined"
+              >
+                <DeleteIcon sx={styles.buttonIcon} />
+                delete
+              </Button>
+            )}
             <Button onClick={handleSubmit} variant='outlined' color='secondary' type='submit'>
               <SendIcon sx={styles.icon} />submit
             </Button>
