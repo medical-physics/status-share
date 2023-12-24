@@ -12,13 +12,13 @@ import { useSelector } from "react-redux";
 
 export default function ProfileButton(props) {
   const { onClick, unreadMessages, name } = props;
-  const tooltipString = "Unread messages: " + unreadMessages;
+  const tooltipString = "New messages: " + unreadMessages;
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
 
   if (unreadMessages > 0) {
     return (
-      <Tooltip title={tooltipString} arrow>
+      <Tooltip title={tooltipString} arrow className="tooltip">
         <div className="container">
           {!isMobile && (
             <IconButton
@@ -41,7 +41,7 @@ export default function ProfileButton(props) {
     );
   } else {
     return (
-      <Tooltip title={tooltipString} arrow>
+      <Tooltip title={tooltipString} arrow className="tooltip">
         <div className="container">
           {!isMobile && (
             <IconButton

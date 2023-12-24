@@ -2,3 +2,9 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 400px) {
+  .contact-line {
+    margin-left: -10px;
+  }
+}

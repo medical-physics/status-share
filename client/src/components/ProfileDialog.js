@@ -48,6 +48,7 @@ export default function ProfileDialog(props) {
   const { status, statusTime, phone, email, team, memo } = user;
   const loading = useSelector((state) => state.UI.loading);
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     dispatch(getUserAsync(userId));
@@ -79,70 +80,49 @@ export default function ProfileDialog(props) {
           </IconButton>
         </Grid>
       </DialogTitle>
-      <DialogContent sx={styles.dialogContent}>
+      <DialogContent
+        sx={{ ...styles.dialogContent }}
+      >
         <div style={{ color: darkMode ? "#d3d0ca" : "" }}>
           {phone && (
-            <div className="contact-line" style={{ marginBottom: "5px" }}>
-              <PhoneIcon color="secondary" sx={styles.icon} />
+            <div className="contact-line" style={{ marginBottom: "7px" }}>
+              <PhoneIcon
+                color="secondary"
+                sx={{ ...styles.icon, marginTop: 0 }}
+              />
               {phone}
             </div>
           )}
           {email && (
-            <div className="contact-line" style={{ marginBottom: "5px" }}>
-              <EmailIcon color="secondary" sx={styles.icon} />
+            <div className="contact-line" style={{ marginBottom: "7px" }}>
+              <EmailIcon
+                color="secondary"
+                sx={{ ...styles.icon, marginTop: 0 }}
+              />
               {email}
             </div>
           )}
           {team && (
             <div className="contact-line">
-              <GroupIcon color="secondary" sx={styles.icon} />
+              <GroupIcon
+                color="secondary"
+                sx={{ ...styles.icon, marginTop: 0 }}
+              />
               {team}
             </div>
           )}
         </div>
-        <Grid
-          container
-          sx={{ color: darkMode ? "#d3d0ca" : "", marginTop: "15px" }}
-        >
-          <Grid item>
-            <Typography component="div" sx={styles.statusText}>
-              <Box fontWeight="fontWeightBold" m={1}>
-                Status:{" "}
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.statusText} noWrap>
-              {status}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container sx={{ color: darkMode ? "#d3d0ca" : "" }}>
-          <Grid item>
-            <Typography component="div" sx={styles.text2}>
-              <Box fontWeight="fontWeightBold" m={1}>
-                Since:{" "}
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.text2}>
-              {dayjs(statusTime).format("h:mm a, MMM DD YYYY")}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container sx={{ color: darkMode ? "#d3d0ca" : "" }}>
-          <Grid item>
-            <Typography component="div" sx={styles.text2}>
-              <Box fontWeight="fontWeightBold" m={1}>
-                Memo:{" "}
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.text2}>{memo}</Typography>
-          </Grid>
-        </Grid>
+        <div style={{ color: darkMode ? "#d3d0ca" : "", marginTop: "30px" }}>
+          <div style={{ marginTop: "15px" }}>{`Status: ${status}`}</div>
+          <div style={{ marginTop: "15px" }}>
+            {`Since: ${
+              isMobile
+                ? dayjs(statusTime).format("h:mm a, MMM DD")
+                : dayjs(statusTime).format("h:mm a, MMM DD YYYY")
+            }`}
+          </div>
+          <div style={{ marginTop: "15px" }}>{`Memo: ${memo}`}</div>
+        </div>
       </DialogContent>
       <DialogActions>
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
@@ -171,6 +151,7 @@ export default function ProfileDialog(props) {
             border: "1px solid",
             borderRadius: "7px",
             borderColor: darkMode ? "#7A7A7A" : "",
+            width: isMobile ? "90%" : "400px",
           },
           "& .MuiDialogTitle-root": {
             backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
