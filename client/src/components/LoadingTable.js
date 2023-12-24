@@ -76,25 +76,15 @@ export default function LoadingTable() {
                 }}
               >
                 <TableCell sx={styles.tableCell}>
-                  <Grid container alignItems="center" spacing={1}>
-                    <Grid item>
-                      <IconButton
-                        size="small"
-                        sx={{ color: darkMode ? "#d3d0ca" : "black" }}
-                      >
-                        <AccountCircleIcon />
-                      </IconButton>
-                    </Grid>
-                    <Grid
-                      item
-                      sx={{
-                        ...styles.box,
-                        color: darkMode ? "#d3d0ca" : "black",
-                      }}
+                  <div style={{ color: darkMode ? "#d3d0ca" : "black" }}>
+                    <IconButton
+                      size="small"
+                      sx={{ color: darkMode ? "#d3d0ca" : "black" }}
                     >
+                      <AccountCircleIcon />
+                    </IconButton>
                       Loading...
-                    </Grid>
-                  </Grid>
+                  </div>
                 </TableCell>
                 <TableCell align="center">
                   <IconButton size="small">

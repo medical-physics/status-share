@@ -1,12 +1,10 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { authenticate } from "../util/Authenticator";
 import styles from "../styles/pages/Home.json";
 import "../styles/pages/home.css";
 
 // Components
 import NavBar from "../components/NavBar";
-import UpdateBar from "../components/UpdateBar";
 import TeamTable from "../components/TeamTable";
 import LoadingTable from "../components/LoadingTable";
 import SocketWrapper from "../util/stream/SocketWrapper";
@@ -49,6 +47,7 @@ export default function Home() {
   const teamMembersMap = useSelector((state) => selectTeamMembersMap(state));
   const isTokenValid = useSelector((state) => selectIsAccessTokenValid(state));
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const [showLoadingTables, setShowLoadingTables] = React.useState(true);
 
@@ -106,7 +105,11 @@ export default function Home() {
             <>
               {LOADING_TABLES_ARRAY.map((number) => {
                 return (
-                  <Grid key={number} item sx={styles.table}>
+                  <Grid
+                    key={number}
+                    item
+                    sx={{ ...styles.table, minWidth: isMobile ? "90%" : "" }}
+                  >
                     <LoadingTable />
                   </Grid>
                 );
@@ -120,7 +123,7 @@ export default function Home() {
                   <Box
                     key={team._id}
                     order={teamDetailsMap[team._id].priority}
-                    sx={styles.table}
+                    sx={{ ...styles.table, minWidth: isMobile ? "90%" : "" }}
                   >
                     <TeamTable
                       teamMembers={teamMembersMap[team._id] || []}
