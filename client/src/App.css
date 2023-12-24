@@ -4,6 +4,9 @@ body{
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
   margin: 0;
+  .dark-mode-global {
+    background-color: #0D1117;
+  }
 }
 
 @font-face {

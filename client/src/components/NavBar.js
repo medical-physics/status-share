@@ -55,8 +55,10 @@ export default function NavBar() {
 
   React.useEffect(() => {
     if (darkMode) {
+      document.body.classList.add("dark-mode-global");
       document.body.classList.add("dark-scrollbar");
     } else {
+      document.body.classList.remove("dark-mode-global");
       document.body.classList.remove("dark-scrollbar");
     }
   }, [darkMode]);
