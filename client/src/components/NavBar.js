@@ -94,7 +94,7 @@ export default function NavBar() {
       <div className={navBarClasses + (darkMode ? " dark-mode" : "")}>
         <div className="title-container">
           <img src={BcCancerLogo} className={logoClasses} />
-          {!isMobile && <p className="app-name">{appName}</p>}
+          {(!isMobile || !authenticated) && <p className="app-name">{appName}</p>}
         </div>
         <div className="title-container" style={{ marginRight: "4vw" }}>
           <DarkModeSwitch />
