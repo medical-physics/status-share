@@ -11,8 +11,8 @@ import {
 import { useSelector } from "react-redux";
 
 export default function ProfileButton(props) {
-  const { onClick, unreadMessages, name } = props;
-  const tooltipString = "New messages: " + unreadMessages;
+  const { onClick, unreadMessages, name, memo } = props;
+  const tooltipString = unreadMessages ? "New messages: " + unreadMessages : "Memo: " + memo;
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
 
@@ -30,7 +30,7 @@ export default function ProfileButton(props) {
               {
                 name: "offset",
                 options: {
-                  offset: [0, -18],
+                  offset: [0, -17],
                 },
               },
             ],
@@ -73,7 +73,7 @@ export default function ProfileButton(props) {
               {
                 name: "offset",
                 options: {
-                  offset: [0, -18],
+                  offset: [0, -17],
                 },
               },
             ],
@@ -113,4 +113,5 @@ ProfileButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   unreadMessages: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  memo: PropTypes.string.isRequired,
 };

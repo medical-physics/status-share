@@ -41,7 +41,7 @@ function capitalize(string) {
 export default function ProfileDialog(props) {
   const [open, setOpen] = React.useState(false);
 
-  const { unreadMessages, userId, name } = props;
+  const { unreadMessages, userId, name, teamSize } = props;
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
@@ -129,7 +129,7 @@ export default function ProfileDialog(props) {
       </DialogContent>
       <DialogActions>
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <EditProfileDialog onClose={handleClose} />
+          <EditProfileDialog teamSize={teamSize} onClose={handleClose} />
         )}
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
           <InboxDialog userId={userId} onClose={handleClose} />
@@ -144,6 +144,7 @@ export default function ProfileDialog(props) {
         onClick={handleOpen}
         unreadMessages={unreadMessages}
         name={name}
+        memo={memo}
       />
       <Dialog
         open={open}
@@ -177,4 +178,5 @@ ProfileDialog.propTypes = {
   userId: PropTypes.string.isRequired,
   unreadMessages: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  teamSize: PropTypes.number.isRequired,
 };

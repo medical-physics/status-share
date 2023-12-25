@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "../styles/components/EditProfileDialog.json";
+import "../styles/components/edit-profile-dialog.css";
 
 // MUI components
 import {
@@ -11,7 +12,6 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  TextField,
 } from "@mui/material";
 import {
   Delete as DeleteIcon,
@@ -35,6 +35,7 @@ export default function EditProfileDialog(props) {
     priority: "",
   });
 
+  const { teamSize } = props;
   const { profileName, phone, email, team, memo, priority } = formValue;
 
   const dispatch = useDispatch();
@@ -103,110 +104,165 @@ export default function EditProfileDialog(props) {
         type="submit"
         sx={{
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: isMobile ? "5px 10px 3px 7px" : "5px 10px 2px 7px",
+          padding: isMobile ? "5px 10px 3px 10px" : "5px 10px 2px 10px",
           "&:hover": { backgroundColor: "#2FA2B9" },
           marginRight: "5px",
           marginBottom: "1vh",
         }}
       >
-        <div className="button-content">
+        <div className="button-content" style={{ marginRight: "8px" }}>
           <EditIcon
-            sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+            sx={{ ...styles.icon, margin: "-1px 5px auto 3px" }}
           />
           edit
         </div>
       </Button>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+            width: isMobile ? "90%" : "400px",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         <DialogTitle>
-          <Grid sx={styles.dialogTitle}>
+          <Grid
+            sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}
+          >
             {`Edit ${user.name}'s profile`}
             <IconButton onClick={handleClose} size="small">
-              <CloseIcon />
+              <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
             </IconButton>
           </Grid>
         </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
-            <Grid container sx={styles.shortTextContainer}>
-              <TextField
-                id="phone"
-                name="phone"
-                type="phone"
-                label="Phone"
-                placeholder={user.phone}
-                value={phone}
-                onChange={handleChange}
-                sx={styles.shortText}
-              />
-              <TextField
-                id="email"
-                name="email"
-                type="email"
-                label="Email"
-                placeholder={user.email}
-                value={email}
-                onChange={handleChange}
-                sx={styles.shortText}
-              />
-            </Grid>
-            <TextField
-              id="memo"
-              name="memo"
-              type="memo"
-              label="Memo"
-              variant="filled"
-              multiline
-              rows="2"
-              placeholder={user.memo}
-              value={memo}
+            <input
+              className={
+                "profile-input text-input" + (darkMode ? " dark-mode" : "")
+              }
+              placeholder="Name"
+              name="profileName"
+              type="text"
+              value={profileName}
               onChange={handleChange}
-              fullWidth
-              sx={styles.memo}
+            />
+            <input
+              className={
+                "profile-input text-input" + (darkMode ? " dark-mode" : "")
+              }
+              placeholder="Email"
+              name="email"
+              type="text"
+              value={email}
+              onChange={handleChange}
+              style={{ marginTop: "15px" }}
+            />
+            <input
+              className={
+                "profile-input text-input" + (darkMode ? " dark-mode" : "")
+              }
+              placeholder="Phone"
+              name="phone"
+              type="text"
+              value={phone}
+              onChange={handleChange}
+              style={{ marginTop: "15px" }}
             />
             {JSON.parse(localStorage.getItem("admin")) && (
-              <>
-                <TextField
-                  name="profileName"
-                  label="Name"
-                  placeholder={user.name}
-                  value={profileName}
-                  onChange={handleChange}
-                  fullWidth
-                  sx={styles.otherText}
-                />
-                <TextField
-                  id="priority"
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "start",
+                }}
+              >
+                <p
+                  style={{
+                    color: darkMode ? "#d3d0ca" : "",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Priority
+                </p>
+                <input
+                  className={
+                    "profile-input number-input" +
+                    (darkMode ? " dark-mode" : "")
+                  }
                   name="priority"
-                  type="priority"
-                  label="Priority (e.g. 1)"
-                  placeholder={user.priority.toString()}
+                  type="number"
                   value={priority}
                   onChange={handleChange}
-                  fullWidth
-                  sx={styles.otherText}
+                  style={{ marginLeft: "15px" }}
+                  min={1}
+                  max={teamSize}
                 />
-              </>
+              </div>
             )}
           </DialogContent>
           <DialogActions>
             {JSON.parse(localStorage.getItem("admin")) && (
               <Button
+                variant="contained"
+                disableElevation
                 onClick={handleDelete}
-                style={{ color: "#ef5350" }}
-                variant="outlined"
+                sx={{
+                  backgroundColor: "#FA7070",
+                  color: darkMode ? "#31304D" : "#EEEEEE",
+                  padding: isMobile ? "5px 10px 3px 8px" : "5px 10px 2px 8px",
+                  "&:hover": { backgroundColor: "#BE3144" },
+                  marginRight: "5px",
+                  marginBottom: "1vh",
+                }}
               >
-                <DeleteIcon sx={styles.buttonIcon} />
-                delete
+                <div className="button-content">
+                  <DeleteIcon
+                    sx={{
+                      ...styles.icon,
+                      marginTop: "-1px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  delete
+                </div>
               </Button>
             )}
             <Button
+              variant="contained"
+              disableElevation
+              color="primary"
               onClick={handleSubmit}
-              variant="outlined"
-              color="secondary"
               type="submit"
+              sx={{
+                color: darkMode ? "#31304D" : "#EEEEEE",
+                padding: isMobile ? "5px 10px 3px 10px" : "5px 10px 2px 10px",
+                "&:hover": { backgroundColor: "#2FA2B9" },
+                marginRight: "15px",
+                marginBottom: "1vh",
+              }}
             >
-              <SendIcon sx={styles.icon} />
-              submit
+              <div className="button-content">
+                <SendIcon
+                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+                />
+                submit
+              </div>
             </Button>
           </DialogActions>
         </form>
@@ -217,4 +273,5 @@ export default function EditProfileDialog(props) {
 
 EditProfileDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
+  teamSize: PropTypes.number.isRequired,
 };

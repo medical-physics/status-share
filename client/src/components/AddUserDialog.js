@@ -110,6 +110,7 @@ export default function AddUserDialog(props) {
             border: "1px solid",
             borderRadius: "7px",
             borderColor: darkMode ? "#7A7A7A" : "",
+            width: isMobile ? "90%" : "400px",
           },
           "& .MuiDialogTitle-root": {
             backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",

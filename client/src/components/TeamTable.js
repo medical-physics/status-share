@@ -151,6 +151,7 @@ export default function TeamTable(props) {
                     userId={row.userId}
                     unreadMessages={row.user.unreadMessages}
                     name={row.user.name}
+                    teamSize={teamMembers.length || 0}
                   />
                 </TableCell>
                 <TableCell align="center">

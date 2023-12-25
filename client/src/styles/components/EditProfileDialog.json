@@ -4,7 +4,7 @@
   },
   "dialogContent": {
     "textAlign": "center",
-    "height": 300
+    "minHeight": 250
   },
   "memo": {
     "marginTop": 2
