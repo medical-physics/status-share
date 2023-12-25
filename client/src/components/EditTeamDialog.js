@@ -7,7 +7,6 @@ import "../styles/components/edit-team-dialog.css";
 // MUI components
 import {
   Checkbox,
-  TextField,
   Dialog,
   DialogActions,
   Button,
@@ -115,7 +114,7 @@ export default function EditTeamDialog(props) {
     <>
       <DialogTitle>
         <Grid sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}>
-          {`Edit ${teamDetails.team}`}
+          {`Edit team ${teamDetails.team}`}
           <IconButton onClick={handleClose} size="small">
             <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
           </IconButton>

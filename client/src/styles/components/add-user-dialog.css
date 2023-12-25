@@ -20,3 +20,9 @@
   min-width: 0;
   width: 15% !important;
 }
+
+@media (max-width: 500px) {
+  .user-input.text-input {
+    min-width: 94%;
+  }
+}

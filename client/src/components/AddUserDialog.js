@@ -134,7 +134,9 @@ export default function AddUserDialog(props) {
         <form>
           <DialogContent sx={styles.dialogContent}>
             <input
-              className={"user-input" + (darkMode ? " dark-mode" : "")}
+              className={
+                "user-input text-input" + (darkMode ? " dark-mode" : "")
+              }
               placeholder="Name*"
               name="userName"
               type="text"
@@ -142,7 +144,9 @@ export default function AddUserDialog(props) {
               onChange={handleChange}
             />
             <input
-              className={"user-input" + (darkMode ? " dark-mode" : "")}
+              className={
+                "user-input text-input" + (darkMode ? " dark-mode" : "")
+              }
               placeholder="Email"
               name="email"
               type="text"
@@ -151,7 +155,9 @@ export default function AddUserDialog(props) {
               style={{ marginTop: "15px" }}
             />
             <input
-              className={"user-input" + (darkMode ? " dark-mode" : "")}
+              className={
+                "user-input text-input" + (darkMode ? " dark-mode" : "")
+              }
               placeholder="Phone"
               name="phone"
               type="text"
@@ -203,7 +209,7 @@ export default function AddUserDialog(props) {
               <AddIcon
                 sx={{ ...styles.icon, marginTop: "-2px", marginRight: "3px" }}
               />
-                create
+              create
             </Button>
           </DialogActions>
         </form>

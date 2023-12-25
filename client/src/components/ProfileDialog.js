@@ -80,9 +80,7 @@ export default function ProfileDialog(props) {
           </IconButton>
         </Grid>
       </DialogTitle>
-      <DialogContent
-        sx={{ ...styles.dialogContent }}
-      >
+      <DialogContent sx={{ ...styles.dialogContent }}>
         <div style={{ color: darkMode ? "#d3d0ca" : "" }}>
           {phone && (
             <div className="contact-line" style={{ marginBottom: "7px" }}>
@@ -113,15 +111,20 @@ export default function ProfileDialog(props) {
           )}
         </div>
         <div style={{ color: darkMode ? "#d3d0ca" : "", marginTop: "30px" }}>
-          <div style={{ marginTop: "15px" }}>{`Status: ${status}`}</div>
           <div style={{ marginTop: "15px" }}>
-            {`Since: ${
-              isMobile
-                ? dayjs(statusTime).format("h:mm a, MMM DD")
-                : dayjs(statusTime).format("h:mm a, MMM DD YYYY")
-            }`}
+            <b>Status: </b>
+            {status}
           </div>
-          <div style={{ marginTop: "15px" }}>{`Memo: ${memo}`}</div>
+          <div style={{ marginTop: "15px" }}>
+            <b>Since: </b>
+            {isMobile
+              ? dayjs(statusTime).format("h:mm a, MMM DD")
+              : dayjs(statusTime).format("h:mm a, MMM DD YYYY")}
+          </div>
+          <div style={{ marginTop: "15px" }}>
+            <b>Memo: </b>
+            {memo}
+          </div>
         </div>
       </DialogContent>
       <DialogActions>

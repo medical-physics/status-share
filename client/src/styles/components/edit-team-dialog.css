@@ -1,9 +1,9 @@
 
 @media (max-width: 500px) {
   .name-line {
-    width: 85%;
+    min-width: 94%;
   }
   .col-name-line {
-    margin-right: -4px;
+    margin-right: -2px;
   }
 }
