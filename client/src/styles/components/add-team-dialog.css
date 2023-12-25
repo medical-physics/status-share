@@ -1,0 +1,65 @@
+.team-input {
+  height: 50px;
+  background-color: white;
+  border: 1px solid;
+  border-color: #7A7A7A;
+  border-radius: 5px;
+  color: #7A7A7A;
+  padding-left: 10px;
+  font-size: 15px;
+}
+
+.team-input.dark-mode {
+  background-color: #21262D;
+  border-color: #7A7A7A;
+  color: #7A7A7A;
+}
+
+.team-input.full-size {
+  min-width: 97%;
+}
+
+.team-input.half-size {
+  max-width: 45%;
+}
+
+.team-input.quarter-size {
+  max-width: 25%;
+}
+
+.name-line {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.col-name-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.check-in-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.check-in-line.dark-mode {
+  color: #d3d0ca;
+}
+
+.priority-container {
+  display: flex;
+  align-items: center;
+  max-width: 40%
+}
+
+.color-picker {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

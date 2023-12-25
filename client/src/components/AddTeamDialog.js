@@ -1,6 +1,7 @@
 import React from "react";
 import { GithubPicker } from "react-color";
 import styles from "../styles/components/AddTeamDialog.json";
+import "../styles/components/add-team-dialog.css";
 
 // MUI components
 import {
@@ -11,7 +12,6 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  TextField,
   Grid,
 } from "@mui/material";
 import { Close as CloseIcon, Add as AddIcon } from "@mui/icons-material";
@@ -38,12 +38,23 @@ export default function AddTeamDialog() {
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.account.darkMode);
+  const teamCount = useSelector((state) => state.teams.teams?.length);
 
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setFormValue({
+      team: "",
+      priority: "1",
+      color: "",
+      col1: "Name",
+      col2: "Present",
+      col3: "Status",
+      checkInCol: false,
+      hyperlink: "",
+    });
     setOpen(false);
   };
 
@@ -57,20 +68,17 @@ export default function AddTeamDialog() {
       col2: col2.trim(),
       col3: col3.trim(),
       checkInCol,
-      hyperlink: hyperlink.trim(),
+      hyperlink: validateHyperLink(hyperlink.trim()),
     };
     dispatch(addTeamAsync(newTeamData));
     handleClose();
-    setFormValue({
-      team: "",
-      priority: "",
-      color: "",
-      col1: "Name",
-      col2: "Present",
-      col3: "Status",
-      checkInCol: false,
-      hyperlink: "",
-    });
+  };
+
+  const validateHyperLink = (hyperlink) => {
+    if (!hyperlink.startsWith("http")) {
+      return "http://" + hyperlink;
+    }
+    return hyperlink;
   };
 
   const handleChange = (event) => {
@@ -110,13 +118,37 @@ export default function AddTeamDialog() {
       >
         <AddIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="xs"
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         <DialogTitle>
-          <Grid sx={styles.dialogTitle}>
+          <Grid
+            sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}
+          >
             Add a new team
             <IconButton
               onClick={handleClose}
-              sx={styles.closeButton}
+              sx={{ ...styles.closeButton, color: darkMode ? "#d3d0ca" : "" }}
               size="small"
             >
               <CloseIcon />
@@ -125,93 +157,125 @@ export default function AddTeamDialog() {
         </DialogTitle>
         <form>
           <DialogContent sx={styles.dialogContent}>
-            <Grid container sx={styles.dialogContainer}>
-              <TextField
-                required
-                id="team"
+            <div className="name-line">
+              <input
+                className={
+                  "team-input half-size" + (darkMode ? " dark-mode" : "")
+                }
+                placeholder="Name*"
                 name="team"
-                type="team"
-                label="Team Name"
+                type="text"
                 value={team}
                 onChange={handleChange}
-                fullWidth
-                sx={styles.textField}
               />
-              <Grid item sx={styles.colorPicker}>
-                <GithubPicker color={color} onChange={handleColorChange} />
-              </Grid>
-              <TextField
-                required
-                id="priority"
-                name="priority"
-                type="priority"
-                label="Priority"
-                value={priority}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                id="col1"
+              <div className="priority-container">
+                <p
+                  style={{
+                    color: darkMode ? "#d3d0ca" : "",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Priority
+                </p>
+                <input
+                  className={
+                    "user-input number-input" + (darkMode ? " dark-mode" : "")
+                  }
+                  name="priority"
+                  type="number"
+                  value={priority}
+                  onChange={handleChange}
+                  style={{ marginLeft: "15px", minWidth: "35%" }}
+                  min={1}
+                  max={teamCount + 1}
+                />
+              </div>
+            </div>
+            <div className="color-picker">
+              <GithubPicker color={color} onChange={handleColorChange} />
+            </div>
+            <div
+              style={{ marginTop: "17px", color: darkMode ? "#d3d0ca" : "" }}
+            >
+              Column headers
+            </div>
+            <div className="col-name-line">
+              <input
+                className={
+                  "team-input quarter-size" + (darkMode ? " dark-mode" : "")
+                }
+                placeholder="Col 1"
                 name="col1"
-                type="col1"
-                label="Col 1 Header"
+                type="text"
                 value={col1}
                 onChange={handleChange}
-                fullWidth
-                sx={styles.textField}
               />
-              <TextField
-                id="col2"
+              <input
+                className={
+                  "team-input quarter-size" + (darkMode ? " dark-mode" : "")
+                }
+                placeholder="Col 2"
                 name="col2"
-                type="col2"
-                label="Col 2 Header"
+                type="text"
                 value={col2}
                 onChange={handleChange}
-                fullWidth
-                sx={styles.textField}
               />
-              <TextField
-                id="col3"
+              <input
+                className={
+                  "team-input quarter-size" + (darkMode ? " dark-mode" : "")
+                }
+                placeholder="Col 3"
                 name="col3"
-                type="col3"
-                label="Col 3 Header"
+                type="text"
                 value={col3}
                 onChange={handleChange}
-                fullWidth
-                sx={styles.textField}
               />
-              <Grid container sx={styles.checkInRow}>
-                <Grid item>Check-In Column</Grid>
-                <Grid item>
-                  <Checkbox
-                    id="checkInCol"
-                    name="checkInCol"
-                    checked={checkInCol}
-                    onChange={handleCheckChange}
-                  />
-                </Grid>
-              </Grid>
-              <TextField
-                id="hyperlink"
-                name="hyperlink"
-                type="hyperlink"
-                label="Hyperlink"
-                value={hyperlink}
-                onChange={handleChange}
-                fullWidth
-                sx={styles.textField}
+            </div>
+            <div className={"check-in-line" + (darkMode ? " dark-mode" : "")}>
+              Check-in column
+              <Checkbox
+                id="checkInCol"
+                name="checkInCol"
+                checked={checkInCol}
+                onChange={handleCheckChange}
+                sx={{
+                  color: darkMode ? "#7A7A7A" : "#0D1117",
+                }}
               />
-            </Grid>
+            </div>
+            <input
+              className={
+                "team-input full-size" + (darkMode ? " dark-mode" : "")
+              }
+              placeholder="Hyperlink"
+              name="hyperlink"
+              type="text"
+              value={hyperlink}
+              onChange={handleChange}
+              style={{ marginTop: "15px" }}
+            />
           </DialogContent>
           <DialogActions>
             <Button
+              variant="contained"
+              disableElevation
+              color="primary"
               onClick={handleSubmit}
-              sx={{ color: darkMode ? "#d3d0ca" : "" }}
-              variant="outlined"
               type="submit"
+              sx={{
+                color: darkMode ? "#31304D" : "#EEEEEE",
+                padding: "5px 10px 3px 5px",
+                "&:hover": { backgroundColor: "#2FA2B9" },
+                marginRight: "15px",
+                marginBottom: "1vh",
+              }}
             >
-              <AddIcon sx={styles.icon} />
-              create team
+              <div className="button-content">
+                <AddIcon
+                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+                />
+                create
+              </div>
             </Button>
           </DialogActions>
         </form>

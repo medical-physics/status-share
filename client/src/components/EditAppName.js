@@ -5,7 +5,6 @@ import "../styles/components/edit-app-name.css";
 // MUI components
 import {
   Grid,
-  TextField,
   Dialog,
   DialogActions,
   Button,
