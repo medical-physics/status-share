@@ -115,7 +115,7 @@ export default function EditAppNameDialog() {
               type="submit"
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
-                padding: "5px 10px 2px 2px",
+                padding: "5px 10px 3px 2px",
                 "&:hover": { backgroundColor: "#2FA2B9" },
                 marginRight: "15px",
                 marginBottom: "1vh",
@@ -123,7 +123,7 @@ export default function EditAppNameDialog() {
             >
               <div className="button-content">
                 <SendIcon
-                  sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
+                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
                 />
                 submit
               </div>

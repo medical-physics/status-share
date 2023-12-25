@@ -1,7 +1,7 @@
 
 @media (max-width: 500px) {
   .name-line {
-    min-width: 94%;
+    justify-content: start;
   }
   .col-name-line {
     margin-right: -2px;

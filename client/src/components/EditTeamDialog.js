@@ -137,7 +137,7 @@ export default function EditTeamDialog(props) {
               <p
                 style={{
                   color: darkMode ? "#d3d0ca" : "",
-                  marginLeft: isMobile ? "-10px" : "14px",
+                  marginLeft: "14px",
                 }}
               >
                 Priority
@@ -227,7 +227,7 @@ export default function EditTeamDialog(props) {
             sx={{
               backgroundColor: "#FA7070",
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 2px 1px",
+              padding: "5px 10px 3px 1px",
               "&:hover": { backgroundColor: "#BE3144" },
               marginRight: "5px",
               marginBottom: "1vh",
@@ -248,14 +248,14 @@ export default function EditTeamDialog(props) {
             type="submit"
             sx={{
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 2px 2px",
+              padding: "5px 10px 3px 2px",
               "&:hover": { backgroundColor: "#2FA2B9" },
               marginRight: "15px",
               marginBottom: "1vh",
             }}
           >
             <div className="button-content">
-              <SendIcon sx={{ ...styles.icon, margin: "-2px 5px auto 10px" }} />
+              <SendIcon sx={{ ...styles.icon, margin: "-1px 5px auto 10px" }} />
               submit
             </div>
           </Button>

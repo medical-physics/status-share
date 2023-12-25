@@ -126,7 +126,7 @@ export default function EditStatusDialog(props) {
             sx={{
               backgroundColor: "#FA7070",
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 2px 2px",
+              padding: "5px 10px 3px 2px",
               "&:hover": { backgroundColor: "#BE3144" },
               marginRight: "5px",
               marginBottom: "1vh",
@@ -147,7 +147,7 @@ export default function EditStatusDialog(props) {
             type="submit"
             sx={{
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 2px 2px",
+              padding: "5px 10px 3px 2px",
               "&:hover": { backgroundColor: "#2FA2B9" },
               marginRight: "15px",
               marginBottom: "1vh",
@@ -155,7 +155,7 @@ export default function EditStatusDialog(props) {
           >
             <div className="button-content">
               <SendIcon
-                sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
+                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
               />
               submit
             </div>
