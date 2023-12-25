@@ -151,7 +151,10 @@ export default function EditTeamDialog(props) {
                 type="number"
                 value={priority}
                 onChange={handleChange}
-                style={{ marginLeft: isMobile ? "5px" : "15px", minWidth: isMobile ? "46%" : "40%" }}
+                style={{
+                  marginLeft: isMobile ? "5px" : "15px",
+                  minWidth: isMobile ? "46%" : "40%",
+                }}
                 min={1}
                 max={teamSize}
               />
@@ -253,9 +256,7 @@ export default function EditTeamDialog(props) {
             }}
           >
             <div className="button-content">
-              <SendIcon
-                sx={{ ...styles.icon, margin: "-2px 5px auto 10px" }}
-              />
+              <SendIcon sx={{ ...styles.icon, margin: "-2px 5px auto 10px" }} />
               submit
             </div>
           </Button>
