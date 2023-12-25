@@ -18,8 +18,6 @@ import {
   CircularProgress,
   Grid,
   IconButton,
-  Typography,
-  Box,
 } from "@mui/material";
 import {
   Group as GroupIcon,
@@ -31,12 +29,6 @@ import {
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { getUserAsync } from "../redux/slices/usersSlice";
-
-const DEFAULT_DIV = <>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>;
-
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 export default function ProfileDialog(props) {
   const [open, setOpen] = React.useState(false);

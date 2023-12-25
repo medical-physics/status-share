@@ -69,11 +69,19 @@ export default function EditTeamDialog(props) {
     event.preventDefault();
     const teamData = {
       ...formValue,
+      hyperlink: validateHyperLink(hyperlink.trim()),
       prevTeam: teamDetails.team,
       priority: parseInt(priority),
     };
     dispatch(updateTeamAsync({ teamId: teamDetails._id, teamData }));
     handleClose();
+  };
+
+  const validateHyperLink = (hyperlink) => {
+    if (hyperlink && !hyperlink.startsWith("http")) {
+      return "http://" + hyperlink;
+    }
+    return hyperlink;
   };
 
   const handleDelete = (event) => {

@@ -104,16 +104,14 @@ export default function EditProfileDialog(props) {
         type="submit"
         sx={{
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: isMobile ? "5px 10px 3px 10px" : "5px 10px 2px 10px",
+          padding: isMobile ? "5px 10px 3px 9px" : "5px 10px 2px 9px",
           "&:hover": { backgroundColor: "#2FA2B9" },
           marginRight: "5px",
           marginBottom: "1vh",
         }}
       >
         <div className="button-content" style={{ marginRight: "8px" }}>
-          <EditIcon
-            sx={{ ...styles.icon, margin: "-1px 5px auto 3px" }}
-          />
+          <EditIcon sx={{ ...styles.icon, margin: "-1px 5px auto 3px" }} />
           edit
         </div>
       </Button>

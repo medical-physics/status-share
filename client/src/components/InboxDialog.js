@@ -76,7 +76,7 @@ export default function InboxDialog(props) {
         sx={{
           backgroundColor: "#A3B763",
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: isMobile ? "5px 10px 3px 7px" : "5px 10px 2px 7px",
+          padding: isMobile ? "5px 10px 3px 10px" : "5px 10px 2px 10px",
           "&:hover": { backgroundColor: "#79AC78" },
           marginRight: "15px",
           marginBottom: "1vh",
