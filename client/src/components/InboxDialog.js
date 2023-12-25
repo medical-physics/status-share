@@ -53,10 +53,10 @@ export default function InboxDialog(props) {
   ) : (
     <div>
       <DialogTitle>
-        <Grid sx={styles.dialogTitle}>
+        <Grid sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}>
           {`Inbox: ${name}`}
           <IconButton onClick={handleClose} size="small">
-            <CloseIcon />
+            <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
           </IconButton>
         </Grid>
       </DialogTitle>
@@ -93,7 +93,29 @@ export default function InboxDialog(props) {
           inbox
         </div>
       </Button>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+            width: isMobile ? "90%" : "750px",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         {dialogMarkup}
       </Dialog>
     </>
