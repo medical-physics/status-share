@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "../styles/components/NavBar.json";
 import "../styles/components/nav-bar.css";
-import { BASE_ENDPOINT } from "../App";
 
 // Components
 import EditAppName from "./EditAppName";
@@ -11,16 +9,7 @@ import DarkModeSwitch from "./DarkModeSwitch";
 import BcCancerLogo from "../images/bc-cancer-logo.png";
 
 // MUI components
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Button,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import { CheckCircleOutline as CheckCircleOutlineIcon } from "@mui/icons-material";
+import { Button } from "@mui/material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -94,9 +83,21 @@ export default function NavBar() {
       <div className={navBarClasses + (darkMode ? " dark-mode" : "")}>
         <div className="title-container">
           <img src={BcCancerLogo} className={logoClasses} />
-          {(!isMobile || !authenticated) && <p className="app-name">{appName}</p>}
+          {(!isMobile || !authenticated) && (
+            <p className="app-name">{appName}</p>
+          )}
+          {!isMobile &&
+            (JSON.parse(localStorage.getItem("admin")) || admin) && (
+            <div style={{ marginLeft: "15px" }}>
+              <EditAppName />
+              <AddTeamDialog />
+            </div>
+          )}
         </div>
-        <div className="title-container" style={{ marginRight: "4vw" }}>
+        <div
+          className="title-container"
+          style={{ marginRight: isMobile && !authenticated ? "7vw" : "4vw" }}
+        >
           <DarkModeSwitch />
           {authenticated && (
             <Button
@@ -109,6 +110,7 @@ export default function NavBar() {
               sx={{
                 marginLeft: "10px",
                 "&:hover": { backgroundColor: "#2FA2B9" },
+                marginRight: isMobile ? "2vw" : "",
               }}
             >
               <p className={"sign-out-button" + (darkMode ? " dark-mode" : "")}>
@@ -118,7 +120,7 @@ export default function NavBar() {
           )}
         </div>
       </div>
-      <div className={"divider" + (authenticated ? " logged-in" : "" )} />
+      <div className={"divider" + (authenticated ? " logged-in" : "")} />
     </div>
   );
 }

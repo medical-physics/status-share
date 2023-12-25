@@ -106,7 +106,7 @@ export default function AddTeamDialog() {
       <IconButton
         onClick={handleOpen}
         size="small"
-        style={{ color: "#ffffff" }}
+        style={{ color: darkMode ? "#d3d0ca" : "" }}
       >
         <AddIcon />
       </IconButton>
