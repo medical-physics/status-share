@@ -73,7 +73,7 @@ export default function AddUserDialog(props) {
       phone: phone.trim(),
       team: team.trim(),
       teamId: teamId.trim(),
-      priority: parseInt(priority.trim()),
+      priority: priority,
     };
     dispatch(addUserAsync(newUserData));
     handleClose();

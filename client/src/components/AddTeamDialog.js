@@ -43,6 +43,12 @@ export default function AddTeamDialog() {
 
   const handleOpen = () => {
     setOpen(true);
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        priority: teamCount + 1,
+      };
+    });
   };
 
   const handleClose = () => {
@@ -63,7 +69,7 @@ export default function AddTeamDialog() {
     event.preventDefault();
     const newTeamData = {
       team: team.trim(),
-      priority: parseInt(priority.trim()),
+      priority: priority,
       color: color.trim(),
       col1: col1.trim(),
       col2: col2.trim(),
