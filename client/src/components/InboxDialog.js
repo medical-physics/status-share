@@ -78,7 +78,7 @@ export default function InboxDialog(props) {
         sx={{
           backgroundColor: "#A3B763",
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: "5px 10px 3px 7px",
+          padding: "5px 10px 2px 7px",
           "&:hover": { backgroundColor: "#79AC78" },
           marginRight: "15px",
           marginBottom: "1vh",
@@ -86,7 +86,7 @@ export default function InboxDialog(props) {
       >
         <div className="button-content">
           <MailIcon
-            sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
+            sx={{ ...styles.icon, marginTop: "-3px", marginRight: "5px" }}
           />
           inbox
         </div>

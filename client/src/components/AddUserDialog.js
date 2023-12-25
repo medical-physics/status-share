@@ -193,14 +193,14 @@ export default function AddUserDialog(props) {
               type="submit"
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
-                padding: "6px 10px 3px 4px",
+                padding: "6px 10px 2px 4px",
                 "&:hover": { backgroundColor: "#2FA2B9" },
                 marginRight: "15px",
                 marginBottom: "1vh",
               }}
             >
               <AddIcon
-                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "3px" }}
+                sx={{ ...styles.icon, marginTop: "-2px", marginRight: "3px" }}
               />
                 create
             </Button>

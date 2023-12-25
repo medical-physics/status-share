@@ -39,7 +39,7 @@ export default function ProfileButton(props) {
           <div className="container" onClick={onClick}>
             {!isMobile && (
               <IconButton
-                style={{ zIndex: 1, marginTop: "-2px", color: "#b4004e" }}
+                style={{ zIndex: 1, marginTop: "-2px", color: "#EF4040" }}
                 size="small"
               >
                 <NotificationsIcon />

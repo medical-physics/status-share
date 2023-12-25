@@ -264,7 +264,7 @@ export default function AddTeamDialog() {
               type="submit"
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
-                padding: "5px 10px 3px 5px",
+                padding: "5px 10px 2px 5px",
                 "&:hover": { backgroundColor: "#2FA2B9" },
                 marginRight: "15px",
                 marginBottom: "1vh",
@@ -272,7 +272,7 @@ export default function AddTeamDialog() {
             >
               <div className="button-content">
                 <AddIcon
-                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+                  sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
                 />
                 create
               </div>
