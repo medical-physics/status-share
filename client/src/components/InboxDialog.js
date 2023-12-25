@@ -80,7 +80,7 @@ export default function InboxDialog(props) {
           color: darkMode ? "#31304D" : "#EEEEEE",
           padding: "5px 10px 3px 7px",
           "&:hover": { backgroundColor: "#79AC78" },
-          marginRight: "5px",
+          marginRight: "15px",
           marginBottom: "1vh",
         }}
       >

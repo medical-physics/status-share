@@ -145,7 +145,7 @@ export default function AddTeamDialog() {
           <Grid
             sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}
           >
-            Add a new team
+            Add new team
             <IconButton
               onClick={handleClose}
               sx={{ ...styles.closeButton, color: darkMode ? "#d3d0ca" : "" }}
@@ -172,7 +172,7 @@ export default function AddTeamDialog() {
                 <p
                   style={{
                     color: darkMode ? "#d3d0ca" : "",
-                    marginLeft: "10px",
+                    marginLeft: "14px",
                   }}
                 >
                   Priority
@@ -185,7 +185,7 @@ export default function AddTeamDialog() {
                   type="number"
                   value={priority}
                   onChange={handleChange}
-                  style={{ marginLeft: "15px", minWidth: "35%" }}
+                  style={{ marginLeft: "15px", minWidth: "40%" }}
                   min={1}
                   max={teamCount + 1}
                 />
@@ -247,7 +247,7 @@ export default function AddTeamDialog() {
               className={
                 "team-input full-size" + (darkMode ? " dark-mode" : "")
               }
-              placeholder="Hyperlink"
+              placeholder="URL"
               name="hyperlink"
               type="text"
               value={hyperlink}

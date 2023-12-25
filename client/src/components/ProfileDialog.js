@@ -126,10 +126,10 @@ export default function ProfileDialog(props) {
       </DialogContent>
       <DialogActions>
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <InboxDialog userId={userId} onClose={handleClose} />
+          <EditProfile onClose={handleClose} />
         )}
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <EditProfile onClose={handleClose} />
+          <InboxDialog userId={userId} onClose={handleClose} />
         )}
       </DialogActions>
     </div>

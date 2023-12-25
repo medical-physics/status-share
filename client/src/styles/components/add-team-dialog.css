@@ -16,7 +16,7 @@
 }
 
 .team-input.full-size {
-  min-width: 97%;
+  min-width: 96%;
 }
 
 .team-input.half-size {
@@ -39,6 +39,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
+  margin-right: 2px;
 }
 
 .check-in-line {

@@ -104,7 +104,7 @@ export default function EditProfile(props) {
           color: darkMode ? "#31304D" : "#EEEEEE",
           padding: "5px 10px 3px 7px",
           "&:hover": { backgroundColor: "#2FA2B9" },
-          marginRight: "15px",
+          marginRight: "5px",
           marginBottom: "1vh",
         }}
       >
