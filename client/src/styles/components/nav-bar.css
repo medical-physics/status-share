@@ -35,6 +35,7 @@ a:link {
   }
   .bc-cancer-logo {
     width: 50px;
+    transition: width 0.3s ease-in-out;
     margin-left: 4vw;
   }
   .bc-cancer-logo.logged-in {
@@ -84,8 +85,17 @@ a:link {
 @media (max-width: 400px) {
   .nav-bar {
     .app-name {
+      margin-left: 4vw;
       font-size: 16px;
       width: 40vw;
+    }
+    .bc-cancer-logo {
+      margin-left: 8vw;
+    }
+    .bc-cancer-logo.logged-in {
+      width: 40px;
+      transition: width 0.3s ease-in-out;
+      margin-left: 6vw;
     }
   }
 }
