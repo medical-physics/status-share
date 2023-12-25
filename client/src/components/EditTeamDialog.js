@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { GithubPicker } from "react-color";
 import styles from "../styles/components/EditTeamDialog.json";
+import "../styles/components/edit-team-dialog.css";
 
 // MUI components
 import {
@@ -45,6 +46,7 @@ export default function EditTeamDialog(props) {
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     setOpen(true);
@@ -136,7 +138,7 @@ export default function EditTeamDialog(props) {
               <p
                 style={{
                   color: darkMode ? "#d3d0ca" : "",
-                  marginLeft: "14px",
+                  marginLeft: isMobile ? "-10px" : "14px",
                 }}
               >
                 Priority
@@ -149,7 +151,7 @@ export default function EditTeamDialog(props) {
                 type="number"
                 value={priority}
                 onChange={handleChange}
-                style={{ marginLeft: "15px", minWidth: "40%" }}
+                style={{ marginLeft: isMobile ? "5px" : "15px", minWidth: isMobile ? "46%" : "40%" }}
                 min={1}
                 max={teamSize}
               />

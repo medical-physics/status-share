@@ -1,0 +1,9 @@
+
+@media (max-width: 400px) {
+  .name-line {
+    width: 85%;
+  }
+  .col-name-line {
+    margin-right: -4px;
+  }
+}
