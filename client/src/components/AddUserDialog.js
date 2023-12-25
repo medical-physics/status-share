@@ -208,7 +208,11 @@ export default function AddUserDialog(props) {
               }}
             >
               <AddIcon
-                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "3px" }}
+                sx={{
+                  ...styles.icon,
+                  marginTop: isMobile ? "0px" : "-2px",
+                  marginRight: "3px",
+                }}
               />
               create
             </Button>

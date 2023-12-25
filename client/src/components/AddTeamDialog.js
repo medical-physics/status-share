@@ -279,7 +279,7 @@ export default function AddTeamDialog() {
             >
               <div className="button-content">
                 <AddIcon
-                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+                  sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
                 />
                 create
               </div>
