@@ -37,6 +37,7 @@ export default function EditStatusDialog(props) {
   const user = useSelector((state) => state.users.user);
   const loading = useSelector((state) => state.UI.loading);
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const mapUserDetailsToState = (focusedUser) => {
     setStatusState(checkUser(focusedUser));
@@ -126,7 +127,7 @@ export default function EditStatusDialog(props) {
             sx={{
               backgroundColor: "#FA7070",
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 3px 2px",
+              padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
               "&:hover": { backgroundColor: "#BE3144" },
               marginRight: "5px",
               marginBottom: "1vh",
@@ -147,7 +148,7 @@ export default function EditStatusDialog(props) {
             type="submit"
             sx={{
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 3px 2px",
+              padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
               "&:hover": { backgroundColor: "#2FA2B9" },
               marginRight: "15px",
               marginBottom: "1vh",

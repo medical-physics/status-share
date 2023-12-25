@@ -35,6 +35,7 @@ export default function AddUserDialog(props) {
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     setOpen(true);
@@ -200,7 +201,7 @@ export default function AddUserDialog(props) {
               type="submit"
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
-                padding: "6px 10px 3px 4px",
+                padding: isMobile ? "6px 10px 3px 4px" : "6px 10px 2px 4px",
                 "&:hover": { backgroundColor: "#2FA2B9" },
                 marginRight: "15px",
                 marginBottom: "1vh",

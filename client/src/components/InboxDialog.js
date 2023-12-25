@@ -15,10 +15,7 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import {
-  Close as CloseIcon,
-  Mail as MailIcon,
-} from "@mui/icons-material";
+import { Close as CloseIcon, Mail as MailIcon } from "@mui/icons-material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +29,7 @@ export default function InboxDialog(props) {
   const { name } = user;
   const loading = useSelector((state) => state.mailbox.loadingMailbox);
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     dispatch(getMailboxAsync(props.userId));
@@ -78,7 +76,7 @@ export default function InboxDialog(props) {
         sx={{
           backgroundColor: "#A3B763",
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: "5px 10px 3px 7px",
+          padding: isMobile ? "5px 10px 3px 7px" : "5px 10px 2px 7px",
           "&:hover": { backgroundColor: "#79AC78" },
           marginRight: "15px",
           marginBottom: "1vh",
@@ -86,7 +84,11 @@ export default function InboxDialog(props) {
       >
         <div className="button-content">
           <MailIcon
-            sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
+            sx={{
+              ...styles.icon,
+              marginTop: isMobile ? "-1px" : "-2px",
+              marginRight: "5px",
+            }}
           />
           inbox
         </div>

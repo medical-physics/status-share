@@ -227,7 +227,7 @@ export default function EditTeamDialog(props) {
             sx={{
               backgroundColor: "#FA7070",
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 3px 1px",
+              padding: isMobile ? "5px 10px 3px 1px" : "5px 10px 2px 1px",
               "&:hover": { backgroundColor: "#BE3144" },
               marginRight: "5px",
               marginBottom: "1vh",
@@ -248,7 +248,7 @@ export default function EditTeamDialog(props) {
             type="submit"
             sx={{
               color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: "5px 10px 3px 2px",
+              padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
               "&:hover": { backgroundColor: "#2FA2B9" },
               marginRight: "15px",
               marginBottom: "1vh",

@@ -40,6 +40,7 @@ export default function EditProfileDialog(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     setOpen(true);
@@ -102,7 +103,7 @@ export default function EditProfileDialog(props) {
         type="submit"
         sx={{
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: "5px 10px 3px 7px",
+          padding: isMobile ? "5px 10px 3px 7px" : "5px 10px 2px 7px",
           "&:hover": { backgroundColor: "#2FA2B9" },
           marginRight: "5px",
           marginBottom: "1vh",

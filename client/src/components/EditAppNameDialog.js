@@ -29,6 +29,7 @@ export default function EditAppNameDialog() {
   const dispatch = useDispatch();
   const appName = useSelector((state) => state.account.appName);
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     setStateAppName(appName);
@@ -115,7 +116,7 @@ export default function EditAppNameDialog() {
               type="submit"
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
-                padding: "5px 10px 3px 2px",
+                padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
                 "&:hover": { backgroundColor: "#2FA2B9" },
                 marginRight: "15px",
                 marginBottom: "1vh",
