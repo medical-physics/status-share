@@ -6,7 +6,7 @@ import "../styles/components/profile-dialog.css";
 
 // Components
 import ProfileButton from "./ProfileButton";
-import EditProfile from "./EditProfile";
+import EditProfileDialog from "./EditProfileDialog";
 import InboxDialog from "./InboxDialog";
 
 // MUI components
@@ -126,7 +126,7 @@ export default function ProfileDialog(props) {
       </DialogContent>
       <DialogActions>
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <EditProfile onClose={handleClose} />
+          <EditProfileDialog onClose={handleClose} />
         )}
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
           <InboxDialog userId={userId} onClose={handleClose} />

@@ -5,9 +5,9 @@ import styles from "../styles/components/TeamTable.json";
 // Components
 import ProfileDialog from "./ProfileDialog";
 import PresenceButton from "./PresenceButton";
-import EditStatus from "./EditStatus";
+import EditStatusDialog from "./EditStatusDialog";
 import AddUserDialog from "./AddUserDialog";
-import EditTeam from "./EditTeam";
+import EditTeamDialog from "./EditTeamDialog";
 import CheckInSelector from "./CheckInSelector";
 
 // MUI components
@@ -84,7 +84,7 @@ export default function TeamTable(props) {
           <Grid item>
             {JSON.parse(localStorage.getItem("admin")) && (
               <>
-                <EditTeam teamDetails={teamDetails} />
+                <EditTeamDialog teamDetails={teamDetails} />
                 <AddUserDialog
                   teamName={teamDetails.team}
                   teamId={teamDetails._id}
@@ -159,7 +159,7 @@ export default function TeamTable(props) {
                   </TableCell>
                 )}
                 <TableCell sx={styles.statusCell}>
-                  <EditStatus userId={row.userId} status={row.status} />
+                  <EditStatusDialog userId={row.userId} status={row.status} />
                 </TableCell>
               </TableRow>
             ))}

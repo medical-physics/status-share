@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { GithubPicker } from "react-color";
-import styles from "../styles/components/EditTeam.json";
+import styles from "../styles/components/EditTeamDialog.json";
 
 // MUI components
 import {
@@ -26,7 +26,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { updateTeamAsync, deleteTeamAsync } from "../redux/slices/teamsSlice";
 
-export default function EditTeam(props) {
+export default function EditTeamDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     team: "",
@@ -242,6 +242,6 @@ export default function EditTeam(props) {
   );
 }
 
-EditTeam.propTypes = {
+EditTeamDialog.propTypes = {
   teamDetails: PropTypes.object.isRequired,
 };

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/components/nav-bar.css";
 
 // Components
-import EditAppName from "./EditAppName";
+import EditAppNameDialog from "./EditAppNameDialog";
 import AddTeamDialog from "./AddTeamDialog";
 import DarkModeSwitch from "./DarkModeSwitch";
 import BcCancerLogo from "../images/bc-cancer-logo.png";
@@ -89,7 +89,7 @@ export default function NavBar() {
           {!isMobile &&
             (JSON.parse(localStorage.getItem("admin")) || admin) && (
             <div style={{ marginLeft: "15px" }}>
-              <EditAppName />
+              <EditAppNameDialog />
               <AddTeamDialog />
             </div>
           )}

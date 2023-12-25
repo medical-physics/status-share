@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../styles/components/EditAppName.json";
-import "../styles/components/edit-app-name.css";
+import styles from "../styles/components/EditAppNameDialog.json";
+import "../styles/components/edit-app-name-dialog.css";
 
 // MUI components
 import {
@@ -22,7 +22,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setAppNameAsync } from "../redux/slices/accountSlice";
 
-export default function EditAppName() {
+export default function EditAppNameDialog() {
   const [open, setOpen] = React.useState(false);
   const [stateAppName, setStateAppName] = React.useState("");
 

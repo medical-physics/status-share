@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/EditProfile.json";
+import styles from "../styles/components/EditProfileDialog.json";
 
 // MUI components
 import {
@@ -24,7 +24,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { editProfileAsync, deleteUserAsync } from "../redux/slices/usersSlice";
 
-export default function EditProfile(props) {
+export default function EditProfileDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     profileName: "",
@@ -214,6 +214,6 @@ export default function EditProfile(props) {
   );
 }
 
-EditProfile.propTypes = {
+EditProfileDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
 };

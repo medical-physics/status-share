@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/EditStatus.json";
-import "../styles/components/edit-status.css";
+import styles from "../styles/components/EditStatusDialog.json";
+import "../styles/components/edit-status-dialog.css";
 
 // MUI components
 import {
@@ -27,7 +27,7 @@ import { getUserAsync, updateStatusAsync } from "../redux/slices/usersSlice";
 
 const DEFAULT_STATUS = <>&nbsp;&nbsp;&nbsp;</>;
 
-export default function EditStatus(props) {
+export default function EditStatusDialog(props) {
   const [statusState, setStatusState] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
@@ -207,7 +207,7 @@ export default function EditStatus(props) {
   );
 }
 
-EditStatus.propTypes = {
+EditStatusDialog.propTypes = {
   userId: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 };
