@@ -21,10 +21,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTeamAsync } from "../redux/slices/teamsSlice";
 
 export default function AddTeamDialog() {
+  const darkMode = useSelector((state) => state.account.darkMode);
+  const teamCount = useSelector((state) => state.teams.teams?.length);
+
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     team: "",
-    priority: "1",
+    priority: teamCount + 1,
     color: "#1a237e",
     col1: "Name",
     col2: "Present",
@@ -37,8 +40,6 @@ export default function AddTeamDialog() {
     formValue;
 
   const dispatch = useDispatch();
-  const darkMode = useSelector((state) => state.account.darkMode);
-  const teamCount = useSelector((state) => state.teams.teams?.length);
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,7 +48,7 @@ export default function AddTeamDialog() {
   const handleClose = () => {
     setFormValue({
       team: "",
-      priority: "1",
+      priority: teamCount + 1,
       color: "",
       col1: "Name",
       col2: "Present",
@@ -75,7 +76,7 @@ export default function AddTeamDialog() {
   };
 
   const validateHyperLink = (hyperlink) => {
-    if (!hyperlink.startsWith("http")) {
+    if (hyperlink && !hyperlink.startsWith("http")) {
       return "http://" + hyperlink;
     }
     return hyperlink;
@@ -162,7 +163,7 @@ export default function AddTeamDialog() {
                 className={
                   "team-input half-size" + (darkMode ? " dark-mode" : "")
                 }
-                placeholder="Name*"
+                placeholder="Team name*"
                 name="team"
                 type="text"
                 value={team}

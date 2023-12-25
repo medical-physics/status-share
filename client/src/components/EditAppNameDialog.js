@@ -123,7 +123,7 @@ export default function EditAppNameDialog() {
             >
               <div className="button-content">
                 <SendIcon
-                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+                  sx={{ ...styles.icon, marginTop: "-2px", marginRight: "5px" }}
                 />
                 submit
               </div>

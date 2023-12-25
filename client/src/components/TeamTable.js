@@ -84,7 +84,10 @@ export default function TeamTable(props) {
           <Grid item>
             {JSON.parse(localStorage.getItem("admin")) && (
               <>
-                <EditTeamDialog teamDetails={teamDetails} />
+                <EditTeamDialog
+                  teamDetails={teamDetails}
+                  teamSize={teamMembers.length || 0}
+                />
                 <AddUserDialog
                   teamName={teamDetails.team}
                   teamId={teamDetails._id}

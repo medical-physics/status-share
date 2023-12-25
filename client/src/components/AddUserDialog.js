@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserAsync } from "../redux/slices/usersSlice";
 
 export default function AddUserDialog(props) {
+  const { teamName, teamId, teamSize } = props;
+
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     userName: "",
@@ -27,11 +29,9 @@ export default function AddUserDialog(props) {
     phone: "",
     team: "",
     teamId: "",
-    priority: "1",
+    priority: teamSize + 1,
   });
   const { userName, email, phone, team, priority } = formValue;
-
-  const { teamName, teamId, teamSize } = props;
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.account.darkMode);
@@ -43,6 +43,7 @@ export default function AddUserDialog(props) {
         ...prevState,
         team: teamName,
         teamId: teamId,
+        priority: teamSize + 1,
       };
     });
   };
@@ -54,7 +55,7 @@ export default function AddUserDialog(props) {
         userName: "",
         email: "",
         phone: "",
-        priority: "1",
+        priority: teamSize + 1,
       };
     });
   };
