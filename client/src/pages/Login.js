@@ -27,7 +27,6 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.UI.loading);
-  const appName = useSelector((state) => state.account.appName);
   const errors = useSelector((state) => state.account.errors);
   const darkMode = useSelector((state) => state.account.darkMode);
 

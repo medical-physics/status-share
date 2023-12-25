@@ -18,49 +18,93 @@ export default function ProfileButton(props) {
 
   if (unreadMessages > 0) {
     return (
-      <Tooltip title={tooltipString} arrow className="tooltip">
-        <div className="container">
-          {!isMobile && (
-            <IconButton
-              onClick={onClick}
-              style={{ marginTop: "-2px", color: "#b4004e" }}
-              size="small"
+      <div className="tooltip">
+        <Tooltip
+          title={tooltipString}
+          arrow
+          PopperProps={{
+            sx: {
+              zIndex: 0,
+            },
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, -18],
+                },
+              },
+            ],
+          }}
+        >
+          <div className="container" onClick={onClick}>
+            {!isMobile && (
+              <IconButton
+                style={{ zIndex: 1, marginTop: "-2px", color: "#b4004e" }}
+                size="small"
+              >
+                <NotificationsIcon />
+              </IconButton>
+            )}
+            <p
+              className="name-text"
+              style={{
+                zIndex: 1,
+                cursor: "pointer",
+                color: darkMode ? "#d3d0ca" : "",
+              }}
             >
-              <NotificationsIcon />
-            </IconButton>
-          )}
-          <p
-            onClick={onClick}
-            className="name-text"
-            style={{ cursor: "pointer", color: darkMode ? "#d3d0ca" : "" }}
-          >
-            {name}
-          </p>
-        </div>
-      </Tooltip>
+              {name}
+            </p>
+          </div>
+        </Tooltip>
+      </div>
     );
   } else {
     return (
-      <Tooltip title={tooltipString} arrow className="tooltip">
-        <div className="container">
-          {!isMobile && (
-            <IconButton
-              onClick={onClick}
-              size="small"
-              sx={{ marginTop: "-2px", color: darkMode ? "#d3d0ca" : "" }}
+      <div className="tooltip">
+        <Tooltip
+          title={tooltipString}
+          arrow
+          PopperProps={{
+            sx: {
+              zIndex: 0,
+            },
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, -18],
+                },
+              },
+            ],
+          }}
+        >
+          <div className="container" onClick={onClick}>
+            {!isMobile && (
+              <IconButton
+                size="small"
+                sx={{
+                  zIndex: 1,
+                  marginTop: "-2px",
+                  color: darkMode ? "#d3d0ca" : "",
+                }}
+              >
+                <AccountCircleIcon />
+              </IconButton>
+            )}
+            <p
+              className="name-text"
+              style={{
+                zIndex: 1,
+                cursor: "pointer",
+                color: darkMode ? "#d3d0ca" : "",
+              }}
             >
-              <AccountCircleIcon />
-            </IconButton>
-          )}
-          <p
-            onClick={onClick}
-            className="name-text"
-            style={{ cursor: "pointer", color: darkMode ? "#d3d0ca" : "" }}
-          >
-            {name}
-          </p>
-        </div>
-      </Tooltip>
+              {name}
+            </p>
+          </div>
+        </Tooltip>
+      </div>
     );
   }
 }

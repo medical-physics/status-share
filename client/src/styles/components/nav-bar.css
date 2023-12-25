@@ -44,6 +44,7 @@ a:link {
   .app-name {
     margin-left: 25px;
     font-size: 20px;
+    color: #2FA2B9;
   }
 }
 
@@ -53,6 +54,9 @@ a:link {
 
 .nav-bar.dark-mode {
   background-color: black;
+  .app-name {
+    color: #0DBFD5;
+  }
 }
 
 .sign-out-button {
