@@ -33,10 +33,10 @@ export default function NavBar() {
   React.useEffect(() => {
     if (hasWindow) {
       function handleResize() {
-        dispatch(setIsMobile(window.innerWidth < 400));
+        dispatch(setIsMobile(window.innerWidth < 500));
       }
 
-      dispatch(setIsMobile(window.innerWidth < 400));
+      dispatch(setIsMobile(window.innerWidth < 500));
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }
