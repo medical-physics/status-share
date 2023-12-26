@@ -11,6 +11,7 @@ import BcCancerLogo from "../images/bc-cancer-logo.png";
 
 // MUI components
 import { Button } from "@mui/material";
+import { Logout as LogoutIcon } from "@mui/icons-material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -99,9 +100,7 @@ export default function NavBar() {
           className="title-container"
           style={{ marginRight: isMobile && !authenticated ? "7vw" : "4vw" }}
         >
-          {authenticated && 
-            <SendMessageDialog />
-          }
+          {authenticated && <SendMessageDialog />}
           <DarkModeSwitch />
           {authenticated && (
             <Button
@@ -117,9 +116,13 @@ export default function NavBar() {
                 marginRight: isMobile ? "2vw" : "",
               }}
             >
-              <p className={"sign-out-button" + (darkMode ? " dark-mode" : "")}>
-                Sign Out
-              </p>
+              {isMobile ? (
+                <LogoutIcon sx={{ color: darkMode ? "black" : "" }} />
+              ) : (
+                <p className={"sign-out-button" + (darkMode ? " dark-mode" : "")}>
+                  Sign out
+                </p>
+              )}
             </Button>
           )}
         </div>
