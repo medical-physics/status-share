@@ -12,7 +12,9 @@ import { useSelector } from "react-redux";
 
 export default function ProfileButton(props) {
   const { onClick, unreadMessages, name, memo } = props;
-  const tooltipString = unreadMessages ? "New messages: " + unreadMessages : "Memo: " + memo;
+  const tooltipString = unreadMessages
+    ? "New messages: " + unreadMessages
+    : "Memo: " + memo;
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
 
@@ -39,7 +41,7 @@ export default function ProfileButton(props) {
           <div className="container" onClick={onClick}>
             {!isMobile && (
               <IconButton
-                style={{ zIndex: 1, marginTop: "-2px", color: "#EF4040" }}
+                style={{ zIndex: 1, marginTop: "-2px", color: "#C63D2F" }}
                 size="small"
               >
                 <NotificationsIcon />
@@ -50,7 +52,8 @@ export default function ProfileButton(props) {
               style={{
                 zIndex: 1,
                 cursor: "pointer",
-                color: darkMode ? "#d3d0ca" : "",
+                color: isMobile ? "#C63D2F" : darkMode ? "#d3d0ca" : "",
+                fontWeight: isMobile ? "bold" : "",
               }}
             >
               {name}

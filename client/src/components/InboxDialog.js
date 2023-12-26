@@ -15,7 +15,7 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import { Close as CloseIcon, Mail as MailIcon } from "@mui/icons-material";
+import { Close as CloseIcon, Mail as MailIcon, MarkEmailUnread as MarkEmailUnreadIcon } from "@mui/icons-material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -83,13 +83,23 @@ export default function InboxDialog(props) {
         }}
       >
         <div className="button-content">
-          <MailIcon
-            sx={{
-              ...styles.icon,
-              marginTop: isMobile ? "-1px" : "-2px",
-              marginRight: "5px",
-            }}
-          />
+          {props.unreadMessages > 0 ? (
+            <MarkEmailUnreadIcon
+              sx={{
+                ...styles.icon,
+                marginTop: isMobile ? "-1px" : "-2px",
+                marginRight: "5px",
+              }}
+            />
+          ) : (
+            <MailIcon
+              sx={{
+                ...styles.icon,
+                marginTop: isMobile ? "-1px" : "-2px",
+                marginRight: "5px",
+              }}
+            />
+          )}
           inbox
         </div>
       </Button>
@@ -125,4 +135,5 @@ export default function InboxDialog(props) {
 InboxDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired,
+  unreadMessages: PropTypes.number.isRequired,
 };

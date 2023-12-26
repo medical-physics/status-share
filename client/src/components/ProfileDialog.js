@@ -124,7 +124,11 @@ export default function ProfileDialog(props) {
           <EditProfileDialog teamSize={teamSize} onClose={handleClose} />
         )}
         {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <InboxDialog userId={userId} onClose={handleClose} />
+          <InboxDialog
+            unreadMessages={unreadMessages}
+            userId={userId}
+            onClose={handleClose}
+          />
         )}
       </DialogActions>
     </div>

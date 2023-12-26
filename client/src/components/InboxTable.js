@@ -52,9 +52,6 @@ export default function InboxTable() {
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Sender</Box>
             </TableCell>
             <TableCell>
-              <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Subject</Box>
-            </TableCell>
-            <TableCell>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Date</Box>
             </TableCell>
           </TableRow>
@@ -69,10 +66,13 @@ export default function InboxTable() {
                   readStatus={row.message.readStatus}
                 />
               </TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.subject}</TableCell>
-              <TableCell>
-                {dayjs(row.timestamp).format("h:mm a, MMMM DD YYYY")}
+              <TableCell sx={{ color: darkMode ? "#d3d0ca" : "" }}>
+                {row.name}
+              </TableCell>
+              <TableCell sx={{ color: darkMode ? "#d3d0ca" : "" }}>
+                {isMobile
+                  ? dayjs(row.timestamp).format("MMM DD")
+                  : dayjs(row.timestamp).format("MMM DD, YYYY")}
               </TableCell>
             </TableRow>
           ))}
