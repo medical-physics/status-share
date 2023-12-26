@@ -3,10 +3,8 @@
     "margin": "1px 8px auto 8px"
   },
   "dialogContent": {
-    "height": 400
   },
   "buttonIcon": {
-    "margin": "auto 5px auto auto"
   },
   "dialogTitle": {
     "display": "flex",

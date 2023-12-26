@@ -1,0 +1,34 @@
+.to-line {
+  display: flex;
+  align-items: center;
+}
+
+.from-line {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.from-input {
+  min-width: 200px;
+  height: 50px;
+  background-color: #EEEEEE;
+  border: 1px solid;
+  border-color: #7A7A7A;
+  border-radius: 5px;
+  color: #7A7A7A;
+  padding-left: 10px;
+  font-size: 15px;
+}
+
+.from-input.dark-mode {
+  background-color: #232D3F;
+  border-color: #7A7A7A;
+  color: #7A7A7A;
+}
+
+@media (max-width: 500px) {
+  .from-input {
+    min-width: 190px;
+  }
+}

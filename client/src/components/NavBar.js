@@ -6,6 +6,7 @@ import "../styles/components/nav-bar.css";
 import EditAppNameDialog from "./EditAppNameDialog";
 import AddTeamDialog from "./AddTeamDialog";
 import DarkModeSwitch from "./DarkModeSwitch";
+import SendMessageDialog from "./SendMessageDialog";
 import BcCancerLogo from "../images/bc-cancer-logo.png";
 
 // MUI components
@@ -98,6 +99,9 @@ export default function NavBar() {
           className="title-container"
           style={{ marginRight: isMobile && !authenticated ? "7vw" : "4vw" }}
         >
+          {authenticated && 
+            <SendMessageDialog />
+          }
           <DarkModeSwitch />
           {authenticated && (
             <Button

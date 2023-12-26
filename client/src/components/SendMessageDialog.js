@@ -1,6 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "../styles/components/SendMessageDialog.json";
+import "../styles/components/send-message-dialog.css";
+import { selectUsersSortedByName } from "../redux/selectors/selectors";
 
 // MUI components
 import {
@@ -12,30 +13,35 @@ import {
   DialogTitle,
   IconButton,
   TextField,
-  InputAdornment
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
 } from "@mui/material";
 import {
   Close as CloseIcon,
   Send as SendIcon,
-  AccountBox as AccountBoxIcon,
-  AlternateEmail as AlternateEmailIcon
+  ForwardToInbox as ForwardToInboxIcon,
 } from "@mui/icons-material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addMessageAsync } from "../redux/slices/mailboxSlice";
 
-export default function SendMessageDialog (props) {
+export default function SendMessageDialog() {
   const [open, setOpen] = React.useState(false);
   const [formValue, setFormValue] = React.useState({
     senderName: "",
     senderContact: "",
     subject: "",
-    message: ""
+    message: "",
   });
+  const [recipient, setRecipient] = React.useState("");
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.user);
+  const users = useSelector((state) => selectUsersSortedByName(state));
+  const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const { senderName, senderContact, subject, message } = formValue;
 
@@ -49,9 +55,8 @@ export default function SendMessageDialog (props) {
       senderName: "",
       senderContact: "",
       subject: "",
-      message: ""
+      message: "",
     });
-    props.onClose();
   };
 
   const handleSubmit = () => {
@@ -59,13 +64,13 @@ export default function SendMessageDialog (props) {
       senderName: senderName.trim(),
       senderContact: senderContact.trim(),
       subject: subject.trim(),
-      message: message.trim()
+      message: message.trim(),
     };
 
     dispatch(
       addMessageAsync({
         newMessageData,
-        userId: props.userId
+        userId: recipient,
       })
     );
     handleClose();
@@ -76,96 +81,194 @@ export default function SendMessageDialog (props) {
     setFormValue((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
     });
   };
 
+  const handleRecipientSelection = (event) => {
+    setRecipient(event.target.value);
+  };
+
   return (
     <>
-      <Button onClick={handleOpen} style={{ color: "#388e3c" }} variant='outlined'>
-        <SendIcon sx={styles.buttonIcon} /> message
+      <Button
+        onClick={handleOpen}
+        variant="contained"
+        disableElevation
+        sx={{
+          backgroundColor: "#A3B763",
+          color: darkMode ? "#31304D" : "#EEEEEE",
+          "&:hover": { backgroundColor: "#79AC78" },
+          marginRight: "15px",
+        }}
+      >
+        <ForwardToInboxIcon sx={styles.buttonIcon} />
       </Button>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+            width: isMobile ? "90%" : "500px",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         <DialogTitle>
-          <Grid sx={styles.dialogTitle}>
-            {`Send message to ${user.name}`}
-            <IconButton onClick={handleClose} size='small'>
-              <CloseIcon />
+          <Grid
+            sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}
+          >
+            Send message
+            <IconButton onClick={handleClose} size="small">
+              <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
             </IconButton>
           </Grid>
         </DialogTitle>
         <DialogContent sx={styles.dialogContent}>
-          <TextField
-            id='senderName'
-            name='senderName'
-            type='senderName'
-            label='Sender Name'
-            value={senderName}
-            onChange={handleChange}
-            fullWidth
-            sx={styles.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <AccountBoxIcon style={{ color: "#388e3c" }} />
-                </InputAdornment>
-              )
-            }}
-          />
-          <TextField
-            id='senderContact'
-            name='senderContact'
-            type='senderContact'
-            label='Sender Contact'
-            value={senderContact}
-            onChange={handleChange}
-            fullWidth
-            sx={styles.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <AlternateEmailIcon style={{ color: "#388e3c" }} />
-                </InputAdornment>
-              )
-            }}
-          />
-          <TextField
-            id='subject'
-            name='subject'
-            type='subject'
-            label='Subject'
-            value={subject}
-            onChange={handleChange}
-            fullWidth
-            sx={{ marginTop: "40px" }}
-            variant='outlined'
-          />
-          <TextField
-            id='message'
-            name='message'
-            type='message'
-            label='Message'
-            variant='filled'
-            multiline
-            rows='4'
-            value={message}
-            onChange={handleChange}
-            fullWidth
-            sx={{ marginTop: "9px" }}
-          />
+          <form onSubmit={handleSubmit}>
+            <div
+              className="to-line"
+              style={{ color: darkMode ? "#d3d0ca" : "" }}
+            >
+              To:
+              <FormControl
+                sx={{
+                  m: 1,
+                  minWidth: isMobile ? "210px" : "218px",
+                  marginLeft: "44px",
+                }}
+              >
+                <InputLabel
+                  style={{
+                    color: darkMode ? "#82858a" : "#afafaf",
+                    fontSize: "15px",
+                    marginTop: "3px",
+                    marginLeft: "-3px",
+                  }}
+                >
+                  Recipient
+                </InputLabel>
+                <Select
+                  value={recipient}
+                  onChange={handleRecipientSelection}
+                  label="Recipient"
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        borderRadius: "6px",
+                        maxHeight: "40vh",
+                        backgroundColor: darkMode ? "#0D1117" : "",
+                      },
+                    },
+                  }}
+                  sx={{
+                    color: darkMode ? "#d3d0ca" : "",
+                    "&.MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#7A7A7A",
+                      },
+                    },
+                    "& .MuiSvgIcon-root": {
+                      color: darkMode ? "#7A7A7A" : "",
+                    },
+                  }}
+                >
+                  {users.map((user) => (
+                    <MenuItem
+                      key={user._id}
+                      value={user._id}
+                      sx={{
+                        color: darkMode ? "#d3d0ca" : "",
+                        marginRight: "10px",
+                      }}
+                    >
+                      {user.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <div
+              className="from-line"
+              style={{ color: darkMode ? "#d3d0ca" : "" }}
+            >
+              From:
+              <input
+                className={"from-input" + (darkMode ? " dark-mode" : "")}
+                placeholder="Sender"
+                name="senderName"
+                type="text"
+                value={senderName}
+                onChange={handleChange}
+                style={{ marginLeft: "25px", color: darkMode ? "#d3d0ca" : "" }}
+              />
+            </div>
+            <TextField
+              id="message"
+              name="message"
+              type="message"
+              label="Message"
+              variant="filled"
+              multiline
+              rows="4"
+              value={message}
+              onChange={handleChange}
+              fullWidth
+              InputProps={{
+                sx: {
+                  color: darkMode ? "#d3d0ca" : "",
+                },
+              }}
+              sx={{
+                marginTop: "25px",
+                borderRadius: "5px",
+                backgroundColor: darkMode ? "#21262D" : "",
+                "& .MuiFormLabel-root": {
+                  color: darkMode ? "#7A7A7A" : "",
+                },
+              }}
+            />
+          </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} variant='outlined' style={{ color: "#388e3c" }} type='submit'>
-            <SendIcon sx={styles.icon} />send
+          <Button
+            variant="contained"
+            disableElevation
+            color="primary"
+            onClick={handleSubmit}
+            type="submit"
+            sx={{
+              color: darkMode ? "#31304D" : "#EEEEEE",
+              padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
+              "&:hover": { backgroundColor: "#2FA2B9" },
+              marginRight: "15px",
+              marginBottom: "1vh",
+            }}
+          >
+            <div className="button-content">
+              <SendIcon
+                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+              />
+              send
+            </div>
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
 }
-
-SendMessageDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired
-};
