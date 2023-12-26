@@ -1,9 +1,4 @@
 {
-  "spinnerDiv": {
-    "textAlign": "center",
-    "marginTop": 15,
-    "marginBottom": 15
-  },
   "dialogContent": {
     "height": 450
   },

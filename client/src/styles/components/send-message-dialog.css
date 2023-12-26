@@ -1,16 +1,17 @@
 .to-line {
   display: flex;
   align-items: center;
+  justify-content: start;
 }
 
 .from-line {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  justify-content: start;
 }
 
 .from-input {
-  min-width: 200px;
   height: 50px;
   background-color: #EEEEEE;
   border: 1px solid;
@@ -28,7 +29,11 @@
 }
 
 @media (max-width: 500px) {
-  .from-input {
-    min-width: 190px;
+  .to-line {
+    justify-content: space-between;
+  }
+  .from-line {
+    justify-content: space-between;
+    max-width: 97%;
   }
 }

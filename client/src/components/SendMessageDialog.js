@@ -150,7 +150,7 @@ export default function SendMessageDialog() {
                 sx={{
                   m: 1,
                   minWidth: isMobile ? "210px" : "218px",
-                  marginLeft: "44px",
+                  marginLeft: isMobile ? "" : "44px",
                 }}
               >
                 <InputLabel
@@ -215,7 +215,11 @@ export default function SendMessageDialog() {
                 type="text"
                 value={senderName}
                 onChange={handleChange}
-                style={{ marginLeft: "25px", color: darkMode ? "#d3d0ca" : "" }}
+                style={{
+                  marginLeft: isMobile ? "" : "24px",
+                  color: darkMode ? "#d3d0ca" : "",
+                  width: isMobile ? "196px" : "205px",
+                }}
               />
             </div>
             <TextField

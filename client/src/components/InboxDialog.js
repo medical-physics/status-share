@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "../styles/components/InboxDialog.json";
+import "../styles/components/inbox-dialog.css";
 
 // Components
 import InboxTable from "./InboxTable";
@@ -15,7 +16,11 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import { Close as CloseIcon, Mail as MailIcon, MarkEmailUnread as MarkEmailUnreadIcon } from "@mui/icons-material";
+import {
+  Close as CloseIcon,
+  Mail as MailIcon,
+  MarkEmailUnread as MarkEmailUnreadIcon,
+} from "@mui/icons-material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -43,10 +48,12 @@ export default function InboxDialog(props) {
 
   const dialogMarkup = loading ? (
     <div>
-      <DialogTitle>Loading...</DialogTitle>
+      <DialogTitle sx={{ color: darkMode ? "#d3d0ca" : "" }}>
+        Loading...
+      </DialogTitle>
       <DialogContent sx={styles.dialogContent}>
-        <div style={styles.spinnerDiv}>
-          <CircularProgress size={80} thickness={2} />
+        <div className="loading-container">
+          <CircularProgress size={45} thickness={5} />
         </div>
       </DialogContent>
     </div>

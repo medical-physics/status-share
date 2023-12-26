@@ -14,7 +14,7 @@ import {
   Grid,
   IconButton,
   Typography,
-  Box
+  Box,
 } from "@mui/material";
 import {
   DraftsOutlined as DraftsOutlinedIcon,
@@ -22,14 +22,18 @@ import {
   Delete as DeleteIcon,
   Mail as MailIcon,
   AccountBox as AccountBoxIcon,
-  AlternateEmail as AlternateEmailIcon
+  AlternateEmail as AlternateEmailIcon,
 } from "@mui/icons-material";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { markMessageReadAsync, deleteMessageAsync, getMessageAsync } from "../redux/slices/mailboxSlice";
+import {
+  markMessageReadAsync,
+  deleteMessageAsync,
+  getMessageAsync,
+} from "../redux/slices/mailboxSlice";
 
-export default function MessageDialog (props) {
+export default function MessageDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const { messageId, userId, readStatus } = props;
@@ -37,6 +41,8 @@ export default function MessageDialog (props) {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.mailbox.message);
   const loading = useSelector((state) => state.UI.loading);
+  const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   const handleOpen = () => {
     dispatch(getMessageAsync(messageId));
@@ -59,88 +65,132 @@ export default function MessageDialog (props) {
   const renderButton = () => {
     if (readStatus) {
       return (
-        <IconButton onClick={handleOpen} style={{ color: "#388e3c" }} size='small'>
+        <IconButton
+          onClick={handleOpen}
+          style={{ color: "#65b741" }}
+          size="small"
+        >
           <DraftsOutlinedIcon />
         </IconButton>
       );
     } else {
       return (
-        <IconButton onClick={handleOpen} style={{ color: "#388e3c" }} size='small'>
+        <IconButton
+          onClick={handleOpen}
+          style={{ color: "#65b741" }}
+          size="small"
+        >
           <MailIcon />
         </IconButton>
       );
     }
   };
 
-  const dialogMarkup = loading
-    ? (
-      <div>
-        <DialogTitle>Loading...</DialogTitle>
-        <DialogContent sx={styles.dialogContent}>
-          <div style={styles.spinnerDiv}>
-            <CircularProgress size={80} thickness={2} />
-          </div>
-        </DialogContent>
-      </div>
-    )
-    : (
-      <div>
-        <DialogTitle>
-          <Grid sx={styles.dialogTitle}>
-            {message.subject}
-            <IconButton onClick={handleClose} size='small'>
-              <CloseIcon />
-            </IconButton>
+  const dialogMarkup = loading ? (
+    <div>
+      <DialogTitle>Loading...</DialogTitle>
+      <DialogContent sx={styles.dialogContent}>
+        <div style={styles.spinnerDiv}>
+          <CircularProgress size={80} thickness={2} />
+        </div>
+      </DialogContent>
+    </div>
+  ) : (
+    <div>
+      <DialogTitle>
+        <Grid sx={styles.dialogTitle}>
+          {message.subject}
+          <IconButton onClick={handleClose} size="small">
+            <CloseIcon />
+          </IconButton>
+        </Grid>
+      </DialogTitle>
+      <DialogContent sx={styles.dialogContent}>
+        <Grid container>
+          <Grid item>
+            <AccountBoxIcon style={{ color: "#388e3c" }} sx={styles.icon} />
           </Grid>
-        </DialogTitle>
-        <DialogContent sx={styles.dialogContent}>
-          <Grid container>
-            <Grid item>
-              <AccountBoxIcon style={{ color: "#388e3c" }} sx={styles.icon} />
-            </Grid>
-            <Grid item>
-              <Typography sx={styles.text1} noWrap>{message.senderName}</Typography>
-            </Grid>
-            <Grid item>
-              <AlternateEmailIcon style={{ color: "#388e3c" }} sx={styles.icon} />
-            </Grid>
-            <Grid item>
-              <Typography sx={styles.text1} noWrap>{message.senderContact}</Typography>
-            </Grid>
+          <Grid item>
+            <Typography sx={styles.text1} noWrap>
+              {message.senderName}
+            </Typography>
           </Grid>
-          <Grid container>
-            <Grid item>
-              <Typography component='div' sx={styles.text1}>
-                <Box fontWeight='fontWeightBold' m={1}>Sent at: </Box>
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={styles.text1}>{dayjs(message.timestamp).format("h:mm a, MMMM DD YYYY")}</Typography>
-            </Grid>
+          <Grid item>
+            <AlternateEmailIcon style={{ color: "#388e3c" }} sx={styles.icon} />
           </Grid>
-          <Grid container>
-            <Grid item>
-              <Typography component='div' sx={styles.text2}>
-                <Box fontWeight='fontWeightBold' m={1}>Message: </Box>
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={styles.text2}>{message.message}</Typography>
-            </Grid>
+          <Grid item>
+            <Typography sx={styles.text1} noWrap>
+              {message.senderContact}
+            </Typography>
           </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDelete} style={{ color: "#ef5350" }} variant='outlined'>
-            <DeleteIcon sx={styles.buttonIcon} />delete
-          </Button>
-        </DialogActions>
-      </div>
-    );
+        </Grid>
+        <Grid container>
+          <Grid item>
+            <Typography component="div" sx={styles.text1}>
+              <Box fontWeight="fontWeightBold" m={1}>
+                Sent at:{" "}
+              </Box>
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography sx={styles.text1}>
+              {dayjs(message.timestamp).format("h:mm a, MMMM DD YYYY")}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item>
+            <Typography component="div" sx={styles.text2}>
+              <Box fontWeight="fontWeightBold" m={1}>
+                Message:{" "}
+              </Box>
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography sx={styles.text2}>{message.message}</Typography>
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={handleDelete}
+          style={{ color: "#ef5350" }}
+          variant="outlined"
+        >
+          <DeleteIcon sx={styles.buttonIcon} />
+          delete
+        </Button>
+      </DialogActions>
+    </div>
+  );
 
   return (
     <>
       {renderButton()}
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='sm'>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+        sx={{
+          "& .MuiPaper-root": {
+            backgroundColor: darkMode ? "#232D3F" : "",
+            border: "1px solid",
+            borderRadius: "7px",
+            borderColor: darkMode ? "#7A7A7A" : "",
+            width: isMobile ? "90%" : "500px",
+          },
+          "& .MuiDialogTitle-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogContent-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+          "& .MuiDialogActions-root": {
+            backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
+          },
+        }}
+      >
         {dialogMarkup}
       </Dialog>
     </>
@@ -150,5 +200,5 @@ export default function MessageDialog (props) {
 MessageDialog.propTypes = {
   messageId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
-  readStatus: PropTypes.bool.isRequired
+  readStatus: PropTypes.bool.isRequired,
 };

@@ -5,6 +5,7 @@ const User = require("../models/user");
 exports.getMessages = async (req, res) => {
   try {
     const mailbox = await Mailbox.findOne({ userId: req.params.userId });
+    mailbox?.messages.sort((a, b) => a.timestamp - b.timestamp).reverse();
     return res.status(200).json(mailbox);
   } catch (err) {
     console.error(err);
