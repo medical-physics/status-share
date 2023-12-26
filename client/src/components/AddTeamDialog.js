@@ -272,7 +272,7 @@ export default function AddTeamDialog() {
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
                 padding: "5px 10px 2px 5px",
-                "&:hover": { backgroundColor: "#2FA2B9" },
+                "&:hover": { backgroundColor: "#098595" },
                 marginRight: "15px",
                 marginBottom: "1vh",
               }}

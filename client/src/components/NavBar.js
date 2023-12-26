@@ -113,7 +113,7 @@ export default function NavBar() {
               to="/login"
               sx={{
                 marginLeft: "10px",
-                "&:hover": { backgroundColor: "#2FA2B9" },
+                "&:hover": { backgroundColor: "#098595" },
                 marginRight: isMobile ? "2vw" : "",
               }}
             >

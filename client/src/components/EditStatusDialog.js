@@ -125,10 +125,10 @@ export default function EditStatusDialog(props) {
             disableElevation
             onClick={handleDelete}
             sx={{
-              backgroundColor: "#FA7070",
+              backgroundColor: "#E16464",
               color: darkMode ? "#31304D" : "#EEEEEE",
               padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
-              "&:hover": { backgroundColor: "#BE3144" },
+              "&:hover": { backgroundColor: "#964343" },
               marginRight: "5px",
               marginBottom: "1vh",
             }}
@@ -149,7 +149,7 @@ export default function EditStatusDialog(props) {
             sx={{
               color: darkMode ? "#31304D" : "#EEEEEE",
               padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
-              "&:hover": { backgroundColor: "#2FA2B9" },
+              "&:hover": { backgroundColor: "#098595" },
               marginRight: "15px",
               marginBottom: "1vh",
             }}

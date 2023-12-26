@@ -74,10 +74,10 @@ export default function InboxDialog(props) {
         onClick={handleOpen}
         type="submit"
         sx={{
-          backgroundColor: "#A3B763",
+          backgroundColor: "#65b741",
           color: darkMode ? "#31304D" : "#EEEEEE",
           padding: isMobile ? "5px 10px 3px 10px" : "5px 10px 2px 10px",
-          "&:hover": { backgroundColor: "#79AC78" },
+          "&:hover": { backgroundColor: "#3C6D27" },
           marginRight: "15px",
           marginBottom: "1vh",
         }}

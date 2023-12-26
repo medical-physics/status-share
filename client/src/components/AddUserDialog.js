@@ -203,7 +203,7 @@ export default function AddUserDialog(props) {
               sx={{
                 color: darkMode ? "#31304D" : "#EEEEEE",
                 padding: isMobile ? "6px 10px 3px 4px" : "6px 10px 2px 4px",
-                "&:hover": { backgroundColor: "#2FA2B9" },
+                "&:hover": { backgroundColor: "#098595" },
                 marginRight: "15px",
                 marginBottom: "1vh",
               }}
