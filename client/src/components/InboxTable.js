@@ -40,10 +40,11 @@ export default function InboxTable() {
 
   return (
     <TableContainer
+      className="dark-scrollbar"
       sx={{
         border: "1px solid",
-        borderRadius: "7px",
         borderColor: darkMode ? "#7A7A7A" : "",
+        borderRadius: "7px"
       }}
     >
       <Table size="small">

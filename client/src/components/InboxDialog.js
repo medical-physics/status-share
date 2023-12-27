@@ -35,6 +35,9 @@ export default function InboxDialog(props) {
   const loading = useSelector((state) => state.mailbox.loadingMailbox);
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
+  const hasMail = useSelector((state) => state.mailbox.mailbox?.length > 0);
+
+  const { unreadMessages } = props;
 
   const handleOpen = () => {
     dispatch(getMailboxAsync(props.userId));
@@ -67,8 +70,23 @@ export default function InboxDialog(props) {
           </IconButton>
         </Grid>
       </DialogTitle>
-      <DialogContent sx={styles.dialogContent}>
-        <InboxTable />
+      <DialogContent
+        sx={{
+          ...styles.dialogContent,
+          height: hasMail ? 450 : 300,
+          alignItems: hasMail ? "" : "center",
+        }}
+      >
+        {hasMail ? (
+          <InboxTable />
+        ) : (
+          <p
+            className="empty-inbox-text"
+            style={{ color: darkMode ? "#d3d0ca" : "" }}
+          >
+            Inbox is empty
+          </p>
+        )}
       </DialogContent>
     </div>
   );
@@ -90,7 +108,7 @@ export default function InboxDialog(props) {
         }}
       >
         <div className="button-content">
-          {props.unreadMessages > 0 ? (
+          {unreadMessages > 0 ? (
             <MarkEmailUnreadIcon
               sx={{
                 ...styles.icon,

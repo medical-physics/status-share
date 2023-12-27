@@ -4,3 +4,8 @@
   align-items: center;
   height: 80%;
 }
+
+.empty-inbox-text {
+  font-size: 20px;
+  margin-top: -10px;
+}

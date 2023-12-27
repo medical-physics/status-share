@@ -1,6 +1,7 @@
 {
   "dialogContent": {
-    "height": 450
+    "display": "flex",
+    "justifyContent": "center"
   },
   "buttonIcon": {
     "margin": "auto 5px auto auto"

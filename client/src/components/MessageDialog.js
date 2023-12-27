@@ -173,8 +173,8 @@ export default function MessageDialog(props) {
           ":hover": {
             backgroundColor: readStatus
               ? darkMode
-                ? "#394252"
-                : "#E2E2E2"
+                ? "#42454B"
+                : "#DBDBDB"
               : darkMode
                 ? "#546F67"
                 : "#C1C8C4",
@@ -182,12 +182,12 @@ export default function MessageDialog(props) {
           "&:last-child td, &:last-child th": { border: 0 },
         }}
       >
-        <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
+        <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "#C0C1C3" }}>
           {renderButton()}
         </TableCell>
         <TableCell
           sx={{
-            borderColor: darkMode ? "#7A7A7A" : "",
+            borderColor: darkMode ? "#7A7A7A" : "#C0C1C3",
             color: darkMode ? "#d3d0ca" : "",
           }}
         >
@@ -195,7 +195,7 @@ export default function MessageDialog(props) {
         </TableCell>
         <TableCell
           sx={{
-            borderColor: darkMode ? "#7A7A7A" : "",
+            borderColor: darkMode ? "#7A7A7A" : "#C0C1C3",
             color: darkMode ? "#d3d0ca" : "",
           }}
         >
