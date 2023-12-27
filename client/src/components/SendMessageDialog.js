@@ -149,7 +149,7 @@ export default function SendMessageDialog() {
               <FormControl
                 sx={{
                   m: 1,
-                  minWidth: isMobile ? "210px" : "218px",
+                  minWidth: isMobile ? "70%" : "218px",
                   marginLeft: isMobile ? "" : "44px",
                 }}
               >
@@ -217,7 +217,7 @@ export default function SendMessageDialog() {
                 style={{
                   marginLeft: isMobile ? "" : "24px",
                   color: darkMode ? "#d3d0ca" : "",
-                  width: isMobile ? "196px" : "205px",
+                  width: isMobile ? "67%" : "205px",
                 }}
               />
             </div>
