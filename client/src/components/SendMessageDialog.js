@@ -217,7 +217,7 @@ export default function SendMessageDialog() {
                 style={{
                   marginLeft: isMobile ? "" : "24px",
                   color: darkMode ? "#d3d0ca" : "",
-                  width: isMobile ? "67%" : "205px",
+                  width: isMobile ? "65%" : "205px",
                 }}
               />
             </div>
