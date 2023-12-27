@@ -162,7 +162,13 @@ export default function MessageDialog(props) {
         onClick={handleOpen}
         sx={{
           cursor: "pointer",
-          backgroundColor: readStatus ? "" : darkMode ? "#425F57" : "#D7DFDA",
+          backgroundColor: readStatus
+            ? darkMode
+              ? "#2d3138"
+              : "#E9E9E9"
+            : darkMode
+              ? "#425F57"
+              : "#D7DFDA",
           borderColor: darkMode ? "#7A7A7A" : "",
           ":hover": {
             backgroundColor: readStatus
@@ -173,6 +179,7 @@ export default function MessageDialog(props) {
                 ? "#546F67"
                 : "#C1C8C4",
           },
+          "&:last-child td, &:last-child th": { border: 0 },
         }}
       >
         <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>

@@ -39,17 +39,28 @@ export default function InboxTable() {
   });
 
   return (
-    <TableContainer>
+    <TableContainer
+      sx={{
+        border: "1px solid",
+        borderRadius: "7px",
+        borderColor: darkMode ? "#7A7A7A" : "",
+      }}
+    >
       <Table size="small">
         <TableHead>
-          <TableRow sx={{ color: darkMode ? "#d3d0ca" : "" }}>
-            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
+          <TableRow
+            sx={{
+              color: darkMode ? "#d3d0ca" : "",
+              backgroundColor: darkMode ? "#181F2C" : "#D3D3D3",
+            }}
+          >
+            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "black" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Read</Box>
             </TableCell>
-            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
+            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "black" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Sender</Box>
             </TableCell>
-            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
+            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "black" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Date</Box>
             </TableCell>
           </TableRow>
