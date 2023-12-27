@@ -59,7 +59,7 @@ export default function InboxTable() {
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Read</Box>
             </TableCell>
             <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "black" }}>
-              <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Sender</Box>
+              <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>From</Box>
             </TableCell>
             <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "black" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Date</Box>
