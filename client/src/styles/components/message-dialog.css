@@ -1,0 +1,6 @@
+.message-container {
+  border: 1px solid;
+  min-height: 100px;
+  padding: 10px;
+  border-radius: 7px;
+}

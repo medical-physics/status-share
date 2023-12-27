@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
 import styles from "../styles/components/MessageDialog.json";
+import "../styles/components/message-dialog.css";
 
 // MUI components
 import {
@@ -88,77 +89,78 @@ export default function MessageDialog(props) {
 
   const dialogMarkup = loading ? (
     <div>
-      <DialogTitle>Loading...</DialogTitle>
+      <DialogTitle sx={{ color: darkMode ? "#d3d0ca" : "" }}>
+        Loading...
+      </DialogTitle>
       <DialogContent sx={styles.dialogContent}>
-        <div style={styles.spinnerDiv}>
-          <CircularProgress size={80} thickness={2} />
+        <div className="loading-container">
+          <CircularProgress size={45} thickness={5} />
         </div>
       </DialogContent>
     </div>
   ) : (
     <div>
       <DialogTitle>
-        <Grid sx={styles.dialogTitle}>
-          {message.subject}
+        <Grid sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}>
+          Message
           <IconButton onClick={handleClose} size="small">
-            <CloseIcon />
+            <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
           </IconButton>
         </Grid>
       </DialogTitle>
       <DialogContent sx={styles.dialogContent}>
-        <Grid container>
-          <Grid item>
-            <AccountBoxIcon style={{ color: "#388e3c" }} sx={styles.icon} />
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.text1} noWrap>
-              {message.senderName}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <AlternateEmailIcon style={{ color: "#388e3c" }} sx={styles.icon} />
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.text1} noWrap>
-              {message.senderContact}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item>
-            <Typography component="div" sx={styles.text1}>
-              <Box fontWeight="fontWeightBold" m={1}>
-                Sent at:{" "}
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.text1}>
-              {dayjs(message.timestamp).format("h:mm a, MMMM DD YYYY")}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item>
-            <Typography component="div" sx={styles.text2}>
-              <Box fontWeight="fontWeightBold" m={1}>
-                Message:{" "}
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography sx={styles.text2}>{message.message}</Typography>
-          </Grid>
-        </Grid>
+        <div
+          style={{
+            color: darkMode ? "#d3d0ca" : "",
+            marginTop: "0px",
+            marginBottom: "30px",
+          }}
+        >
+          <div>
+            <b>From: </b>
+            {message.senderName}
+          </div>
+          <div style={{ marginTop: "15px" }}>
+            <b>Sent: </b>
+            {dayjs(message.timestamp).format("h:mm a, MMM DD YYYY")}
+          </div>
+          <div
+            className="message-container"
+            style={{
+              marginTop: "15px",
+              color: darkMode ? "#d3d0ca" : "",
+              borderColor: darkMode ? "#7A7A7A" : "",
+              backgroundColor: darkMode ? "#161b22" : "white",
+            }}
+          >
+            {message.message}
+          </div>
+        </div>
       </DialogContent>
       <DialogActions>
         <Button
+          variant="contained"
+          disableElevation
           onClick={handleDelete}
-          style={{ color: "#ef5350" }}
-          variant="outlined"
+          sx={{
+            backgroundColor: "#E16464",
+            color: darkMode ? "#31304D" : "#EEEEEE",
+            padding: isMobile ? "5px 10px 3px 0px" : "5px 10px 2px 0px",
+            "&:hover": { backgroundColor: "#964343" },
+            marginRight: "15px",
+            marginBottom: "1vh",
+          }}
         >
-          <DeleteIcon sx={styles.buttonIcon} />
-          delete
+          <div className="button-content">
+            <DeleteIcon
+              sx={{
+                ...styles.icon,
+                marginTop: "-1px",
+                marginRight: "5px",
+              }}
+            />
+            delete
+          </div>
         </Button>
       </DialogActions>
     </div>

@@ -157,7 +157,7 @@ export default function SendMessageDialog() {
                   style={{
                     color: darkMode ? "#82858a" : "#afafaf",
                     fontSize: "15px",
-                    marginTop: "3px",
+                    marginTop: isMobile ? "" : "3px",
                   }}
                 >
                   Recipient
