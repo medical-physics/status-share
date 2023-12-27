@@ -1,5 +1,4 @@
 import React from "react";
-import dayjs from "dayjs";
 
 // Components
 import MessageDialog from "./MessageDialog";
@@ -27,7 +26,6 @@ export default function InboxTable() {
   const mailbox = useSelector((state) => state.mailbox.mailbox);
   const userId = useSelector((state) => state.users.user._id);
   const darkMode = useSelector((state) => state.account.darkMode);
-  const isMobile = useSelector((state) => state.account.isMobile);
 
   mailbox.forEach((message) => {
     rows.push(
@@ -45,36 +43,27 @@ export default function InboxTable() {
       <Table size="small">
         <TableHead>
           <TableRow sx={{ color: darkMode ? "#d3d0ca" : "" }}>
-            <TableCell>
+            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Read</Box>
             </TableCell>
-            <TableCell>
+            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Sender</Box>
             </TableCell>
-            <TableCell>
+            <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
               <Box sx={{ color: darkMode ? "#d3d0ca" : "" }}>Date</Box>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.message._id}>
-              <TableCell>
-                <MessageDialog
-                  messageId={row.message._id}
-                  userId={userId}
-                  readStatus={row.message.readStatus}
-                />
-              </TableCell>
-              <TableCell sx={{ color: darkMode ? "#d3d0ca" : "" }}>
-                {row.name}
-              </TableCell>
-              <TableCell sx={{ color: darkMode ? "#d3d0ca" : "" }}>
-                {isMobile
-                  ? dayjs(row.timestamp).format("MMM DD")
-                  : dayjs(row.timestamp).format("MMM DD, YYYY")}
-              </TableCell>
-            </TableRow>
+            <MessageDialog
+              key={row.message._id}
+              messageId={row.message._id}
+              userId={userId}
+              readStatus={row.message.readStatus}
+              senderName={row.name}
+              timestamp={row.timestamp}
+            />
           ))}
         </TableBody>
       </Table>

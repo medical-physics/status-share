@@ -14,16 +14,14 @@ import {
   CircularProgress,
   Grid,
   IconButton,
-  Typography,
-  Box,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 import {
   DraftsOutlined as DraftsOutlinedIcon,
   Close as CloseIcon,
   Delete as DeleteIcon,
   Mail as MailIcon,
-  AccountBox as AccountBoxIcon,
-  AlternateEmail as AlternateEmailIcon,
 } from "@mui/icons-material";
 
 // Redux
@@ -37,7 +35,7 @@ import {
 export default function MessageDialog(props) {
   const [open, setOpen] = React.useState(false);
 
-  const { messageId, userId, readStatus } = props;
+  const { messageId, userId, readStatus, senderName, timestamp } = props;
 
   const dispatch = useDispatch();
   const message = useSelector((state) => state.mailbox.message);
@@ -66,21 +64,13 @@ export default function MessageDialog(props) {
   const renderButton = () => {
     if (readStatus) {
       return (
-        <IconButton
-          onClick={handleOpen}
-          style={{ color: "#65b741" }}
-          size="small"
-        >
+        <IconButton style={{ color: "#65b741" }} size="small">
           <DraftsOutlinedIcon />
         </IconButton>
       );
     } else {
       return (
-        <IconButton
-          onClick={handleOpen}
-          style={{ color: "#65b741" }}
-          size="small"
-        >
+        <IconButton style={{ color: "#65b741" }} size="small">
           <MailIcon />
         </IconButton>
       );
@@ -168,19 +158,46 @@ export default function MessageDialog(props) {
 
   return (
     <>
-      {renderButton()}
+      <TableRow
+        onClick={handleOpen}
+        sx={{
+          cursor: "pointer",
+          backgroundColor: readStatus ? "" : darkMode ? "#425F57" : "#EFF8F3",
+          borderColor: darkMode ? "#7A7A7A" : "",
+        }}
+      >
+        <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "" }}>
+          {renderButton()}
+        </TableCell>
+        <TableCell
+          sx={{
+            borderColor: darkMode ? "#7A7A7A" : "",
+            color: darkMode ? "#d3d0ca" : "",
+          }}
+        >
+          {senderName}
+        </TableCell>
+        <TableCell
+          sx={{
+            borderColor: darkMode ? "#7A7A7A" : "",
+            color: darkMode ? "#d3d0ca" : "",
+          }}
+        >
+          {isMobile
+            ? dayjs(timestamp).format("MMM DD")
+            : dayjs(timestamp).format("MMM DD, YYYY")}
+        </TableCell>
+      </TableRow>
       <Dialog
         open={open}
         onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
         sx={{
           "& .MuiPaper-root": {
             backgroundColor: darkMode ? "#232D3F" : "",
             border: "1px solid",
             borderRadius: "7px",
             borderColor: darkMode ? "#7A7A7A" : "",
-            width: isMobile ? "90%" : "500px",
+            width: isMobile ? "80%" : "500px",
           },
           "& .MuiDialogTitle-root": {
             backgroundColor: darkMode ? "#232D3F" : "#EEEEEE",
@@ -203,4 +220,6 @@ MessageDialog.propTypes = {
   messageId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   readStatus: PropTypes.bool.isRequired,
+  senderName: PropTypes.string.isRequired,
+  timestamp: PropTypes.string.isRequired,
 };
