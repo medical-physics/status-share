@@ -204,15 +204,6 @@ export const usersSlice = createSlice({
         state.user.statusTime = action.payload.statusTime;
       }
     },
-    decrementUnreadMessages: (state, action) => {
-      const index4 = state.users.findIndex(
-        (user) => user._id === action.payload
-      );
-      state.users[index4].unreadMessages -= 1;
-      if (state.user._id === action.payload) {
-        state.user.unreadMessages -= 1;
-      }
-    },
     insertUserFromStream: (state, action) => {
       state.users = [
         ...state.users,
@@ -284,7 +275,6 @@ export const {
   markNotPresent,
   updateStatus,
   editUser,
-  decrementUnreadMessages,
   insertUserFromStream,
   deleteUserFromStream,
   updateUserFromStream,

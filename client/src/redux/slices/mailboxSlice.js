@@ -7,7 +7,6 @@ import {
   getMailbox,
   updateMessageReadStatus
 } from "../api/mailboxAPI";
-import { decrementUnreadMessages } from "./usersSlice";
 
 const initialState = {
   mailbox: [],
@@ -44,7 +43,6 @@ export const markMessageReadAsync = createAsyncThunk(
   async (messageObj, { dispatch }) => {
     try {
       dispatch(markMessageRead(messageObj.messageId));
-      dispatch(decrementUnreadMessages(messageObj.userId));
 
       const response = await updateMessageReadStatus(messageObj.messageId, messageObj.userId);
       return response;
