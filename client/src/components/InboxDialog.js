@@ -54,7 +54,7 @@ export default function InboxDialog(props) {
       <DialogTitle sx={{ color: darkMode ? "#d3d0ca" : "" }}>
         Loading...
       </DialogTitle>
-      <DialogContent sx={styles.dialogContent}>
+      <DialogContent sx={{ ...styles.dialogContent, height: 450 }}>
         <div className="loading-container">
           <CircularProgress size={45} thickness={5} />
         </div>
