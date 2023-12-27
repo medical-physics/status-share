@@ -5,9 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 const LoginRoute = () => {
   const authenticated = useSelector((state) => state.account.authenticated);
 
-  return (authenticated === true)
-    ? <Navigate to='/' />
-    : <Outlet />;
+  return authenticated === true ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default LoginRoute;

@@ -5,8 +5,8 @@ import axios from "axios";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 // Components
-import PrivateRoute from "./util/PrivateRoute";
-import LoginRoute from "./util/LoginRoute";
+import PrivateRoute from "./auth/PrivateRoute";
+import LoginRoute from "./auth/LoginRoute";
 
 // Redux
 import { Provider } from "react-redux";

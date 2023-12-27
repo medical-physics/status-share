@@ -18,7 +18,7 @@ import {
   logoutUser,
 } from "../redux/slices/accountSlice";
 import { initializeDarkMode } from "../util/DarkMode";
-import { clearCachedAccountDetails } from "../util/Authenticator";
+import { clearCachedAccountDetails } from "../auth/Authenticator";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");

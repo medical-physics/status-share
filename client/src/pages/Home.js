@@ -1,5 +1,5 @@
 import React from "react";
-import { authenticate } from "../util/Authenticator";
+import { authenticate } from "../auth/Authenticator";
 import styles from "../styles/pages/Home.json";
 import "../styles/pages/home.css";
 
@@ -7,7 +7,7 @@ import "../styles/pages/home.css";
 import NavBar from "../components/NavBar";
 import TeamTable from "../components/TeamTable";
 import LoadingTable from "../components/LoadingTable";
-import SocketWrapper from "../util/stream/SocketWrapper";
+import SocketWrapper from "../stream/SocketWrapper";
 
 // MUI Components
 import {
@@ -28,7 +28,7 @@ import {
   selectIsAccessTokenValid,
   selectTeamDetailsMap,
   selectTeamMembersMap,
-} from "../redux/selectors/selectors";
+} from "../util/selectors/selectors";
 import { initializeDarkMode } from "../util/DarkMode";
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];

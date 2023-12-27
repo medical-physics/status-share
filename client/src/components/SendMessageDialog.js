@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/components/SendMessageDialog.json";
 import "../styles/components/send-message-dialog.css";
-import { selectUsersSortedByName } from "../redux/selectors/selectors";
+import { selectUsersSortedByName } from "../util/selectors/selectors";
 
 // MUI components
 import {

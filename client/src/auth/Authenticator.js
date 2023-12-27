@@ -6,7 +6,7 @@ import {
   refreshTokenAsync,
   setAuthenticated,
   checkingAuth,
-  setToken
+  setToken,
 } from "../redux/slices/accountSlice";
 
 export const BUFFER_TIME = 4000;
@@ -33,7 +33,8 @@ export const authenticate = async () => {
 
     if (refreshToken) {
       decodedRefreshToken = jwtDecode(refreshToken.split(" ")[1]);
-      const isRefreshTokenExpired = decodedRefreshToken.exp * 1000 - Date.now() <= 0;
+      const isRefreshTokenExpired =
+        decodedRefreshToken.exp * 1000 - Date.now() <= 0;
       if (isRefreshTokenExpired) {
         return endSession();
       }
@@ -74,14 +75,15 @@ const countDownAndEndSession = (timeUntilExpiry) => {
 
   setTimeout(() => {
     return endSession();
-  }, (timeUntilExpiry - BUFFER_TIME));
+  }, timeUntilExpiry - BUFFER_TIME);
 };
 
 const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
   console.log("Time until token refresh:".concat(" ", timeUntilExpiry));
 
   setTimeout(() => {
-    store.dispatch(refreshTokenAsync(refreshToken))
+    store
+      .dispatch(refreshTokenAsync(refreshToken))
       .then((res) => {
         try {
           const decodedAccessToken = jwtDecode(res.payload.accessToken);
@@ -96,7 +98,7 @@ const countDownAndRefresh = (refreshToken, timeUntilExpiry) => {
         console.log(err);
         return endSession();
       });
-  }, (timeUntilExpiry - BUFFER_TIME));
+  }, timeUntilExpiry - BUFFER_TIME);
 };
 
 export const clearCachedAccountDetails = () => {

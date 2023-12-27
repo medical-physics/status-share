@@ -5,11 +5,11 @@ import {
   handleUsersStreamChange,
   handleTeamsStreamChange
 } from "./Streams";
-import { BASE_ENDPOINT } from "../../App";
+import { BASE_ENDPOINT } from "../App";
 
 // Redux
 import { useSelector } from "react-redux";
-import { selectIsAccessTokenValid } from "../../redux/selectors/selectors";
+import { selectIsAccessTokenValid } from "../util/selectors/selectors";
 
 const SocketIoContext = React.createContext();
 

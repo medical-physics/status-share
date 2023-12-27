@@ -10,7 +10,7 @@ import {
   stopLoadingUI
 } from "./uiSlice";
 import axios from "axios";
-import { clearCachedAccountDetails } from "../../util/Authenticator";
+import { clearCachedAccountDetails } from "../../auth/Authenticator";
 
 const TOKEN_PREFIX = "Bearer";
 
