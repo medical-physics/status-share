@@ -158,7 +158,6 @@ export default function SendMessageDialog() {
                     color: darkMode ? "#82858a" : "#afafaf",
                     fontSize: "15px",
                     marginTop: "3px",
-                    marginLeft: "-3px",
                   }}
                 >
                   Recipient
