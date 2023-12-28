@@ -18,20 +18,26 @@ import {
   CircularProgress,
   Grid,
   IconButton,
+  Button,
 } from "@mui/material";
 import {
   Group as GroupIcon,
   Phone as PhoneIcon,
   Email as EmailIcon,
   Close as CloseIcon,
+  KeyboardBackspace as KeyboardBackspaceIcon,
+  Send as SendIcon,
+  EditNote as EditNoteIcon,
 } from "@mui/icons-material";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUserAsync } from "../redux/slices/usersSlice";
+import { getUserAsync, editProfileAsync } from "../redux/slices/usersSlice";
 
 export default function ProfileDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const [editMode, setEditMode] = React.useState(false);
+  const [memoDraft, setMemoDraft] = React.useState();
 
   const { unreadMessages, userId, name, teamSize } = props;
 
@@ -42,13 +48,44 @@ export default function ProfileDialog(props) {
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
 
+  React.useEffect(
+    (state) => {
+      setMemoDraft(memo);
+    },
+    [memo]
+  );
+
   const handleOpen = () => {
     dispatch(getUserAsync(userId));
     setOpen(true);
+    setEditMode(false);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChange = (event) => {
+    setMemoDraft(event.target.value);
+  };
+
+  const handleSubmitMemo = (event) => {
+    event.preventDefault();
+    const profileData = {
+      userId: user._id,
+      ...user,
+      memo: memoDraft,
+    };
+    dispatch(editProfileAsync(profileData));
+    setEditMode(false);
+  };
+
+  const handleEnterEditMode = (event) => {
+    setEditMode(true);
+  };
+
+  const handleExitEditMode = (event) => {
+    setEditMode(false);
   };
 
   const dialogMarkup = loading ? (
@@ -113,22 +150,130 @@ export default function ProfileDialog(props) {
               ? dayjs(statusTime).format("h:mm a, MMM DD")
               : dayjs(statusTime).format("h:mm a, MMM DD YYYY")}
           </div>
-          <div style={{ marginTop: "15px" }}>
-            <b>Memo: </b>
-            {memo}
-          </div>
+          {!editMode ? (
+            <div style={{ marginTop: "15px" }}>
+              <b>Memo: </b>
+              {memo}
+            </div>
+          ) : (
+            <div className="memo-input-line">
+              <textarea
+                className={"memo-input" + (darkMode ? " dark-mode" : "")}
+                placeholder="Memo"
+                type="text"
+                value={memoDraft}
+                onChange={handleChange}
+              />
+            </div>
+          )}
         </div>
       </DialogContent>
       <DialogActions>
-        {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <EditProfileDialog teamSize={teamSize} onClose={handleClose} />
-        )}
-        {!JSON.parse(localStorage.getItem("viewOnly")) && (
-          <InboxDialog
-            unreadMessages={unreadMessages}
-            userId={userId}
-            onClose={handleClose}
-          />
+        {!editMode ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            {!JSON.parse(localStorage.getItem("viewOnly")) && (
+              <>
+                <EditProfileDialog teamSize={teamSize} />
+                <div>
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={handleEnterEditMode}
+                    type="submit"
+                    sx={{
+                      backgroundColor: "#B089DA",
+                      color: darkMode ? "#31304D" : "#EEEEEE",
+                      padding: isMobile
+                        ? "5px 10px 3px 2px"
+                        : "5px 10px 2px 2px",
+                      "&:hover": { backgroundColor: "#755B91" },
+                      marginRight: "10px",
+                      marginBottom: "1vh",
+                    }}
+                  >
+                    <div className="button-content">
+                      <EditNoteIcon
+                        sx={{
+                          ...styles.icon,
+                          marginTop: "-1px",
+                          marginRight: "5px",
+                          marginLeft: "8px",
+                        }}
+                      />
+                      memo
+                    </div>
+                  </Button>
+                  <InboxDialog
+                    unreadMessages={unreadMessages}
+                    userId={userId}
+                    onClose={handleClose}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <IconButton
+              variant="contained"
+              onClick={handleExitEditMode}
+              type="submit"
+              sx={{
+                color: darkMode ? "#d3d0ca" : "#EEEEEE",
+                padding: isMobile ? "5px 5px 3px 2px" : "5px 5px 2px 2px",
+                "&:focused": { backgroundColor: "none" },
+                marginLeft: "15px",
+                marginBottom: "1vh",
+              }}
+            >
+              <KeyboardBackspaceIcon
+                sx={{
+                  ...styles.icon,
+                  marginTop: "-1px",
+                  marginRight: "5px",
+                  marginLeft: "5px",
+                }}
+              />
+            </IconButton>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={handleSubmitMemo}
+              type="submit"
+              sx={{
+                backgroundColor: "#B089DA",
+                color: darkMode ? "#31304D" : "#EEEEEE",
+                padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
+                "&:hover": { backgroundColor: "#755B91" },
+                marginRight: "15px",
+                marginBottom: "1vh",
+              }}
+            >
+              <div className="button-content">
+                <SendIcon
+                  sx={{
+                    ...styles.icon,
+                    marginTop: "-1px",
+                    marginRight: "5px",
+                    marginLeft: "8px",
+                  }}
+                />
+                submit
+              </div>
+            </Button>
+          </div>
         )}
       </DialogActions>
     </div>
@@ -140,7 +285,7 @@ export default function ProfileDialog(props) {
         onClick={handleOpen}
         unreadMessages={unreadMessages}
         name={name}
-        memo={memo}
+        memo={props.memo}
       />
       <Dialog
         open={open}
@@ -175,4 +320,5 @@ ProfileDialog.propTypes = {
   unreadMessages: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   teamSize: PropTypes.number.isRequired,
+  memo: PropTypes.string.isRequired,
 };

@@ -17,6 +17,10 @@ input[type=text]:focus {
   outline: 1px solid #0DBFD5;
 }
 
+textarea[type=text]:focus {
+  outline: 1px solid #0DBFD5;
+}
+
 input[type=password]:focus {
   outline: 1px solid #0DBFD5;
 }

@@ -256,9 +256,10 @@ export default function SendMessageDialog() {
             onClick={handleSubmit}
             type="submit"
             sx={{
+              backgroundColor: "#65b741",
               color: darkMode ? "#31304D" : "#EEEEEE",
               padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
-              "&:hover": { backgroundColor: "#098595" },
+              "&:hover": { backgroundColor: "#3C6D27" },
               marginRight: "15px",
               marginBottom: "1vh",
             }}

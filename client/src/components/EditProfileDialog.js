@@ -18,6 +18,7 @@ import {
   Edit as EditIcon,
   Send as SendIcon,
   Close as CloseIcon,
+  AccountCircle as AccountCircleIcon,
 } from "@mui/icons-material";
 
 // Redux
@@ -50,7 +51,6 @@ export default function EditProfileDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.onClose();
   };
 
   const mapUserToState = () => {
@@ -104,16 +104,15 @@ export default function EditProfileDialog(props) {
         type="submit"
         sx={{
           color: darkMode ? "#31304D" : "#EEEEEE",
-          padding: isMobile ? "5px 10px 3px 9px" : "5px 10px 2px 9px",
+          padding: isMobile ? "5px 9px 3px 9px" : "5px 9px 2px 9px",
           "&:hover": { backgroundColor: "#098595" },
-          marginRight: "5px",
+          marginLeft: "15px",
           marginBottom: "1vh",
         }}
       >
-        <div className="button-content" style={{ marginRight: "8px" }}>
-          <EditIcon sx={{ ...styles.icon, margin: "-1px 5px auto 3px" }} />
-          edit
-        </div>
+        <AccountCircleIcon
+          sx={{ ...styles.icon, margin: "-1px 5px auto 3px" }}
+        />
       </Button>
       <Dialog
         open={open}
@@ -270,6 +269,5 @@ export default function EditProfileDialog(props) {
 }
 
 EditProfileDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
   teamSize: PropTypes.number.isRequired,
 };

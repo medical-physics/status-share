@@ -3,6 +3,28 @@
   align-items: center;
 }
 
+.memo-input-line {
+  margin-top: 20px;
+}
+
+.memo-input {
+  min-width: 93%;
+  height: 80px;
+  background-color: white;
+  border: 1px solid;
+  border-color: #7A7A7A;
+  border-radius: 5px;
+  color: #7A7A7A;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.memo-input.dark-mode {
+  background-color: #21262D;
+  border-color: #7A7A7A;
+  color: #7A7A7A;
+}
+
 @media (max-width: 500px) {
   .contact-line {
     margin-left: -10px;
