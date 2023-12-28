@@ -65,6 +65,7 @@ export const deleteMessageAsync = createAsyncThunk(
   async (messageObj, { dispatch }) => {
     try {
       dispatch(deleteMessage(messageObj.messageId));
+      dispatch(decrementMailboxCount());
       const response = await deleteOneMessage(
         messageObj.messageId,
         messageObj.userId
@@ -140,6 +141,9 @@ export const mailboxSlice = createSlice({
         ...state.mailbox.slice(index2 + 1),
       ];
     },
+    decrementMailboxCount: (state) => {
+      state.mailboxCount -= 1;
+    },
     editMessage: (state, action) => {
       const index3 = state.mailbox.findIndex(
         (message) => message.messageId === action.payload.messageId
@@ -178,6 +182,7 @@ export const {
   setMessage,
   markMessageRead,
   deleteMessage,
+  decrementMailboxCount,
   editMessage,
 } = mailboxSlice.actions;
 

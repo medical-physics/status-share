@@ -38,7 +38,7 @@ export default function InboxDialog(props) {
   const loading = useSelector((state) => state.mailbox.loadingMailbox);
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
-  const hasMail = useSelector((state) => state.mailbox.mailbox?.length > 0);
+  const hasMail = useSelector((state) => state.mailbox.mailboxCount > 0);
 
   const { unreadMessages, userId } = props;
 
