@@ -1,14 +1,14 @@
 .to-line {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .from-line {
   display: flex;
   align-items: center;
   margin-top: 10px;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .from-input {
