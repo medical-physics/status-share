@@ -1,0 +1,12 @@
+{
+  "checkbox": {
+    "marginTop": "-3px",
+    "marginLeft": "5px"
+  },
+  "checkboxContainer": {
+    "width": 200
+  },
+  "progress": {
+    "margin": "auto 22px auto 22px"
+  }
+}
