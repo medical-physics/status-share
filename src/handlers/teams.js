@@ -25,7 +25,7 @@ exports.postOneTeam = async (req, res) => {
       col2: req.body.col2,
       col3: req.body.col3,
       checkInCol: req.body.checkInCol,
-      hyperlink: req.body.hyperlink
+      hyperlink: req.body.hyperlink,
     };
 
     const team = await Team.create({ ...newTeam });
@@ -48,7 +48,7 @@ exports.updateTeam = async (req, res) => {
     col2: req.body.col2,
     col3: req.body.col3,
     checkInCol: req.body.checkInCol,
-    hyperlink: req.body.hyperlink
+    hyperlink: req.body.hyperlink,
   };
   const teamId = req.params.teamId;
 
@@ -92,7 +92,7 @@ exports.deleteTeam = async (req, res) => {
 
       return res.status(200).send({
         message: `Team ${teamId} deleted successfully.`,
-        _id: teamId
+        _id: teamId,
       });
     });
   } catch (err) {

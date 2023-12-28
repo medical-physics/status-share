@@ -2,10 +2,35 @@ const Mailbox = require("../models/mailbox");
 const User = require("../models/user");
 
 // Fetch mailbox for one user
+// Uses pagination with params page and pageSize
 exports.getMessages = async (req, res) => {
+  const fetchParams = {
+    page: req.body.page || 1,
+    pageSize: req.body.pageSize || 10,
+  };
+
   try {
     const mailbox = await Mailbox.findOne({ userId: req.params.userId });
-    mailbox?.messages.sort((a, b) => a.timestamp - b.timestamp).reverse();
+    if (!mailbox) {
+      return res
+        .status(404)
+        .json({ message: `User ${req.params.userId}'s mailbox not found.` });
+    }
+
+    const sortedMessages = mailbox?.messages.sort(
+      (a, b) => b.timestamp - a.timestamp
+    ).reverse();
+
+    const offset = (fetchParams.page - 1) * fetchParams.pageSize;
+    const paginatedMessages = sortedMessages?.slice(
+      offset,
+      fetchParams.page * fetchParams.pageSize
+    );
+
+    if (paginatedMessages) {
+      mailbox.messages = paginatedMessages;
+    }
+
     return res.status(200).json(mailbox);
   } catch (err) {
     console.error(err);
@@ -21,7 +46,7 @@ exports.postOneMessage = async (req, res) => {
     senderContact: req.body.senderContact,
     senderName: req.body.senderName,
     subject: req.body.subject,
-    timestamp: new Date().toString()
+    timestamp: new Date().toString(),
   };
 
   try {
@@ -80,7 +105,7 @@ exports.updateMessage = async (req, res) => {
     message: req.body.message,
     senderContact: req.body.senderContact,
     senderName: req.body.senderName,
-    subject: req.body.subject
+    subject: req.body.subject,
   };
 
   try {

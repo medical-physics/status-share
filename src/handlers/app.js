@@ -15,14 +15,14 @@ exports.register = async (req, res) => {
       admin,
       email: email.toLowerCase(),
       password: encryptedPassword,
-      viewOnly
+      viewOnly,
     });
 
     const token = jwt.sign(
       { credentialId: credential._id, email },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "1h"
+        expiresIn: "1h",
       }
     );
 
@@ -40,23 +40,29 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const inputCred = validateBasicAuth(req.headers.authorization);
-    if (inputCred.basicAuthError) return res.status(400).send({ general: "Basic auth form not provided." });
+    if (inputCred.basicAuthError)
+      return res.status(400).send({ general: "Basic auth form not provided." });
 
     const { valid, errors } = validateLoginData(inputCred);
     if (!valid) return res.status(400).json(errors);
 
     const credential = await Credential.findOne({ email: inputCred.email });
-    const isEqual = await bcrypt.compare(inputCred.password, credential.password);
+    const isEqual = await bcrypt.compare(
+      inputCred.password,
+      credential.password
+    );
 
     if (!isEqual) {
-      return res.status(403).send({ general: "Wrong credentials, please try again." });
+      return res
+        .status(403)
+        .send({ general: "Wrong credentials, please try again." });
     }
 
     const accessToken = jwt.sign(
       { credentialId: credential._id, email: inputCred.email },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "1h"
+        expiresIn: "1h",
       }
     );
 
@@ -64,7 +70,7 @@ exports.login = async (req, res) => {
       { credentialId: credential._id, email: inputCred.email },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "30d"
+        expiresIn: "30d",
       }
     );
 
@@ -75,11 +81,13 @@ exports.login = async (req, res) => {
       accessToken,
       refreshToken,
       admin: credential.admin,
-      viewOnly: credential.viewOnly
+      viewOnly: credential.viewOnly,
     });
   } catch (err) {
     console.error(err);
-    return res.status(403).send({ general: "Wrong credentials, please try again." });
+    return res
+      .status(403)
+      .send({ general: "Wrong credentials, please try again." });
   }
 };
 
@@ -120,13 +128,15 @@ exports.setAppName = async (req, res) => {
 exports.refreshLogin = async (req, res) => {
   try {
     const decodedToken = req.decodedToken;
-    const credential = await Credential.findOne({ _id: decodedToken.credentialId });
+    const credential = await Credential.findOne({
+      _id: decodedToken.credentialId,
+    });
 
     const accessToken = jwt.sign(
       { credentialId: credential._id, email: decodedToken.email },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "1h"
+        expiresIn: "1h",
       }
     );
 

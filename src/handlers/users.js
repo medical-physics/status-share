@@ -41,7 +41,7 @@ exports.postOneUser = async (req, res) => {
     present: true,
     memo: "",
     priority: req.body.priority,
-    unreadMessages: 0
+    unreadMessages: 0,
   };
 
   try {
@@ -65,7 +65,7 @@ exports.updateUserDetails = async (req, res) => {
     phone: req.body.phone,
     team: req.body.team,
     memo: req.body.memo,
-    priority: req.body.priority
+    priority: req.body.priority,
   };
   const userId = req.params.userId;
 
@@ -110,7 +110,9 @@ exports.updateUserStatus = async (req, res) => {
     user.statusTime = req.body.statusTime;
     await user.save();
 
-    return res.status(200).json({ message: "User status updated successfully." });
+    return res
+      .status(200)
+      .json({ message: "User status updated successfully." });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });
@@ -161,7 +163,7 @@ exports.deleteUser = (req, res) => {
 
       return res.status(200).send({
         message: `User ${userId} deleted successfully.`,
-        _id: userId
+        _id: userId,
       });
     });
   } catch (err) {
