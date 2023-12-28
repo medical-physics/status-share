@@ -191,7 +191,7 @@ export default function ProfileDialog(props) {
                       backgroundColor: "#B089DA",
                       color: darkMode ? "#31304D" : "#EEEEEE",
                       padding: isMobile
-                        ? "5px 10px 3px 2px"
+                        ? "5px 5px 3px 5px"
                         : "5px 10px 2px 2px",
                       "&:hover": { backgroundColor: "#755B91" },
                       marginRight: "10px",
@@ -207,7 +207,7 @@ export default function ProfileDialog(props) {
                           marginLeft: "8px",
                         }}
                       />
-                      memo
+                      {isMobile ? "" : "memo"}
                     </div>
                   </Button>
                   <InboxDialog
