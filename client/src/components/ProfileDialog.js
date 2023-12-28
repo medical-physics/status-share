@@ -81,6 +81,7 @@ export default function ProfileDialog(props) {
   };
 
   const handleEnterEditMode = (event) => {
+    setMemoDraft(memo);
     setEditMode(true);
   };
 
@@ -231,9 +232,9 @@ export default function ProfileDialog(props) {
               onClick={handleExitEditMode}
               type="submit"
               sx={{
-                color: darkMode ? "#d3d0ca" : "#EEEEEE",
+                color: darkMode ? "#d3d0ca" : "",
                 padding: isMobile ? "5px 5px 3px 2px" : "5px 5px 2px 2px",
-                "&:focused": { backgroundColor: "none" },
+                "&:hover": { backgroundColor: "transparent" },
                 marginLeft: "15px",
                 marginBottom: "1vh",
               }}
