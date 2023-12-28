@@ -33,6 +33,7 @@ export default function InboxTable(props) {
   const mailboxCount = useSelector((state) => state.mailbox.mailboxCount);
   const userId = useSelector((state) => state.users.user._id);
   const darkMode = useSelector((state) => state.account.darkMode);
+  const isMobile = useSelector((state) => state.account.isMobile);
 
   mailbox.forEach((message) => {
     rows.push(
@@ -98,6 +99,7 @@ export default function InboxTable(props) {
               rowsPerPage={pageSize}
               onPageChange={onPageChange}
               onRowsPerPageChange={onPageSizeChange}
+              rowsPerPageOptions={isMobile ? [] : [10, 25, 50]}
               sx={{
                 color: darkMode ? "#d3d0ca" : "",
                 "& .MuiSelect-icon": { color: darkMode ? "#d3d0ca" : "" },
