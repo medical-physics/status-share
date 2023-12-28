@@ -28,7 +28,7 @@ import {
   selectIsAccessTokenValid,
   selectTeamDetailsMap,
   selectTeamMembersMap,
-} from "../util/selectors/selectors";
+} from "../util/Selectors.js";
 import { initializeDarkMode } from "../util/DarkMode";
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
