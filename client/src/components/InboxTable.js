@@ -98,7 +98,13 @@ export default function InboxTable(props) {
               rowsPerPage={pageSize}
               onPageChange={onPageChange}
               onRowsPerPageChange={onPageSizeChange}
-              sx={{ color: darkMode ? "#d3d0ca" : "" }}
+              sx={{
+                color: darkMode ? "#d3d0ca" : "",
+                "& .MuiSelect-icon": { color: darkMode ? "#d3d0ca" : "" },
+                "& .MuiButtonBase-root.Mui-disabled": {
+                  color: darkMode ? "#7E7C79" : "",
+                },
+              }}
             />
           </TableRow>
         </TableFooter>

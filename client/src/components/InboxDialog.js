@@ -43,9 +43,7 @@ export default function InboxDialog(props) {
   const { unreadMessages, userId } = props;
 
   const handleOpen = () => {
-    dispatch(
-      getMailboxAsync({ userId, page, pageSize })
-    );
+    dispatch(getMailboxAsync({ userId, page, pageSize }));
     setOpen(true);
   };
 
@@ -62,7 +60,9 @@ export default function InboxDialog(props) {
   const handlePageSizeChange = (event) => {
     setPageSize(event.target.value);
     setPage(0);
-    dispatch(getMailboxAsync({ userId, page: 0, pageSize: event.target.value }));
+    dispatch(
+      getMailboxAsync({ userId, page: 0, pageSize: event.target.value })
+    );
   };
 
   const dialogMarkup = loading ? (
