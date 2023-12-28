@@ -26,12 +26,10 @@ exports.getMessages = async (req, res) => {
       (fetchParams.page + 1) * fetchParams.pageSize
     );
 
-    return res
-      .status(200)
-      .json({
-        messages: paginatedMessages || [],
-        count: sortedMessages.length,
-      });
+    return res.status(200).json({
+      messages: paginatedMessages || [],
+      count: sortedMessages.length,
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });
