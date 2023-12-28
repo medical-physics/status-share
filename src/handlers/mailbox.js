@@ -5,8 +5,8 @@ const User = require("../models/user");
 // Uses pagination with params page and pageSize
 exports.getMessages = async (req, res) => {
   const fetchParams = {
-    page: req.body.page || 1,
-    pageSize: req.body.pageSize || 10,
+    page: req.query.page || 0,
+    pageSize: req.query.pageSize || 10,
   };
 
   try {
@@ -17,21 +17,25 @@ exports.getMessages = async (req, res) => {
         .json({ message: `User ${req.params.userId}'s mailbox not found.` });
     }
 
-    const sortedMessages = mailbox?.messages.sort(
-      (a, b) => b.timestamp - a.timestamp
-    ).reverse();
+    const sortedMessages = mailbox?.messages
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .reverse();
 
-    const offset = (fetchParams.page - 1) * fetchParams.pageSize;
+    console.log("sorted: ", sortedMessages);
+
     const paginatedMessages = sortedMessages?.slice(
-      offset,
-      fetchParams.page * fetchParams.pageSize
+      fetchParams.page * fetchParams.pageSize,
+      (fetchParams.page + 1) * fetchParams.pageSize
     );
 
-    if (paginatedMessages) {
-      mailbox.messages = paginatedMessages;
-    }
+    console.log(`paginated (${fetchParams.page}, ${fetchParams.pageSize}): `, paginatedMessages);
 
-    return res.status(200).json(mailbox);
+    return res
+      .status(200)
+      .json({
+        messages: paginatedMessages || [],
+        count: sortedMessages.length,
+      });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: err.message });

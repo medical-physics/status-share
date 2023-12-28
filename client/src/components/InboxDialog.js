@@ -26,27 +26,43 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getMailboxAsync } from "../redux/slices/mailboxSlice";
 
+const DEFAULT_PAGE_SIZE = 10;
+
 export default function InboxDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const [page, setPage] = React.useState(0);
+  const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
-  const { name } = user;
   const loading = useSelector((state) => state.mailbox.loadingMailbox);
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
   const hasMail = useSelector((state) => state.mailbox.mailbox?.length > 0);
 
-  const { unreadMessages } = props;
+  const { unreadMessages, userId } = props;
 
   const handleOpen = () => {
-    dispatch(getMailboxAsync(props.userId));
+    dispatch(
+      getMailboxAsync({ userId, page, pageSize })
+    );
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
     props.onClose();
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+    dispatch(getMailboxAsync({ userId, page: newPage, pageSize }));
+  };
+
+  const handlePageSizeChange = (event) => {
+    setPageSize(event.target.value);
+    setPage(0);
+    dispatch(getMailboxAsync({ userId, page: 0, pageSize: event.target.value }));
   };
 
   const dialogMarkup = loading ? (
@@ -64,7 +80,7 @@ export default function InboxDialog(props) {
     <div>
       <DialogTitle>
         <Grid sx={{ ...styles.dialogTitle, color: darkMode ? "#d3d0ca" : "" }}>
-          {`Inbox: ${name}`}
+          {`Inbox: ${user.name}`}
           <IconButton onClick={handleClose} size="small">
             <CloseIcon sx={{ color: darkMode ? "#d3d0ca" : "" }} />
           </IconButton>
@@ -78,7 +94,12 @@ export default function InboxDialog(props) {
         }}
       >
         {hasMail ? (
-          <InboxTable />
+          <InboxTable
+            page={page}
+            pageSize={pageSize}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+          />
         ) : (
           <p
             className="empty-inbox-text"

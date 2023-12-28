@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 // Components
 import MessageDialog from "./MessageDialog";
@@ -9,9 +10,11 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
   Box,
+  TablePagination,
 } from "@mui/material";
 
 // Redux
@@ -21,9 +24,13 @@ function createData(name, subject, timestamp, message) {
   return { name, subject, timestamp, message };
 }
 
-export default function InboxTable() {
+export default function InboxTable(props) {
   const rows = [];
+
+  const { page, pageSize, onPageChange, onPageSizeChange } = props;
+
   const mailbox = useSelector((state) => state.mailbox.mailbox);
+  const mailboxCount = useSelector((state) => state.mailbox.mailboxCount);
   const userId = useSelector((state) => state.users.user._id);
   const darkMode = useSelector((state) => state.account.darkMode);
 
@@ -44,7 +51,7 @@ export default function InboxTable() {
       sx={{
         border: "1px solid",
         borderColor: darkMode ? "#7A7A7A" : "",
-        borderRadius: "7px"
+        borderRadius: "7px",
       }}
     >
       <Table size="small">
@@ -78,7 +85,31 @@ export default function InboxTable() {
             />
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow
+            sx={{
+              backgroundColor: darkMode ? "#181F2C" : "#D3D3D3",
+              "&:last-child td, &:last-child th": { border: 0 },
+            }}
+          >
+            <TablePagination
+              count={mailboxCount}
+              page={page}
+              rowsPerPage={pageSize}
+              onPageChange={onPageChange}
+              onRowsPerPageChange={onPageSizeChange}
+              sx={{ color: darkMode ? "#d3d0ca" : "" }}
+            />
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );
 }
+
+InboxTable.propTypes = {
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  onPageSizeChange: PropTypes.func.isRequired,
+};

@@ -5,13 +5,14 @@ import {
   deleteOneMessage,
   editOneMessage,
   getMailbox,
-  updateMessageReadStatus
+  updateMessageReadStatus,
 } from "../api/mailboxAPI";
 
 const initialState = {
   mailbox: [],
+  mailboxCount: 0,
   message: {},
-  loadingMailbox: false
+  loadingMailbox: false,
 };
 
 export const getMessageAsync = createAsyncThunk(
@@ -32,9 +33,13 @@ export const getMessageAsync = createAsyncThunk(
 
 export const getMailboxAsync = createAsyncThunk(
   "mailbox/getMailbox",
-  async (userId) => {
-    const messages = await getMailbox(userId);
-    return messages;
+  async (mailboxObj) => {
+    const response = await getMailbox(
+      mailboxObj.userId,
+      mailboxObj.page,
+      mailboxObj.pageSize
+    );
+    return response;
   }
 );
 
@@ -44,7 +49,10 @@ export const markMessageReadAsync = createAsyncThunk(
     try {
       dispatch(markMessageRead(messageObj.messageId));
 
-      const response = await updateMessageReadStatus(messageObj.messageId, messageObj.userId);
+      const response = await updateMessageReadStatus(
+        messageObj.messageId,
+        messageObj.userId
+      );
       return response;
     } catch (err) {
       console.error(err);
@@ -57,7 +65,10 @@ export const deleteMessageAsync = createAsyncThunk(
   async (messageObj, { dispatch }) => {
     try {
       dispatch(deleteMessage(messageObj.messageId));
-      const response = await deleteOneMessage(messageObj.messageId, messageObj.userId);
+      const response = await deleteOneMessage(
+        messageObj.messageId,
+        messageObj.userId
+      );
       return response;
     } catch (err) {
       console.error(err);
@@ -69,7 +80,10 @@ export const addMessageAsync = createAsyncThunk(
   "mailbox/addMessage",
   async (messageObj) => {
     try {
-      const response = await addOneMessage(messageObj.newMessageData, messageObj.userId);
+      const response = await addOneMessage(
+        messageObj.newMessageData,
+        messageObj.userId
+      );
       return response;
     } catch (err) {
       console.error(err);
@@ -123,7 +137,7 @@ export const mailboxSlice = createSlice({
       );
       state.mailbox = [
         ...state.mailbox.slice(0, index2),
-        ...state.mailbox.slice(index2 + 1)
+        ...state.mailbox.slice(index2 + 1),
       ];
     },
     editMessage: (state, action) => {
@@ -140,7 +154,7 @@ export const mailboxSlice = createSlice({
         state.message.senderName = action.payload.senderName;
         state.message.subject = action.payload.subject;
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -148,13 +162,14 @@ export const mailboxSlice = createSlice({
         state.loadingMailbox = true;
       })
       .addCase(getMailboxAsync.fulfilled, (state, action) => {
-        state.mailbox = action.payload;
+        state.mailbox = action.payload.messages;
+        state.mailboxCount = action.payload.count;
         state.loadingMailbox = false;
       })
       .addCase(getMessageAsync.fulfilled, (state, action) => {
         state.message = action.payload;
       });
-  }
+  },
 });
 
 export const {
@@ -163,7 +178,7 @@ export const {
   setMessage,
   markMessageRead,
   deleteMessage,
-  editMessage
+  editMessage,
 } = mailboxSlice.actions;
 
 export default mailboxSlice.reducer;

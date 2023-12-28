@@ -179,7 +179,6 @@ export default function MessageDialog(props) {
                 ? "#546F67"
                 : "#C1C8C4",
           },
-          "&:last-child td, &:last-child th": { border: 0 },
         }}
       >
         <TableCell sx={{ borderColor: darkMode ? "#7A7A7A" : "#C0C1C3" }}>
