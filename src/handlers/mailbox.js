@@ -21,14 +21,10 @@ exports.getMessages = async (req, res) => {
       .sort((a, b) => b.timestamp - a.timestamp)
       .reverse();
 
-    console.log("sorted: ", sortedMessages);
-
     const paginatedMessages = sortedMessages?.slice(
       fetchParams.page * fetchParams.pageSize,
       (fetchParams.page + 1) * fetchParams.pageSize
     );
-
-    console.log(`paginated (${fetchParams.page}, ${fetchParams.pageSize}): `, paginatedMessages);
 
     return res
       .status(200)
