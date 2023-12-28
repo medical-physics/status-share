@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/TeamTable.json";
+import styles from "../styles/components/team-table.json";
 
 // Components
 import ProfileDialog from "./ProfileDialog";

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { GithubPicker } from "react-color";
-import styles from "../styles/components/EditTeamDialog.json";
+import styles from "../styles/components/edit-team-dialog.json";
 import "../styles/components/edit-team-dialog.css";
 
 // MUI components

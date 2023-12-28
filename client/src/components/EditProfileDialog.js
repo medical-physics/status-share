@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/EditProfileDialog.json";
+import styles from "../styles/components/edit-profile-dialog.json";
 import "../styles/components/edit-profile-dialog.css";
 
 // MUI components

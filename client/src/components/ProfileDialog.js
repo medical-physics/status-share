@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
-import styles from "../styles/components/ProfileDialog.json";
+import styles from "../styles/components/profile-dialog.json";
 import "../styles/components/profile-dialog.css";
 
 // Components

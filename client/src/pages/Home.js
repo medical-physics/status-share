@@ -1,6 +1,6 @@
 import React from "react";
 import { authenticate } from "../auth/Authenticator";
-import styles from "../styles/pages/Home.json";
+import styles from "../styles/pages/home.json";
 import "../styles/pages/home.css";
 
 // Components

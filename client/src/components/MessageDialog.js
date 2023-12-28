@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
-import styles from "../styles/components/MessageDialog.json";
+import styles from "../styles/components/message-dialog.json";
 import "../styles/components/message-dialog.css";
 
 // MUI components

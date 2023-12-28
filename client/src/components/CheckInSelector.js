@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/CheckInSelector.json";
+import styles from "../styles/components/check-in-selector.json";
 
 // MUI components
 import {

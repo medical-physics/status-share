@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/EditStatusDialog.json";
+import styles from "../styles/components/edit-status-dialog.json";
 import "../styles/components/edit-status-dialog.css";
 
 // MUI components

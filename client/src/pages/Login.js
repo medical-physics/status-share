@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/pages/Login.json";
+import styles from "../styles/pages/login.json";
 import "../styles/pages/login.css";
 
 // Components

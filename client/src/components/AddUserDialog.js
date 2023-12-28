@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/AddUserDialog.json";
+import styles from "../styles/components/add-user-dialog.json";
 import "../styles/components/add-user-dialog.css";
 
 // MUI components

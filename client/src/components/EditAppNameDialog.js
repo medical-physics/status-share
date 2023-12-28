@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/components/EditAppNameDialog.json";
+import styles from "../styles/components/edit-app-name-dialog.json";
 import "../styles/components/edit-app-name-dialog.css";
 
 // MUI components

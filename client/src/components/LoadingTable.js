@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/components/TeamTable.json";
+import styles from "../styles/components/team-table.json";
 
 // MUI components
 import {

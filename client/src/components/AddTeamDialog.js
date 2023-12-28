@@ -1,6 +1,6 @@
 import React from "react";
 import { GithubPicker } from "react-color";
-import styles from "../styles/components/AddTeamDialog.json";
+import styles from "../styles/components/add-team-dialog.json";
 import "../styles/components/add-team-dialog.css";
 
 // MUI components

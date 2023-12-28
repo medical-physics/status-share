@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../styles/components/InboxDialog.json";
+import styles from "../styles/components/inbox-dialog.json";
 import "../styles/components/inbox-dialog.css";
 
 // Components
