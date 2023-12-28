@@ -7,7 +7,7 @@ import "../styles/pages/home.css";
 import NavBar from "../components/NavBar";
 import TeamTable from "../components/TeamTable";
 import LoadingTable from "../components/LoadingTable";
-import SocketWrapper from "../stream/SocketWrapper";
+import SocketWrapper from "../streams/SocketWrapper";
 
 // MUI Components
 import {
@@ -28,7 +28,7 @@ import {
   selectIsAccessTokenValid,
   selectTeamDetailsMap,
   selectTeamMembersMap,
-} from "../util/Selectors.js";
+} from "../util/Selectors";
 import { initializeDarkMode } from "../util/DarkMode";
 
 const LOADING_TABLES_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];

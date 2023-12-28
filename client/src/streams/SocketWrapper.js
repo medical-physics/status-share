@@ -9,7 +9,7 @@ import { BASE_ENDPOINT } from "../App";
 
 // Redux
 import { useSelector } from "react-redux";
-import { selectIsAccessTokenValid } from "../util/Selectors.js";
+import { selectIsAccessTokenValid } from "../util/Selectors";
 
 const SocketIoContext = React.createContext();
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/components/SendMessageDialog.json";
 import "../styles/components/send-message-dialog.css";
-import { selectUsersSortedByName } from "../util/Selectors.js";
+import { selectUsersSortedByName } from "../util/Selectors";
 
 // MUI components
 import {
