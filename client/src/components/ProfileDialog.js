@@ -48,12 +48,20 @@ export default function ProfileDialog(props) {
   const darkMode = useSelector((state) => state.account.darkMode);
   const isMobile = useSelector((state) => state.account.isMobile);
 
-  React.useEffect(
-    (state) => {
-      setMemoDraft(memo);
-    },
-    [memo]
-  );
+  React.useEffect(() => {
+    setMemoDraft(memo);
+  },[memo]);
+
+  React.useEffect(() => {
+    const listener = (event) => {
+      if (editMode && (event.code === "Enter" || event.code === "NumpadEnter")) {
+        event.preventDefault();
+        handleSubmitMemo(event);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => document.removeEventListener("keydown", listener);
+  }, [user, memoDraft]);
 
   const handleOpen = () => {
     dispatch(getUserAsync(userId));

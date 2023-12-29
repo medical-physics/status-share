@@ -30,12 +30,21 @@ import {
   markMessageReadAsync,
   deleteMessageAsync,
   getMessageAsync,
+  getMailboxAsync,
 } from "../redux/slices/mailboxSlice";
 
 export default function MessageDialog(props) {
   const [open, setOpen] = React.useState(false);
 
-  const { messageId, userId, readStatus, senderName, timestamp } = props;
+  const {
+    messageId,
+    userId,
+    readStatus,
+    senderName,
+    timestamp,
+    page,
+    pageSize,
+  } = props;
 
   const dispatch = useDispatch();
   const message = useSelector((state) => state.mailbox.message);
@@ -58,6 +67,7 @@ export default function MessageDialog(props) {
 
   const handleDelete = () => {
     dispatch(deleteMessageAsync({ messageId, userId }));
+    dispatch(getMailboxAsync({ userId, page, pageSize }));
     handleClose();
   };
 
@@ -237,4 +247,6 @@ MessageDialog.propTypes = {
   readStatus: PropTypes.bool.isRequired,
   senderName: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };

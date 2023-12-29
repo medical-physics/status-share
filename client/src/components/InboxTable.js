@@ -83,6 +83,8 @@ export default function InboxTable(props) {
               readStatus={row.message.readStatus}
               senderName={row.name}
               timestamp={row.timestamp}
+              page={page}
+              pageSize={pageSize}
             />
           ))}
         </TableBody>
