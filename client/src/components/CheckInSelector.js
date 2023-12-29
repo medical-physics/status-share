@@ -43,20 +43,20 @@ export default function CheckInSelector (props) {
 
   React.useEffect(() => {
     switch (checkInPeriod) {
-    case 0:
-      setCheckInText("––");
-      setStyling(styles.selectNone);
-      break;
-    case 1:
-      setCheckInText("AM");
-      setStyling(styles.selectAM);
-      break;
-    case 2:
-      setCheckInText("PM");
-      setStyling(styles.selectPM);
-      break;
-    default:
-      setStyling(styles.selectNone);
+      case 0:
+        setCheckInText("––");
+        setStyling(styles.selectNone);
+        break;
+      case 1:
+        setCheckInText("AM");
+        setStyling(styles.selectAM);
+        break;
+      case 2:
+        setCheckInText("PM");
+        setStyling(styles.selectPM);
+        break;
+      default:
+        setStyling(styles.selectNone);
     }
   }, [checkInPeriod]);
 
