@@ -4,10 +4,8 @@ const User = require("../models/user");
 // Fetch mailbox for one user
 // Uses pagination with params page and pageSize
 exports.getMessages = async (req, res) => {
-  const fetchParams = {
-    page: req.query.page || 0,
-    pageSize: req.query.pageSize || 10,
-  };
+  const page = parseInt(req.query.page) || 0;
+  const pageSize = parseInt(req.query.pageSize) || 10;
 
   try {
     const mailbox = await Mailbox.findOne({ userId: req.params.userId });
@@ -22,8 +20,8 @@ exports.getMessages = async (req, res) => {
       .reverse();
 
     const paginatedMessages = sortedMessages?.slice(
-      fetchParams.page * fetchParams.pageSize,
-      (fetchParams.page + 1) * fetchParams.pageSize
+      page * pageSize,
+      (page + 1) * pageSize
     );
 
     return res.status(200).json({

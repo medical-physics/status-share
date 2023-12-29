@@ -45,6 +45,17 @@ export default function SendMessageDialog() {
 
   const { senderName, senderContact, subject, message } = formValue;
 
+  React.useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+        handleSubmit(event);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => document.removeEventListener("keydown", listener);
+  }, [formValue, recipient]);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -59,7 +70,8 @@ export default function SendMessageDialog() {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const newMessageData = {
       senderName: senderName.trim(),
       senderContact: senderContact.trim(),
@@ -139,8 +151,8 @@ export default function SendMessageDialog() {
             </IconButton>
           </Grid>
         </DialogTitle>
-        <DialogContent sx={styles.dialogContent}>
-          <form onSubmit={handleSubmit}>
+        <form>
+          <DialogContent sx={styles.dialogContent}>
             <div
               className="to-line"
               style={{ color: darkMode ? "#d3d0ca" : "" }}
@@ -224,7 +236,7 @@ export default function SendMessageDialog() {
             <TextField
               id="message"
               name="message"
-              type="message"
+              type="text"
               label="Message"
               variant="filled"
               multiline
@@ -246,32 +258,32 @@ export default function SendMessageDialog() {
                 },
               }}
             />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            disableElevation
-            color="primary"
-            onClick={handleSubmit}
-            type="submit"
-            sx={{
-              backgroundColor: "#65b741",
-              color: darkMode ? "#31304D" : "#EEEEEE",
-              padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
-              "&:hover": { backgroundColor: "#3C6D27" },
-              marginRight: "15px",
-              marginBottom: "1vh",
-            }}
-          >
-            <div className="button-content">
-              <SendIcon
-                sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
-              />
-              send
-            </div>
-          </Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={handleSubmit}
+              color="primary"
+              type="submit"
+              sx={{
+                backgroundColor: "#65b741",
+                color: darkMode ? "#31304D" : "#EEEEEE",
+                padding: isMobile ? "5px 10px 3px 2px" : "5px 10px 2px 2px",
+                "&:hover": { backgroundColor: "#3C6D27" },
+                marginRight: "15px",
+                marginBottom: "1vh",
+              }}
+            >
+              <div className="button-content">
+                <SendIcon
+                  sx={{ ...styles.icon, marginTop: "-1px", marginRight: "5px" }}
+                />
+                send
+              </div>
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );
