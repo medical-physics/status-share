@@ -49,7 +49,9 @@ export default function SendMessageDialog() {
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
         event.preventDefault();
-        handleSubmit(event);
+        if (recipient && formValue.message) {
+          handleSubmit(event);
+        }
       }
     };
     document.addEventListener("keydown", listener);
